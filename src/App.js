@@ -1,29 +1,20 @@
-import { Route, Link, Routes } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from './store';
+
 import './index.css';
 import HomePage from './pages/HomePage';
 import UserPage from './pages/UserPage';
 
 export default function App() {
   return (
-    <div>
-      <div>
-        <ul>
-          <li>
-            <Link to="/" class="font-bold underline">
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link to="/about" class="font-bold underline">
-              User
-            </Link>
-          </li>
-        </ul>
+    <Provider store={store}>
+      <BrowserRouter>
         <Routes>
-          <Route exact path="/" element={<HomePage />} />
-          <Route exact path="/about" element={<UserPage />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<UserPage />} />
         </Routes>
-      </div>
-    </div>
+      </BrowserRouter>
+    </Provider>
   );
 }

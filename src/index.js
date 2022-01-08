@@ -1,11 +1,9 @@
-import { render } from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import App from './App';
 
-render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
+ReactDOM.render(
+  <App />,
   // eslint-disable-next-line no-undef
-  document.querySelector('#root'),
+  document.getElementById('root'),
 );
