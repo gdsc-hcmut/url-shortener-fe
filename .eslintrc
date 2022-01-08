@@ -14,12 +14,5 @@
         "tsx": "never"
       }
    ]
-  },
-  "settings": {
-    "import/resolver": {
-      "babel-module": {
-        "allowExistingDirectories": true
-      }
-    }
   }
 }
