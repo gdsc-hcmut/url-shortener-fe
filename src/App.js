@@ -1,4 +1,3 @@
-import React from 'react';
 import { Route, Link, Routes } from 'react-router-dom';
 import './index.css';
 import HomePage from './pages/HomePage';
@@ -10,10 +9,14 @@ export default function App() {
       <div>
         <ul>
           <li>
-            <Link to="/" class="font-bold underline">Home</Link>
+            <Link to="/" class="font-bold underline">
+              Home
+            </Link>
           </li>
           <li>
-            <Link to="/about" class="font-bold underline">User</Link>
+            <Link to="/about" class="font-bold underline">
+              User
+            </Link>
           </li>
         </ul>
         <Routes>
