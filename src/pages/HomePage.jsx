@@ -1,8 +1,8 @@
 /* eslint-disable array-callback-return */
 import React, { useState, useEffect } from 'react';
-import urlService from '../services/urls';
-import Url from '../components/Url';
-import '../index.css';
+import urlService from 'services/urls';
+import Url from 'components/Url';
+import 'index.css';
 
 export default function HomePage() {
   const [url, setUrl] = useState([]);
