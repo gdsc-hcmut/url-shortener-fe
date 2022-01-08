@@ -1,19 +1,19 @@
 {
-  "url": [
+  "posts": [
     {
       "id": 1,
-      "Longlink": "http://longlinkkkkkkkkkkkk",
-      "Shortlink": "http://shortlink"
-    },
-    {
-      "id": 2,
-      "Longlink": "http://longlinkkkkkkkkkkkk",
-      "Shortlink": "http://shortlink"
-    },
-    {
-      "id": 3,
-      "Longlink": "http://longlinkkkkkkkkkkkk",
-      "Shortlink": "http://shortlink"
+      "title": "json-server",
+      "author": "typicode"
     }
-  ]
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
 }

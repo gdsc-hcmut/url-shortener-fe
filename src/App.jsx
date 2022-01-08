@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Link, Routes } from 'react-router-dom';
-// We will create these two pages in a moment
+import './index.css';
 import HomePage from './pages/HomePage';
 import UserPage from './pages/UserPage';
 
@@ -10,10 +10,10 @@ export default function App() {
       <div>
         <ul>
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/" class="font-bold underline">Home</Link>
           </li>
           <li>
-            <Link to="/about">User</Link>
+            <Link to="/about" class="font-bold underline">User</Link>
           </li>
         </ul>
         <Routes>

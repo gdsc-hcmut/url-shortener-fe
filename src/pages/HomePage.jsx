@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import urlService from '../services/urls';
 import Url from '../components/Url';
+import '../index.css';
 
 export default function HomePage() {
   const [url, setUrl] = useState([]);
@@ -12,7 +13,7 @@ export default function HomePage() {
   }, []);
   return (
     <>
-      <h1>My URL</h1>
+      <h1 className="text-3xl text-blue-600 underline">My URL</h1>
       {url.map((myUrl) => (
         <Url Shortlink={myUrl.Shortlink} Longlink={myUrl.Longlink} />
       ))}
