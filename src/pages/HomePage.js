@@ -1,4 +1,4 @@
-import Url from '../components/Url';
+import Url from 'components/Url';
 
 export default function HomePage() {
   return (
