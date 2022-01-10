@@ -16,7 +16,7 @@
    ]
   },
   "settings": {
-    "import-resolver": {
+    "import/resolver": {
       "node": {
         "moduleDirectory": ["node_modules", "src/"]
       }
