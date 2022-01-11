@@ -2,8 +2,8 @@ import React from 'react';
 
 import { ReactComponent as ReactLogo } from 'assets/image/web.svg';
 
-import InputLongUrl from './inputLongUrl';
-import ShortenUrlBtn from './shortenUrlBtn';
+import InputLongUrl from './InputLongUrl';
+import ShortenUrlBtn from './ShortenUrlBtn';
 
 export default function InputUrlField() {
   return (

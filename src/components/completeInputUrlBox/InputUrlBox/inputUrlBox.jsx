@@ -1,7 +1,7 @@
 import React from 'react';
 
-import InputUrlField from './inputUrlField';
-import ShortenUrlBtnMobile from './shortenUrlBtnMobile';
+import InputUrlField from './InputUrlField';
+import ShortenUrlBtnMobile from './ShortenUrlBtnMobile';
 
 export default function InputUrl() {
   return (

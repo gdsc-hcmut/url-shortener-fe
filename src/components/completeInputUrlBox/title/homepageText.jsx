@@ -1,7 +1,7 @@
 import React from 'react';
 
-import MainTitle from './mainTitle';
-import SubTitle from './subTitle';
+import MainTitle from './MainTitle';
+import SubTitle from './SubTitle';
 
 export default function HomepageText() {
   return (
