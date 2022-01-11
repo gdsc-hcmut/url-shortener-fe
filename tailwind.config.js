@@ -9,6 +9,7 @@ module.exports = {
         100: '#76A6FA',
         200: '#0066FF',
       },
+      gdscdarkgrey: '#696969',
     },
     borderRadius: {
       DEFAULT: '8px',

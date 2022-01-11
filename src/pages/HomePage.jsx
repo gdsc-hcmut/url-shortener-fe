@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Footer from 'components/Footer';
 import NavBar from 'components/Navbar';
 import Url from 'components/Url';
 
@@ -9,6 +10,7 @@ export default function HomePage() {
       <NavBar />
       <h1 className="text-3xl text-blue-600 underline">My URL</h1>
       <Url />
+      <Footer />
     </div>
   );
 }
