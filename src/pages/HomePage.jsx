@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Url from 'components/Url';
 import UrlInputBoxAndTitle from 'components/completeInputUrlBox/urlInputBox&Title';
+import Url from 'components/Url';
 
 export default function HomePage() {
   return (
