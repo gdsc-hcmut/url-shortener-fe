@@ -1,3 +1,5 @@
+import React from 'react';
+
 import FooterCerti from './FooterCerti';
 import FooterInfo from './FooterInfo';
 
