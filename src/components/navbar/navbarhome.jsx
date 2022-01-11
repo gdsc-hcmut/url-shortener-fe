@@ -1,3 +1,5 @@
+import React from 'react';
+
 import Logo from 'assets/image/logo.svg';
 
 export default function NavBarHome() {
