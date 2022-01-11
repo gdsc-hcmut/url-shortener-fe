@@ -1,7 +1,7 @@
 import React from 'react';
 
 import InputUrlField from './InputUrlBox/InputUrlField';
-import HomepageText from './title/HomepageText';
+import HomepageText from './Title/HomepageText';
 
 export default function UrlInputBoxAndTitle() {
   return (

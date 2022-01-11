@@ -1,5 +1,12 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 export default function Url() {
-  return <p>http://url.gdschcmut.com/ai-series</p>;
+  const { shortenedUrl } = useSelector((state) => state.url);
+
+  return (
+    <a href={shortenedUrl} target="_blank" rel="noreferrer">
+      {shortenedUrl}
+    </a>
+  );
 }
