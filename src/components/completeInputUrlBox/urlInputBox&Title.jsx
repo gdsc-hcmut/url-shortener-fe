@@ -1,6 +1,7 @@
 import React from 'react';
+
+import InputUrl from './InputUrlBox/inputUrlBox';
 import HomepageText from './title/homepageText';
-import InputUrl from './InputUrlBox/index.jsx';
 
 export default function UrlInputBoxAndTitle() {
   return (
