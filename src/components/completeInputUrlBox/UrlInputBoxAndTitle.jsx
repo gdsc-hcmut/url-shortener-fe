@@ -1,13 +1,13 @@
 import React from 'react';
 
-import InputUrl from './InputUrlBox/InputUrlBox';
+import InputUrlField from './InputUrlBox/InputUrlField';
 import HomepageText from './title/HomepageText';
 
 export default function UrlInputBoxAndTitle() {
   return (
-    <div className="flex flex-col space-y-[39px]">
+    <div className="flex flex-col space-y-[12px] md:space-y-[39px]">
       <HomepageText />
-      <InputUrl />
+      <InputUrlField />
     </div>
   );
 }
