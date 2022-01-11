@@ -2,8 +2,10 @@ import React from 'react';
 
 export default function FooterCerti() {
   return (
-    <div className="bg-gdscdarkgrey min-h-fit w-full px-[200px] py-[28px]">
-      <div className="flex justify-between flex-row w-full h-full text-[16px]">
+    <div className="bg-gdscdarkgrey min-h-fit w-full md:px-[200px] md:py-[1.5vw]
+                    px-[108px] pt-[25px] pb-[50px]"
+    >
+      <div className="flex justify-between md:flex-row w-full h-full text-[16px] flex-col">
         <p className="text-white left">
           GDSC HCMUT
           <sup> © </sup>

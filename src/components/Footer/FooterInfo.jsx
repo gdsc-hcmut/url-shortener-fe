@@ -5,18 +5,19 @@ import Logo from 'assets/image/logo.svg';
 
 export default function FooterInfo() {
   return (
-    <div className="min-h-full w-full bg-white">
+    <div className="md:min-h-full h-fit w-full bg-white">
       <div
-        className="h-[255px] w-full px-[200px] py-[32px]
-                      flex justify-between flex-row text-[16px] basis-1"
+        className="md:h-[255px] h-auto w-full md:px-[13.9vw] md:py-[32px]
+                      px-[20px] py-[50px] flex justify-between
+                      md:flex-row flex-col "
       >
-        <div className="h-[255px] flex flex-col justify-between">
+        <div className="md:h-[255px] h-auto flex flex-col justify-between md:pt-0 pt-[">
           <img
             src={Logo}
             style={{ height: 50, width: 407.05 }}
             alt="GDSC logo"
           />
-          <form className="w-[302px] flex flex-col" action="">
+          <form className="w-[302px] flex flex-col md:mt-0 mt-[24px]" action="">
             <p className=" w-[302px] text-gdscblue text-[18px] font-bold relative">
               Subscribe and stay up to date with our news and events.
             </p>
@@ -33,17 +34,20 @@ export default function FooterInfo() {
             </div>
           </form>
         </div>
-        <div className="flex flex-col basis-1 text-[1.7vw] text-gdscverydarkgrey">
-          <p className="font-bold">Contact</p>
-          <p className="text-[1.2vw]">dsc.hcmut@gmail.com</p>
+        <div
+          className="flex flex-col md:text-[1.7vw] text-[18px] text-gdscverydarkgrey
+                        md:mx-[1vw] "
+        >
+          <p className="mb-[5px]">Contact</p>
+          <p className="md:text-[1.2vw] text-[14px] my-[5px]">
+            dsc.hcmut@gmail.com
+          </p>
         </div>
-        <div className="flex flex-col basis-1 text-[1.7vw] text-gdscverydarkgrey">
-          <p className="font-bold">Follow</p>
-          <div className="text-[1.2vw]">
-            <p>Facebook</p>
-            <p>Youtube</p>
-            <p>Linkedin</p>
-          </div>
+        <div className="flex flex-col md:text-[1.7vw] text-[18px] text-gdscverydarkgrey">
+          <p className="my-[5px]">Follow</p>
+          <p className="md:text-[1.2vw] text-[14px] my-[5px]">Facebook</p>
+          <p className="md:text-[1.2vw] text-[14px] my-[5px]">Youtube</p>
+          <p className="md:text-[1.2vw] text-[14px] mt-[5px]">Linkedin</p>
         </div>
       </div>
     </div>
