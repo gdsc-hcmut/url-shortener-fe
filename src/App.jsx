@@ -1,9 +1,10 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import React from 'react';
 import { Provider } from 'react-redux';
-import store from './store';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import './index.css';
 import HomePage from './pages/HomePage';
+import store from './store';
+import './index.css';
 
 export default function App() {
   return (
