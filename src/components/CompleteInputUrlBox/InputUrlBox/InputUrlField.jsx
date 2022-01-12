@@ -21,7 +21,7 @@ export default function InputUrlField() {
           <input
             value={longUrl}
             onChange={handleLongUrl}
-            className="text-[0.938rem] font-normal text-dim-gray h-5 w-[16.25rem]"
+            className="text-[0.938rem] font-normal text-dim-gray h-5 w-[16.25rem] border-b-1 outline-none "
             placeholder="Input the URL you want to shorten"
           />
         </div>
@@ -29,7 +29,7 @@ export default function InputUrlField() {
         <div>
           <button
             type="button"
-            className="absolute inset-y-5 right-[21px] hidden text-[0.938rem] text-white md:block w-[9.735rem] h-[3.75rem] bg-royal-blue rounded-[8px] hover:bg-shorten-btn-hover"
+            className="absolute inset-y-5 right-[21px] hidden text-[0.938rem] text-white md:block w-[9.735rem] h-[3.75rem] bg-royal-blue rounded-[8px] hover:bg-shorten-btn-hover ease-out duration-300 "
             onClick={handleClick}
           >
             Shorten
@@ -45,7 +45,7 @@ export default function InputUrlField() {
         <div>
           <button
             type="button"
-            className="absolute inset-y-5 right-[21px] hidden text-[0.938rem] text-white md:block w-[9.735rem] h-[3.75rem] bg-royal-blue rounded hover:bg-shorten-btn-hover"
+            className="absolute inset-y-5 right-[21px] hidden text-[0.938rem] text-white md:block w-[9.735rem] h-[3.75rem] bg-royal-blue rounded hover:bg-shorten-btn-hover ease-out duration-300 "
           >
             Shorten
           </button>

@@ -8,7 +8,7 @@ export default function SubTitle() {
       </p>
       <button
         type="submit"
-        className="md:m-0 w-[5.625rem] h-[1.563rem] b-[50px] bg-get-started-btn rounded-[60px] flex justify-center items-center hover:bg-get-started-btn-hover"
+        className="md:m-0 w-[5.625rem] h-[1.563rem] b-[50px] bg-get-started-btn rounded-[60px] flex justify-center items-center hover:bg-get-started-btn-hover  ease-out duration-300"
       >
         <div className="opacity-100 text-[0.643rem] font-normal text-royal-blue flex justify-center items-center">
           Get started
