@@ -18,13 +18,13 @@ export default function FooterInfo() {
             alt="GDSC logo"
           />
           <form className="w-[302px] flex flex-col md:mt-0 mt-[24px]" action="">
-            <p className=" w-[302px] text-gdscblue text-[0.9375vw] font-bold relative">
+            <p className=" w-[302px] text-gdscBlue text-[0.9375vw] font-bold relative">
               Subscribe and stay up to date with our news and events.
             </p>
             <div className="flex flex-row mt-[30px] mb-[40px]">
               <input
-                className="decoration-gdscblue text-[0.9375vw]
-                font-medium border-b-2 border-gdscblue outline-none w-full"
+                className="decoration-gdscBlue text-[0.9375vw]
+                font-medium border-b-2 border-gdscBlue outline-none w-full"
                 type="text"
                 placeholder="Enter email"
               />
@@ -39,7 +39,7 @@ export default function FooterInfo() {
           </form>
         </div>
         <div
-          className="flex flex-col md:text-[1.25vw] text-[18px] text-gdscverydarkgrey
+          className="flex flex-col md:text-[1.25vw] text-[18px] text-gdscVeryDarkGrey
                         md:mx-[1vw] md:pl-[10vw]"
         >
           <p className="mb-[5px]">Contact</p>
@@ -47,7 +47,7 @@ export default function FooterInfo() {
             dsc.hcmut@gmail.com
           </p>
         </div>
-        <div className="flex flex-col md:text-[1.25vw] text-[18px] text-gdscverydarkgrey">
+        <div className="flex flex-col md:text-[1.25vw] text-[18px] text-gdscVeryDarkGrey">
           <p className="mb-[5px] mt-[-5px]">Follow</p>
           <p className="md:text-[0.9375vw] text-[14px] my-[5px]">Facebook</p>
           <p className="md:text-[0.9375vw] text-[14px] my-[5px]">Youtube</p>
