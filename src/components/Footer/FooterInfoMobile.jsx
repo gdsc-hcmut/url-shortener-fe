@@ -18,26 +18,26 @@ export default function FooterInfoMobile() {
             alt="GDSC logo"
           />
           <div
-            className="flex flex-col text-[1.125rem] text-gdscVeryDarkGrey font-medium
+            className="flex flex-col text-[1.125rem] text-gdscGrey-800 font-medium
                         mt-[1.531rem]"
           >
             <p className="mb-[5px]">Contact</p>
             <p className="text-[14px] my-[5px]">dsc.hcmut@gmail.com</p>
           </div>
-          <div className="flex flex-col text-[18px] text-gdscVeryDarkGrey mt-[2.688rem]">
+          <div className="flex flex-col text-[18px] text-gdscGrey-800 mt-[2.688rem]">
             <p className="mb-[22px] mt-[-5px]">Follow</p>
             <p className="text-[14px] my-[5px]">Facebook</p>
             <p className="text-[14px] my-[5px]">Youtube</p>
             <p className="text-[14px] mt-[5px]">Linkedin</p>
           </div>
           <form className="w-[302px] flex flex-col mt-[24px]" action="">
-            <p className=" w-[302px] text-gdscBlue text-[18px] font-bold relative">
+            <p className=" w-[302px] text-gdscBlue-300 text-[18px] font-bold relative">
               Subscribe and stay up to date with our news and events.
             </p>
             <div className="flex flex-row mt-[30px] mb-[40px]">
               <input
-                className="decoration-gdscBlue text-[18px] placeholder-gdscBlue
-                font-medium border-b-2 border-gdscBlue outline-none w-full"
+                className="decoration-gdscBlue-300 text-[18px] placeholder-gdscBlue-300
+                font-medium border-b-2 border-gdscBlue-300 outline-none w-full"
                 type="text"
                 placeholder="Enter email"
               />
