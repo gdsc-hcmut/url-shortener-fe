@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@font-face {
+  font-family: 'GoogleSans';
+  src: local('GoogleSans'), url(./fonts/GoogleSans-Regular-v1.27.ttf),
+    format('truetype');
+}
+
+body,
+html {
+  font-family: GoogleSans, sans-serif;
+}
