@@ -18,12 +18,12 @@ export default function FooterInfo() {
             alt="GDSC logo"
           />
           <form className="w-[302px] flex flex-col md:mt-0 mt-[24px]" action="">
-            <p className=" w-[302px] text-gdscblue text-[18px] font-bold relative">
+            <p className=" w-[302px] text-gdscblue text-[0.9375vw] font-bold relative">
               Subscribe and stay up to date with our news and events.
             </p>
             <div className="flex flex-row mt-[30px] mb-[40px]">
               <input
-                className="decoration-gdscblue text-[18px]
+                className="decoration-gdscblue text-[0.9375vw]
                 font-medium border-b-2 border-gdscblue outline-none w-full"
                 type="text"
                 placeholder="Enter email"
@@ -42,7 +42,7 @@ export default function FooterInfo() {
           className="flex flex-col md:text-[1.7vw] text-[18px] text-gdscverydarkgrey
                         md:mx-[1vw] "
         >
-          <p className="mb-[5px]">Contact</p>
+          <p className="mb-[5px] text-[1.25vw]">Contact</p>
           <p className="md:text-[1.2vw] text-[14px] my-[5px]">
             dsc.hcmut@gmail.com
           </p>
