@@ -1,11 +1,15 @@
 /* eslint-disable */
 import PropTypes from 'prop-types';
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import CopyButton from './CopyButton';
 
 export default function ModalUrl({ show, onClose }) {
-  if (!show) {
-    return null;
-  }
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = (e) => {
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1000);
+  };
 
   const closeOnEscapeKeyDown = (e) => {
     if ((e.charCode || e.keyCode) === 27) {
@@ -22,7 +26,9 @@ export default function ModalUrl({ show, onClose }) {
 
   return (
     <div
-      className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
+      className={`fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center opacity-0 transition-all duration-300 ease-out pointer-events-none ${
+        show ? 'opacity-100 pointer-events-auto' : ''
+      }`}
       onClick={onClose}
     >
       <div
@@ -37,16 +43,11 @@ export default function ModalUrl({ show, onClose }) {
           Download PNG
         </button>
         <div className="flex justify-end items-center w-[349px] h-[53px] mt-[36px] border-[1px] border-gdscBlue-300 rounded">
-          <p className="text-gdscGrey-800 mx-[9px] ">
-            https://url.gdschcmut.dev/eXPhH
+          <p className="text-gdscGrey-800 mx-[9px] w-[224px] overflow-auto no-scrollbar">
+            https://url.gdschcmut.dev/eXPhHdsaddsaasdsssd
           </p>
           <div class="border-l-[1px] h-[53px] border-gdscBlue-300"></div>
-          <button
-            type="button"
-            className="mx-[9px] w-[90px] h-[43px] text-white bg-gdscBlue-300 rounded"
-          >
-            Copy
-          </button>
+          <CopyButton copied={copied} handleCopy={handleCopy} />
         </div>
       </div>
     </div>
