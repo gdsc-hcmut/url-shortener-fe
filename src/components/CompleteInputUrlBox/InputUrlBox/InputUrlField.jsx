@@ -45,7 +45,7 @@ export default function InputUrlField() {
         <div>
           <button
             type="button"
-            className="absolute inset-y-5 right-[21px] hidden text-[0.938rem] text-white md:block w-[9.735rem] h-[3.75rem] bg-royal-blue rounded-lg hover:bg-shorten-btn-hover"
+            className="absolute inset-y-5 right-[21px] hidden text-[0.938rem] text-white md:block w-[9.735rem] h-[3.75rem] bg-royal-blue rounded hover:bg-shorten-btn-hover"
           >
             Shorten
           </button>
@@ -53,7 +53,7 @@ export default function InputUrlField() {
       </div>
       <button
         type="button"
-        className="text-[0.938rem] text-white md:hidden w-[9.735rem] h-[3.75rem] bg-royal-blue rounded-lg hover:bg-shorten-btn-hover"
+        className="text-[0.938rem] text-white md:hidden w-[9.735rem] h-[3.75rem] bg-royal-blue rounded hover:bg-shorten-btn-hover"
       >
         Shorten
       </button>
