@@ -1,6 +1,6 @@
 import React from 'react';
 
-import NavBar from 'components/navbar/navbar';
+import NavBar from 'components/Navbar';
 import Url from 'components/Url';
 
 export default function HomePage() {
