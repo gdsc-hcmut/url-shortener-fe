@@ -36,7 +36,7 @@ export default function InputUrlField() {
           </button>
         </div>
       </div>
-      <div className="relative md:hidden mr-[1.875rem] h-[4.375rem] flex items-center pl-[1.875rem] space-x-[21px] rounded-md border shadow-lg border-titanium-white">
+      <div className="relative md:hidden bg-white rounded-[0.5rem] mr-[1.875rem] h-[4.375rem] flex items-center pl-[1.875rem] space-x-[21px] rounded-md border shadow-lg border-titanium-white">
         <ReactLogo />
         <input
           className="text-[0.938rem] font-normal text-dim-gray h-5 w-[100%]"

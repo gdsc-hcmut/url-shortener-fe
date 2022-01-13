@@ -5,7 +5,7 @@ import Logo from 'assets/image/logo.svg';
 
 export default function FooterInfo() {
   return (
-    <div className="md:min-h-full h-fit w-full bg-white">
+    <div className="hidden md:block md:min-h-full h-fit w-full bg-white">
       <div
         className="md:h-[255px] h-auto w-full md:pl-[15.677vw] md:pr-[18.073vw] md:py-[32px]
                       px-[20px] py-[50px] flex justify-between
