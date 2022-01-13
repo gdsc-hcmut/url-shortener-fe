@@ -1,48 +1,64 @@
 /* eslint-disable */
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { CSSTransition } from 'react-transition-group';
+import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
 
-const ModalUrl = (props) => {
+export default function ModalUrl({ show, onClose }) {
+  if (!show) {
+    return null;
+  }
+
   const closeOnEscapeKeyDown = (e) => {
     if ((e.charCode || e.keyCode) === 27) {
-      props.onClose();
+      onClose();
     }
   };
 
-  return ReactDOM.createPortal(
-    <CSSTransition
-      in={props.show}
-      unmountOnExit
-      timeout={{ enter: 0, exit: 300 }}
+  useEffect(() => {
+    document.body.addEventListener('keydown', closeOnEscapeKeyDown);
+    return function cleanup() {
+      document.body.removeEventListener('keydown', closeOnEscapeKeyDown);
+    };
+  }, []);
+
+  return (
+    <div
+      className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
+      onClick={onClose}
     >
       <div
-        aria-hidden="true"
-        className="fixed left-0 top-0 right-0 bottom-0 flex items-center justify-center opacity-0 pointer-events-none bg-black opacity-50 transition-all ease-out duration-300"
-        onKeyDown={closeOnEscapeKeyDown}
-        onClick={props.onClose}
+        className="w-[410px] h-[375px] flex flex-col items-center border bg-white rounded"
+        onClick={(e) => e.stopPropagation()}
       >
-        <div
-          aria-hidden="true"
-          className="bg-white w-[500px] transition-all ease-out duration-300 transform translate-y-[-200px]"
-          onClick={(e) => e.stopPropagation()}
+        <div className="w-[153px] h-[148px] mt-[30px] ml-[128px] mr-[129px] bg-[#000000]"></div>
+        <button
+          type="button"
+          className="bg-gdscBlue-300 rounded py-[12px] px-[40px] mt-[35px] text-white"
         >
-          <div className="p-2">
-            <h4 className="m-0">{props.title}</h4>
-          </div>
-          <div className="p-2 border-y border-solid border-[#eee]">
-            {props.children}
-          </div>
-          <div className="p-2">
-            <button type="button" onClick={props.onClose} className="button">
-              Close
-            </button>
-          </div>
+          Download PNG
+        </button>
+        <div className="flex justify-end items-center w-[349px] h-[53px] mt-[36px] border-[1px] border-gdscBlue-300 rounded">
+          <p className="text-gdscGrey-800 mx-[9px] ">
+            https://url.gdschcmut.dev/eXPhH
+          </p>
+          <div class="border-l-[1px] h-[53px] border-gdscBlue-300"></div>
+          <button
+            type="button"
+            className="mx-[9px] w-[90px] h-[43px] text-white bg-gdscBlue-300 rounded"
+          >
+            Copy
+          </button>
         </div>
       </div>
-    </CSSTransition>,
-    document.getElementById('root'),
+    </div>
   );
+}
+
+ModalUrl.propTypes = {
+  show: PropTypes.bool,
+  onClose: PropTypes.func,
 };
 
-export default ModalUrl;
+// ModalUrl.defaultProps = {
+//   show: false,
+//   children: null,
+// };
