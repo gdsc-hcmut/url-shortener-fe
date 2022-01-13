@@ -12,8 +12,8 @@ export default function InputUrlField() {
   const handleClick = () => dispatch(shortenUrl(longUrl));
 
   return (
-    <div className="flex flex-col md:flex-row space-y-5 md:space-y-0 bg-white rounded-[0.5rem]">
-      <div className="relative hidden md:block md:w-[46.25rem] md:h-[6.25rem] rounded-[0.5rem] border shadow-lg border-gdscGrey-200">
+    <div className="flex flex-col md:flex-row space-y-5 md:space-y-0 rounded-[0.5rem]">
+      <div className="relative hidden md:block bg-white md:w-[46.25rem] md:h-[6.25rem] rounded-[0.5rem] border shadow-lg border-gdscGrey-200">
         <div className="w-[16.25rem] h-12 absolute left-[1.938rem] top-[1.563rem] flex-col space-y-2">
           <p className="text-base font-medium h-5">
             <strong>Your URL</strong>
@@ -39,7 +39,7 @@ export default function InputUrlField() {
       <div className="relative md:hidden bg-white rounded-[0.5rem] mr-[1.875rem] h-[4.375rem] flex items-center pl-[1.875rem] space-x-[21px] rounded-md border shadow-lg border-gdscGrey-200">
         <ReactLogo />
         <input
-          className="text-[0.938rem] font-normal text-gdscGrey-700 h-5 w-[100%]"
+          className="text-[0.938rem] font-normal text-gdscGrey-700 h-5 w-[100%] bg-white"
           placeholder="Input the URL you want to shorten"
         />
         <div>
