@@ -59,11 +59,6 @@ export default function ModalUrl({ show, onClose }) {
 }
 
 ModalUrl.propTypes = {
-  show: PropTypes.bool,
-  onClose: PropTypes.func,
-};
-
-ModalUrl.defaultProps = {
-  show: false,
-  onClose: () => {},
+  show: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
 };

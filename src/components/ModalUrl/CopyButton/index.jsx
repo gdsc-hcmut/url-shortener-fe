@@ -16,11 +16,6 @@ export default function CopyButton({ copied, handleCopy }) {
 }
 
 CopyButton.propTypes = {
-  copied: PropTypes.bool,
-  handleCopy: PropTypes.func,
-};
-
-CopyButton.defaultProps = {
-  copied: false,
-  handleCopy: () => {},
+  copied: PropTypes.bool.isRequired,
+  handleCopy: PropTypes.func.isRequired,
 };
