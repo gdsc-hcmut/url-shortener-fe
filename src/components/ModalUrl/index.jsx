@@ -35,7 +35,7 @@ export default function ModalUrl({ show, onClose }) {
     >
       <div
         aria-hidden="true"
-        className="w-[410px] h-[375px] flex flex-col items-center border bg-white rounded"
+        className="w-[375px] h-[375px] md:w-[410px] flex flex-col items-center border bg-white rounded"
         onClick={(e) => e.stopPropagation()}
         onKeyDown={() => {}}
       >
