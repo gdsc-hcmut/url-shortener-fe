@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { SHORTEN_URL, URL_ERROR } from 'action-types';
 
 const initialState = {
@@ -6,9 +5,7 @@ const initialState = {
   error: {},
 };
 
-export default function (state = initialState, action) {
-  const { type, payload } = action;
-
+export default (state = initialState, { type, payload } = {}) => {
   switch (type) {
     case SHORTEN_URL:
       return {
@@ -23,4 +20,4 @@ export default function (state = initialState, action) {
     default:
       return state;
   }
-}
+};
