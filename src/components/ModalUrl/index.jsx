@@ -37,7 +37,6 @@ export default function ModalUrl({ show, onClose }) {
         aria-hidden="true"
         className="w-[375px] h-[375px] md:w-[410px] flex flex-col items-center border bg-white rounded"
         onClick={(e) => e.stopPropagation()}
-        onKeyDown={() => {}}
       >
         <div className="w-[153px] h-[148px] mt-[30px] ml-[128px] mr-[129px] bg-[#000000]" />
         <button
