@@ -1,4 +1,4 @@
-/* eslint-disable */
+import PropTypes from 'prop-types';
 import React from 'react';
 
 export default function CopyButton({ copied, handleCopy }) {
@@ -14,3 +14,13 @@ export default function CopyButton({ copied, handleCopy }) {
     </button>
   );
 }
+
+CopyButton.propTypes = {
+  copied: PropTypes.bool,
+  handleCopy: PropTypes.func,
+};
+
+CopyButton.defaultProps = {
+  copied: false,
+  handleCopy: () => {},
+};
