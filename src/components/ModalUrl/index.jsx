@@ -42,7 +42,7 @@ export default function ModalUrl({ show, onClose }) {
         <div className="w-[153px] h-[148px] mt-[30px] ml-[128px] mr-[129px] bg-[#000000]" />
         <button
           type="button"
-          className="bg-gdscBlue-300 rounded py-[12px] px-[40px] mt-[35px] text-white"
+          className="bg-gdscBlue-300 hover:bg-shorten-btn-hover rounded py-[12px] px-[40px] mt-[35px] text-white transition-all duration-300 ease-out"
         >
           Download PNG
         </button>
