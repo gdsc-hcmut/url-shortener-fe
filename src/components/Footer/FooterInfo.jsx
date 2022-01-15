@@ -7,7 +7,7 @@ export default function FooterInfo() {
   return (
     <div className="hidden md:block md:min-h-full h-fit w-full bg-white">
       <div
-        className="md:h-[255px] h-auto w-full lg:pl-[100px] xl:pl-[301px] lg:pr-[100px] md:pr-[347px] md:py-[32px]
+        className="md:h-[255px] h-auto w-full lg:pl-[100px] xl:pl-[301px] lg:pr-[100px] md:pl-[40px] md:pr-[347px] md:py-[32px]
                       px-[20px] flex justify-space md:flex-row flex-col "
       >
         <div className="md:h-[255px] h-auto flex flex-col justify-between md:pt-0">
@@ -39,15 +39,19 @@ export default function FooterInfo() {
         </div>
         <div
           className="flex flex-col text-gdscGrey-800
-                        md:mx-[144px]"
+                        md:mr-[80px] md:ml-[80px] lg:mx-[144px]"
         >
-          <p className="mb-[5px] font-bold text-[18px] md:text-[24px]">Contact</p>
+          <p className="mb-[5px] font-bold text-[18px] md:text-[24px]">
+            Contact
+          </p>
           <p className="text-[16px] md:text-[18px] my-[5px]">
             dsc.hcmut@gmail.com
           </p>
         </div>
         <div className="flex flex-col text-gdscGrey-800">
-          <p className="mb-[5px] mt-[-5px] text-[18px] md:text-[24px] font-bold ">Follow</p>
+          <p className="mb-[5px] mt-[-5px] text-[18px] md:text-[24px] font-bold ">
+            Follow
+          </p>
           <p className="text-[16px] md:text-[18px] my-[5px]">Facebook</p>
           <p className="text-[16px] md:text-[18px] my-[5px]">Youtube</p>
           <p className="text-[16px] md:text-[18px] mt-[5px]">Linkedin</p>
