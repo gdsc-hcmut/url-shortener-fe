@@ -41,7 +41,7 @@ export default function InputUrlField() {
         <input
           value={longUrl}
           onChange={handleLongUrl}
-          className="text-base font-normal text-gdscGrey-700 h-5 w-full bg-white"
+          className="text-base font-normal text-gdscGrey-700 h-5 w-full bg-white outline-none pr-[30px]"
           placeholder="Input the URL you want to shorten"
         />
       </div>
