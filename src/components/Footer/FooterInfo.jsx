@@ -52,9 +52,9 @@ export default function FooterInfo() {
           <p className="mb-[5px] mt-[-5px] text-[18px] md:text-[24px] font-bold ">
             Follow
           </p>
-          <p className="text-[16px] md:text-[18px] my-[5px]">Facebook</p>
-          <p className="text-[16px] md:text-[18px] my-[5px]">Youtube</p>
-          <p className="text-[16px] md:text-[18px] mt-[5px]">Linkedin</p>
+          <p className="social-media">Facebook</p>
+          <p className="social-media">Youtube</p>
+          <p className="social-media">Linkedin</p>
         </div>
       </div>
     </div>

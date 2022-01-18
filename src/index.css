@@ -1,6 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .social-media {
+    @apply text-base md:text-[18px] my-[5px];
+  }
+}
 @font-face {
   font-family: 'GoogleSans';
   src: local('GoogleSans'), url(./assets/fonts/GoogleSans-Regular-v1.27.ttf),
@@ -11,3 +17,4 @@ body,
 html {
   font-family: GoogleSans, sans-serif;
 }
+
