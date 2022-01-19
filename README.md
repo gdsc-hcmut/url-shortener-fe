@@ -21,3 +21,10 @@ For development, you will need
 ## Simple build for production
 
     $ npm run build
+
+# If husky doesn't run, please add the following command and try again
+
+```
+$ chmod ug+x .husky/*
+$ chmod ug+x .git/hooks/*
+```

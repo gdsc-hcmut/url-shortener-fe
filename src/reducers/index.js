@@ -1,3 +1,5 @@
 import { combineReducers } from 'redux';
 
-export default combineReducers({});
+import url from './url';
+
+export default combineReducers({ url });

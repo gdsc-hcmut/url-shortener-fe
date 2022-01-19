@@ -1,2 +1,2 @@
-export const EXAMPLE1 = 'EXAMPLE1';
-export const EXAMPLE2 = 'EXAMPLE2';
+export const SHORTEN_URL = 'SHORTEN_URL';
+export const URL_ERROR = 'URL_ERROR';
