@@ -43,11 +43,11 @@ export default function ModalUrl({ show, onClose }) {
         <div className="w-[153px] h-[148px] md:w-[152px] md:h-[152px] mt-[32px] mx-[111px] md:mx-[130px] bg-[#000000]" />
         <button
           type="button"
-          className="w-[180px] h-[44px] text-base bg-gdscBlue-300 hover:bg-shorten-btn-hover rounded-[8px] py-[12px] mt-[36px] md:mt-[8px] text-white transition-all duration-300 ease-out"
+          className="w-[180px] h-[44px] text-base bg-gdscBlue-300 hover:bg-shorten-btn-hover rounded-[8px] py-[12px] mt-[36px] text-white transition-all duration-300 ease-out"
         >
           Download PNG
         </button>
-        <div className="flex justify-end items-center w-[315px] md:w-[352px] h-[54px]  mt-[36px] md:mt-[54px] border-[1px] border-gdscBlue-300 rounded-[8px]">
+        <div className="flex justify-end items-center w-[315px] md:w-[352px] h-[54px]  mt-[36px] md:mt-[32px] border-[1px] border-gdscBlue-300 rounded-[8px]">
           <Url />
           <div className="border-l-[1px] h-[54px] border-gdscBlue-300" />
           <CopyButton copied={copied} handleCopy={handleCopy} />
