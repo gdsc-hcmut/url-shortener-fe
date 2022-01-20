@@ -6,8 +6,10 @@ export default function CopyButton({ copied, handleCopy }) {
     <button
       onClick={handleCopy}
       type="button"
-      className={`mx-[9px] w-[90px] h-[43px] text-white rounded transition-all duration-300 ease-out ${
-        copied ? 'bg-gdscGreen-300' : 'bg-gdscBlue-300 hover:bg-shorten-btn-hover '
+      className={`mx-[4px] md:mx-[8px] w-[75px] md:w-[96px] h-[44px] text-xs md:text-base text-white rounded-[8px] transition-all duration-300 ease-out ${
+        copied
+          ? 'bg-gdscGreen-300'
+          : 'bg-gdscBlue-300 hover:bg-shorten-btn-hover '
       }`}
     >
       {copied ? 'Copied!' : 'Copy'}

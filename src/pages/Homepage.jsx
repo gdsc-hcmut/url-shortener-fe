@@ -1,18 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Footer from 'components/Footer';
+import MordalUrl from 'components/ModalUrl';
 import NavBar from 'components/Navbar';
-import Url from 'components/Url';
 import UrlInputBoxAndTitle from 'components/UrlInputBoxAndTitle';
 
 export default function Homepage() {
+  const [show, setShow] = useState(false);
+
   return (
     <div className="flex flex-col justify-center md:items-center bg-mobile-background md:bg-blue md:bg-contain">
       <NavBar />
-      <div className="ml-[1.25rem] mt-[8.625rem] mb-[20.5rem] md:mt-[20.981vh] md:mb-[22.428vh]">
-        <UrlInputBoxAndTitle />
+      <div className="ml-[1.25rem] mt-[260px] mb-[23.5rem] md:mt-[216px] md:mb-[276px]">
+        <UrlInputBoxAndTitle onClick={() => setShow(true)} />
       </div>
-      <Url />
+      <MordalUrl title="My Modal" onClose={() => setShow(false)} show={show} />
       <Footer />
     </div>
   );

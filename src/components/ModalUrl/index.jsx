@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 
+import Url from 'components/Url';
+
 import CopyButton from './CopyButton';
 
 export default function ModalUrl({ show, onClose }) {
@@ -27,7 +29,7 @@ export default function ModalUrl({ show, onClose }) {
   return (
     <div
       aria-hidden="true"
-      className={`fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center opacity-0 transition-all duration-300 ease-out pointer-events-none ${
+      className={`fixed z-20 inset-0 bg-black bg-opacity-50 flex justify-center items-center opacity-0 transition-all duration-300 ease-out pointer-events-none ${
         show ? 'opacity-100 pointer-events-auto' : ''
       }`}
       onClick={onClose}
@@ -35,21 +37,19 @@ export default function ModalUrl({ show, onClose }) {
     >
       <div
         aria-hidden="true"
-        className="w-[375px] h-[375px] md:w-[410px] flex flex-col items-center border bg-white rounded"
+        className="w-[376px] h-[376px] md:w-[412px] md:h-[376px] flex flex-col items-center border bg-white rounded"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="w-[153px] h-[148px] mt-[30px] ml-[128px] mr-[129px] bg-[#000000]" />
+        <div className="w-[153px] h-[148px] md:w-[152px] md:h-[152px] mt-[32px] mx-[111px] md:mx-[130px] bg-[#000000]" />
         <button
           type="button"
-          className="bg-gdscBlue-300 hover:bg-shorten-btn-hover rounded py-[12px] px-[40px] mt-[35px] text-white transition-all duration-300 ease-out"
+          className="w-[180px] h-[44px] text-base bg-gdscBlue-300 hover:bg-shorten-btn-hover rounded-[8px] py-[12px] mt-[36px] md:mt-[8px] text-white transition-all duration-300 ease-out"
         >
           Download PNG
         </button>
-        <div className="flex justify-end items-center w-[349px] h-[53px] mt-[36px] border-[1px] border-gdscBlue-300 rounded">
-          <p className="text-gdscGrey-800 mx-[9px] w-[224px] overflow-auto no-scrollbar">
-            https://url.gdschcmut.dev/eXPhHdsaddsaasdsssd
-          </p>
-          <div className="border-l-[1px] h-[53px] border-gdscBlue-300" />
+        <div className="flex justify-end items-center w-[315px] md:w-[352px] h-[54px]  mt-[36px] md:mt-[54px] border-[1px] border-gdscBlue-300 rounded-[8px]">
+          <Url />
+          <div className="border-l-[1px] h-[54px] border-gdscBlue-300" />
           <CopyButton copied={copied} handleCopy={handleCopy} />
         </div>
       </div>
