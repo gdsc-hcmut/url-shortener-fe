@@ -4,6 +4,8 @@ import { useSelector } from 'react-redux';
 
 import Url from 'components/Url';
 
+import Url from 'components/Url';
+
 import CopyButton from './CopyButton';
 
 export default function ModalUrl({ show, onClose }) {
