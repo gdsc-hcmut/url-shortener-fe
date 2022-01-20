@@ -5,7 +5,6 @@ import { SHOW_MODAL } from 'action-types';
 import Footer from 'components/Footer';
 import LoginModal from 'components/LoginModal';
 import NavBar from 'components/Navbar';
-import Url from 'components/Url';
 import UrlInputBoxAndTitle from 'components/UrlInputBoxAndTitle';
 
 export default function Homepage() {
@@ -25,7 +24,7 @@ export default function Homepage() {
           show={visibility}
         />
       </div>
-      <Url />
+      <MordalUrl title="My Modal" onClose={() => setShow(false)} show={show} />
       <Footer />
     </div>
   );
