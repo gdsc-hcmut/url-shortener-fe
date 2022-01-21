@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -14,45 +15,39 @@ function SignUpPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(
-    false || localStorage.getItem('auth') === 'true',
+    false || localStorage.getItem('firebaseToken'),
   );
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
         setIsAuthenticated(true);
-        localStorage.setItem('auth', 'true');
-        const { uid } = user;
-        console.log('uid', uid);
       } else {
-        // User is signed out
-        // ...
-        console.log('signed out');
+        setIsAuthenticated(false);
+        localStorage.clear();
       }
     });
   }, []);
 
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
+
   const handleSignUp = (e) => {
     e.preventDefault();
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Signed in
         setIsAuthenticated(true);
-        localStorage.setItem('auth', 'true');
-
-        const { user } = userCredential;
-        console.log(user);
-        return user;
+        const firebaseToken = userCredential.user.accessToken;
+        localStorage.setItem('firebaseToken', firebaseToken);
+        return firebaseToken;
       })
-      .then((user) => UserAPI.signUpUser(user))
+      .then((firebaseToken) => UserAPI.signUpUser(firebaseToken))
       .then(({ data }) => {
         console.log('returnData:', data);
-        localStorage.setItem('accessToken', data.token.accessToken);
-        localStorage.setItem('refreshToken', data.token.refreshToken);
+        const { accessToken, refreshToken } = data.token;
+        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('refreshToken', refreshToken);
+        axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -65,15 +60,31 @@ function SignUpPage() {
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
-        // Sign-out successful.
-        localStorage.removeItem('auth');
+        localStorage.clear();
         setIsAuthenticated(false);
       })
       .catch((error) => {
-        // An error happened.
         console.log(error);
       });
   };
+
+  const handlePrivateRoute = async () => {
+    try {
+      const res = await axios.get('http://localhost:5000/api/private');
+      console.log(res.data);
+    } catch (error) {
+      console.log(error.response);
+      if (error.response.data.errors.message) {
+        const response = await axios.get(
+          'http://localhost:5000/api/token/refresh',
+        );
+        const { accessToken, refreshToken } = response.data.token;
+        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('refreshToken', refreshToken);
+      }
+    }
+  };
+
   return (
     <div>
       {isAuthenticated ? (
@@ -81,6 +92,10 @@ function SignUpPage() {
           <h1>Logged In</h1>
           <button type="button" onClick={handleSignOut}>
             Sign Out
+          </button>
+          <br />
+          <button type="button" onClick={handlePrivateRoute}>
+            Get private route
           </button>
         </div>
       ) : (
