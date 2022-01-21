@@ -8,6 +8,9 @@ import SignInPage from './pages/SignInPage';
 import SignUpPage from './pages/SignUpPage';
 import store from './store';
 import './index.css';
+import setAuthToken from './utils/setAuthToken';
+
+setAuthToken();
 
 export default function App() {
   return (
