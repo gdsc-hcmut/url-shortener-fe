@@ -38,6 +38,8 @@ export default function App() {
           <Route path="/user-home" element={<HomepageLogin />} />
           <Route path="/reset-pass" element={<ResetPasswordPage />} />
           <Route path="/change-pass" element={<ChangePasswordPage />} />
+          <Route path="/sign-up" element={<SignUpPage />} />
+          <Route path="/sign-in" element={<SignInPage />} />
         </Routes>
       </BrowserRouter>
     </Provider>
