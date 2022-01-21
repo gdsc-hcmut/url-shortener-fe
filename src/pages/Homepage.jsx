@@ -7,7 +7,6 @@ import UrlInputBoxAndTitle from 'components/UrlInputBoxAndTitle';
 
 export default function Homepage() {
   const [show, setShow] = useState(false);
-
   return (
     <div className="flex flex-col justify-center md:items-center bg-mobile-background md:bg-blue md:bg-contain">
       <NavBar />
