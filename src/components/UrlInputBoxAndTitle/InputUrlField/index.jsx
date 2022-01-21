@@ -32,8 +32,8 @@ export default function InputUrlField({ onClick }) {
           <button
             type="button"
             className="absolute inset-y-5 right-5 hidden text-base text-white md:block w-[152px] h-[60px] bg-gdscBlue-300 rounded-[8px] hover:bg-shorten-btn-hover ease-out duration-300 "
-            onClick={function showModal() {
-              handleClick();
+            onClick={async function showModal() {
+              await handleClick();
               onClick();
             }}
           >
@@ -53,8 +53,8 @@ export default function InputUrlField({ onClick }) {
       <button
         type="button"
         className="text-base text-white md:hidden w-[152px] h-[60px] bg-gdscBlue-300 rounded hover:bg-shorten-btn-hover"
-        onClick={function showModal() {
-          handleClick();
+        onClick={async function showModal() {
+          await handleClick();
           onClick();
         }}
       >

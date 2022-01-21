@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 import Url from 'components/Url';
 
@@ -7,9 +8,10 @@ import CopyButton from './CopyButton';
 
 export default function ModalUrl({ show, onClose }) {
   const [copied, setCopied] = useState(false);
-
+  const { shortenedUrl } = useSelector((state) => state.url);
   const handleCopy = () => {
     setCopied(true);
+    navigator.clipboard.writeText(shortenedUrl);
     setTimeout(() => setCopied(false), 1000);
   };
 
@@ -48,7 +50,7 @@ export default function ModalUrl({ show, onClose }) {
           Download PNG
         </button>
         <div className="flex justify-end items-center w-[315px] md:w-[352px] h-[54px]  mt-[36px] md:mt-[32px] border-[1px] border-gdscBlue-300 rounded-[8px]">
-          <Url />
+          <Url shortenedUrl={shortenedUrl} />
           <div className="border-l-[1px] h-[54px] border-gdscBlue-300" />
           <CopyButton copied={copied} handleCopy={handleCopy} />
         </div>
