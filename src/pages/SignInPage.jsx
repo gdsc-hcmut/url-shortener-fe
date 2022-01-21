@@ -12,36 +12,31 @@ function SignInPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(
-    false || localStorage.getItem('auth') === 'true',
+    false || localStorage.getItem('firebaseToken'),
   );
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
         setIsAuthenticated(true);
-        localStorage.setItem('auth', 'true');
-        const { uid } = user;
-        console.log('uid', uid);
       } else {
-        // User is signed out
-        // ...
-        console.log('signed out');
+        setIsAuthenticated(false);
+        localStorage.clear();
       }
     });
   }, []);
 
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
+
   const handleSignIn = (e) => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Signed in
-        const { user } = userCredential;
-        console.log(user);
-        // ...
+        setIsAuthenticated(true);
+        const firebaseToken = userCredential.user.accessToken;
+        localStorage.setItem('firebaseToken', firebaseToken);
+        return firebaseToken;
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -54,15 +49,14 @@ function SignInPage() {
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
-        // Sign-out successful.
-        localStorage.removeItem('auth');
+        localStorage.clear();
         setIsAuthenticated(false);
       })
       .catch((error) => {
-        // An error happened.
         console.log(error);
       });
   };
+
   return (
     <div>
       {isAuthenticated ? (
