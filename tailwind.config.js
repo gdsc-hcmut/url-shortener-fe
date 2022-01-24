@@ -26,6 +26,7 @@ module.exports = {
           100: '#A0C3FF',
           200: '#76A7FA',
           300: '#4285F4',
+          400: '#F0F5F7',
         },
         gdscRed: {
           100: '#ED9D97',
