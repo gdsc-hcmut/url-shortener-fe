@@ -21,10 +21,12 @@ module.exports = {
         'get-started-btn': '#E3EDFE',
         'get-started-btn-hover': '#D9E8FF',
         'mobile-background': '#ECF2FB',
+        'sign-in-with-google': '#FCEAE9',
         gdscBlue: {
           100: '#A0C3FF',
           200: '#76A7FA',
           300: '#4285F4',
+          400: '#F0F5F7',
         },
         gdscRed: {
           100: '#ED9D97',
