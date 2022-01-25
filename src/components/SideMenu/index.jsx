@@ -1,13 +1,64 @@
 import PropTypes from 'prop-types';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { ReactComponent as AccountCircle } from 'assets/icons/account_circle.svg';
-import { ReactComponent as LinkIcon } from 'assets/icons/link_icon.svg';
-import { ReactComponent as LockIcon } from 'assets/icons/lock_icon.svg';
-import { ReactComponent as LogoutIcon } from 'assets/icons/logout_icon.svg';
-import { ReactComponent as StatIcon } from 'assets/icons/stat_icon.svg';
+import AccountCircle from 'assets/icons/account_circle';
+import LinkIcon from 'assets/icons/link_icon';
+import LockIcon from 'assets/icons/lock_icon';
+import LogoutIcon from 'assets/icons/logout_icon';
+import StatIcon from 'assets/icons/stat_icon';
 
 export default function SideMenu({ toggle }) {
+  const [myProfileColors, setMyProfileColors] = useState('#696969');
+  const [myUrlColors, setMyUrlColors] = useState('#696969');
+  const [statIconColors, setStatIconColors] = useState('#696969');
+  const [changePassIconColors, setChangePassIconColors] = useState('#696969');
+
+  const handleMouseOver = (e) => {
+    switch (e.target.id) {
+      case 'my-profile':
+        setMyProfileColors('#4285F4');
+        break;
+
+      case 'my-url':
+        setMyUrlColors('#4285F4');
+        break;
+
+      case 'stat':
+        setStatIconColors('#4285F4');
+        break;
+
+      case 'change-pass':
+        setChangePassIconColors('#4285F4');
+        break;
+
+      default:
+        break;
+    }
+  };
+
+  const handleMouseOut = (e) => {
+    switch (e.target.id) {
+      case 'my-profile':
+        setMyProfileColors('#696969');
+        break;
+
+      case 'my-url':
+        setMyUrlColors('#696969');
+        break;
+
+      case 'stat':
+        setStatIconColors('#696969');
+        break;
+
+      case 'change-pass':
+        setChangePassIconColors('#696969');
+        break;
+
+      default:
+        break;
+    }
+  };
+
   useEffect(() => {
     const sideMenu = document.querySelector('.side-menu');
     sideMenu.classList.toggle('-translate-x-full');
@@ -20,54 +71,75 @@ export default function SideMenu({ toggle }) {
     >
       <div>
         <div
+          id="my-profile"
           className="flex min-w-full items-center
                     md:h-[52px] h-[58px] px-5 rounded bg-white
                     md:hover:bg-gdscBlue-300/10 active:bg-gdscBlue-300/10 cursor-pointer
-md:                    md:hover:text-gdscBlue-300 active:text-gdscBlue-300 transition-all
+                    md:hover:text-gdscBlue-300 active:text-gdscBlue-300 transition-all
                     ease-out duration-300"
+          onMouseOver={handleMouseOver}
+          onFocus={() => {}}
+          onMouseLeave={handleMouseOut}
+          onBlur={() => {}}
         >
-          <AccountCircle className="w-6 h-6 mr-4 fill-current text-gdscBlue-300" />
-          <p className="">My Profile</p>
+          <AccountCircle color={myProfileColors} />
+          <p className="ml-4">My Profile</p>
         </div>
         <div
+          id="my-url"
           className="flex min-w-full items-center
                     md:h-[52px] h-[58px] px-5 rounded bg-white
                     md:hover:bg-gdscBlue-300/10 active:bg-gdscBlue-300/10 cursor-pointer
-md:                    md:hover:text-gdscBlue-300 active:text-gdscBlue-300 transition-all
+                    md:hover:text-gdscBlue-300 active:text-gdscBlue-300 transition-all
                     ease-out duration-300"
+          onMouseOver={handleMouseOver}
+          onFocus={() => {}}
+          onMouseLeave={handleMouseOut}
+          onBlur={() => {}}
         >
-          <LinkIcon className="w-6 h-6 mr-4" />
-          <p className="">My URLs</p>
+          <LinkIcon color={myUrlColors} />
+          <p className="ml-4">My URLs</p>
         </div>
         <div
+          id="stat"
           className="flex min-w-full items-center
                     md:h-[52px] h-[58px] px-5 rounded bg-white
                     md:hover:bg-gdscBlue-300/10 active:bg-gdscBlue-300/10 cursor-pointer
-md:                    md:hover:text-gdscBlue-300 active:text-gdscBlue-300 transition-all
+                    md:hover:text-gdscBlue-300 active:text-gdscBlue-300 transition-all
                     ease-out duration-300"
+          onMouseOver={handleMouseOver}
+          onFocus={() => {}}
+          onMouseLeave={handleMouseOut}
+          onBlur={() => {}}
         >
-          <StatIcon className="w-6 h-6 mr-4" />
-          <p className="">Statistics</p>
+          <StatIcon color={statIconColors} />
+          <p className="ml-4">Statistics</p>
         </div>
         <div
+          id="change-pass"
           className="flex min-w-full items-center
                     md:h-[52px] h-[58px] px-5 rounded bg-white
                     md:hover:bg-gdscBlue-300/10 active:bg-gdscBlue-300/10 cursor-pointer
-md:                    md:hover:text-gdscBlue-300 active:text-gdscBlue-300 transition-all
+                    md:hover:text-gdscBlue-300 active:text-gdscBlue-300 transition-all
                     ease-out duration-300"
+          onMouseOver={handleMouseOver}
+          onFocus={() => {}}
+          onMouseLeave={handleMouseOut}
+          onBlur={() => {}}
         >
-          <LockIcon className="w-6 h-6 mr-4" />
-          <p className="">Change Password</p>
+          <LockIcon color={changePassIconColors} />
+          <p className="ml-4">Change Password</p>
         </div>
         <div
+          id="logout"
           className="flex min-w-full items-center
                     md:h-[52px] h-[58px] px-5 rounded bg-white
                     md:hover:bg-gdscRed-300/10 active:bg-gdscRed-300/10 cursor-pointer
                     md:text-gdscRed-300 active:text-gdscRed-300 transition-all
                     ease-out duration-300"
         >
-          <LogoutIcon className="w-6 h-6 mr-4" />
-          <p className="">Logout</p>
+          <LogoutIcon color="#DB4437" />
+          <p className="ml-4">Logout</p>
         </div>
       </div>
     </div>
