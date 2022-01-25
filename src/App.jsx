@@ -29,6 +29,7 @@ export default function App() {
           <Route path="/log-in" element={<LoginPage />} />
           <Route path="/sign-up" element={<SignUpPage />} />
           <Route path="/sign-in" element={<SignInPage />} />
+          <Route path="/log-in" element={<LoginPage />} />
         </Routes>
       </BrowserRouter>
     </Provider>
