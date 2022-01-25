@@ -26,7 +26,7 @@ export default function LoginModal({ show, onClose }) {
   return (
     <div
       aria-hidden="true"
-      className={`fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center opacity-0 transition-all duration-300 ease-out pointer-events-none ${
+      className={`fixed hidden inset-0 bg-black bg-opacity-50 md:flex justify-center items-center opacity-0 transition-all duration-300 ease-out pointer-events-none ${
         show ? 'opacity-100 pointer-events-auto' : ''
       }`}
       onKeyDown={closeOnEscapeKeyDown}

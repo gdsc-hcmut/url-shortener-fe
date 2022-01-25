@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import LoginModal from 'components/LoginModal';
+import MordalUrl from 'components/ModalUrl';
 
 export default function App() {
   const [show, setShow] = useState(false);
@@ -10,7 +10,7 @@ export default function App() {
       <button type="button" onClick={() => setShow(true)}>
         Show Modal
       </button>
-      <LoginModal title="My Modal" onClose={() => setShow(false)} show={show} />
+      <MordalUrl title="My Modal" onClose={() => setShow(false)} show={show} />
     </div>
   );
 }

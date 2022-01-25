@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Homepage from './pages/Homepage';
+import LoginPage from './pages/LoginPage';
 import ModalPage from './pages/ModalPage';
 import store from './store';
 import './index.css';
@@ -14,6 +15,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/modal" element={<ModalPage />} />
+          <Route path="/log-in" element={<LoginPage />} />
         </Routes>
       </BrowserRouter>
     </Provider>
