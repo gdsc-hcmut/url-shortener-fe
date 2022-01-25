@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import { loadUser } from 'actions/auth';
 
 import Homepage from './pages/Homepage';
 import ModalPage from './pages/ModalPage';
@@ -10,9 +12,13 @@ import store from './store';
 import './index.css';
 import setAuthToken from './utils/setAuthToken';
 
-setAuthToken();
+if (localStorage.user) {
+  setAuthToken();
+}
 
 export default function App() {
+  useEffect(() => store.dispatch(loadUser()), []);
+
   return (
     <Provider store={store}>
       <BrowserRouter>
