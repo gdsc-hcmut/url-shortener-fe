@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const setAuthToken = () => {
-  const { accessToken } = localStorage;
+  const { accessToken } = localStorage.user;
   if (accessToken) {
     axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
   } else {
