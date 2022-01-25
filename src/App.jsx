@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
+import { loadUser } from 'actions/auth';
 import ResetPasswordPage from 'pages/ResetPasswordPage';
 import { loadUser } from 'actions/auth';
 import HomepageLogin from 'pages/HomepageLogin';
