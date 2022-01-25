@@ -1,108 +1,74 @@
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
 
 import { ReactComponent as AccountCircle } from 'assets/icons/account_circle.svg';
 import { ReactComponent as LinkIcon } from 'assets/icons/link_icon.svg';
 import { ReactComponent as LockIcon } from 'assets/icons/lock_icon.svg';
-import { ReactComponent as LogoutIcon } from 'assets/icons/logout.svg';
+import { ReactComponent as LogoutIcon } from 'assets/icons/logout_icon.svg';
 import { ReactComponent as StatIcon } from 'assets/icons/stat_icon.svg';
 
-export default function SideMenu({ toggle, page }) {
+export default function SideMenu({ toggle }) {
   useEffect(() => {
     const sideMenu = document.querySelector('.side-menu');
     sideMenu.classList.toggle('-translate-x-full');
   }, [toggle]);
-
   return (
     <div
-      className="side-menu min-h-screen w-full bg-white text-gdscGrey-700 fixed md:relative 2xl:w-[360px] md:w-fit
-                border-gdscGrey-100 md:py-16 2xl:px-[60px] xl:px-[36px] lg:px-[28px] py-7 px-5
+      className="side-menu h-[100vh] bg-white text-gdscGrey-700 md:w-[360px] fixed md:relative w-full
+                border-r border-gdscGrey-100 md:py-16 md:px-[60px] py-7 px-5
                 transform  md:translate-x-0 transition duration-300 ease-out z-30"
     >
       <div>
-        <NavLink
-          to="/my-profile"
-          className={() => `flex flex-row space-x-4 min-w-full md:w-[240px] items-center md:h-[52px] h-[58px] px-5 rounded bg-white
-          ${
-            page === 'my-profile'
-              ? 'bg-gdscBlue-300/10'
-              : 'hover:bg-gdscBlue-300/10'
-          } cursor-pointer 
-          ${
-            page === 'my-profile'
-              ? 'text-gdscBlue-300'
-              : 'hover:text-gdscBlue-300'
-          } transition-all
-          ease-out duration-300`}
+        <div
+          className="flex min-w-full items-center
+                    md:h-[52px] h-[58px] px-5 rounded bg-white
+                    md:hover:bg-gdscBlue-300/10 active:bg-gdscBlue-300/10 cursor-pointer
+md:                    md:hover:text-gdscBlue-300 active:text-gdscBlue-300 transition-all
+                    ease-out duration-300"
         >
-          <AccountCircle />
-          <span>My Profile</span>
-        </NavLink>
-        <NavLink
-          to="/my-url"
-          className={() => `flex flex-row space-x-4 min-w-full md:w-[240px] items-center md:h-[52px] h-[58px] px-5 rounded bg-white
-          ${
-            page === 'detail' || page === 'my-url'
-              ? 'bg-gdscBlue-300/10'
-              : 'hover:bg-gdscBlue-300/10'
-          } cursor-pointer 
-          ${
-            page === 'detail' || page === 'my-url'
-              ? 'text-gdscBlue-300'
-              : 'hover:text-gdscBlue-300'
-          } transition-all
-          ease-out duration-300`}
-          // isActive={() => page === 'detail' || page === 'my-url'}
+          <AccountCircle className="w-6 h-6 mr-4 fill-current text-gdscBlue-300" />
+          <p className="">My Profile</p>
+        </div>
+        <div
+          className="flex min-w-full items-center
+                    md:h-[52px] h-[58px] px-5 rounded bg-white
+                    md:hover:bg-gdscBlue-300/10 active:bg-gdscBlue-300/10 cursor-pointer
+md:                    md:hover:text-gdscBlue-300 active:text-gdscBlue-300 transition-all
+                    ease-out duration-300"
         >
-          <LinkIcon />
-          <span>My URLs</span>
-        </NavLink>
-        <NavLink
-          to="/stat"
-          className={() => `flex flex-row space-x-4 min-w-full md:w-[240px] items-center md:h-[52px] h-[58px] px-5 rounded bg-white
-          ${
-            page === 'stat' ? 'bg-gdscBlue-300/10' : 'hover:bg-gdscBlue-300/10'
-          } cursor-pointer 
-          ${
-            page === 'stat' ? 'text-gdscBlue-300' : 'hover:text-gdscBlue-300'
-          } transition-all
-          ease-out duration-300`}
-          // isActive={() => page === 'stat'}
+          <LinkIcon className="w-6 h-6 mr-4" />
+          <p className="">My URLs</p>
+        </div>
+        <div
+          className="flex min-w-full items-center
+                    md:h-[52px] h-[58px] px-5 rounded bg-white
+                    md:hover:bg-gdscBlue-300/10 active:bg-gdscBlue-300/10 cursor-pointer
+md:                    md:hover:text-gdscBlue-300 active:text-gdscBlue-300 transition-all
+                    ease-out duration-300"
         >
-          <StatIcon />
-          <span>Statistics</span>
-        </NavLink>
-        <NavLink
-          to="/change-pass"
-          className={() => `flex flex-row space-x-4 min-w-full md:w-[240px] items-center md:h-[52px] h-[58px] px-5 rounded bg-white
-          ${
-            page === 'change-pass'
-              ? 'bg-gdscBlue-300/10'
-              : 'hover:bg-gdscBlue-300/10'
-          } cursor-pointer 
-          ${
-            page === 'change-pass'
-              ? 'text-gdscBlue-300'
-              : 'hover:text-gdscBlue-300'
-          } transition-all
-          ease-out duration-300`}
-          // isActive={() => page === 'change-pass'}
+          <StatIcon className="w-6 h-6 mr-4" />
+          <p className="">Statistics</p>
+        </div>
+        <div
+          className="flex min-w-full items-center
+                    md:h-[52px] h-[58px] px-5 rounded bg-white
+                    md:hover:bg-gdscBlue-300/10 active:bg-gdscBlue-300/10 cursor-pointer
+md:                    md:hover:text-gdscBlue-300 active:text-gdscBlue-300 transition-all
+                    ease-out duration-300"
         >
-          <LockIcon />
-          <span>Change Password</span>
-        </NavLink>
-        <NavLink
-          to="/"
-          className="logOut flex flex-row space-x-4 min-w-full md:w-[240px] items-center
-            md:h-[52px] h-[58px] px-5 rounded bg-white
-            hover:bg-gdscRed-300/10 cursor-pointer
-            text-gdscRed-300 transition-all
-            ease-out duration-300"
+          <LockIcon className="w-6 h-6 mr-4" />
+          <p className="">Change Password</p>
+        </div>
+        <div
+          className="flex min-w-full items-center
+                    md:h-[52px] h-[58px] px-5 rounded bg-white
+                    md:hover:bg-gdscRed-300/10 active:bg-gdscRed-300/10 cursor-pointer
+                    md:text-gdscRed-300 active:text-gdscRed-300 transition-all
+                    ease-out duration-300"
         >
-          <LogoutIcon color="#DB4437" />
-          <span>Logout</span>
-        </NavLink>
+          <LogoutIcon className="w-6 h-6 mr-4" />
+          <p className="">Logout</p>
+        </div>
       </div>
     </div>
   );
@@ -110,5 +76,4 @@ export default function SideMenu({ toggle, page }) {
 
 SideMenu.propTypes = {
   toggle: PropTypes.bool.isRequired,
-  page: PropTypes.string.isRequired,
 };
