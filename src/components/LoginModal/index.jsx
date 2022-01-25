@@ -29,35 +29,35 @@ export default function LoginModal({ show, onClose }) {
       className={`fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center opacity-0 transition-all duration-300 ease-out pointer-events-none ${
         show ? 'opacity-100 pointer-events-auto' : ''
       }`}
-      onClick={onClose}
       onKeyDown={closeOnEscapeKeyDown}
     >
       <div
         aria-hidden="true"
         className="relative w-[500px] h-[628px] flex items-center border bg-white rounded px-[40px] py-[32px]"
       >
-        <div
+        <button
           aria-hidden="true"
+          type="button"
           className="absolute w-[40px] h-[40px] bg-[#F0F5F7] hover:bg-[#DCF3FC]
                     flex flex-col justify-center items-center transition-all duration-300 ease-out
-                    right-[12px] top-[12px] hover:cursor-pointer rounded"
+                    right-[12px] top-[12px] rounded"
           onClick={handleCloseBtn}
         >
           <img className="w-[12px] h-[12px]" src={CloseIcon} alt="X" />
-        </div>
+        </button>
         <div
           aria-hidden="true"
           className="w-full h-full flex flex-col items-center"
           onClick={(e) => e.stopPropagation()}
         >
-          <h1 className="text-2xl font-medium mb-7">Login</h1>
+          <h1 className="text-2xl font-bold mb-7">Login</h1>
           <LoginForm />
-          <p className="mb-7">
+          <a href=" " className="mb-7">
             {"Don't have an account? "}
             <button type="button" className="active:underline font-bold">
               Sign up
             </button>
-          </p>
+          </a>
           <LoginWithGoogle />
         </div>
       </div>
