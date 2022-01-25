@@ -1,4 +1,11 @@
 export const SHORTEN_URL = 'SHORTEN_URL';
 export const URL_ERROR = 'URL_ERROR';
+export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
+export const REGISTER_FAIL = 'REGISTER_FAIL';
+export const USER_LOADED = 'USER_LOADED';
+export const AUTH_ERROR = 'AUTH_ERROR';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAIL = 'LOGIN_FAIL';
+export const LOGOUT = 'LOGOUT';
 export const SHOW_URL_MODAL = 'SHOW_URL_MODAL';
 export const SHOW_LOG_IN_MODAL = 'SHOW_LOG_IN_MODAL';
