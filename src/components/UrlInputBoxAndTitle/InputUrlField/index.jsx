@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -6,7 +5,7 @@ import { SHOW_URL_MODAL } from 'action-types';
 import shortenUrl from 'actions/url';
 import { ReactComponent as ReactLogo } from 'assets/image/web.svg';
 
-export default function InputUrlField({ onClick }) {
+export default function InputUrlField() {
   const [longUrl, setLongUrl] = useState('');
   const dispatch = useDispatch();
 
@@ -37,10 +36,7 @@ export default function InputUrlField({ onClick }) {
           <button
             type="button"
             className="absolute inset-y-5 right-5 hidden text-base text-white md:block w-[152px] h-[60px] bg-gdscBlue-300 rounded-[8px] hover:bg-shorten-btn-hover ease-out duration-300 "
-            onClick={async function showModal() {
-              await handleClick();
-              onClick();
-            }}
+            onClick={handleClick}
           >
             Shorten
           </button>
@@ -58,16 +54,10 @@ export default function InputUrlField({ onClick }) {
       <button
         type="button"
         className="text-base text-white md:hidden w-[152px] h-[60px] bg-gdscBlue-300 rounded hover:bg-shorten-btn-hover"
-        onClick={async function showModal() {
-          await handleClick();
-          onClick();
-        }}
+        onClick={handleClick}
       >
         Shorten
       </button>
     </div>
   );
 }
-InputUrlField.propTypes = {
-  onClick: PropTypes.func.isRequired,
-};
