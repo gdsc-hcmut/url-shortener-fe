@@ -17,6 +17,46 @@ export default function SideMenu({ toggle, page }) {
   const [screenWidth] = useWindowSize();
   const navigate = useNavigate();
 
+  const myProfileBtnClass = `flex min-w-full md:w-[240px] items-center
+  md:h-[52px] h-[58px] px-5 rounded bg-white
+  ${
+  page === 'my-profile' ? 'bg-gdscBlue-300/10' : 'hover:bg-gdscBlue-300/10'
+} cursor-pointer
+  ${
+  page === 'my-profile' ? 'text-gdscBlue-300' : 'hover:text-gdscBlue-300'
+} transition-all
+  ease-out duration-300`;
+
+  const myUrlBtnClass = `flex min-w-full md:w-[240px] items-center
+  md:h-[52px] h-[58px] px-5 rounded bg-white
+  ${
+  page === 'detail' ? 'bg-gdscBlue-300/10' : 'hover:bg-gdscBlue-300/10'
+} cursor-pointer
+  ${
+  page === 'detail' ? 'text-gdscBlue-300' : 'hover:text-gdscBlue-300'
+} transition-all
+  ease-out duration-300`;
+
+  const statBtnClass = `flex min-w-full md:w-[240px] items-center
+  md:h-[52px] h-[58px] px-5 rounded bg-white
+  ${
+  page === 'stat' ? 'bg-gdscBlue-300/10' : 'hover:bg-gdscBlue-300/10'
+} cursor-pointer
+  ${
+  page === 'stat' ? 'text-gdscBlue-300' : 'hover:text-gdscBlue-300'
+} transition-all
+  ease-out duration-300`;
+
+  const changePassBtnClass = `flex min-w-full md:w-[240px] items-center
+  md:h-[52px] h-[58px] px-5 rounded bg-white
+  ${
+  page === 'change-pass' ? 'bg-gdscBlue-300/10' : 'hover:bg-gdscBlue-300/10'
+} cursor-pointer
+  ${
+  page === 'change-pass' ? 'text-gdscBlue-300' : 'hover:text-gdscBlue-300'
+} transition-all
+  ease-out duration-300`;
+
   const handleClick = (e) => {
     switch (e.target.id) {
       case 'my-profile':
@@ -104,16 +144,12 @@ export default function SideMenu({ toggle, page }) {
         <div
           aria-hidden="true"
           id="my-profile"
-          className="flex min-w-full md:w-[240px] items-center
-                    md:h-[52px] h-[58px] px-5 rounded bg-white
-                    md:hover:bg-gdscBlue-300/10 active:bg-gdscBlue-300/10 cursor-pointer
-                    md:hover:text-gdscBlue-300 active:text-gdscBlue-300 transition-all
-                    ease-out duration-300 "
-          onMouseOver={screenWidth >= 768 ? handlePressing : () => {}}
+          className={myProfileBtnClass}
+          onMouseOver={handlePressing}
           onFocus={() => {}}
-          onMouseLeave={screenWidth >= 768 ? handleLeaving : () => {}}
-          onPointerDown={screenWidth < 768 ? handlePressing : () => {}}
-          onPointerUp={screenWidth < 768 ? handleLeaving : () => {}}
+          onMouseLeave={handleLeaving}
+          onMouseDown={screenWidth < 768 ? handlePressing : () => {}}
+          onMouseUp={screenWidth < 768 ? handleLeaving : () => {}}
           onClick={handleClick}
         >
           <AccountCircle
@@ -124,16 +160,10 @@ export default function SideMenu({ toggle, page }) {
         <div
           aria-hidden="true"
           id="my-url"
-          className="flex min-w-full md:w-[240px] items-center
-                    md:h-[52px] h-[58px] px-5 rounded bg-white
-                    md:hover:bg-gdscBlue-300/10 active:bg-gdscBlue-300/10 cursor-pointer
-                    md:hover:text-gdscBlue-300 active:text-gdscBlue-300 transition-all
-                    ease-out duration-300"
-          onMouseOver={screenWidth >= 768 ? handlePressing : () => {}}
+          className={myUrlBtnClass}
+          onMouseOver={handlePressing}
           onFocus={() => {}}
-          onMouseLeave={screenWidth >= 768 ? handleLeaving : () => {}}
-          onPointerDown={screenWidth < 768 ? handlePressing : () => {}}
-          onPointerUp={screenWidth < 768 ? handleLeaving : () => {}}
+          onMouseLeave={handleLeaving}
           onClick={handleClick}
         >
           <LinkIcon
@@ -146,16 +176,10 @@ export default function SideMenu({ toggle, page }) {
         <div
           aria-hidden="true"
           id="stat"
-          className="flex min-w-full md:w-[240px] items-center
-                    md:h-[52px] h-[58px] px-5 rounded bg-white
-                    md:hover:bg-gdscBlue-300/10 active:bg-gdscBlue-300/10 cursor-pointer
-                    md:hover:text-gdscBlue-300 active:text-gdscBlue-300 transition-all
-                    ease-out duration-300"
-          onMouseOver={screenWidth >= 768 ? handlePressing : () => {}}
+          className={statBtnClass}
+          onMouseOver={handlePressing}
           onFocus={() => {}}
-          onMouseLeave={screenWidth >= 768 ? handleLeaving : () => {}}
-          onPointerDown={screenWidth < 768 ? handlePressing : () => {}}
-          onPointerUp={screenWidth < 768 ? handleLeaving : () => {}}
+          onMouseLeave={handleLeaving}
           onClick={handleClick}
         >
           <StatIcon color={page === 'stat' ? '#4285F4' : statIconColors} />
@@ -164,16 +188,10 @@ export default function SideMenu({ toggle, page }) {
         <div
           aria-hidden="true"
           id="change-pass"
-          className="flex min-w-full md:w-[240px] items-center
-                    md:h-[52px] h-[58px] px-5 rounded bg-white
-                    md:hover:bg-gdscBlue-300/10 active:bg-gdscBlue-300/10 cursor-pointer
-                    md:hover:text-gdscBlue-300 active:text-gdscBlue-300 transition-all
-                    ease-out duration-300"
-          onMouseOver={screenWidth >= 768 ? handlePressing : () => {}}
+          className={changePassBtnClass}
+          onMouseOver={handlePressing}
           onFocus={() => {}}
-          onMouseLeave={screenWidth >= 768 ? handleLeaving : () => {}}
-          onPointerDown={screenWidth < 768 ? handlePressing : () => {}}
-          onPointerUp={screenWidth < 768 ? handleLeaving : () => {}}
+          onMouseLeave={handleLeaving}
           onClick={handleClick}
         >
           <LockIcon
@@ -186,8 +204,8 @@ export default function SideMenu({ toggle, page }) {
           id="logout"
           className="flex min-w-full md:w-[240px] items-center
                     md:h-[52px] h-[58px] px-5 rounded bg-white
-                    md:hover:bg-gdscRed-300/10 active:bg-gdscRed-300/10 cursor-pointer
-                  text-gdscRed-300 transition-all
+                    hover:bg-gdscRed-300/10 cursor-pointer
+                    text-gdscRed-300 transition-all
                     ease-out duration-300"
           onClick={handleClick}
         >
