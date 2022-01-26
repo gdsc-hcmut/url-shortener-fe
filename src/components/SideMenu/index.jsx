@@ -8,7 +8,7 @@ import LogoutIcon from 'assets/icons/logout_icon';
 import StatIcon from 'assets/icons/stat_icon';
 import useWindowSize from 'components/SideMenu/ScreenSizeHook';
 
-export default function SideMenu({ toggle }) {
+export default function SideMenu({ toggle, page }) {
   const [myProfileColors, setMyProfileColors] = useState('#696969');
   const [myUrlColors, setMyUrlColors] = useState('#696969');
   const [statIconColors, setStatIconColors] = useState('#696969');
@@ -88,7 +88,9 @@ export default function SideMenu({ toggle }) {
           onPointerDown={screenWidth < 768 ? handlePressing : () => {}}
           onPointerUp={screenWidth < 768 ? handleLeaving : () => {}}
         >
-          <AccountCircle color={myProfileColors} />
+          <AccountCircle
+            color={page === 'my-profile' ? '#4285F4' : myProfileColors}
+          />
           <p className="ml-4">My Profile</p>
         </div>
         <div
@@ -104,7 +106,11 @@ export default function SideMenu({ toggle }) {
           onPointerDown={screenWidth < 768 ? handlePressing : () => {}}
           onPointerUp={screenWidth < 768 ? handleLeaving : () => {}}
         >
-          <LinkIcon color={myUrlColors} />
+          <LinkIcon
+            color={
+              page === 'my-url' || page === 'detail' ? '#4285F4' : myUrlColors
+            }
+          />
           <p className="ml-4">My URLs</p>
         </div>
         <div
@@ -120,7 +126,7 @@ export default function SideMenu({ toggle }) {
           onPointerDown={screenWidth < 768 ? handlePressing : () => {}}
           onPointerUp={screenWidth < 768 ? handleLeaving : () => {}}
         >
-          <StatIcon color={statIconColors} />
+          <StatIcon color={page === 'stat' ? '#4285F4' : statIconColors} />
           <p className="ml-4">Statistics</p>
         </div>
         <div
@@ -136,7 +142,9 @@ export default function SideMenu({ toggle }) {
           onPointerDown={screenWidth < 768 ? handlePressing : () => {}}
           onPointerUp={screenWidth < 768 ? handleLeaving : () => {}}
         >
-          <LockIcon color={changePassIconColors} />
+          <LockIcon
+            color={page === 'change-pass' ? '#4285F4' : changePassIconColors}
+          />
           <p className="ml-4">Change Password</p>
         </div>
         <div
@@ -157,4 +165,5 @@ export default function SideMenu({ toggle }) {
 
 SideMenu.propTypes = {
   toggle: PropTypes.bool.isRequired,
+  page: PropTypes.string.isRequired,
 };
