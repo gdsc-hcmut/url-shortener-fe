@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { SHOW_URL_MODAL, SHOW_LOG_IN_MODAL } from 'action-types';
 import Footer from 'components/Footer';
