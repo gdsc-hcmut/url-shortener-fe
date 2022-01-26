@@ -1,5 +1,7 @@
 import React from 'react';
 
+import MenuIcon from 'assets/icons/menu.svg';
+
 import NavbarHome from './NavbarHome';
 
 export default function NavbarLogin() {
@@ -7,7 +9,7 @@ export default function NavbarLogin() {
     <nav className="shadow-lg max-w-full h-fit w-full flex px-[20px] py-[20px] md:px-[60px] md:py-[30px] bg-white">
       <div className="flex h-full w-full align-center justify-between">
         <NavbarHome />
-        <div className="flex space-x-8">
+        <div className="hidden md:flex space-x-8">
           <button
             type="button"
             className="bg-gdscBlue-300 ease-out duration-300 hover:bg-my-url-button-hover
@@ -28,6 +30,7 @@ export default function NavbarLogin() {
             </div>
           </button>
         </div>
+        <img className="w-10 h-10 md:hidden" src={MenuIcon} alt="Menu icon" />
       </div>
     </nav>
   );

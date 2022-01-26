@@ -33,10 +33,8 @@ export default function InputUrlLogIn() {
             <strong>Slug</strong>
           </p>
           <input
-            value={longUrl}
-            onChange={handleLongUrl}
             className="text-base font-normal text-gdscGrey-700 h-5 w-[16.25rem] border-b-1 outline-none "
-            placeholder="gdschcmut.url/ai-series "
+            placeholder="gdschcmut.url/ai-series"
           />
         </div>
         <img
@@ -61,6 +59,13 @@ export default function InputUrlLogIn() {
           onChange={handleLongUrl}
           className="text-base font-normal text-gdscGrey-700 h-5 w-full bg-white outline-none pr-[30px]"
           placeholder="Input the URL you want to shorten"
+        />
+      </div>
+      <div className="relative md:hidden bg-white rounded-[8px] mr-5 h-[70px] flex items-center pl-5 space-x-5 rounded-md border shadow-lg border-gdscGrey-200">
+        <img className="w-6 h-6" src={EditIcon} alt="Edit icon" />
+        <input
+          className="text-base font-normal text-gdscGrey-700 h-5 w-full bg-white outline-none pr-[30px]"
+          placeholder="gdschcmut.url/ai-series"
         />
       </div>
       <button
