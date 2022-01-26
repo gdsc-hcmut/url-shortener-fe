@@ -13,9 +13,9 @@ export default function InputUrlLogIn() {
   const handleClick = () => dispatch(shortenUrl(longUrl));
 
   return (
-    <div className="flex flex-col md:flex-row space-y-3 md:space-y-0 rounded-[8px]">
+    <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 rounded-[8px]">
       <div className="relative hidden md:block bg-white md:w-[796px] md:h-[104px] rounded-[8px] border shadow-lg border-gdscGrey-200">
-        <div className="w-[260px] h-12 absolute left-8 top-6 flex-col space-y-2">
+        <div className="w-[260px] h-12 absolute left-8 top-7 flex-col space-y-2">
           <p className="text-base font-medium h-5">
             <strong>Your URL</strong>
           </p>
@@ -26,9 +26,9 @@ export default function InputUrlLogIn() {
             placeholder="Input the URL you want to shorten"
           />
         </div>
-        <ReactLogo className="absolute top-12 left-[292px]" />
+        <ReactLogo className="absolute top-[52px] left-[292px]" />
         <div className="w-px h-16 bg-gdscGrey-200 absolute left-[344px] top-5" />
-        <div className="w-[260px] h-12 absolute left-[372px] top-6 flex-col space-y-2">
+        <div className="w-[172px] h-12 absolute left-[372px] top-7 flex-col space-y-2">
           <p className="text-base font-medium h-5">
             <strong>Slug</strong>
           </p>
@@ -45,7 +45,7 @@ export default function InputUrlLogIn() {
         <div>
           <button
             type="button"
-            className="absolute inset-y-5 right-5 hidden text-base text-white md:block w-[152px] h-[60px] bg-gdscBlue-300 rounded-[8px] hover:bg-shorten-btn-hover ease-out duration-300 "
+            className="absolute inset-y-5 right-5 hidden text-base text-white md:block w-[152px] h-[64px] bg-gdscBlue-300 rounded-[8px] hover:bg-shorten-btn-hover ease-out duration-300 "
             onClick={handleClick}
           >
             Shorten

@@ -8,7 +8,7 @@ import InputUrlLogIn from './InputUrlField/inputUrlLogIn';
 export default function UrlInputBoxAndTitle({ loggedIn }) {
   if (loggedIn) {
     return (
-      <div className="flex flex-col space-y-[12px] md:space-y-[39px]">
+      <div className="flex flex-col space-y-[44px] md:space-y-[39px]">
         <HomepageText loggedIn />
         <InputUrlLogIn />
       </div>

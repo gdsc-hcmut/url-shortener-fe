@@ -6,14 +6,14 @@ import NavbarHome from './NavbarHome';
 
 export default function NavbarLogin() {
   return (
-    <nav className="shadow-lg max-w-full h-fit w-full flex px-[20px] py-[20px] md:px-[60px] md:py-[30px] bg-white">
+    <nav className="shadow-lg max-w-full h-fit w-full flex px-[20px] py-[20px] md:px-[60px] md:py-[28px] bg-white">
       <div className="flex h-full w-full align-center justify-between">
         <NavbarHome />
         <div className="hidden md:flex space-x-8">
           <button
             type="button"
             className="bg-gdscBlue-300 ease-out duration-300 hover:bg-my-url-button-hover
-          text-white font-normal rounded w-[100px] h-[36px] md:w-[180px] md:h-[52px]
+          text-white font-normal rounded w-[100px] h-[36px] md:w-[144px] md:h-[52px]
             content-center text-base md:my-0"
           >
             <p>My URL</p>
