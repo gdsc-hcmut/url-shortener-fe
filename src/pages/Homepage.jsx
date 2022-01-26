@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { SHOW_MODAL } from 'action-types';
 import Footer from 'components/Footer';
@@ -8,8 +8,8 @@ import NavBar from 'components/Navbar';
 import UrlInputBoxAndTitle from 'components/UrlInputBoxAndTitle';
 
 export default function Homepage() {
-  const { visibility } = useSelector((state) => state.showModal);
   const dispatch = useDispatch();
+  const { visibility } = useSelector((state) => state.showModal);
   return (
     <div className="flex flex-col justify-center md:items-center bg-mobile-background md:bg-blue md:bg-contain">
       <NavBar />
