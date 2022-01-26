@@ -1,14 +1,13 @@
-/* eslint-disable */
+import _ from 'lodash';
+
 const getLocalRefreshToken = () => {
   const user = JSON.parse(localStorage.getItem('user'));
-  return user.refreshToken;
-  // return user?.refreshToken;
+  return _.get(user, 'refreshToken', 'jwt');
 };
 
 const getLocalAccessToken = () => {
   const user = JSON.parse(localStorage.getItem('user'));
-  return user.accessToken;
-  // return user?.accessToken;
+  return _.get(user, 'accessToken', 'jwt');
 };
 
 const updateLocalRefreshToken = (token) => {

@@ -27,7 +27,8 @@ instance.interceptors.response.use(
   async (err) => {
     const originalConfig = err.config;
 
-    if (originalConfig.url !== '/auth' && err.response) {
+    // if (originalConfig.url !== '/auth' && err.response) {
+    if (originalConfig.url !== '/auth/signin' && err.response) {
       // Access Token was expired
       // status 401
       // eslint-disable-next-line
@@ -36,9 +37,12 @@ instance.interceptors.response.use(
         originalConfig._retry = true;
 
         try {
+          console.log('before sending req');
           const rs = await instance.post('/token/refresh', {
             refreshToken: TokenService.getLocalRefreshToken(),
           });
+
+          console.log(rs);
 
           const { accessToken, refreshToken } = rs.data;
           TokenService.updateLocalAccessToken(accessToken);
