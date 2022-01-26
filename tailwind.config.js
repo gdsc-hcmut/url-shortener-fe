@@ -21,6 +21,7 @@ module.exports = {
         'get-started-btn': '#E3EDFE',
         'get-started-btn-hover': '#D9E8FF',
         'mobile-background': '#ECF2FB',
+        'my-url-button-hover': '#2374FA',
         'sign-in-with-google': '#FCEAE9',
         gdscBlue: {
           100: '#A0C3FF',

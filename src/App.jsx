@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { loadUser } from 'actions/auth';
+import HomepageLogin from 'pages/HomepageLogin';
 
 import Homepage from './pages/Homepage';
 import LoginPage from './pages/LoginPage';
@@ -11,6 +12,7 @@ import SignInPage from './pages/SignInPage';
 import SignUpDesktop from './pages/SignUpDesktop';
 import SignUpPage from './pages/SignUpPage';
 import store from './store';
+
 import './index.css';
 import setAuthToken from './utils/setAuthToken';
 
@@ -31,6 +33,7 @@ export default function App() {
           <Route path="/sign-in-firebase" element={<SignInPage />} />
           <Route path="/log-in" element={<LoginPage />} />
           <Route path="/sign-up-page" element={<SignUpDesktop />} />
+          <Route path="/user-home" element={<HomepageLogin />} />
         </Routes>
       </BrowserRouter>
     </Provider>
