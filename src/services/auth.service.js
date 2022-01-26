@@ -17,7 +17,7 @@ const register = async (email, password) => {
     .then((userCredential) => {
       const firebaseToken = userCredential.user.accessToken;
       localStorage.setItem('firebaseToken', firebaseToken);
-      console.log(firebaseToken);
+      console.log('firebaseToken', firebaseToken);
       return firebaseToken;
     })
     .then((firebaseToken) => {
@@ -44,13 +44,13 @@ const register = async (email, password) => {
 const login = async (email, password) => {
   const auth = getAuth();
 
-  signInWithEmailAndPassword(auth, email, password)
+  return signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const firebaseToken = userCredential.user.accessToken;
       localStorage.setItem('firebaseToken', firebaseToken);
       return firebaseToken;
     })
-    .then((firebaseToken) => api.post('/auth', { firebaseToken }))
+    .then((firebaseToken) => api.post('/auth/signin', { firebaseToken }))
     .then((res) => {
       if (res.data.token) {
         TokenService.setUser(res.data.token);
