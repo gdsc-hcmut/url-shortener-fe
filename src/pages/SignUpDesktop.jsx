@@ -1,28 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-import SignUpDesktopn from 'components/SignUpModal';
 import SignUpModalMobile from 'components/SignUpModal/SignUpModalMobile';
 
-export default function App() {
-  const [show, setShow] = useState(false);
+export default function SignUp() {
+  const [width, setWidth] = useState(window.innerWidth);
+  function handleWindowSizeChange() {
+    setWidth(window.innerWidth);
+  }
+  useEffect(() => {
+    window.addEventListener('resize', handleWindowSizeChange);
+    return () => {
+      window.removeEventListener('resize', handleWindowSizeChange);
+    };
+  }, []);
 
-  return (
-    <div>
-      <button
-        type="button"
-        onClick={() => setShow(true)}
-        className="hidden md:block"
-      >
-        Get started
-      </button>
-      <SignUpDesktopn
-        title="My Modal"
-        onClose={() => setShow(false)}
-        show={show}
-      />
-      <div className="md:hidden">
+  const isMobile = width <= 768;
+  if (isMobile) {
+    return (
+      <div>
         <SignUpModalMobile />
       </div>
-    </div>
-  );
+    );
+  }
+  return <div> </div>;
 }

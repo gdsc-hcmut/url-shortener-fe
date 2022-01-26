@@ -1,4 +1,4 @@
-const SHOW_MODAL = 'SHOW_MODAL';
+import { SHOW_MODAL } from 'action-types';
 
 const defaultSetUp = {
   visibility: false,
