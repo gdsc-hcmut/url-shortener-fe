@@ -7,7 +7,7 @@ export default function LoginWithGoogle() {
     <button
       type="button"
       className="w-[260px] h-[44px] self-center
-      border rounded-[8px] border-gdscGrey-200 text-gdscGrey-700 font-bold
+      border rounded-[8px] border-gdscGrey-200 text-gdscGrey-700 font-bold mb-[120px] md:mb-7
       flex justify-center items-center hover:bg-sign-in-with-google hover:border-[#FCEAE9] transition-all ease-out duration-300"
     >
       <img className="w-4 h-4 mr-2" src={GoogleLogo} alt="Google Icon" />
