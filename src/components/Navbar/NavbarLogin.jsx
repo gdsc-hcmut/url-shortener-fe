@@ -31,7 +31,6 @@ export default function NavbarLogin({ showModal }) {
               {' '}
             </div>
           </button>
-          <img src={MenuIcon} alt="Menu Icon" className="md:hidden" />
         </div>
       </div>
     </nav>
