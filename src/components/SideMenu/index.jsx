@@ -65,20 +65,21 @@ export default function SideMenu({ toggle, screenWidth }) {
     const sideMenu = document.querySelector('.side-menu');
     sideMenu.classList.toggle('-translate-x-full');
   }, [toggle]);
+
   return (
     <div
-      className="side-menu h-[100vh] bg-white text-gdscGrey-700 md:w-[360px] fixed md:relative w-full
-                border-r border-gdscGrey-100 md:py-16 md:px-[60px] py-7 px-5
+      className="side-menu h-full w-full bg-white text-gdscGrey-700 fixed md:relative 2xl:w-[360px] md:w-fit
+                border-r border-gdscGrey-100 md:py-16 2xl:px-[60px] xl:px-[36px] lg:px-[28px] py-7 px-5
                 transform  md:translate-x-0 transition duration-300 ease-out z-30"
     >
       <div>
         <div
           id="my-profile"
-          className="flex min-w-full items-center
+          className="flex min-w-full md:w-[240px] items-center
                     md:h-[52px] h-[58px] px-5 rounded bg-white
                     md:hover:bg-gdscBlue-300/10 active:bg-gdscBlue-300/10 cursor-pointer
                     md:hover:text-gdscBlue-300 active:text-gdscBlue-300 transition-all
-                    ease-out duration-300"
+                    ease-out duration-300 "
           onMouseOver={screenWidth >= 768 ? handlePressing : () => {}}
           onFocus={() => {}}
           onMouseLeave={screenWidth >= 768 ? handleLeaving : () => {}}
@@ -90,7 +91,7 @@ export default function SideMenu({ toggle, screenWidth }) {
         </div>
         <div
           id="my-url"
-          className="flex min-w-full items-center
+          className="flex min-w-full md:w-[240px] items-center
                     md:h-[52px] h-[58px] px-5 rounded bg-white
                     md:hover:bg-gdscBlue-300/10 active:bg-gdscBlue-300/10 cursor-pointer
                     md:hover:text-gdscBlue-300 active:text-gdscBlue-300 transition-all
@@ -106,7 +107,7 @@ export default function SideMenu({ toggle, screenWidth }) {
         </div>
         <div
           id="stat"
-          className="flex min-w-full items-center
+          className="flex min-w-full md:w-[240px] items-center
                     md:h-[52px] h-[58px] px-5 rounded bg-white
                     md:hover:bg-gdscBlue-300/10 active:bg-gdscBlue-300/10 cursor-pointer
                     md:hover:text-gdscBlue-300 active:text-gdscBlue-300 transition-all
@@ -122,7 +123,7 @@ export default function SideMenu({ toggle, screenWidth }) {
         </div>
         <div
           id="change-pass"
-          className="flex min-w-full items-center
+          className="flex min-w-full md:w-[240px] items-center
                     md:h-[52px] h-[58px] px-5 rounded bg-white
                     md:hover:bg-gdscBlue-300/10 active:bg-gdscBlue-300/10 cursor-pointer
                     md:hover:text-gdscBlue-300 active:text-gdscBlue-300 transition-all
@@ -138,10 +139,10 @@ export default function SideMenu({ toggle, screenWidth }) {
         </div>
         <div
           id="logout"
-          className="flex min-w-full items-center
+          className="flex min-w-full md:w-[240px] items-center
                     md:h-[52px] h-[58px] px-5 rounded bg-white
                     md:hover:bg-gdscRed-300/10 active:bg-gdscRed-300/10 cursor-pointer
-                    md:text-gdscRed-300 active:text-gdscRed-300 transition-all
+                  text-gdscRed-300 transition-all
                     ease-out duration-300"
         >
           <LogoutIcon color="#DB4437" />

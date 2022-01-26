@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 import MenuIcon from 'assets/icons/menu_icon.svg';
-import NavBar from 'components/Navbar';
 import SideMenu from 'components/SideMenu';
 import useWindowSize from 'components/SideMenu/ScreenSizeHook';
 
@@ -22,7 +21,6 @@ export default function Homepage() {
       >
         <img src={MenuIcon} alt="menu_icon" />
       </button>
-      <NavBar />
       <div>
         <div className="relative min-h-screen flex">
           <SideMenu
@@ -30,6 +28,7 @@ export default function Homepage() {
             screen={screen}
             screenWidth={width}
             screenHeight={height}
+            page="detail"
           />
           <div className="bg-gdscGrey-100 flex-1 p-10 text-2xl font-bold ">
             Use Shift + Enter to test the sidemenu on Mobile
