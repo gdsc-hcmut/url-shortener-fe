@@ -3,9 +3,11 @@ import React, { useState } from 'react';
 import MenuIcon from 'assets/icons/menu_icon.svg';
 import NavBar from 'components/Navbar';
 import SideMenu from 'components/SideMenu';
+import useWindowSize from 'components/SideMenu/ScreenSizeHook';
 
 export default function Homepage() {
   const [toggleMenu, setToggleMenu] = useState(false);
+  const [width, height, screen] = useWindowSize();
 
   const handleToggleMenu = () => {
     setToggleMenu(!toggleMenu);
@@ -23,8 +25,13 @@ export default function Homepage() {
       <NavBar />
       <div>
         <div className="relative min-h-screen flex">
-          <SideMenu toggle={toggleMenu} />
-          <div className="p-10 text-2xl font-bold ">
+          <SideMenu
+            toggle={toggleMenu}
+            screen={screen}
+            screenWidth={width}
+            screenHeight={height}
+          />
+          <div className="bg-gdscGrey-100 flex-1 p-10 text-2xl font-bold ">
             Use Shift + Enter to test the sidemenu on Mobile
           </div>
         </div>

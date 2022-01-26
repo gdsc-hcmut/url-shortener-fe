@@ -7,13 +7,14 @@ import LockIcon from 'assets/icons/lock_icon';
 import LogoutIcon from 'assets/icons/logout_icon';
 import StatIcon from 'assets/icons/stat_icon';
 
-export default function SideMenu({ toggle }) {
+export default function SideMenu({ toggle, screenWidth }) {
   const [myProfileColors, setMyProfileColors] = useState('#696969');
   const [myUrlColors, setMyUrlColors] = useState('#696969');
   const [statIconColors, setStatIconColors] = useState('#696969');
   const [changePassIconColors, setChangePassIconColors] = useState('#696969');
 
-  const handleMouseOver = (e) => {
+  const handlePressing = (e) => {
+    e.stopPropagation();
     switch (e.target.id) {
       case 'my-profile':
         setMyProfileColors('#4285F4');
@@ -36,7 +37,8 @@ export default function SideMenu({ toggle }) {
     }
   };
 
-  const handleMouseOut = (e) => {
+  const handleLeaving = (e) => {
+    e.stopPropagation();
     switch (e.target.id) {
       case 'my-profile':
         setMyProfileColors('#696969');
@@ -77,10 +79,11 @@ export default function SideMenu({ toggle }) {
                     md:hover:bg-gdscBlue-300/10 active:bg-gdscBlue-300/10 cursor-pointer
                     md:hover:text-gdscBlue-300 active:text-gdscBlue-300 transition-all
                     ease-out duration-300"
-          onMouseOver={handleMouseOver}
+          onMouseOver={screenWidth >= 768 ? handlePressing : () => {}}
           onFocus={() => {}}
-          onMouseLeave={handleMouseOut}
-          onBlur={() => {}}
+          onMouseLeave={screenWidth >= 768 ? handleLeaving : () => {}}
+          onPointerDown={screenWidth < 768 ? handlePressing : () => {}}
+          onPointerUp={screenWidth < 768 ? handleLeaving : () => {}}
         >
           <AccountCircle color={myProfileColors} />
           <p className="ml-4">My Profile</p>
@@ -92,10 +95,11 @@ export default function SideMenu({ toggle }) {
                     md:hover:bg-gdscBlue-300/10 active:bg-gdscBlue-300/10 cursor-pointer
                     md:hover:text-gdscBlue-300 active:text-gdscBlue-300 transition-all
                     ease-out duration-300"
-          onMouseOver={handleMouseOver}
+          onMouseOver={screenWidth >= 768 ? handlePressing : () => {}}
           onFocus={() => {}}
-          onMouseLeave={handleMouseOut}
-          onBlur={() => {}}
+          onMouseLeave={screenWidth >= 768 ? handleLeaving : () => {}}
+          onPointerDown={screenWidth < 768 ? handlePressing : () => {}}
+          onPointerUp={screenWidth < 768 ? handleLeaving : () => {}}
         >
           <LinkIcon color={myUrlColors} />
           <p className="ml-4">My URLs</p>
@@ -107,10 +111,11 @@ export default function SideMenu({ toggle }) {
                     md:hover:bg-gdscBlue-300/10 active:bg-gdscBlue-300/10 cursor-pointer
                     md:hover:text-gdscBlue-300 active:text-gdscBlue-300 transition-all
                     ease-out duration-300"
-          onMouseOver={handleMouseOver}
+          onMouseOver={screenWidth >= 768 ? handlePressing : () => {}}
           onFocus={() => {}}
-          onMouseLeave={handleMouseOut}
-          onBlur={() => {}}
+          onMouseLeave={screenWidth >= 768 ? handleLeaving : () => {}}
+          onPointerDown={screenWidth < 768 ? handlePressing : () => {}}
+          onPointerUp={screenWidth < 768 ? handleLeaving : () => {}}
         >
           <StatIcon color={statIconColors} />
           <p className="ml-4">Statistics</p>
@@ -122,10 +127,11 @@ export default function SideMenu({ toggle }) {
                     md:hover:bg-gdscBlue-300/10 active:bg-gdscBlue-300/10 cursor-pointer
                     md:hover:text-gdscBlue-300 active:text-gdscBlue-300 transition-all
                     ease-out duration-300"
-          onMouseOver={handleMouseOver}
+          onMouseOver={screenWidth >= 768 ? handlePressing : () => {}}
           onFocus={() => {}}
-          onMouseLeave={handleMouseOut}
-          onBlur={() => {}}
+          onMouseLeave={screenWidth >= 768 ? handleLeaving : () => {}}
+          onPointerDown={screenWidth < 768 ? handlePressing : () => {}}
+          onPointerUp={screenWidth < 768 ? handleLeaving : () => {}}
         >
           <LockIcon color={changePassIconColors} />
           <p className="ml-4">Change Password</p>
@@ -148,4 +154,5 @@ export default function SideMenu({ toggle }) {
 
 SideMenu.propTypes = {
   toggle: PropTypes.bool.isRequired,
+  screenWidth: PropTypes.number.isRequired,
 };
