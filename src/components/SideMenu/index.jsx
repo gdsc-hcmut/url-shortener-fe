@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import AccountCircle from 'assets/icons/account_circle';
 import LinkIcon from 'assets/icons/link_icon';
@@ -14,9 +15,35 @@ export default function SideMenu({ toggle, page }) {
   const [statIconColors, setStatIconColors] = useState('#696969');
   const [changePassIconColors, setChangePassIconColors] = useState('#696969');
   const [screenWidth] = useWindowSize();
+  const navigate = useNavigate();
+
+  const handleClick = (e) => {
+    switch (e.target.id) {
+      case 'my-profile':
+        navigate('/my-profile');
+        break;
+
+      case 'my-url':
+        navigate('/my-url');
+        break;
+
+      case 'stat':
+        navigate('/stat');
+        break;
+
+      case 'change-pass':
+        navigate('/change-pass');
+        break;
+      case 'logout':
+        navigate('/log-out');
+        break;
+
+      default:
+        break;
+    }
+  };
 
   const handlePressing = (e) => {
-    e.stopPropagation();
     switch (e.target.id) {
       case 'my-profile':
         setMyProfileColors('#4285F4');
@@ -40,7 +67,6 @@ export default function SideMenu({ toggle, page }) {
   };
 
   const handleLeaving = (e) => {
-    e.stopPropagation();
     switch (e.target.id) {
       case 'my-profile':
         setMyProfileColors('#696969');
@@ -76,6 +102,7 @@ export default function SideMenu({ toggle, page }) {
     >
       <div>
         <div
+          aria-hidden="true"
           id="my-profile"
           className="flex min-w-full md:w-[240px] items-center
                     md:h-[52px] h-[58px] px-5 rounded bg-white
@@ -87,6 +114,7 @@ export default function SideMenu({ toggle, page }) {
           onMouseLeave={screenWidth >= 768 ? handleLeaving : () => {}}
           onPointerDown={screenWidth < 768 ? handlePressing : () => {}}
           onPointerUp={screenWidth < 768 ? handleLeaving : () => {}}
+          onClick={handleClick}
         >
           <AccountCircle
             color={page === 'my-profile' ? '#4285F4' : myProfileColors}
@@ -94,6 +122,7 @@ export default function SideMenu({ toggle, page }) {
           <p className="ml-4">My Profile</p>
         </div>
         <div
+          aria-hidden="true"
           id="my-url"
           className="flex min-w-full md:w-[240px] items-center
                     md:h-[52px] h-[58px] px-5 rounded bg-white
@@ -105,6 +134,7 @@ export default function SideMenu({ toggle, page }) {
           onMouseLeave={screenWidth >= 768 ? handleLeaving : () => {}}
           onPointerDown={screenWidth < 768 ? handlePressing : () => {}}
           onPointerUp={screenWidth < 768 ? handleLeaving : () => {}}
+          onClick={handleClick}
         >
           <LinkIcon
             color={
@@ -114,6 +144,7 @@ export default function SideMenu({ toggle, page }) {
           <p className="ml-4">My URLs</p>
         </div>
         <div
+          aria-hidden="true"
           id="stat"
           className="flex min-w-full md:w-[240px] items-center
                     md:h-[52px] h-[58px] px-5 rounded bg-white
@@ -125,11 +156,13 @@ export default function SideMenu({ toggle, page }) {
           onMouseLeave={screenWidth >= 768 ? handleLeaving : () => {}}
           onPointerDown={screenWidth < 768 ? handlePressing : () => {}}
           onPointerUp={screenWidth < 768 ? handleLeaving : () => {}}
+          onClick={handleClick}
         >
           <StatIcon color={page === 'stat' ? '#4285F4' : statIconColors} />
           <p className="ml-4">Statistics</p>
         </div>
         <div
+          aria-hidden="true"
           id="change-pass"
           className="flex min-w-full md:w-[240px] items-center
                     md:h-[52px] h-[58px] px-5 rounded bg-white
@@ -141,6 +174,7 @@ export default function SideMenu({ toggle, page }) {
           onMouseLeave={screenWidth >= 768 ? handleLeaving : () => {}}
           onPointerDown={screenWidth < 768 ? handlePressing : () => {}}
           onPointerUp={screenWidth < 768 ? handleLeaving : () => {}}
+          onClick={handleClick}
         >
           <LockIcon
             color={page === 'change-pass' ? '#4285F4' : changePassIconColors}
@@ -148,12 +182,14 @@ export default function SideMenu({ toggle, page }) {
           <p className="ml-4">Change Password</p>
         </div>
         <div
+          aria-hidden="true"
           id="logout"
           className="flex min-w-full md:w-[240px] items-center
                     md:h-[52px] h-[58px] px-5 rounded bg-white
                     md:hover:bg-gdscRed-300/10 active:bg-gdscRed-300/10 cursor-pointer
                   text-gdscRed-300 transition-all
                     ease-out duration-300"
+          onClick={handleClick}
         >
           <LogoutIcon color="#DB4437" />
           <p className="ml-4">Logout</p>
