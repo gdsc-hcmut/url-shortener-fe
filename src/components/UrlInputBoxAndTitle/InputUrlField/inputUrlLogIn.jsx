@@ -33,8 +33,10 @@ export default function InputUrlLogIn() {
             <strong>Slug</strong>
           </p>
           <input
+            value={longUrl}
+            onChange={handleLongUrl}
             className="text-base font-normal text-gdscGrey-700 h-5 w-[16.25rem] border-b-1 outline-none "
-            placeholder="gdschcmut.url/ai-series"
+            placeholder="gdschcmut.url/ai-series "
           />
         </div>
         <img
