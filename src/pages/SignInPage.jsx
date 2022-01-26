@@ -1,61 +1,24 @@
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut,
-} from 'firebase/auth';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-const auth = getAuth();
+import { login, logout } from 'actions/auth';
 
 function SignInPage() {
+  const { isAuthenticated } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isAuthenticated, setIsAuthenticated] = useState(
-    false || localStorage.getItem('firebaseToken'),
-  );
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setIsAuthenticated(true);
-      } else {
-        setIsAuthenticated(false);
-        localStorage.clear();
-      }
-    });
-  }, []);
 
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
 
   const handleSignIn = (e) => {
     e.preventDefault();
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        setIsAuthenticated(true);
-        const firebaseToken = userCredential.user.accessToken;
-        localStorage.setItem('firebaseToken', firebaseToken);
-        return firebaseToken;
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode);
-        console.log(errorMessage);
-      });
+    dispatch(login(email, password));
   };
 
-  const handleSignOut = () => {
-    signOut(auth)
-      .then(() => {
-        localStorage.clear();
-        setIsAuthenticated(false);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  const handleSignOut = () => dispatch(logout());
 
   return (
     <div>
