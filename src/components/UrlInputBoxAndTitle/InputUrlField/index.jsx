@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
+import showHideModal from 'actions/modal';
 import shortenUrl from 'actions/url';
 import { ReactComponent as ReactLogo } from 'assets/image/web.svg';
 
@@ -11,10 +12,7 @@ export default function InputUrlField() {
   const handleLongUrl = (e) => setLongUrl(e.target.value);
   const handleClick = () => {
     dispatch(shortenUrl(longUrl));
-    dispatch({
-      type: 'SHOW_MODAL',
-      payload: true,
-    });
+    showHideModal(true);
   };
   return (
     <div className="flex flex-col md:flex-row space-y-5 md:space-y-0 rounded-[8px]">
