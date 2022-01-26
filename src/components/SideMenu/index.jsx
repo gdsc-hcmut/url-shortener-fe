@@ -6,12 +6,14 @@ import LinkIcon from 'assets/icons/link_icon';
 import LockIcon from 'assets/icons/lock_icon';
 import LogoutIcon from 'assets/icons/logout_icon';
 import StatIcon from 'assets/icons/stat_icon';
+import useWindowSize from 'components/SideMenu/ScreenSizeHook';
 
-export default function SideMenu({ toggle, screenWidth }) {
+export default function SideMenu({ toggle }) {
   const [myProfileColors, setMyProfileColors] = useState('#696969');
   const [myUrlColors, setMyUrlColors] = useState('#696969');
   const [statIconColors, setStatIconColors] = useState('#696969');
   const [changePassIconColors, setChangePassIconColors] = useState('#696969');
+  const [screenWidth] = useWindowSize();
 
   const handlePressing = (e) => {
     e.stopPropagation();
@@ -155,5 +157,4 @@ export default function SideMenu({ toggle, screenWidth }) {
 
 SideMenu.propTypes = {
   toggle: PropTypes.bool.isRequired,
-  screenWidth: PropTypes.number.isRequired,
 };
