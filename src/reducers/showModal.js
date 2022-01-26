@@ -3,7 +3,8 @@ const SHOW_MODAL = 'SHOW_MODAL';
 const defaultSetUp = {
   visibility: false,
 };
-export default ({ type, payload } = {}, state = defaultSetUp) => {
+// eslint-disable-next-line default-param-last
+export default (state = defaultSetUp, { type, payload }) => {
   switch (type) {
     case SHOW_MODAL:
       return {
