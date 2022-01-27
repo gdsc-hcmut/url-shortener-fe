@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { ReactComponent as MenuIcon } from 'assets/icons/menu_icon.svg';
+import Navbar from 'components/Navbar';
 import SideMenu from 'components/SideMenu';
 
 export default function Homepage() {
@@ -11,7 +12,7 @@ export default function Homepage() {
   };
 
   return (
-    <div className="relative detail-page flex flex-col justify-center">
+    <div className="max-h-[100vh] detail-page flex flex-col">
       <button
         type="button"
         className="absolute md:hidden right-5 top-5 z-50"
@@ -19,12 +20,50 @@ export default function Homepage() {
       >
         <MenuIcon className="w-10 h-10" />
       </button>
-      <div>
-        <div className="relative min-h-screen flex">
-          <SideMenu toggle={toggleMenu} page="detail" />
-          <div className="bg-gdscGrey-100 flex-1 p-10 text-2xl font-bold ">
-            Use Shift + Enter to test the sidemenu on Mobile
-          </div>
+      <Navbar />
+      <div className="flex overflow-y-hidden h-full">
+        <SideMenu toggle={toggleMenu} page="detail" />
+        <div className="bg-gdscGrey-100 overflow-y-scroll flex-1 p-10 text-2xl font-bold">
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fuga, autem
+          odio itaque neque numquam natus modi reprehenderit officiis
+          praesentium! Itaque earum architecto nulla a autem reprehenderit
+          sequi, tenetur et dolore? Lorem, ipsum dolor sit amet consectetur
+          adipisicing elit. Fuga, autem odio itaque neque numquam natus modi
+          reprehenderit officiis praesentium! Itaque earum architecto nulla a
+          autem reprehenderit sequi, tenetur et dolore? Lorem, ipsum dolor sit
+          amet consectetur adipisicing elit. Fuga, autem odio itaque neque
+          numquam natus modi reprehenderit officiis praesentium! Itaque earum
+          architecto nulla a autem reprehenderit sequi, tenetur et dolore?
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fuga, autem
+          odio itaque neque numquam natus modi reprehenderit officiis
+          praesentium! Itaque earum architecto nulla a autem reprehenderit
+          sequi, tenetur et dolore? Lorem, ipsum dolor sit amet consectetur
+          adipisicing elit. Fuga, autem odio itaque neque numquam natus modi
+          reprehenderit officiis praesentium! Itaque earum architecto nulla a
+          autem reprehenderit sequi, tenetur et dolore? Lorem, ipsum dolor sit
+          amet consectetur adipisicing elit. Fuga, autem odio itaque neque
+          numquam natus modi reprehenderit officiis praesentium! Itaque earum
+          architecto nulla a autem reprehenderit sequi, tenetur et dolore?
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fuga, autem
+          odio itaque neque numquam natus modi reprehenderit officiis
+          praesentium! Itaque earum architecto nulla a autem reprehenderit
+          sequi, tenetur et dolore? Lorem, ipsum dolor sit amet consectetur
+          adipisicing elit. Fuga, autem odio itaque neque numquam natus modi
+          reprehenderit officiis praesentium! Itaque earum architecto nulla a
+          autem reprehenderit sequi, tenetur et dolore? Lorem, ipsum dolor sit
+          amet consectetur adipisicing elit. Fuga, autem odio itaque neque
+          numquam natus modi reprehenderit officiis praesentium! Itaque earum
+          architecto nulla a autem reprehenderit sequi, tenetur et dolore?
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fuga, autem
+          odio itaque neque numquam natus modi reprehenderit officiis
+          praesentium! Itaque earum architecto nulla a autem reprehenderit
+          sequi, tenetur et dolore? Lorem, ipsum dolor sit amet consectetur
+          adipisicing elit. Fuga, autem odio itaque neque numquam natus modi
+          reprehenderit officiis praesentium! Itaque earum architecto nulla a
+          autem reprehenderit sequi, tenetur et dolore? Lorem, ipsum dolor sit
+          amet consectetur adipisicing elit. Fuga, autem odio itaque neque
+          numquam natus modi reprehenderit officiis praesentium! Itaque earum
+          architecto nulla a autem reprehenderit sequi, tenetur et dolore?
         </div>
       </div>
     </div>
