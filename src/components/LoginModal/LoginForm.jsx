@@ -13,7 +13,7 @@ export default function LoginForm() {
         />
       </div>
       <div className="flex flex-col align-end mb-7">
-        <p>Password</p>
+        <p className="pb-2">Password</p>
         <input
           className="w-[376px] md:w-[420px] h-[60px] bg-gdscGrey-100 focus:bg-white focus:border
                       focus:border-1 focus:border-gdscBlue-300  px-5 outline-none rounded"
