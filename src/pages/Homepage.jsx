@@ -27,7 +27,7 @@ export default function Homepage() {
       <MordalUrl
         title="My Modal"
         onClose={() => dispatch({
-          type: 'SHOW_MODAL',
+          type: SHOW_MODAL,
           payload: false,
         })}
         show={visibility}
