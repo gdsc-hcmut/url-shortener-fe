@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
+import ResetPasswordPage from 'pages/ResetPasswordPage';
 import { loadUser } from 'actions/auth';
 import ResetPasswordPage from 'pages/ResetPasswordPage';
 import { loadUser } from 'actions/auth';
@@ -39,6 +40,7 @@ export default function App() {
           <Route path="/reset-pass" element={<ResetPasswordPage />} />
           <Route path="/sign-up" element={<SignUpPage />} />
           <Route path="/sign-in" element={<SignInPage />} />
+          <Route path="/reset-pass" element={<ResetPasswordPage />} />
         </Routes>
       </BrowserRouter>
     </Provider>
