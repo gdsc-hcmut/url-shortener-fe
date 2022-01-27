@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
-import showHideModal from 'actions/modal';
+import { SHOW_MODAL } from 'action-types';
 
 export default function SubTitle() {
   const [width, setWidth] = useState(window.innerWidth);
@@ -13,7 +14,7 @@ export default function SubTitle() {
       window.removeEventListener('resize', handleWindowSizeChange);
     };
   }, []);
-
+  const dispatch = useDispatch();
   const isMobile = width <= 768;
   if (isMobile) {
     return (
@@ -43,7 +44,10 @@ export default function SubTitle() {
       </p>
       <button
         type="submit"
-        onClick={showHideModal(true)}
+        onClick={() => dispatch({
+          type: SHOW_MODAL,
+          payload: true,
+        })}
         className="md:m-0 w-[92px] h-6 b-[50px] bg-get-started-btn rounded-[60px] flex justify-center items-center hover:bg-get-started-btn-hover  ease-out duration-300"
       >
         <div className="opacity-100 text-xs font-normal text-gdscBlue-300 flex justify-center items-center">
