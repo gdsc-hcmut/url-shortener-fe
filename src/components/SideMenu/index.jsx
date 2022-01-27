@@ -16,7 +16,7 @@ export default function SideMenu({ toggle, page }) {
 
   return (
     <div
-      className="side-menu w-full bg-white text-gdscGrey-700 fixed md:relative 2xl:w-[360px] md:w-fit
+      className="side-menu min-h-screen w-full bg-white text-gdscGrey-700 fixed md:relative 2xl:w-[360px] md:w-fit
                 border-gdscGrey-100 md:py-16 2xl:px-[60px] xl:px-[36px] lg:px-[28px] py-7 px-5
                 transform  md:translate-x-0 transition duration-300 ease-out z-30"
     >
