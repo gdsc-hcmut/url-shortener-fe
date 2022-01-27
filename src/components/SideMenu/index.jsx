@@ -1,20 +1,14 @@
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import AccountCircle from 'assets/icons/account_circle';
-import LinkIcon from 'assets/icons/link_icon';
-import LockIcon from 'assets/icons/lock_icon';
-import LogoutIcon from 'assets/icons/logout_icon';
-import StatIcon from 'assets/icons/stat_icon';
-import useWindowSize from 'components/SideMenu/ScreenSizeHook';
+import { ReactComponent as AccountCircle } from 'assets/icons/account_circle.svg';
+import { ReactComponent as LinkIcon } from 'assets/icons/link_icon.svg';
+import { ReactComponent as LockIcon } from 'assets/icons/lock_icon.svg';
+import { ReactComponent as LogoutIcon } from 'assets/icons/logout_icon.svg';
+import { ReactComponent as StatIcon } from 'assets/icons/stat_icon.svg';
 
 export default function SideMenu({ toggle, page }) {
-  const [myProfileColors, setMyProfileColors] = useState('#696969');
-  const [myUrlColors, setMyUrlColors] = useState('#696969');
-  const [statIconColors, setStatIconColors] = useState('#696969');
-  const [changePassIconColors, setChangePassIconColors] = useState('#696969');
-  const [screenWidth] = useWindowSize();
   const navigate = useNavigate();
 
   const myProfileBtnClass = `flex min-w-full md:w-[240px] items-center
@@ -57,6 +51,12 @@ export default function SideMenu({ toggle, page }) {
 } transition-all
   ease-out duration-300`;
 
+  const logOutBtnClass = `flex min-w-full md:w-[240px] items-center
+  md:h-[52px] h-[58px] px-5 rounded bg-white
+  hover:bg-gdscRed-300/10 cursor-pointer
+  text-gdscRed-300 transition-all
+  ease-out duration-300`;
+
   const handleClick = (e) => {
     switch (e.target.id) {
       case 'my-profile':
@@ -83,52 +83,6 @@ export default function SideMenu({ toggle, page }) {
     }
   };
 
-  const handlePressing = (e) => {
-    switch (e.target.id) {
-      case 'my-profile':
-        setMyProfileColors('#4285F4');
-        break;
-
-      case 'my-url':
-        setMyUrlColors('#4285F4');
-        break;
-
-      case 'stat':
-        setStatIconColors('#4285F4');
-        break;
-
-      case 'change-pass':
-        setChangePassIconColors('#4285F4');
-        break;
-
-      default:
-        break;
-    }
-  };
-
-  const handleLeaving = (e) => {
-    switch (e.target.id) {
-      case 'my-profile':
-        setMyProfileColors('#696969');
-        break;
-
-      case 'my-url':
-        setMyUrlColors('#696969');
-        break;
-
-      case 'stat':
-        setStatIconColors('#696969');
-        break;
-
-      case 'change-pass':
-        setChangePassIconColors('#696969');
-        break;
-
-      default:
-        break;
-    }
-  };
-
   useEffect(() => {
     const sideMenu = document.querySelector('.side-menu');
     sideMenu.classList.toggle('-translate-x-full');
@@ -145,68 +99,42 @@ export default function SideMenu({ toggle, page }) {
           aria-hidden="true"
           id="my-profile"
           className={myProfileBtnClass}
-          onMouseOver={handlePressing}
-          onFocus={() => {}}
-          onMouseLeave={handleLeaving}
-          onMouseDown={screenWidth < 768 ? handlePressing : () => {}}
-          onMouseUp={screenWidth < 768 ? handleLeaving : () => {}}
           onClick={handleClick}
         >
-          <AccountCircle
-            color={page === 'my-profile' ? '#4285F4' : myProfileColors}
-          />
+          <AccountCircle />
           <p className="ml-4">My Profile</p>
         </div>
         <div
           aria-hidden="true"
           id="my-url"
           className={myUrlBtnClass}
-          onMouseOver={handlePressing}
-          onFocus={() => {}}
-          onMouseLeave={handleLeaving}
           onClick={handleClick}
         >
-          <LinkIcon
-            color={
-              page === 'my-url' || page === 'detail' ? '#4285F4' : myUrlColors
-            }
-          />
+          <LinkIcon />
           <p className="ml-4">My URLs</p>
         </div>
         <div
           aria-hidden="true"
           id="stat"
           className={statBtnClass}
-          onMouseOver={handlePressing}
-          onFocus={() => {}}
-          onMouseLeave={handleLeaving}
           onClick={handleClick}
         >
-          <StatIcon color={page === 'stat' ? '#4285F4' : statIconColors} />
+          <StatIcon />
           <p className="ml-4">Statistics</p>
         </div>
         <div
           aria-hidden="true"
           id="change-pass"
           className={changePassBtnClass}
-          onMouseOver={handlePressing}
-          onFocus={() => {}}
-          onMouseLeave={handleLeaving}
           onClick={handleClick}
         >
-          <LockIcon
-            color={page === 'change-pass' ? '#4285F4' : changePassIconColors}
-          />
+          <LockIcon />
           <p className="ml-4">Change Password</p>
         </div>
         <div
           aria-hidden="true"
           id="logout"
-          className="flex min-w-full md:w-[240px] items-center
-                    md:h-[52px] h-[58px] px-5 rounded bg-white
-                    hover:bg-gdscRed-300/10 cursor-pointer
-                    text-gdscRed-300 transition-all
-                    ease-out duration-300"
+          className={logOutBtnClass}
           onClick={handleClick}
         >
           <LogoutIcon color="#DB4437" />
