@@ -23,7 +23,7 @@ export default function Homepage() {
       <Navbar />
       <div className="flex overflow-y-hidden h-full">
         <SideMenu toggle={toggleMenu} page="detail" />
-        <div className="bg-gdscGrey-100 overflow-y-scroll flex-1 p-10 text-2xl font-bold">
+        <div className="bg-gdscGrey-100 min-h-screen overflow-y-scroll flex-1 p-10 pb-[156px] text-2xl font-bold">
           Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fuga, autem
           odio itaque neque numquam natus modi reprehenderit officiis
           praesentium! Itaque earum architecto nulla a autem reprehenderit

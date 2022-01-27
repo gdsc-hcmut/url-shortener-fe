@@ -9,52 +9,6 @@ import { ReactComponent as LogoutIcon } from 'assets/icons/logout_icon.svg';
 import { ReactComponent as StatIcon } from 'assets/icons/stat_icon.svg';
 
 export default function SideMenu({ toggle, page }) {
-  const myProfileBtnClass = `flex flex-row space-x-4 min-w-full md:w-[240px] items-center
-  md:h-[52px] h-[58px] px-5 rounded bg-white
-  ${
-  page === 'my-profile' ? 'bg-gdscBlue-300/10' : 'hover:bg-gdscBlue-300/10'
-} cursor-pointer
-  ${
-  page === 'my-profile' ? 'text-gdscBlue-300' : 'hover:text-gdscBlue-300'
-} transition-all
-  ease-out duration-300`;
-
-  const myUrlBtnClass = `flex flex-row space-x-4 min-w-full md:w-[240px] items-center
-  md:h-[52px] h-[58px] px-5 rounded bg-white
-  ${
-  page === 'detail' ? 'bg-gdscBlue-300/10' : 'hover:bg-gdscBlue-300/10'
-} cursor-pointer
-  ${
-  page === 'detail' ? 'text-gdscBlue-300' : 'hover:text-gdscBlue-300'
-} transition-all
-  ease-out duration-300`;
-
-  const statBtnClass = `flex flex-row space-x-4 min-w-full md:w-[240px] items-center
-  md:h-[52px] h-[58px] px-5 rounded bg-white
-  ${
-  page === 'stat' ? 'bg-gdscBlue-300/10' : 'hover:bg-gdscBlue-300/10'
-} cursor-pointer
-  ${
-  page === 'stat' ? 'text-gdscBlue-300' : 'hover:text-gdscBlue-300'
-} transition-all
-  ease-out duration-300`;
-
-  const changePassBtnClass = `flex flex-row space-x-4 min-w-full md:w-[240px] items-center
-  md:h-[52px] h-[58px] px-5 rounded bg-white
-  ${
-  page === 'change-pass' ? 'bg-gdscBlue-300/10' : 'hover:bg-gdscBlue-300/10'
-} cursor-pointer
-  ${
-  page === 'change-pass' ? 'text-gdscBlue-300' : 'hover:text-gdscBlue-300'
-} transition-all
-  ease-out duration-300`;
-
-  const logOutBtnClass = `flex flex-row space-x-4 min-w-full md:w-[240px] items-center
-  md:h-[52px] h-[58px] px-5 rounded bg-white
-  hover:bg-gdscRed-300/10 cursor-pointer
-  text-gdscRed-300 transition-all
-  ease-out duration-300`;
-
   useEffect(() => {
     const sideMenu = document.querySelector('.side-menu');
     sideMenu.classList.toggle('-translate-x-full');
@@ -67,23 +21,85 @@ export default function SideMenu({ toggle, page }) {
                 transform  md:translate-x-0 transition duration-300 ease-out z-30"
     >
       <div>
-        <NavLink to="/my-profile" className={myProfileBtnClass}>
+        <NavLink
+          to="/my-profile"
+          className={() => `flex flex-row space-x-4 min-w-full md:w-[240px] items-center md:h-[52px] h-[58px] px-5 rounded bg-white
+          ${
+            page === 'my-profile'
+              ? 'bg-gdscBlue-300/10'
+              : 'hover:bg-gdscBlue-300/10'
+          } cursor-pointer 
+          ${
+            page === 'my-profile'
+              ? 'text-gdscBlue-300'
+              : 'hover:text-gdscBlue-300'
+          } transition-all
+          ease-out duration-300`}
+        >
           <AccountCircle />
           <span>My Profile</span>
         </NavLink>
-        <NavLink to="/my-url" className={myUrlBtnClass}>
+        <NavLink
+          to="/my-url"
+          className={() => `flex flex-row space-x-4 min-w-full md:w-[240px] items-center md:h-[52px] h-[58px] px-5 rounded bg-white
+          ${
+            page === 'detail' || page === 'my-url'
+              ? 'bg-gdscBlue-300/10'
+              : 'hover:bg-gdscBlue-300/10'
+          } cursor-pointer 
+          ${
+            page === 'detail' || page === 'my-url'
+              ? 'text-gdscBlue-300'
+              : 'hover:text-gdscBlue-300'
+          } transition-all
+          ease-out duration-300`}
+          // isActive={() => page === 'detail' || page === 'my-url'}
+        >
           <LinkIcon />
           <span>My URLs</span>
         </NavLink>
-        <NavLink to="/stat" className={statBtnClass}>
+        <NavLink
+          to="/stat"
+          className={() => `flex flex-row space-x-4 min-w-full md:w-[240px] items-center md:h-[52px] h-[58px] px-5 rounded bg-white
+          ${
+            page === 'stat' ? 'bg-gdscBlue-300/10' : 'hover:bg-gdscBlue-300/10'
+          } cursor-pointer 
+          ${
+            page === 'stat' ? 'text-gdscBlue-300' : 'hover:text-gdscBlue-300'
+          } transition-all
+          ease-out duration-300`}
+          // isActive={() => page === 'stat'}
+        >
           <StatIcon />
           <span>Statistics</span>
         </NavLink>
-        <NavLink to="/change-pass" className={changePassBtnClass}>
+        <NavLink
+          to="/change-pass"
+          className={() => `flex flex-row space-x-4 min-w-full md:w-[240px] items-center md:h-[52px] h-[58px] px-5 rounded bg-white
+          ${
+            page === 'change-pass'
+              ? 'bg-gdscBlue-300/10'
+              : 'hover:bg-gdscBlue-300/10'
+          } cursor-pointer 
+          ${
+            page === 'change-pass'
+              ? 'text-gdscBlue-300'
+              : 'hover:text-gdscBlue-300'
+          } transition-all
+          ease-out duration-300`}
+          // isActive={() => page === 'change-pass'}
+        >
           <LockIcon />
           <span>Change Password</span>
         </NavLink>
-        <NavLink to="/logout" className={logOutBtnClass}>
+        <NavLink
+          to="/logout"
+          className="logOut flex flex-row space-x-4 min-w-full md:w-[240px] items-center
+            md:h-[52px] h-[58px] px-5 rounded bg-white
+            hover:bg-gdscRed-300/10 cursor-pointer
+            text-gdscRed-300 transition-all
+            ease-out duration-300"
+        >
           <LogoutIcon color="#DB4437" />
           <span>Logout</span>
         </NavLink>
