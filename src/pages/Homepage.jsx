@@ -1,7 +1,7 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
-import showHideModal from 'actions/modal';
+// import showHideModal from 'actions/modal';
 import Footer from 'components/Footer';
 import NavBar from 'components/Navbar';
 import SignUpDesktop from 'components/SignUpModal';
@@ -10,6 +10,7 @@ import UrlInputBoxAndTitle from 'components/UrlInputBoxAndTitle';
 
 export default function Homepage() {
   const { visibility } = useSelector((state) => state.showModal);
+  const dispatch = useDispatch();
   return (
     <div className="flex flex-col justify-center md:items-center bg-mobile-background md:bg-blue md:bg-contain">
       <NavBar />
@@ -17,7 +18,10 @@ export default function Homepage() {
         <UrlInputBoxAndTitle />
         <SignUpDesktop
           title="My Modal"
-          onClose={showHideModal(false)}
+          onClose={() => dispatch({
+            type: 'SHOW_MODAL',
+            payload: false,
+          })}
           show={visibility}
         />
       </div>
