@@ -31,10 +31,8 @@ export default function Homepage() {
       <Navbar />
       <div className="flex overflow-y-hidden overflow-x-scroll h-full">
         <SideMenu toggle={toggleMenu} page="detail" />
-        <div className="bg-gdscGrey-100 min-h-screen flex-1 px-[60px] pt-10 pb-[156px] text-2xl font-bold">
-          <div className="hidden md:block">
-            <MyUrl isDetailPage />
-          </div>
+        <div className="bg-gdscGrey-100 w-[392px] min-h-screen flex-1 px-[60px] pt-10 pb-[156px] text-2xl font-bold hidden md:block">
+          <MyUrl isDetailPage />
         </div>
       </div>
     </div>

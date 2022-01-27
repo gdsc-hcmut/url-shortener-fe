@@ -33,7 +33,7 @@ export default function MyUrlPage() {
       <Navbar />
       <div className="flex overflow-y-scroll overflow-x-scroll h-full">
         <SideMenu toggle={toggleMenu} page="detail" />
-        <div className="bg-gdscGrey-100 min-h-screen flex-1 p-10 pb-[156px] text-2xl font-bold flex justify-center">
+        <div className="bg-gdscGrey-100 h-full flex-1 p-10 pb-[156px] text-2xl font-bold flex justify-center">
           <MyUrl />
         </div>
       </div>
