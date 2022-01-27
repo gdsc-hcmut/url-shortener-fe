@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
-import showHideModal from 'actions/modal';
+import { SHOW_MODAL } from 'action-types';
 
 import { SHOW_SIGN_UP_MODAL } from 'action-types';
 
