@@ -1,24 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { ReactComponent as MenuIcon } from 'assets/icons/menu_icon.svg';
 import MyUrl from 'components/MyUrl';
 import Navbar from 'components/Navbar';
 import SideMenu from 'components/SideMenu';
+import useWindowSize from 'utils/hooks/ScreenSizeHook';
 
-export default function Homepage() {
+export default function MyUrlPage() {
+  const [screenWidth] = useWindowSize();
+  const navigate = useNavigate();
   const [toggleMenu, setToggleMenu] = useState(false);
 
   const handleToggleMenu = () => {
     setToggleMenu(!toggleMenu);
   };
-
-  useEffect(() => {
-    document.addEventListener('keyup', (e) => {
-      if (e.shiftKey && e.key === 'Enter') {
-        handleToggleMenu();
-      }
-    });
+  useLayoutEffect(() => {
+    if (screenWidth >= 768) {
+      navigate('/detail');
+    }
   });
+
   return (
     <div className="max-h-[100vh] detail-page flex flex-col">
       <button
@@ -29,12 +31,10 @@ export default function Homepage() {
         <MenuIcon className="w-10 h-10" />
       </button>
       <Navbar />
-      <div className="flex overflow-y-hidden overflow-x-scroll h-full">
+      <div className="flex overflow-y-scroll overflow-x-scroll h-full">
         <SideMenu toggle={toggleMenu} page="detail" />
-        <div className="bg-gdscGrey-100 min-h-screen flex-1 px-[60px] pt-10 pb-[156px] text-2xl font-bold">
-          <div className="hidden md:block">
-            <MyUrl isDetailPage />
-          </div>
+        <div className="bg-gdscGrey-100 min-h-screen flex-1 p-10 pb-[156px] text-2xl font-bold flex justify-center">
+          <MyUrl />
         </div>
       </div>
     </div>
