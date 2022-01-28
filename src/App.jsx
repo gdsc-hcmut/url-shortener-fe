@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { loadUser } from 'actions/auth';
 import HomepageLogin from 'pages/HomepageLogin';
 import ResetPasswordPage from 'pages/ResetPasswordPage';
+import ChangePasswordPage from 'pages/ChangePasswordPage';
 
 import Homepage from './pages/Homepage';
 import LoginPage from './pages/LoginPage';
@@ -13,6 +14,7 @@ import SignInPage from './pages/SignInPage';
 import SignUpDesktop from './pages/SignUpDesktop';
 import SignUpPage from './pages/SignUpPage';
 import store from './store';
+
 import './index.css';
 import setAuthToken from './utils/setAuthToken';
 
@@ -35,9 +37,7 @@ export default function App() {
           <Route path="/sign-up-page" element={<SignUpDesktop />} />
           <Route path="/user-home" element={<HomepageLogin />} />
           <Route path="/reset-pass" element={<ResetPasswordPage />} />
-          <Route path="/sign-up" element={<SignUpPage />} />
-          <Route path="/sign-in" element={<SignInPage />} />
-          <Route path="/reset-pass" element={<ResetPasswordPage />} />
+          <Route path="/change-pass" element={<ChangePasswordPage />} />
         </Routes>
       </BrowserRouter>
     </Provider>
