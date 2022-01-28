@@ -19,7 +19,7 @@ export default function MyUrl() {
       {/* ... */}
       <button
         type="button"
-        className="w-40 h-11 text-base text-gdscGrey-700 px-5 outline-none bg-white my-3 mx-0 self-end text-left cursor-pointer focus:outline-none focus:ring-1 focus:ring-gdscBlue-300 focus:border-gdscBlue-300 rounded block md:absolute md:mt-1 md:mr-3"
+        className="w-40 h-11 text-base text-gdscGrey-700 px-5 outline-none bg-white my-3 mx-0 self-end text-left cursor-pointer focus:outline-none focus:ring-1 focus:ring-gdscBlue-300 focus:border-gdscBlue-300 rounded block lg:absolute md:mt-1 md:mr-3"
         aria-haspopup="listbox"
         aria-expanded="true"
         aria-labelledby="listbox-label"
@@ -33,7 +33,7 @@ export default function MyUrl() {
         </span>
       </button>
       <div
-        className={`z-50 space-y-2 absolute w-40 h-[116px] bg-white rounded font-light shadow-md text-base px-5 py-3 self-end md:mt-[60px] md:mr-3 mt-[104px] ${
+        className={`z-50 space-y-2 absolute w-40 h-[116px] bg-white rounded font-light shadow-md text-base px-5 py-3 self-end lg:mt-[60px] lg:mr-4 mt-[104px] ${
           isOpen ? '' : 'hidden'
         }`}
       >
