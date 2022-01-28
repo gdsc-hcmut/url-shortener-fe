@@ -16,9 +16,10 @@ export default function MyUrlPage() {
     setToggleMenu(!toggleMenu);
   };
   useLayoutEffect(() => {
-    if (screenWidth >= 768) {
+    if (screenWidth >= 1024) {
       navigate('/detail');
     }
+    return () => setToggleMenu(false);
   });
 
   return (
