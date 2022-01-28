@@ -23,6 +23,7 @@ module.exports = {
         'mobile-background': '#ECF2FB',
         'my-url-button-hover': '#2374FA',
         'sign-in-with-google': '#FCEAE9',
+        'input-text': '#696969',
         gdscBlue: {
           100: '#A0C3FF',
           200: '#76A7FA',
