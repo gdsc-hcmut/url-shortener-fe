@@ -1,19 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import ChangePassword from 'components/ChangePassword';
 import Footer from 'components/Footer';
 import NavbarLogin from 'components/Navbar/NavbarLogin';
-import Url from 'components/Url';
 
 export default function ChangePasswordPage() {
+  const [width, setWidth] = useState(window.innerWidth);
+
+  function handleWindowSizeChange() {
+    setWidth(window.innerWidth);
+  }
+  useEffect(() => {
+    window.addEventListener('resize', handleWindowSizeChange);
+    return () => {
+      window.removeEventListener('resize', handleWindowSizeChange);
+    };
+  }, []);
+
+  const isMobile = width <= 768;
   return (
-    <div className="flex flex-col justify-center items-center md:items-center bg-white md:bg-blue md:bg-contain">
+    <div className="flex flex-col justify-center items-center md:items-center bg-white md:bg-gdscGrey-100">
       <NavbarLogin />
-      <div className="mt-10 mb-[120px] md:mt-[20.981vh] md:mb-[22.428vh]">
+      <div className="mt-10 mb-[120px] md:mt-16 md:self-start md:mb-[22.428vh] md:w-full">
         <ChangePassword />
       </div>
-      <Url />
-      <Footer />
+      {isMobile ? <Footer /> : <div> </div>}
     </div>
   );
 }
