@@ -36,7 +36,7 @@ export default function Homepage() {
           <div className="w-[392px] h-full hidden lg:block">
             <MyUrl />
           </div>
-          <div className="md:w-fit 2xl:w-full h-full md:ml-4 overflow-hidden">
+          <div className="w-full 2xl:w-full h-full md:ml-4 overflow-hidden">
             <Detail />
           </div>
         </div>

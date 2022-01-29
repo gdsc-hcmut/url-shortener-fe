@@ -25,11 +25,11 @@ export default function MyUrl() {
         aria-labelledby="listbox-label"
         onClick={handleClick}
       >
-        <span className="flex items-center">
+        <span className="flex items-center justify-between">
           <span className="inline truncate py-3">{option}</span>
-        </span>
-        <span className="inline w-1 inset-y-0 right-0 pr-5 pointer-events-none">
-          <ArrowDown />
+          <span className="">
+            <ArrowDown />
+          </span>
         </span>
       </button>
       <div

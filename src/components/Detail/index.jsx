@@ -13,8 +13,8 @@ import SocialMedia from './SocialMedia';
 
 export default function Detail() {
   return (
-    <div className="bg-opacity-0 flex flex-col h-full w-full overflow-scroll">
-      <h1 className="font-normal w-[376px] text-[32px] no-scrollbar mb-4 uppercase">
+    <div className="bg-opacity-0 h-full overflow-scroll md:no-scrollbar">
+      <h1 className="font-normal w-[376px] 2xl:w-[860px] text-[32px] no-scrollbar mb-4 uppercase truncate">
         https://longlinkaaaaa.com/asdfaklsjdhfkjasdhflaskjdflk
       </h1>
       <div className="mb-[60px] flex">
