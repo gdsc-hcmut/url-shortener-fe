@@ -12,7 +12,7 @@ export default function ResetPasswordForm() {
           <input
             className="w-[376px] md:w-[420px] h-[60px] bg-gdscGrey-100 focus:bg-white focus:border
                       focus:border-1 focus:border-gdscBlue-300  px-5 outline-none rounded"
-            type="email"
+            type="password"
             placeholder="••••••"
           />
         </div>
