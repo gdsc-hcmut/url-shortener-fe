@@ -44,4 +44,5 @@ export default function NavbarLogin({ myUrl, showModal }) {
 NavbarLogin.propTypes = {
   myUrl: PropTypes.bool.isRequired,
   showModal: PropTypes.func.isRequired,
+  myUrl: PropTypes.bool.isRequired,
 };
