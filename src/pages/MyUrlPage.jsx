@@ -19,7 +19,7 @@ export default function MyUrlPage() {
     if (screenWidth >= 1024) {
       navigate('/detail');
     }
-    return () => setToggleMenu(false);
+    return () => {};
   });
 
   return (
@@ -32,9 +32,9 @@ export default function MyUrlPage() {
         <MenuIcon className="w-10 h-10" />
       </button>
       <Navbar />
-      <div className="flex overflow-y-scroll overflow-x-scroll h-full">
-        <SideMenu toggle={toggleMenu} page="detail" />
-        <div className="bg-gdscGrey-100 h-full flex-1 p-10 pb-[156px] text-2xl font-bold flex justify-center">
+      <div className="flex overflow-y-scroll overflow-x-scroll md:overflow-hidden h-full">
+        <SideMenu toggle={toggleMenu} page="my-url" />
+        <div className="bg-gdscGrey-100 h-full md:h-6 md:min-h-screen flex-1 md:pl-[60px] md:pt-10 md:pb-[156px] pl-5 text-2xl font-bold flex">
           <MyUrl />
         </div>
       </div>

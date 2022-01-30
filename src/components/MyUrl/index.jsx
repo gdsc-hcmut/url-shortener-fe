@@ -13,7 +13,7 @@ export default function MyUrl() {
     setIsOpen(!isOpen);
   };
   return (
-    <div className="bg-opacity-0 flex flex-col md:w-[392px] md:h-full w-full ">
+    <div className="bg-opacity-0 flex flex-col md:w-[392px] h-full w-full md:pr-0 md:p-0 py-5 pr-5">
       <h1 className="font-normal text-[32px] leading-10">My URLs</h1>
 
       {/* ... */}
@@ -33,7 +33,7 @@ export default function MyUrl() {
         </span>
       </button>
       <div
-        className={`z-50 space-y-2 absolute w-40 h-[116px] bg-white rounded font-light shadow-md text-base px-5 py-3 self-end lg:mt-[60px] lg:mr-4 mt-[104px] ${
+        className={`z-50 space-y-2 absolute w-40 h-[116px] bg-white rounded font-light shadow-md text-base px-5 py-3 self-end lg:mt-[60px] md:mr-4 mt-[104px] ${
           isOpen ? '' : 'hidden'
         }`}
       >
@@ -59,7 +59,7 @@ export default function MyUrl() {
         className="w-full h-14 bg-white border-[1px] border-gdscGrey-300 focus:border-gdscBlue-300 px-5 outline-none rounded text-base mt-5 font-light md:w-[376px] relative"
         placeholder="Search your URL ..."
       />
-      <div className="overflow-y-scroll mt-10 space-y-10 relative h-full scroll-">
+      <div className="md:overflow-y-scroll mt-10 space-y-10 relative h-full ">
         {testArray.map((el) => (
           <div
             key={el}
