@@ -1,8 +1,52 @@
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
 import React from 'react';
+import { Line } from 'react-chartjs-2';
 
 import { ReactComponent as ArrowDown } from 'assets/icons/arrow_down.svg';
 
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+);
+
 export default function Chart() {
+  const data = {
+    labels: [
+      'January',
+      'Febuary',
+      'March',
+      'Arpil',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ],
+    datasets: [
+      {
+        data: [86, 114, 106, 106, 107, 111, 133, 221, 783, 2478, 3000],
+        label: '',
+        borderColor: '#4285F4',
+        fill: false,
+      },
+    ],
+  };
   return (
     <div className="md:h-[480px] h-[240px] xl:w-full md:w-[504px] w-full px-5 py-5 lg:px-8 flex flex-col space-y-3 md:space-y-7  bg-white rounded">
       <div className="flex justify-between">
@@ -22,7 +66,24 @@ export default function Chart() {
           </span>
         </button>
       </div>
-      <div className="bg-gdscRed-300 w-full h-full">Graph</div>
+      <div className="relative w-full h-full">
+        <Line
+          data={data}
+          options={{
+            title: {
+              display: true,
+              text: '',
+            },
+            plugins: {
+              legend: {
+                display: false,
+              },
+            },
+            maintainAspectRatio: false,
+          }}
+          width="30%"
+        />
+      </div>
     </div>
   );
 }
