@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
+import NavbarModal from 'components/Modals/NavbarModal';
 import UserProfilePage from 'pages/UserProfilePage';
 import { loadUser } from 'actions/auth';
 import HomepageLogin from 'pages/HomepageLogin';
@@ -45,6 +46,7 @@ export default function App() {
           <Route path="/sign-up" element={<SignUpPage />} />
           <Route path="/sign-in" element={<SignInPage />} />
           <Route path="/user-profile" element={<UserProfilePage />} />
+          <Route path="/modal-nav" element={<NavbarModal />} />
           <Route path="/user-profile" element={<UserProfilePage />} />
           <Route path="/modal-nav" element={<NavbarModal />} />
         </Routes>
