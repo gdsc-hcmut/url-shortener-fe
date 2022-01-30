@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { loadUser } from 'actions/auth';
 import HomepageLogin from 'pages/HomepageLogin';
 import ResetPasswordPage from 'pages/ResetPasswordPage';
+import NavbarModal from 'components/Modals/NavbarModal';
 import UserProfilePage from 'pages/UserProfilePage';
 
 import Homepage from './pages/Homepage';
@@ -43,6 +44,7 @@ export default function App() {
           <Route path="/sign-up" element={<SignUpPage />} />
           <Route path="/sign-in" element={<SignInPage />} />
           <Route path="/user-profile" element={<UserProfilePage />} />
+          <Route path="/modal-nav" element={<NavbarModal />} />
         </Routes>
       </BrowserRouter>
     </Provider>

@@ -24,6 +24,7 @@ export default function NavbarLogin({ myUrl, showModal }) {
             <div> </div>
           )}
           <button
+            onClick={showModal}
             type="button"
             onClick={showModal}
             className="hidden bg-gdscBlue-200 ease-out duration-300 hover:bg-login-btn-hover bg-opacity-10
@@ -45,4 +46,5 @@ NavbarLogin.propTypes = {
   myUrl: PropTypes.bool.isRequired,
   showModal: PropTypes.func.isRequired,
   myUrl: PropTypes.bool.isRequired,
+  showModal: PropTypes.func.isRequired,
 };
