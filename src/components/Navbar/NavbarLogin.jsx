@@ -1,10 +1,11 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import MenuIcon from 'assets/icons/menu.svg';
 
 import NavbarHome from './NavbarHome';
 
-export default function NavbarLogin() {
+export default function NavbarLogin({ showModal }) {
   return (
     <nav className="shadow-lg max-w-full h-fit w-full flex px-[20px] py-[20px] md:px-[60px] md:py-[28px] bg-white">
       <div className="flex h-full w-full align-center justify-between">
@@ -20,6 +21,7 @@ export default function NavbarLogin() {
           </button>
           <button
             type="button"
+            onClick={showModal}
             className="bg-gdscBlue-200 ease-out duration-300 hover:bg-login-btn-hover bg-opacity-10
          text-gdscBlue-300 font-normal hover:bg-opacity-10 rounded flex justify-end items-center
            w-[100px] h-[36px] md:w-[184px] md:h-[52px] content-center text-base  md:my-0 ml-[30px]"
@@ -35,3 +37,6 @@ export default function NavbarLogin() {
     </nav>
   );
 }
+NavbarLogin.propTypes = {
+  showModal: PropTypes.func.isRequired,
+};
