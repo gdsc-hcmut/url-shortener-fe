@@ -50,7 +50,7 @@ export default function Detail() {
           <TodayClick />
           <TotalClick />
         </div>
-        <div className="flex flex-col border-x-lime-400:flex-row mb-6">
+        <div className="flex flex-col 2xl:flex-row border-x-lime-400:flex-row mb-6">
           <SocialMedia />
           <QR />
         </div>
