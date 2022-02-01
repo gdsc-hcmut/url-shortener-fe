@@ -16,10 +16,9 @@ export default function MyUrl() {
     <div className="bg-opacity-0 flex flex-col md:w-[392px] h-full w-full md:pr-0 md:p-0 py-5 pr-5">
       <h1 className="font-normal text-[32px] leading-10">My URLs</h1>
 
-      {/* ... */}
       <button
         type="button"
-        className="w-40 h-11 text-base text-gdscGrey-700 px-5 outline-none bg-white my-3 mx-0 self-end text-left cursor-pointer focus:outline-none focus:ring-1 focus:ring-gdscBlue-300 focus:border-gdscBlue-300 rounded block lg:absolute md:mt-1 md:mr-3"
+        className="z-10 w-40 h-11 text-base text-gdscGrey-700 px-5 outline-none bg-white my-3 mx-0 self-end text-left cursor-pointer focus:outline-none focus:ring-1 focus:ring-gdscBlue-300 focus:border-gdscBlue-300 rounded block lg:absolute md:mt-1 md:mr-3"
         aria-haspopup="listbox"
         aria-expanded="true"
         aria-labelledby="listbox-label"
@@ -31,37 +30,36 @@ export default function MyUrl() {
             <ArrowDown />
           </span>
         </span>
+        <div
+          className={`relative top-2 right-5 space-y-2 w-40 h-[116px] bg-white rounded font-light shadow-md text-base px-5 py-3 ${
+            isOpen ? '' : 'hidden'
+          }`}
+        >
+          {sortOptions
+            .filter((el) => el !== option)
+            .map((el) => (
+              <button
+                key={el}
+                type="button"
+                className="block"
+                onClick={() => {
+                  setOption(el);
+                  setIsOpen(false);
+                }}
+              >
+                {el}
+              </button>
+            ))}
+        </div>
       </button>
-      <div
-        className={`z-50 space-y-2 absolute w-40 h-[116px] bg-white rounded font-light shadow-md text-base px-5 py-3 self-end lg:mt-[60px] md:mr-4 mt-[104px] ${
-          isOpen ? '' : 'hidden'
-        }`}
-      >
-        {sortOptions
-          .filter((el) => el !== option)
-          .map((el) => (
-            <button
-              key={el}
-              type="button"
-              className="block"
-              onClick={() => {
-                setOption(el);
-                setIsOpen(false);
-              }}
-            >
-              {el}
-            </button>
-          ))}
-      </div>
-      {/* ... */}
 
       <input
         className="w-full h-14 bg-white border-[1px] border-gdscGrey-300 focus:border-gdscBlue-300 px-5 outline-none rounded text-base mt-5 font-light md:w-[376px] relative"
         placeholder="Search your URL ..."
       />
-      <div className="md:overflow-y-scroll mt-10 space-y-10 relative h-full ">
+      <ul className="md:overflow-y-scroll mt-10 space-y-10 relative h-full ">
         {testArray.map((el) => (
-          <div
+          <li
             key={el}
             className="w-full h-[100px] p-5 flex flex-col justify-between rounded bg-white font-normal md:w-[376px] cursor-pointer"
           >
@@ -71,9 +69,9 @@ export default function MyUrl() {
             <span className="text-base text-gdscGrey-700 w-32 overflow-clip ">
               /slug
             </span>
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 }

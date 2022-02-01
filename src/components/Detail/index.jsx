@@ -14,7 +14,7 @@ import SocialMedia from './SocialMedia';
 
 export default function Detail() {
   return (
-    <div className="bg-opacity-0 h-full overflow-scroll md:no-scrollbar md:pr-[60px] md:p-0 py-5 pr-5">
+    <div className="bg-opacity-0 max-w-full h-full overflow-scroll md:no-scrollbar md:pr-[60px] md:p-0 py-5 pr-5">
       <h1 className="font-normal w-[376px] 2xl:w-[860px] text-[32px] no-scrollbar mb-4 uppercase truncate">
         https://longlinkaaaaa.com/asdfaklsjdhfkjasdhflaskjdflk
       </h1>
@@ -44,15 +44,13 @@ export default function Detail() {
         </div>
       </div>
       <div className="flex flex-col ">
-        <div className="flex flex-col 2xl:flex-row mb-6 2xl:mb-0 justify-between">
+        <div className="inline-flex flex-wrap gap-6 mb-6 ">
           <ExpireTime />
           <CreatedOn />
-        </div>
-        <div className="flex flex-col 2xl:flex-row mb-6 2xl:mb-0 justify-between">
           <TodayClick />
           <TotalClick />
         </div>
-        <div className="flex flex-col 2xl:flex-row mb-6 2xl:mb-0 justify-between">
+        <div className="flex flex-col border-x-lime-400:flex-row mb-6">
           <SocialMedia />
           <QR />
         </div>

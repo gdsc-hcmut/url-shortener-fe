@@ -26,6 +26,10 @@ html {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+.rounded-full {
+  border-radius: 100%;
+}
 .test {
   color: red;
 }
