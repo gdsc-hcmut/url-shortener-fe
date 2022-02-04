@@ -1,13 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
+import { ReactComponent as MenuIcon } from 'assets/icons/menu.svg';
 import ChangePassword from 'components/ChangePassword';
 import Footer from 'components/Footer';
 import NavbarModal from 'components/Modals/NavbarModal';
 import NavbarLogin from 'components/Navbar/NavbarLogin';
+import SideMenu from 'components/SideMenu';
 
-export default function ChangePasswordPage() {
+export default function DetailPage() {
+  const [toggleMenu, setToggleMenu] = useState(false);
   const [width, setWidth] = useState(window.innerWidth);
   const [show, setShow] = useState(false);
+  const handleToggleMenu = () => {
+    setToggleMenu(!toggleMenu);
+  };
   function handleWindowSizeChange() {
     setWidth(window.innerWidth);
   }
@@ -40,14 +46,24 @@ export default function ChangePasswordPage() {
   return (
     <div
       aria-hidden="true"
-      className="flex flex-col justify-center items-center md:items-center bg-white md:bg-gdscGrey-100"
+      className="max-h-[100vh] detail-page flex flex-col"
       onClick={hideModal}
       onKeyDown={closeOnEscapeKeyDown}
     >
+      <button
+        type="button"
+        className="absolute md:hidden right-5 top-3 z-50"
+        onClick={handleToggleMenu}
+      >
+        <MenuIcon className="w-10 h-10" />
+      </button>
       <NavbarLogin showModal={showNavbarModal} myUrl={false} />
       <NavbarModal show={show} />
-      <div className="mt-10 mb-[120px] md:mt-16 md:self-start md:mb-[22.428vh] md:w-full">
-        <ChangePassword />
+      <div className="flex h-full mt-[-130px]">
+        <SideMenu toggle={toggleMenu} page="change-pass" />
+        <div className="bg-white md:bg-gdscGrey-100 mt-[24px] md:mt-0 min-h-screen md:overflow-y-scroll flex-1 pb-[120px] md:pb-[156px]">
+          <ChangePassword />
+        </div>
       </div>
       {isMobile ? <Footer /> : <div> </div>}
     </div>

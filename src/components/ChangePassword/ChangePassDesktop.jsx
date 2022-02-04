@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function ChangePassDesktop() {
   return (
-    <div className="hidden md:block ml-[420px] mr-[60px]">
+    <div className="hidden md:block ml-[60px] mr-[60px] mt-[64px]">
       <h1 className="text-[32px] font-medium">Change Password</h1>
       <div className="mt-[88px] w-full h-[564px] bg-white rounded-[8px] pl-8 pt-10">
         <h1 className="text-xl font-medium">Change Password</h1>
