@@ -31,7 +31,8 @@
           "caseInsensitive": true
         }
       }
-    ]
+    ],
+    "default-param-last": "off"
   },
   "settings": {
     "import/resolver": {
