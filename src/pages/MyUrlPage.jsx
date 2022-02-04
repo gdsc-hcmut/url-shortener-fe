@@ -17,7 +17,7 @@ export default function MyUrlPage() {
   };
   useLayoutEffect(() => {
     if (screenWidth >= 1024) {
-      navigate('/detail');
+      navigate('/detail/0');
     }
     return () => {};
   });

@@ -15,12 +15,12 @@ export default function ExpireTime() {
         </span>
         <span className="font-normal text-base inline-flex justify-center items-center">
           Expire Time
-          <div className="ml-4 w-[100px] h-7 rounded-[60px] flex justify-center items-center px-7 bg-[#DA4436] bg-opacity-10 active:bg-opacity-20">
+          <span className="ml-4 w-[100px] h-7 rounded-[60px] flex justify-center items-center px-7 bg-[#DA4436] bg-opacity-10 active:bg-opacity-20 hover:cursor-pointer">
             <span className="inline-flex w-full justify-between items-center">
               <span className="text-base text-gdscRed-300">Edit</span>
               <EditExpireIcon />
             </span>
-          </div>
+          </span>
         </span>
       </div>
     </div>

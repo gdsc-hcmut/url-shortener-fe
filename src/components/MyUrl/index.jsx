@@ -1,8 +1,13 @@
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import { ReactComponent as ArrowDown } from 'assets/icons/arrow_down.svg';
+import { ReactComponent as CopyIcon } from 'assets/icons/copy_icon.svg';
+import { ReactComponent as DeleteIcon } from 'assets/icons/delete_icon.svg';
+import { ReactComponent as EditIcon } from 'assets/icons/edit_icon.svg';
 
-export default function MyUrl() {
+export default function MyUrl({ id }) {
   const [option, setOption] = useState('Most Clicked');
   const [isOpen, setIsOpen] = useState(false);
 
@@ -59,19 +64,51 @@ export default function MyUrl() {
       />
       <ul className="md:overflow-y-scroll mt-10 space-y-10 relative h-full ">
         {testArray.map((el) => (
-          <li
+          <div
             key={el}
-            className="w-full h-[100px] p-5 flex flex-col justify-between rounded bg-white font-normal md:w-[376px] cursor-pointer"
+            className={`w-full h-[100px] p-5 flex flex-col justify-between rounded font-normal md:w-[376px] ${
+              el === parseInt(id, 10)
+                ? 'bg-[#F1F6FE] border-2 border-gdscBlue-300'
+                : 'bg-white'
+            } `}
           >
-            <span className="text-xl font-medium w-60 truncate ... ">
-              https://github.com/gdsc-hcmut/url-shortener-fe/pull/8
+            <Link
+              to={`/detail/${el}`}
+              className="text-xl font-medium w-60 truncate ... "
+            >
+              <span>
+                https://
+                {el}
+                .com/asdfaklsjdhfkjasdhflaskjdflk
+              </span>
+            </Link>
+            <span className="flex justify-between">
+              <span className="text-base text-gdscGrey-700 w-32 overflow-clip ">
+                /slug
+              </span>
+              <div className="flex space-x-2 lg:hidden">
+                <div className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded cursor-pointer">
+                  <CopyIcon />
+                </div>
+                <div className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded cursor-pointer">
+                  <EditIcon />
+                </div>
+                <div className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded cursor-pointer">
+                  <DeleteIcon />
+                </div>
+              </div>
             </span>
-            <span className="text-base text-gdscGrey-700 w-32 overflow-clip ">
-              /slug
-            </span>
-          </li>
+          </div>
         ))}
       </ul>
     </div>
   );
 }
+
+MyUrl.propTypes = {
+  id: PropTypes.string,
+};
+
+MyUrl.defaultProps = {
+  id: null,
+};

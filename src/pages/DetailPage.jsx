@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
 
 import { ReactComponent as MenuIcon } from 'assets/icons/menu_icon.svg';
 import Detail from 'components/Detail';
@@ -8,6 +9,7 @@ import SideMenu from 'components/SideMenu';
 
 export default function Homepage() {
   const [toggleMenu, setToggleMenu] = useState(false);
+  const { id } = useParams();
 
   const handleToggleMenu = () => {
     setToggleMenu(!toggleMenu);
@@ -34,10 +36,12 @@ export default function Homepage() {
         <SideMenu toggle={toggleMenu} page="detail" />
         <div className="bg-gdscGrey-100 md:min-h-screen flex-1 md:pl-[60px] md:pt-10 md:pb-[156px] pl-5 text-2xl font-bold flex">
           <div className="w-[392px] h-full hidden lg:block">
-            <MyUrl />
+            <MyUrl id={id} />
           </div>
-          <div className="w-full xl:w-full h-full md:ml-4">
-            <Detail />
+          <div
+            className={`w-full xl:w-full h-full md:ml-4 ${!id ? 'hidden' : ''}`}
+          >
+            <Detail id={id} />
           </div>
         </div>
       </div>

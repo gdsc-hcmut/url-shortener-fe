@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import { ReactComponent as CopyIcon } from 'assets/icons/copy_icon.svg';
@@ -12,11 +13,13 @@ import TotalClick from './general/TotalClick';
 import QR from './QR';
 import SocialMedia from './SocialMedia';
 
-export default function Detail() {
+export default function Detail({ id }) {
   return (
     <div className="bg-opacity-0 max-w-full h-full overflow-scroll md:no-scrollbar md:pr-[60px] md:p-0 py-5 pr-5">
       <h1 className="font-normal w-[376px] 2xl:w-[860px] text-[32px] no-scrollbar mb-4 uppercase truncate">
-        https://longlinkaaaaa.com/asdfaklsjdhfkjasdhflaskjdflk
+        https://
+        {id}
+        .com/asdfaklsjdhfkjasdhflaskjdflk
       </h1>
       <div className="mb-[60px] flex">
         <h1 className="inline font-normal w-[216px] h-8 leading-8 text-xl mr-8">
@@ -59,3 +62,11 @@ export default function Detail() {
     </div>
   );
 }
+
+Detail.propTypes = {
+  id: PropTypes.string,
+};
+
+Detail.defaultProps = {
+  id: null,
+};
