@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { login, logout } from 'actions/auth';
 
 function SignInPage() {
-  const { isAuthenticated } = useSelector((state) => state.auth);
+  const { isAuthenticated, loading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState('');
@@ -19,6 +19,14 @@ function SignInPage() {
   };
 
   const handleSignOut = () => dispatch(logout());
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center text-2xl">
+        <h1>Loading...</h1>
+      </div>
+    );
+  }
 
   return (
     <div>

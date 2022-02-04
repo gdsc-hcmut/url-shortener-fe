@@ -5,7 +5,7 @@ import { register, logout } from 'actions/auth';
 import api from 'services/api';
 
 function SignUpPage() {
-  const { isAuthenticated } = useSelector((state) => state.auth);
+  const { isAuthenticated, loading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState('');
@@ -26,6 +26,14 @@ function SignUpPage() {
     const res = await api.get('http://localhost:5000/api/private');
     console.log(res.data);
   };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center text-2xl">
+        <h1>Loading...</h1>
+      </div>
+    );
+  }
 
   return (
     <div>
