@@ -6,13 +6,18 @@ import { ReactComponent as ArrowDown } from 'assets/icons/arrow_down.svg';
 import { ReactComponent as CopyIcon } from 'assets/icons/copy_icon.svg';
 import { ReactComponent as DeleteIcon } from 'assets/icons/delete_icon.svg';
 import { ReactComponent as EditIcon } from 'assets/icons/edit_icon.svg';
+import fakeGetUrlsList from 'services/getUrlsList';
 
-export default function MyUrl({ id }) {
+export default function MyUrl({ slug }) {
   const [option, setOption] = useState('Most Clicked');
   const [isOpen, setIsOpen] = useState(false);
+  const [search, setSearch] = useState('');
 
   const sortOptions = ['Most Clicked', 'Less Clicked', 'Latest', 'Oldest'];
-  const testArray = [...Array(20).keys()];
+
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  };
 
   const handleClick = () => {
     setIsOpen(!isOpen);
@@ -61,66 +66,84 @@ export default function MyUrl({ id }) {
       <input
         className="w-full h-14 bg-white border-[1px] border-gdscGrey-300 focus:border-gdscBlue-300 px-5 outline-none rounded text-base mt-5 font-light md:w-[376px] relative"
         placeholder="Search your URL ..."
+        value={search}
+        onChange={handleSearch}
       />
       <ul className="md:overflow-y-scroll mt-10 space-y-10 relative h-full ">
-        {testArray.map((el) => (
-          <li
-            key={el}
-            className={`w-full h-[100px] flex flex-col space-y-2 justify-center rounded font-normal md:w-[376px] ${
-              el === parseInt(id, 10)
-                ? 'bg-[#F1F6FE] border-2 border-gdscBlue-300 p-[18px]'
-                : 'bg-white px-5'
-            } `}
-          >
-            <Link
-              to={`/detail/${el}`}
-              className="text-xl font-medium w-60 truncate ... "
+        {fakeGetUrlsList
+          .filter((url) => {
+            if (url.longUrl.startsWith('http://www.')) {
+              return url.longUrl.substring(11).startsWith(search);
+            }
+
+            if (url.longUrl.startsWith('https://')) {
+              return url.longUrl.substring(8).startsWith(search);
+            }
+
+            if (url.longUrl.startsWith('http://')) {
+              return url.longUrl.substring(7).startsWith(search);
+            }
+
+            if (url.longUrl.startsWith('www.')) {
+              return url.longUrl.substring(5).startsWith(search);
+            }
+
+            return url.longUrl.startsWith(search);
+          })
+          .map((url) => (
+            <li
+              key={url.slug}
+              className={`w-full h-[100px] flex flex-col space-y-2 justify-center rounded font-normal md:w-[376px] ${
+                url.slug === `/${slug}`
+                  ? 'bg-[#F1F6FE] border-2 border-gdscBlue-300 p-[18px]'
+                  : 'bg-white px-5'
+              } `}
             >
-              <span>
-                https://
-                {el}
-                .com/asdfaklsjdhfkjasdhflaskjdflk
+              <Link
+                to={`/detail${url.slug}`}
+                className="text-xl font-medium w-60 truncate ... "
+              >
+                <span>{url.longUrl}</span>
+              </Link>
+              <span className="flex justify-between">
+                <span className="text-base text-gdscGrey-700 w-32 overflow-clip ">
+                  {url.slug}
+                </span>
+                <div className="flex space-x-2 lg:hidden">
+                  <button
+                    type="button"
+                    aria-label="Copy Button"
+                    className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
+                  >
+                    <CopyIcon />
+                  </button>
+                  <button
+                    type="button"
+                    aria-label="Edit Button"
+                    className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
+                  >
+                    <EditIcon />
+                  </button>
+                  <button
+                    type="button"
+                    aria-label="Delete Button"
+                    className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
+                  >
+                    <DeleteIcon />
+                  </button>
+                </div>
               </span>
-            </Link>
-            <span className="flex justify-between">
-              <span className="text-base text-gdscGrey-700 w-32 overflow-clip ">
-                /slug
-              </span>
-              <div className="flex space-x-2 lg:hidden">
-                <button
-                  type="button"
-                  aria-label="Copy Button"
-                  className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
-                >
-                  <CopyIcon />
-                </button>
-                <button
-                  type="button"
-                  aria-label="Edit Button"
-                  className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
-                >
-                  <EditIcon />
-                </button>
-                <button
-                  type="button"
-                  aria-label="Delete Button"
-                  className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
-                >
-                  <DeleteIcon />
-                </button>
-              </div>
-            </span>
-          </li>
-        ))}
+            </li>
+          ))}
       </ul>
     </div>
   );
 }
 
 MyUrl.propTypes = {
-  id: PropTypes.string,
+  slug: PropTypes.string,
 };
 
 MyUrl.defaultProps = {
-  id: null,
+  slug: null,
 };

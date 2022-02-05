@@ -1,4 +1,3 @@
-/* eslint-disable */
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -9,10 +8,12 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 
 import { ReactComponent as ArrowDown } from 'assets/icons/arrow_down.svg';
+import { MONTH } from 'constant/dateName';
 
 ChartJS.register(
   CategoryScale,
@@ -24,30 +25,37 @@ ChartJS.register(
   Legend,
 );
 
-export default function Chart() {
-  const data = {
-    labels: [
-      'January',
-      'Febuary',
-      'March',
-      'Arpil',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December',
-    ],
+export default function Chart({ data }) {
+  const datasets = {
+    labels: MONTH,
     datasets: [
       {
-        data: [86, 114, 106, 106, 107, 111, 133, 221, 783, 2478, 3000],
+        data,
         label: '',
         borderColor: '#4285F4',
         fill: false,
       },
     ],
   };
+  const options = {
+    title: {
+      display: true,
+      text: '',
+    },
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+    elements: {
+      line: {
+        tension: 0.3,
+      },
+    },
+    maintainAspectRatio: false,
+    responsive: true,
+  };
+
   return (
     <div className="md:h-[496px] h-[240px] 3xl:w-[1032px] md:w-[504px] w-full px-5 py-5 lg:px-8 flex flex-col space-y-3 md:space-y-7  bg-white rounded">
       <div className="flex justify-between">
@@ -68,28 +76,15 @@ export default function Chart() {
         </button>
       </div>
       <div className="relative w-full h-[164px] md:h-[372px]">
-        <Line
-          data={data}
-          options={{
-            title: {
-              display: true,
-              text: '',
-            },
-            plugins: {
-              legend: {
-                display: false,
-              },
-            },
-            elements: {
-              line: {
-                tension: 0.3,
-              },
-            },
-            maintainAspectRatio: false,
-            responsive: true,
-          }}
-        />
+        <Line data={datasets} options={options} />
       </div>
     </div>
   );
 }
+
+Chart.propTypes = {
+  data: PropTypes.shape({
+    facebook: PropTypes.number.isRequired,
+    instagram: PropTypes.number.isRequired,
+  }).isRequired,
+};

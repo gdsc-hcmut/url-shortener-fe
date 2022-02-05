@@ -49,8 +49,7 @@ export default function App() {
           <Route path="/modal-nav" element={<NavbarModal />} />
           <Route path="/slug" element={<UrlWithSlug />} />
           <Route path="/edit-slug" element={<EditSlug />} />
-          <Route path="/detail" element={<DetailPage />} />
-          <Route path="/detail/:id" element={<DetailPage />} />
+          <Route path="/detail/:slug" element={<DetailPage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/date" element={<MaterialUIPickers />} />
           <Route path="/my-url" element={<MyUrlPage />} />
