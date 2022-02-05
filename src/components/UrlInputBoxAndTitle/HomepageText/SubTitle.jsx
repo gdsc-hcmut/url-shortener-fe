@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { SHOW_MODAL } from 'action-types';
+import { SHOW_SIGN_UP_MODAL } from 'action-types';
 
 export default function SubTitle() {
   const [width, setWidth] = useState(window.innerWidth);
@@ -45,7 +45,7 @@ export default function SubTitle() {
       <button
         type="submit"
         onClick={() => dispatch({
-          type: SHOW_MODAL,
+          type: SHOW_SIGN_UP_MODAL,
           payload: true,
         })}
         className="md:m-0 w-[92px] h-6 b-[50px] bg-get-started-btn rounded-[60px] flex justify-center items-center hover:bg-get-started-btn-hover  ease-out duration-300"
