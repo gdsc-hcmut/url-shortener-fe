@@ -21,7 +21,6 @@ export const loadUser = () => async (dispatch) => {
     dispatch({
       type: AUTH_ERROR,
     });
-    console.log(AUTH_ERROR);
   }
 };
 
@@ -37,7 +36,6 @@ export const register = (email, password) => async (dispatch) => {
     dispatch(loadUser());
   } catch (err) {
     console.log('error', err);
-    // console.log(err.response.data);
     dispatch({
       type: REGISTER_FAIL,
     });
@@ -55,8 +53,6 @@ export const login = (email, password) => async (dispatch) => {
 
     dispatch(loadUser());
   } catch (err) {
-    console.log(err.response.data);
-
     dispatch({
       type: LOGIN_FAIL,
     });

@@ -16,7 +16,6 @@ function SignUpPage() {
 
   const handleSignUp = (e) => {
     e.preventDefault();
-    console.log('ahihi');
     dispatch(register(email, password));
   };
 
