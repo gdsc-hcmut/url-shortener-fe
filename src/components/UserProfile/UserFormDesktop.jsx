@@ -12,7 +12,7 @@ export default function UserFormDesktop() {
     dob: '01/01/2020',
   });
   return (
-    <div className="hidden md:block ml-[420px] mr-[60px]">
+    <div className="hidden md:block ml-[60px] mr-[60px] mt-[64px]">
       <h1 className="text-[32px] font-medium">My Profile</h1>
       <p className="mt-2 text-gdscGrey-700">
         To edit any info, click on the “Edit” icon next to each field.

@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import MenuIcon from 'assets/icons/menu.svg';
-
 import NavbarHome from './NavbarHome';
 
 export default function NavbarLogin({ myUrl, showModal }) {
