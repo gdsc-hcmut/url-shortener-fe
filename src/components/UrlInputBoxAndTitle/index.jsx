@@ -5,7 +5,7 @@ import InputUrlField from './InputUrlField';
 
 export default function UrlInputBoxAndTitle() {
   return (
-    <div className="flex flex-col space-y-[12px] md:space-y-[39px]">
+    <div className="flex flex-col md:space-y-[40px]">
       <HomepageText />
       <InputUrlField />
     </div>

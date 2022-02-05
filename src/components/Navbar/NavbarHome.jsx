@@ -16,7 +16,7 @@ export default function NavBarHome() {
         src={LogoMobile}
         alt="website logo"
       />
-      <p className="md:hidden text-sm xs:text-base font-[700] ml-[6px] text-gdscGrey-700">
+      <p className="md:hidden text-sm xs:text-base font-[700] ml-[12px] text-gdscGrey-700">
         GDSC - HCMUT
       </p>
     </div>
