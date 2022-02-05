@@ -2,6 +2,10 @@ module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
+      screens: {
+        'detail-md': '920px',
+        '3xl': '1872px',
+      },
       borderColor: {
         gdscGrey: {
           100: '#F2F2F2',

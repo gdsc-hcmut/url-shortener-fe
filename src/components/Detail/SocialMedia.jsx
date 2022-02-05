@@ -42,7 +42,7 @@ export default function SocialMedia() {
           <div className="w-[52px] h-[52px] flex justify-center items-center  bg-gdscGreen-100 bg-opacity-50 rounded-full">
             <GraphIcon />
           </div>
-          <span className="font-normal text-xl ml-3">Other Social Media</span>
+          <span className="font-normal text-xl ml-3">Total</span>
           <span className="font-thin text-base text-gdscGrey-700 ml-auto">
             305 clicks
           </span>

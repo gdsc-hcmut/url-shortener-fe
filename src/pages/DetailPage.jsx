@@ -34,13 +34,11 @@ export default function Homepage() {
       <Navbar />
       <div className="flex overflow-hidden h-full">
         <SideMenu toggle={toggleMenu} page="detail" />
-        <div className="bg-gdscGrey-100 md:min-h-screen flex-1 md:pl-[60px] md:pt-10 md:pb-[156px] pl-5 text-2xl font-bold flex">
-          <div className="w-[392px] h-full hidden lg:block">
+        <div className="bg-gdscGrey-100 md:min-h-screen flex-1 detail-md:pl-[60px] md:pt-10 md:pb-[156px] pl-5 text-2xl font-bold flex">
+          <div className="w-[392px] h-full hidden xl:block">
             <MyUrl id={id} />
           </div>
-          <div
-            className={`w-full xl:w-full h-full md:ml-4 ${!id ? 'hidden' : ''}`}
-          >
+          <div className={`w-full h-full md:ml-4 ${!id ? 'hidden' : ''}`}>
             <Detail id={id} />
           </div>
         </div>

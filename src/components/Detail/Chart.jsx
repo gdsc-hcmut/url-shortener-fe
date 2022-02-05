@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -48,12 +49,12 @@ export default function Chart() {
     ],
   };
   return (
-    <div className="md:h-[480px] h-[240px] 2xl:w-[1032px] md:w-[504px] w-full px-5 py-5 lg:px-8 flex flex-col space-y-3 md:space-y-7  bg-white rounded">
+    <div className="md:h-[496px] h-[240px] 3xl:w-[1032px] md:w-[504px] w-full px-5 py-5 lg:px-8 flex flex-col space-y-3 md:space-y-7  bg-white rounded">
       <div className="flex justify-between">
         <h1>Times Clicked On</h1>
         <button
           type="button"
-          className="w-40 h-11 text-base text-gdscGrey-700 p-2 lg:p-3 outline-none bg-[#F0F5F7] my-3 mx-0 self-end text-left cursor-pointer rounded block md:mt-1 md:mr-3 focus:outline-none focus:ring-1 focus:ring-gdscBlue-300"
+          className="w-40 h-11 text-base text-gdscGrey-700 p-2 lg:p-3 outline-none bg-[#F0F5F7] mt-3 mx-0 self-end text-left cursor-pointer rounded block md:mt-1 md:mr-3 focus:outline-none focus:ring-1 focus:ring-gdscBlue-300"
           aria-haspopup="listbox"
           aria-expanded="true"
           aria-labelledby="listbox-label"
@@ -66,7 +67,7 @@ export default function Chart() {
           </span>
         </button>
       </div>
-      <div className="relative w-full h-full">
+      <div className="relative w-full h-[164px] md:h-[372px]">
         <Line
           data={data}
           options={{
@@ -84,7 +85,6 @@ export default function Chart() {
                 tension: 0.3,
               },
             },
-            bezierCurve: false,
             maintainAspectRatio: false,
             responsive: true,
           }}

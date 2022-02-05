@@ -23,7 +23,7 @@ export default function MyUrl({ id }) {
 
       <button
         type="button"
-        className="z-10 w-40 h-11 text-base text-gdscGrey-700 px-5 outline-none bg-white my-3 mx-0 self-end text-left cursor-pointer focus:outline-none focus:ring-1 focus:ring-gdscBlue-300 focus:border-gdscBlue-300 rounded block lg:absolute md:mt-1 md:mr-3"
+        className="z-10 w-40 h-11 text-base text-gdscGrey-700 px-5 outline-none bg-white my-3 mx-0 self-end text-left cursor-pointer focus:outline-none focus:ring-1 focus:ring-gdscBlue-300 focus:border-gdscBlue-300 rounded block md:absolute md:mt-1 md:mr-4"
         aria-haspopup="listbox"
         aria-expanded="true"
         aria-labelledby="listbox-label"
@@ -43,9 +43,9 @@ export default function MyUrl({ id }) {
           {sortOptions
             .filter((el) => el !== option)
             .map((el) => (
-              <button
+              <div
+                aria-hidden="true"
                 key={el}
-                type="button"
                 className="block"
                 onClick={() => {
                   setOption(el);
@@ -53,7 +53,7 @@ export default function MyUrl({ id }) {
                 }}
               >
                 {el}
-              </button>
+              </div>
             ))}
         </div>
       </button>
@@ -64,12 +64,12 @@ export default function MyUrl({ id }) {
       />
       <ul className="md:overflow-y-scroll mt-10 space-y-10 relative h-full ">
         {testArray.map((el) => (
-          <div
+          <li
             key={el}
-            className={`w-full h-[100px] p-5 flex flex-col justify-between rounded font-normal md:w-[376px] ${
+            className={`w-full h-[100px] flex flex-col space-y-2 justify-center rounded font-normal md:w-[376px] ${
               el === parseInt(id, 10)
-                ? 'bg-[#F1F6FE] border-2 border-gdscBlue-300'
-                : 'bg-white'
+                ? 'bg-[#F1F6FE] border-2 border-gdscBlue-300 p-[18px]'
+                : 'bg-white px-5'
             } `}
           >
             <Link
@@ -87,18 +87,30 @@ export default function MyUrl({ id }) {
                 /slug
               </span>
               <div className="flex space-x-2 lg:hidden">
-                <div className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded cursor-pointer">
+                <button
+                  type="button"
+                  aria-label="Copy Button"
+                  className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
+                >
                   <CopyIcon />
-                </div>
-                <div className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded cursor-pointer">
+                </button>
+                <button
+                  type="button"
+                  aria-label="Edit Button"
+                  className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
+                >
                   <EditIcon />
-                </div>
-                <div className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded cursor-pointer">
+                </button>
+                <button
+                  type="button"
+                  aria-label="Delete Button"
+                  className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
+                >
                   <DeleteIcon />
-                </div>
+                </button>
               </div>
             </span>
-          </div>
+          </li>
         ))}
       </ul>
     </div>

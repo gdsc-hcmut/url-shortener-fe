@@ -1,26 +1,16 @@
-import React, { useLayoutEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 
 import { ReactComponent as MenuIcon } from 'assets/icons/menu_icon.svg';
 import MyUrl from 'components/MyUrl';
 import Navbar from 'components/Navbar';
 import SideMenu from 'components/SideMenu';
-import useWindowSize from 'utils/hooks/ScreenSizeHook';
 
 export default function MyUrlPage() {
-  const [screenWidth] = useWindowSize();
-  const navigate = useNavigate();
   const [toggleMenu, setToggleMenu] = useState(false);
 
   const handleToggleMenu = () => {
     setToggleMenu(!toggleMenu);
   };
-  useLayoutEffect(() => {
-    if (screenWidth >= 1024) {
-      navigate('/detail/0');
-    }
-    return () => {};
-  });
 
   return (
     <div className="max-h-[100vh] detail-page flex flex-col">
