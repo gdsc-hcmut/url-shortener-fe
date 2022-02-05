@@ -2,18 +2,22 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import { ReactComponent as ArrowBackward } from 'assets/icons/arrow_backward.svg';
 import { ReactComponent as ArrowDown } from 'assets/icons/arrow_down.svg';
+import { ReactComponent as ArrowForward } from 'assets/icons/arrow_forward.svg';
 import { ReactComponent as CopyIcon } from 'assets/icons/copy_icon.svg';
 import { ReactComponent as DeleteIcon } from 'assets/icons/delete_icon.svg';
 import { ReactComponent as EditIcon } from 'assets/icons/edit_icon.svg';
-import fakeGetUrlsList from 'services/getUrlsList';
+import fakeGetUrlsList, { MAX_URL_PER_PAGE } from 'services/getUrlsList';
 
 export default function MyUrl({ slug }) {
   const [option, setOption] = useState('Most Clicked');
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState('');
+  const [pageNum, setPageNum] = useState(1);
 
   const sortOptions = ['Most Clicked', 'Less Clicked', 'Latest', 'Oldest'];
+  const maxNumPage = Math.ceil(fakeGetUrlsList.length / MAX_URL_PER_PAGE);
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
@@ -22,6 +26,21 @@ export default function MyUrl({ slug }) {
   const handleClick = () => {
     setIsOpen(!isOpen);
   };
+
+  const filterUrl = (short, long, searchVal) => {
+    let longFiltered = long;
+    if (longFiltered.startsWith('https://')) {
+      longFiltered = longFiltered.substring(8);
+    } else if (longFiltered.startsWith('http://')) {
+      longFiltered = longFiltered.substring(7);
+    }
+
+    if (longFiltered.startsWith('www.')) {
+      longFiltered = longFiltered.substring(4);
+    }
+    return longFiltered.startsWith(search) || short.startsWith(`/${searchVal}`);
+  };
+
   return (
     <div className="bg-opacity-0 flex flex-col md:w-[392px] h-full w-full md:pr-0 md:p-0 py-5 pr-5">
       <h1 className="font-normal text-[32px] leading-10">My URLs</h1>
@@ -71,24 +90,11 @@ export default function MyUrl({ slug }) {
       />
       <ul className="md:overflow-y-scroll mt-10 space-y-10 relative h-full ">
         {fakeGetUrlsList
-          .filter((url) => {
-            if (url.longUrl.startsWith('http://www.')) {
-              return url.longUrl.substring(11).startsWith(search);
+          .filter((url, index) => {
+            if (search) {
+              return filterUrl(url.slug, url.longUrl, search);
             }
-
-            if (url.longUrl.startsWith('https://')) {
-              return url.longUrl.substring(8).startsWith(search);
-            }
-
-            if (url.longUrl.startsWith('http://')) {
-              return url.longUrl.substring(7).startsWith(search);
-            }
-
-            if (url.longUrl.startsWith('www.')) {
-              return url.longUrl.substring(5).startsWith(search);
-            }
-
-            return url.longUrl.startsWith(search);
+            return Math.ceil((index + 1) / MAX_URL_PER_PAGE) === pageNum;
           })
           .map((url) => (
             <li
@@ -135,6 +141,48 @@ export default function MyUrl({ slug }) {
               </span>
             </li>
           ))}
+        <span className="flex w-full h-11 justify-center items-center">
+          <span className="flex justify-between items-center w-[268px] h-full bg-opacity-0">
+            <span
+              aria-hidden="true"
+              className="cursor-pointer"
+              onClick={() => setPageNum(1)}
+            >
+              <ArrowBackward />
+            </span>
+            <div
+              aria-hidden="true"
+              className="flex justify-center items-center w-11 h-11 rounded-full bg-opcacity-0 text-gdscGrey-700 text-base font-bold cursor-pointer hover:bg-opacity-full hover:bg-gdscGrey-300 transition-all duration-200 ease-out"
+              onClick={() => pageNum - 1 > 0
+                && pageNum - 1 <= maxNumPage
+                && setPageNum(pageNum - 1)}
+            >
+              {pageNum - 1 > 0 && pageNum - 1 <= maxNumPage ? pageNum - 1 : ''}
+            </div>
+            <div
+              aria-hidden="true"
+              className="flex justify-center items-center w-11 h-11 rounded-full bg-gdscBlue-300 text-white text-base font-bold cursor-pointer "
+            >
+              {pageNum > 0 && pageNum <= maxNumPage ? pageNum : ''}
+            </div>
+            <div
+              aria-hidden="true"
+              className="flex justify-center items-center w-11 h-11 rounded-full bg-opacity-0 text-gdscGrey-700 text-base font-bold cursor-pointer hover:bg-opacity-full hover:bg-gdscGrey-300 transition-all duration-200 ease-out"
+              onClick={() => pageNum + 1 > 0
+                && pageNum + 1 <= maxNumPage
+                && setPageNum(pageNum + 1)}
+            >
+              {pageNum + 1 > 0 && pageNum + 1 <= maxNumPage ? pageNum + 1 : ''}
+            </div>
+            <span
+              aria-hidden="true"
+              className="cursor-pointer"
+              onClick={() => setPageNum(maxNumPage)}
+            >
+              <ArrowForward />
+            </span>
+          </span>
+        </span>
       </ul>
     </div>
   );

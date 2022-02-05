@@ -71,4 +71,6 @@ const fakeGetUrlsList = [
   },
 ];
 
+export const MAX_URL_PER_PAGE = 20;
+
 export default fakeGetUrlsList;

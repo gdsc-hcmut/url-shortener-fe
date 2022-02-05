@@ -59,7 +59,7 @@ export default function Chart({ data }) {
   return (
     <div className="md:h-[496px] h-[240px] 3xl:w-[1032px] md:w-[504px] w-full px-5 py-5 lg:px-8 flex flex-col space-y-3 md:space-y-7  bg-white rounded">
       <div className="flex justify-between">
-        <h1>Times Clicked On</h1>
+        <h1 className="font-medium text-xs md:text-base">Times Clicked On</h1>
         <button
           type="button"
           className="w-40 h-11 text-base text-gdscGrey-700 p-2 lg:p-3 outline-none bg-[#F0F5F7] mt-3 mx-0 self-end text-left cursor-pointer rounded block md:mt-1 md:mr-3 focus:outline-none focus:ring-1 focus:ring-gdscBlue-300"
@@ -83,8 +83,5 @@ export default function Chart({ data }) {
 }
 
 Chart.propTypes = {
-  data: PropTypes.shape({
-    facebook: PropTypes.number.isRequired,
-    instagram: PropTypes.number.isRequired,
-  }).isRequired,
+  data: PropTypes.instanceOf(Array).isRequired,
 };

@@ -11,7 +11,7 @@ export default function SocialMedia({ data }) {
   return (
     <div className="md:h-[480px] md:w-[504px] w-full px-5 pt-8 pb-12 mb-6 mx-0 lg:mr-6 bg-white rounded">
       <input
-        className="w-full h-10 mb-12 bg-[#F0F5F7] hover:bg-white border-[1px] border-[#F0F5F7] focus:border-gdscBlue-300 px-5 outline-none rounded text-base font-light"
+        className="w-full h-10 mb-12 bg-[#F0F5F7] focus:bg-white border-[1px] border-[#F0F5F7] focus:border-gdscBlue-300 px-5 outline-none rounded text-base font-light"
         placeholder="Search your URL ..."
       />
       <div className=" h-full flex flex-col">
