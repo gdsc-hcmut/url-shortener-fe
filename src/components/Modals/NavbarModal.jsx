@@ -8,7 +8,7 @@ import LogoutIcon from 'assets/icons/logout.svg';
 export default function NavbarModal({ show }) {
   return (
     <div
-      className={`w-[300px] h-[158px] pt-8 px-7 self-end mr-[60px] mt-[-28px] bg-white border rounded border-gdscGrey-200 flex flex-col items-start opacity-0 ${
+      className={`w-[300px] h-[158px] z-20 pt-8 px-7 self-end mr-[60px] mt-[-28px] bg-white border rounded border-gdscGrey-200 flex flex-col items-start opacity-0 ${
         show ? 'opacity-100' : ' '
       }`}
     >

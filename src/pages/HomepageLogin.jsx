@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import Footer from 'components/Footer';
 import NavbarModal from 'components/Modals/NavbarModal';
 import NavbarLogin from 'components/Navbar/NavbarLogin';
-import Url from 'components/Url';
 import UrlInputBoxAndTitle from 'components/UrlInputBoxAndTitle';
 
 export default function HomepageLogin() {
@@ -27,13 +26,17 @@ export default function HomepageLogin() {
     };
   }, []);
   return (
-    <div className="flex flex-col justify-center md:items-center bg-mobile-background md:bg-blue md:bg-contain">
+    <div
+      aria-hidden="true"
+      className="flex flex-col justify-center md:items-center bg-mobile-background md:bg-blue md:bg-contain"
+      onClick={hideModal}
+      onKeyDown={closeOnEscapeKeyDown}
+    >
       <NavbarLogin showModal={showNavbarModal} />
       <NavbarModal show={show} />
-      <div className="ml-[1.25rem] mt-[136px] mb-[288px] md:mt-[152px] md:mb-[276px]">
+      <div className="ml-[1.25rem] mt-[5px] mb-[288px] md:mt-[22px] md:mb-[276px]">
         <UrlInputBoxAndTitle loggedIn />
       </div>
-      <Url />
       <Footer />
     </div>
   );
