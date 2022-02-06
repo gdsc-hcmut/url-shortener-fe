@@ -14,8 +14,7 @@ instance.interceptors.request.use(
     const token = TokenService.getLocalAccessToken();
     if (token) {
       // eslint-disable-next-line
-      config.headers.Authorization = `Bearer ${token}`; // for Spring Boot back-end
-      // config.headers['x-access-token'] = token; // for Node.js Express back-end
+      config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
   },
@@ -27,12 +26,9 @@ instance.interceptors.response.use(
   async (err) => {
     const originalConfig = err.config;
 
-    // if (originalConfig.url !== '/auth' && err.response) {
     if (originalConfig.url !== '/auth/signin' && err.response) {
-      // Access Token was expired
-      // status 401
       // eslint-disable-next-line
-      if (err.response.status === 500 && !originalConfig._retry) {
+      if (err.response.status === 401 && !originalConfig._retry) {
         // eslint-disable-next-line
         originalConfig._retry = true;
 
@@ -44,9 +40,8 @@ instance.interceptors.response.use(
 
           console.log(rs);
 
-          const { accessToken, refreshToken } = rs.data;
+          const { accessToken } = rs.data;
           TokenService.updateLocalAccessToken(accessToken);
-          TokenService.updateLocalRefreshToken(refreshToken);
 
           return instance(originalConfig);
         } catch (_error) {
