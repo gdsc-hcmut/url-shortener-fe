@@ -17,27 +17,20 @@ const register = async (email, password) => {
     .then((userCredential) => {
       const firebaseToken = userCredential.user.accessToken;
       localStorage.setItem('firebaseToken', firebaseToken);
-      console.log('firebaseToken', firebaseToken);
       return firebaseToken;
     })
     .then((firebaseToken) => {
-      console.log('call api');
       const res = api.post('/users', { firebaseToken });
-      console.log('res', res);
       return res;
     })
     .then((res) => {
       if (res.data.token) {
         TokenService.setUser(res.data.token);
       }
-      console.log(res.data);
-      return res.data; // { user, token }
+      return res.data;
     })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log('errCode', errorCode);
-      console.log('errMessage', errorMessage);
+    .catch((err) => {
+      console.log(err);
     });
 };
 
@@ -57,11 +50,8 @@ const login = async (email, password) => {
       }
       return res.data;
     })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode);
-      console.log(errorMessage);
+    .catch((err) => {
+      console.log(err);
     });
 };
 
@@ -69,11 +59,9 @@ const logout = () => {
   const auth = getAuth();
 
   TokenService.removeUser();
-  signOut(auth)
-    .then(() => console.log('logged out'))
-    .catch((error) => {
-      console.log(error);
-    });
+  signOut(auth).catch((err) => {
+    console.log(err);
+  });
 };
 
 // const getCurrentUser = () => JSON.parse(localStorage.getItem('user'));

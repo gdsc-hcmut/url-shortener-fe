@@ -26,7 +26,6 @@ export const loadUser = () => async (dispatch) => {
 
 export const register = (email, password) => async (dispatch) => {
   try {
-    console.log('sign up pressed');
     const { user, token } = await AuthService.register(email, password);
     dispatch({
       type: REGISTER_SUCCESS,
@@ -35,7 +34,6 @@ export const register = (email, password) => async (dispatch) => {
 
     dispatch(loadUser());
   } catch (err) {
-    console.log('error', err);
     dispatch({
       type: REGISTER_FAIL,
     });
