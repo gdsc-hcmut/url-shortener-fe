@@ -1,5 +1,5 @@
 import { SHORTEN_URL, URL_ERROR } from 'action-types';
-import UrlAPI from 'services/url';
+import UrlAPI from 'services/url.service';
 
 const shortenUrl = (longUrl) => async (dispatch) => {
   try {
