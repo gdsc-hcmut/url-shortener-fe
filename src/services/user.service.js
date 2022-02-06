@@ -1,10 +1,8 @@
-import axios from 'axios';
-
-const { REACT_APP_API_URL } = process.env;
+import api from './api';
 
 const UserAPI = {
-  signUpUser: (firebaseToken) => axios.post(`${REACT_APP_API_URL}/api/users`, { firebaseToken }),
-  loginUser: (firebaseToken) => axios.post(`${REACT_APP_API_URL}/api/auth`, { firebaseToken }),
+  signUpUser: (firebaseToken) => api.post('/users', { firebaseToken }),
+  loginUser: (firebaseToken) => api.post('/auth', { firebaseToken }),
 };
 
 export default UserAPI;
