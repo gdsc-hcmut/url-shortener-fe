@@ -17,10 +17,10 @@ export default function UserFormDesktop() {
       <p className="mt-2 text-gdscGrey-700">
         To edit any info, click on the “Edit” icon next to each field.
       </p>
-      <div className="mt-[88px] w-full h-[640px] bg-white rounded-[8px] pl-8 pt-10">
+      <div className="mt-[88px] w-full bg-white rounded-[8px] pl-8 pt-10">
         <form className="mt-[40px] flex flex-col">
           <div className="flex">
-            <div className="w-[152px] h-[152px] bg-gdscGrey-200 rounded" />
+            <div className="md:w-[100px] md:h-[100px] lg:w-[152px] lg:h-[152px] bg-gdscGrey-200 rounded" />
             <div className="flex flex-col self-end ml-8">
               <button
                 type="button"
@@ -35,13 +35,13 @@ export default function UserFormDesktop() {
               </p>
             </div>
           </div>
-          <div className="flex">
+          <div className="flex flex-wrap 2xl:space-x-7 mt-[52px]">
             <div className="flex flex-col">
-              <p className="mt-[52px]">Name</p>
+              <p>Name</p>
               {field.name ? (
                 <div className="flex">
                   <input
-                    className="mt-4 w-[460px] h-[60px] bg-white border
+                    className="mt-4 w-[320px] lg:w-[460px] h-[60px] bg-white border
                           border-1 border-gdscBlue-300 px-5 outline-none rounded"
                     type="text"
                     placeholder={content.name}
@@ -74,7 +74,7 @@ export default function UserFormDesktop() {
                   </div>
                 </div>
               ) : (
-                <div className="relative mt-4 w-[460px] h-[60px] flex px-5 pt-5 outline-none rounded bg-gdscGrey-100 text-input-text">
+                <div className="relative mt-4 w-[320px] lg:w-[460px] h-[60px] flex px-5 pt-5 outline-none rounded bg-gdscGrey-100 text-input-text">
                   {content.name}
                   <button
                     type="button"
@@ -86,12 +86,12 @@ export default function UserFormDesktop() {
                 </div>
               )}
             </div>
-            <div className="flex flex-col ml-7">
-              <p className="mt-[52px]">Email address</p>
+            <div className="flex flex-col">
+              <p className="md:mt-6 2xl:mt-0">Email address</p>
               {field.email ? (
                 <div className="flex">
                   <input
-                    className="mt-4 w-[460px] h-[60px] bg-white border
+                    className="mt-4 w-[320px] lg:w-[460px] h-[60px] bg-white border
                             border-1 border-gdscBlue-300 px-5 outline-none rounded"
                     type="email"
                     placeholder={content.email}
@@ -124,7 +124,7 @@ export default function UserFormDesktop() {
                   </div>
                 </div>
               ) : (
-                <div className="relative mt-4 w-[460px] h-[60px] flex px-5 pt-5 outline-none rounded bg-gdscGrey-100 text-input-text">
+                <div className="relative mt-4 w-[320px] lg:w-[460px] h-[60px] flex px-5 pt-5 outline-none rounded bg-gdscGrey-100 text-input-text">
                   {content.email}
                   <button
                     type="button"
@@ -141,7 +141,7 @@ export default function UserFormDesktop() {
           {field.dob ? (
             <div className="flex">
               <input
-                className="mt-4 w-[460px] h-[60px] bg-white border
+                className="mt-4 w-[320px] lg:w-[460px] h-[60px] bg-white border
                           border-1 border-gdscBlue-300 px-5 outline-none rounded"
                 type="date"
                 placeholder={content.dob}
@@ -170,7 +170,7 @@ export default function UserFormDesktop() {
               </div>
             </div>
           ) : (
-            <div className="relative mt-4 w-[460px] h-[60px] flex px-5 pt-5 outline-none rounded bg-gdscGrey-100 text-input-text">
+            <div className="relative mt-4 w-[320px] lg:w-[460px] h-[60px] flex px-5 pt-5 outline-none rounded bg-gdscGrey-100 text-input-text">
               {content.dob}
               <button
                 type="button"
@@ -183,7 +183,7 @@ export default function UserFormDesktop() {
           )}
           <button
             type="submit"
-            className="w-[152px] h-[52px] text-white mt-9 bg-gdscBlue-300 rounded hover:bg-shorten-btn-hover
+            className="w-[152px] h-[52px] mb-7 text-white mt-9 bg-gdscBlue-300 rounded hover:bg-shorten-btn-hover
           transition-all duration-300 ease-out"
           >
             Save
