@@ -9,6 +9,7 @@ import HomepageLogin from 'pages/HomepageLogin';
 import ResetPasswordPage from 'pages/ResetPasswordPage';
 import UrlWithSlug from 'pages/UrlWithSlug';
 import UserProfilePage from 'pages/UserProfilePage';
+import ForgotPasswordPage from 'pages/ForgotPasswordPage';
 
 import DetailPage from './pages/DetailPage';
 import Homepage from './pages/Homepage';
@@ -47,6 +48,7 @@ export default function App() {
           <Route path="/slug" element={<UrlWithSlug />} />
           <Route path="/edit-slug" element={<EditSlug />} />
           <Route path="/detail" element={<DetailPage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         </Routes>
       </BrowserRouter>
     </Provider>
