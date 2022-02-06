@@ -1,9 +1,7 @@
-import axios from 'axios';
-
-const { REACT_APP_API_URL } = process.env;
+import api from './api';
 
 const UrlAPI = {
-  shortenUrl: (longUrl) => axios.post(`${REACT_APP_API_URL}/api/urls`, { longUrl }),
+  shortenUrl: (longUrl) => api.post('/urls', { longUrl }),
 };
 
 export default UrlAPI;
