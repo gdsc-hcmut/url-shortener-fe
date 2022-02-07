@@ -10,7 +10,7 @@ export default function LoginModalMobile() {
   return (
     <div>
       <NavBar isModalPage />
-      <div className="flex flex-col justify-center items-center mt-10">
+      <div className="flex flex-col justify-center items-center mt-[92px]">
         <h1 className="text-2xl font-bold mb-7 self-center">Login</h1>
         <LoginForm />
         <a href=" " className="mb-7">
