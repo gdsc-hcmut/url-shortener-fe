@@ -7,7 +7,7 @@ import NavbarModal from 'components/Modals/NavbarModal';
 import NavbarLogin from 'components/Navbar/NavbarLogin';
 import SideMenu from 'components/SideMenu';
 
-export default function DetailPage() {
+export default function ReplacePasswordPage() {
   const [toggleMenu, setToggleMenu] = useState(false);
   const [width, setWidth] = useState(window.innerWidth);
   const [show, setShow] = useState(false);
