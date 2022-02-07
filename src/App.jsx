@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import ChangePasswordPage from 'pages/ChangePasswordPage';
 import { loadUser } from 'actions/auth';
 import HomepageLogin from 'pages/HomepageLogin';
 import ResetPasswordPage from 'pages/ResetPasswordPage';
@@ -15,7 +14,6 @@ import SignInPage from './pages/SignInPage';
 import SignUpDesktop from './pages/SignUpDesktop';
 import SignUpPage from './pages/SignUpPage';
 import store from './store';
-
 import './index.css';
 import setAuthToken from './utils/setAuthToken';
 
