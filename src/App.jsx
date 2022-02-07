@@ -9,6 +9,7 @@ import HomepageLogin from 'pages/HomepageLogin';
 import ResetPasswordPage from 'pages/ResetPasswordPage';
 import UrlWithSlug from 'pages/UrlWithSlug';
 import UserProfilePage from 'pages/UserProfilePage';
+import MaterialUIPickers from 'pages/DateTimePicker';
 import ForgotPasswordPage from 'pages/ForgotPasswordPage';
 
 import DetailPage from './pages/DetailPage';
@@ -49,6 +50,7 @@ export default function App() {
           <Route path="/edit-slug" element={<EditSlug />} />
           <Route path="/detail" element={<DetailPage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="/date" element={<MaterialUIPickers />} />
         </Routes>
       </BrowserRouter>
     </Provider>
