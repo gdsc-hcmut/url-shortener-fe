@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { SHOW_MODAL } from 'action-types';
-
 import { SHOW_SIGN_UP_MODAL } from 'action-types';
 
 export default function SubTitle() {
@@ -28,7 +26,7 @@ export default function SubTitle() {
           type="button"
           onClick={(e) => {
             e.preventDefault();
-            window.location.href = 'http://localhost:3000/sign-up';
+            window.location.href = 'http://localhost:3000/sign-up-page';
           }}
           className="md:m-0 w-[92px] h-6 b-[50px] bg-get-started-btn rounded-[60px] flex justify-center items-center hover:bg-get-started-btn-hover  ease-out duration-300"
         >

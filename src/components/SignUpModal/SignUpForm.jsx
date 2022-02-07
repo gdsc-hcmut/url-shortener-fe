@@ -3,7 +3,7 @@ import React from 'react';
 export default function SignUpForm() {
   return (
     <form className="flex flex-col justify-center">
-      <p className="text-2xl mt-[-20px] font-bold self-center">Sign up</p>
+      <p className="text-2xl md:mt-[-20px] font-bold self-center">Sign up</p>
       <div className="mt-7 px-0 md:px-10">
         <p>Email</p>
         <input
