@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import MordalUrl from 'components/ModalUrl';
+import EditSlugModal from 'components/EditSludModal';
 
 export default function App() {
   const [show, setShow] = useState(false);
@@ -10,7 +10,7 @@ export default function App() {
       <button type="button" onClick={() => setShow(true)}>
         Show Modal
       </button>
-      <MordalUrl title="My Modal" onClose={() => setShow(false)} show={show} />
+      <EditSlugModal slug="\slug1" onClose={() => setShow(false)} show={show} />
     </div>
   );
 }
