@@ -7,7 +7,7 @@ import Url from 'components/Url';
 
 function UrlWithSlug() {
   const { isAuthenticated } = useSelector((state) => state.auth);
-  const { shortenedUrl } = useSelector((state) => state.urlWithSlug);
+  const { shortenedUrl, slugExist } = useSelector((state) => state.urlWithSlug);
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState('');
@@ -27,7 +27,6 @@ function UrlWithSlug() {
     e.preventDefault();
     dispatch(register(email, password));
   };
-
   return (
     <div>
       {isAuthenticated ? (
@@ -51,7 +50,11 @@ function UrlWithSlug() {
           >
             Shorten
           </button>
-          <Url shortenedUrl={shortenedUrl} />
+          {slugExist ? (
+            <p className="text-gdscRed-300 mt-2">Slug has been taken</p>
+          ) : (
+            <Url shortenedUrl={shortenedUrl} />
+          )}
         </div>
       ) : (
         <form
