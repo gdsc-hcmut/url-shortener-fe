@@ -10,3 +10,4 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const LOGOUT = 'LOGOUT';
 export const SHOW_LOG_IN_MODAL = 'SHOW_LOG_IN_MODAL';
+export const SHORTEN_URL_WITH_SLUG = 'SHORTEN_URL_WITH_SLUG';

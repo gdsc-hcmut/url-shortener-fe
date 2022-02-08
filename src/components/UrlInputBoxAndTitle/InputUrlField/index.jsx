@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { SHOW_URL_MODAL } from 'action-types';
-import shortenUrl from 'actions/url';
+import urlAction from 'actions/url';
 import { ReactComponent as ReactLogo } from 'assets/image/web.svg';
 
 export default function InputUrlField() {
@@ -11,7 +11,7 @@ export default function InputUrlField() {
 
   const handleLongUrl = (e) => setLongUrl(e.target.value);
   const handleClick = () => {
-    dispatch(shortenUrl(longUrl));
+    dispatch(urlAction.shortenUrl(longUrl));
     dispatch({
       type: SHOW_URL_MODAL,
       payload: true,
