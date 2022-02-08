@@ -27,7 +27,7 @@ export default function EditSlugModal({ show, onClose, slug }) {
   return (
     <div
       aria-hidden="true"
-      className={`fixed z-10 hidden inset-0 bg-black bg-opacity-50 md:flex justify-center items-center opacity-0 transition-all duration-300 ease-out pointer-events-none ${
+      className={`fixed z-20 inset-0 bg-black bg-opacity-50 flex justify-center items-center opacity-0 transition-all duration-300 ease-out pointer-events-none ${
         show ? 'opacity-100 pointer-events-auto' : ''
       }`}
       onKeyDown={closeOnEscapeKeyDown}
