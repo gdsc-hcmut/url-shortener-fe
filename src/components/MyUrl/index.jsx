@@ -8,6 +8,8 @@ import { ReactComponent as ArrowForward } from 'assets/icons/arrow_forward.svg';
 import { ReactComponent as CopyIcon } from 'assets/icons/copy_icon.svg';
 import { ReactComponent as DeleteIcon } from 'assets/icons/delete_icon.svg';
 import { ReactComponent as EditIcon } from 'assets/icons/edit_icon.svg';
+import EditSlugModal from 'components/EditSludModal';
+import ModalSucess from 'components/ModalSuccess';
 import fakeGetUrlsList, { MAX_URL_PER_PAGE } from 'services/getUrlsList';
 
 export default function MyUrl({ slug }) {
@@ -15,6 +17,8 @@ export default function MyUrl({ slug }) {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState('');
   const [pageNum, setPageNum] = useState(1);
+  const [copied, setCopied] = useState(false);
+  const [edit, setEdit] = useState('');
 
   const sortOptions = ['Most Clicked', 'Less Clicked', 'Latest', 'Oldest'];
   const maxNumPage = Math.ceil(fakeGetUrlsList.length / MAX_URL_PER_PAGE);
@@ -43,6 +47,22 @@ export default function MyUrl({ slug }) {
 
   return (
     <div className="bg-opacity-0 flex flex-col md:w-[392px] h-full w-full md:pr-0 md:p-0 py-5 pr-5">
+      <div className="modal absolute z-50">
+        {edit !== '' ? (
+          <EditSlugModal slug={edit} onClose={() => setEdit('')} show={edit} />
+        ) : (
+          <h1>{}</h1>
+        )}
+        {copied ? (
+          <ModalSucess
+            text="Link copied to clipboard."
+            onClose={() => setCopied(false)}
+            show={copied}
+          />
+        ) : (
+          <h1>{}</h1>
+        )}
+      </div>
       <h1 className="font-normal text-[32px] leading-10">My URLs</h1>
 
       <button
@@ -120,6 +140,11 @@ export default function MyUrl({ slug }) {
                     type="button"
                     aria-label="Copy Button"
                     className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
+                    onClick={() => {
+                      setCopied(true);
+                      navigator.clipboard.writeText(`gdschcmut.url${url.slug}`);
+                      setTimeout(() => setCopied(false), 1000);
+                    }}
                   >
                     <CopyIcon />
                   </button>
@@ -127,6 +152,7 @@ export default function MyUrl({ slug }) {
                     type="button"
                     aria-label="Edit Button"
                     className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
+                    onClick={() => setEdit(url.slug)}
                   >
                     <EditIcon />
                   </button>
