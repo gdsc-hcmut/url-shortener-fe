@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { loadUser } from 'actions/auth';
 
 import Homepage from './pages/Homepage';
+import LoginPage from './pages/LoginPage';
 import ModalPage from './pages/ModalPage';
 import SignInPage from './pages/SignInPage';
 import SignUpDesktop from './pages/SignUpDesktop';
@@ -26,9 +27,10 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/modal" element={<ModalPage />} />
+          <Route path="/sign-up-firebase" element={<SignUpPage />} />
+          <Route path="/sign-in-firebase" element={<SignInPage />} />
+          <Route path="/log-in" element={<LoginPage />} />
           <Route path="/sign-up-page" element={<SignUpDesktop />} />
-          <Route path="/sign-up" element={<SignUpPage />} />
-          <Route path="/sign-in" element={<SignInPage />} />
         </Routes>
       </BrowserRouter>
     </Provider>

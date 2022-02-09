@@ -1,7 +1,12 @@
-import { SHOW_URL_MODAL, SHOW_SIGN_UP_MODAL } from 'action-types';
+import {
+  SHOW_URL_MODAL,
+  SHOW_LOG_IN_MODAL,
+  SHOW_SIGN_UP_MODAL,
+} from 'action-types';
 
 const defaultSetUp = {
   UrlModal: false,
+  LogInModal: false,
   SignupModal: false,
 };
 // eslint-disable-next-line default-param-last
@@ -11,6 +16,11 @@ export default (state = defaultSetUp, { type, payload }) => {
       return {
         ...state,
         UrlModal: payload,
+      };
+    case SHOW_LOG_IN_MODAL:
+      return {
+        ...state,
+        LogInModal: payload,
       };
     case SHOW_SIGN_UP_MODAL:
       return {

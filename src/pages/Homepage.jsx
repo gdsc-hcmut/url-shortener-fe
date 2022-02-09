@@ -1,21 +1,36 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { SHOW_URL_MODAL, SHOW_SIGN_UP_MODAL } from 'action-types';
+import {
+  SHOW_URL_MODAL,
+  SHOW_LOG_IN_MODAL,
+  SHOW_SIGN_UP_MODAL,
+} from 'action-types';
 import Footer from 'components/Footer';
-import MordalUrl from 'components/ModalUrl';
+import LoginModal from 'components/LoginModal';
+import ModalUrl from 'components/ModalUrl';
 import NavBar from 'components/Navbar';
 import SignUpDesktop from 'components/SignUpModal';
 import UrlInputBoxAndTitle from 'components/UrlInputBoxAndTitle';
 
 export default function Homepage() {
-  const { UrlModal, SignupModal } = useSelector((state) => state.showModal);
+  const { UrlModal, LogInModal, SignupModal } = useSelector(
+    (state) => state.showModal,
+  );
   const dispatch = useDispatch();
   return (
     <div className="flex flex-col justify-center md:items-center bg-mobile-background md:bg-blue md:bg-contain">
       <NavBar />
       <div className="ml-[1.25rem] mt-[216px] mb-[23.5rem] md:mt-[260px] md:mb-[276px]">
         <UrlInputBoxAndTitle />
+        <LoginModal
+          title="Login Modal"
+          onClose={() => dispatch({
+            type: SHOW_LOG_IN_MODAL,
+            payload: false,
+          })}
+          show={LogInModal}
+        />
         <SignUpDesktop
           title="My Modal"
           onClose={() => dispatch({
@@ -25,7 +40,7 @@ export default function Homepage() {
           show={SignupModal}
         />
       </div>
-      <MordalUrl
+      <ModalUrl
         title="My Modal"
         onClose={() => dispatch({
           type: SHOW_URL_MODAL,
