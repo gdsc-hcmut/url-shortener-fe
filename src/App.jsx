@@ -8,6 +8,7 @@ import HomepageLogin from 'pages/HomepageLogin';
 import ResetPasswordPage from 'pages/ResetPasswordPage';
 import UserProfilePage from 'pages/UserProfilePage';
 import UrlWithSlug from 'pages/UrlWithSlug';
+import EditSlug from 'pages/EditSlug';
 
 import Homepage from './pages/Homepage';
 import LoginPage from './pages/LoginPage';
@@ -43,6 +44,7 @@ export default function App() {
           <Route path="/user-profile" element={<UserProfilePage />} />
           <Route path="/modal-nav" element={<NavbarModal />} />
           <Route path="/slug" element={<UrlWithSlug />} />
+          <Route path="/edit-slug" element={<EditSlug />} />
         </Routes>
       </BrowserRouter>
     </Provider>
