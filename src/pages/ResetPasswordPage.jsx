@@ -12,7 +12,7 @@ export default function ResetPasswordPage() {
           <NavbarHome />
         </div>
       </nav>
-      <div className="mt-10 mb-[120px] md:mt-[204px] md:mb-[196px]">
+      <div className="mt-10 mb-[120px] md:mt-[100px] md:mb-[196px]">
         <ResetPasswordForm />
       </div>
       <Footer />
