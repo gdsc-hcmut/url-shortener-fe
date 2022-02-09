@@ -22,7 +22,7 @@ export default function LoginForm() {
         />
       </div>
       <div className="mb-10 md:mb-7 text-right">
-        <a href=" ">Forgot your pasword?</a>
+        <a href=" ">Forgot your password?</a>
       </div>
       <button
         className="font-normal text-white w-[376px] md:w-full h-[60px]

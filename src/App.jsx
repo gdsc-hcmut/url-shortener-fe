@@ -26,9 +26,8 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/modal" element={<ModalPage />} />
-          <Route path="/log-in" element={<LoginPage />} />
-          <Route path="/sign-up" element={<SignUpPage />} />
-          <Route path="/sign-in" element={<SignInPage />} />
+          <Route path="/sign-up-firebase" element={<SignUpPage />} />
+          <Route path="/sign-in-firebase" element={<SignInPage />} />
           <Route path="/log-in" element={<LoginPage />} />
         </Routes>
       </BrowserRouter>
