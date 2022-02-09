@@ -10,7 +10,7 @@ import ChangePasswordPage from 'pages/ChangePasswordPage';
 import Homepage from './pages/Homepage';
 import LoginPage from './pages/LoginPage';
 import ModalPage from './pages/ModalPage';
-import ReplacePasswordPage from './pages/ReplacePasswordPage';
+import ChangePasswordPage from './pages/ReplacePasswordPage';
 import SignInPage from './pages/SignInPage';
 import SignUpDesktop from './pages/SignUpDesktop';
 import SignUpPage from './pages/SignUpPage';
