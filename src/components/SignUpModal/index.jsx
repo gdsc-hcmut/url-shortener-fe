@@ -37,7 +37,7 @@ export default function SignUpDesktop({ show, onClose }) {
         <div className="mt-3 px-3 flex gap-x-[396px]">
           <button
             type="button"
-            className="h-8 w-10 bg-[#F0F5F7] flex items-center
+            className="h-10 w-10 bg-[#F0F5F7] flex items-center
             hover:bg-[#DCF3FC] transition-all duration-300 ease-out rounded-[8px] p-[14px]"
           >
             <img className="w-3 h-3" src={BackIcon} alt="Back button" />
