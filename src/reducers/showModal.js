@@ -1,15 +1,21 @@
-const SHOW_MODAL = 'SHOW_MODAL';
+import { SHOW_URL_MODAL, SHOW_SIGN_UP_MODAL } from 'action-types';
 
 const defaultSetUp = {
-  visibility: false,
+  UrlModal: false,
+  SignupModal: false,
 };
 // eslint-disable-next-line default-param-last
 export default (state = defaultSetUp, { type, payload }) => {
   switch (type) {
-    case SHOW_MODAL:
+    case SHOW_URL_MODAL:
       return {
         ...state,
-        visibility: payload,
+        UrlModal: payload,
+      };
+    case SHOW_SIGN_UP_MODAL:
+      return {
+        ...state,
+        SignupModal: payload,
       };
     default:
       return state;
