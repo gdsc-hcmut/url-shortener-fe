@@ -9,6 +9,7 @@ import ResetPasswordPage from 'pages/ResetPasswordPage';
 import Homepage from './pages/Homepage';
 import LoginPage from './pages/LoginPage';
 import ModalPage from './pages/ModalPage';
+import ChangePasswordPage from './pages/ReplacePasswordPage';
 import SignInPage from './pages/SignInPage';
 import SignUpDesktop from './pages/SignUpDesktop';
 import SignUpPage from './pages/SignUpPage';
@@ -35,9 +36,10 @@ export default function App() {
           <Route path="/sign-up-page" element={<SignUpDesktop />} />
           <Route path="/user-home" element={<HomepageLogin />} />
           <Route path="/reset-pass" element={<ResetPasswordPage />} />
+          <Route path="/change-pass" element={<ChangePasswordPage />} />
+          <Route path="/modal" element={<ModalPage />} />
           <Route path="/sign-up" element={<SignUpPage />} />
           <Route path="/sign-in" element={<SignInPage />} />
-          <Route path="/reset-pass" element={<ResetPasswordPage />} />
         </Routes>
       </BrowserRouter>
     </Provider>

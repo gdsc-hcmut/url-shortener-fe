@@ -5,20 +5,24 @@ import MenuIcon from 'assets/icons/menu.svg';
 
 import NavbarHome from './NavbarHome';
 
-export default function NavbarLogin({ showModal }) {
+export default function NavbarLogin({ myUrl, showModal }) {
   return (
     <nav className="shadow-lg max-w-full h-fit w-full flex px-[20px] py-[20px] md:px-[60px] md:py-[30px] bg-white">
       <div className="flex h-full w-full align-center justify-between">
         <NavbarHome />
-        <div className="flex space-x-8">
-          <button
-            type="button"
-            className="hidden md:block bg-gdscBlue-300 ease-out duration-300 hover:bg-my-url-button-hover
-          text-white font-normal rounded w-[100px] h-[36px] md:w-[180px] md:h-[52px]
+        <div className="hidden md:flex space-x-8">
+          {myUrl ? (
+            <button
+              type="button"
+              className="bg-gdscBlue-300 ease-out duration-300 hover:bg-my-url-button-hover
+          text-white font-normal rounded w-[100px] h-[36px] md:w-[144px] md:h-[52px]
             content-center text-base md:my-0"
-          >
-            <p>My URL</p>
-          </button>
+            >
+              <p>My URL</p>
+            </button>
+          ) : (
+            <div> </div>
+          )}
           <button
             type="button"
             onClick={showModal}
@@ -38,5 +42,6 @@ export default function NavbarLogin({ showModal }) {
   );
 }
 NavbarLogin.propTypes = {
+  myUrl: PropTypes.bool.isRequired,
   showModal: PropTypes.func.isRequired,
 };

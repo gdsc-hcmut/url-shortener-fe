@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import AccountCircle from 'assets/icons/account_circle.svg';
+import AccountCircle from 'assets/icons/account_circle_blue.svg';
 import LogoutIcon from 'assets/icons/logout.svg';
 
 export default function NavbarModal({ show }) {
