@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
+import { SHOW_LOG_IN_MODAL, SHOW_SIGN_UP_MODAL } from 'action-types';
 import { register } from 'actions/auth';
 
-export default function SignUpForm() {
+export default function SignUpForm({ isMobile }) {
+  const { SignupModal } = useSelector((state) => state.showModal);
   const { isAuthenticated } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
@@ -26,7 +30,22 @@ export default function SignUpForm() {
       setMatch(false);
     }
   };
+  const switchToLogIn = () => {
+    dispatch({
+      type: SHOW_SIGN_UP_MODAL,
+      payload: false,
+    });
+    dispatch({
+      type: SHOW_LOG_IN_MODAL,
+      payload: true,
+    });
+  };
   if (isAuthenticated) console.log('Sign up success');
+  useEffect(() => {
+    setEmail('');
+    setPassword('');
+    setConfirmPassword('');
+  }, [SignupModal]);
   return (
     <form className="flex flex-col justify-center" onSubmit={handleSignUp}>
       <p className="text-2xl md:mt-[-20px] font-bold self-center">Sign up</p>
@@ -81,11 +100,28 @@ export default function SignUpForm() {
       >
         Register
       </button>
-      <a href=" " className="mt-7 self-center text-base">
-        Already have an account?
-        {' '}
-        <b className="active:underline">Login</b>
-      </a>
+      {isMobile ? (
+        <Link to="/log-in" className="self-center">
+          <button type="button" className="mt-7 text-base">
+            Already have an account?
+            {' '}
+            <b className="active:underline">Login</b>
+          </button>
+        </Link>
+      ) : (
+        <button
+          type="button"
+          onClick={switchToLogIn}
+          className="mt-7 self-center text-base"
+        >
+          Already have an account?
+          {' '}
+          <b className="active:underline">Login</b>
+        </button>
+      )}
     </form>
   );
 }
+SignUpForm.propTypes = {
+  isMobile: PropTypes.bool.isRequired,
+};

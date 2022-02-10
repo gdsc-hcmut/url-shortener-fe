@@ -1,14 +1,16 @@
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
+import { SHOW_LOG_IN_MODAL, SHOW_SIGN_UP_MODAL } from 'action-types';
 import CloseIcon from 'assets/icons/close.svg';
 
 import LoginForm from './LoginForm';
 import LoginWithGoogle from './LoginWithGoogle';
 
 export default function LoginModal({ show, onClose }) {
+  const dispatch = useDispatch();
   const closeOnEscapeKeyDown = (e) => {
-    // e.stopPropagation();
     if ((e.charCode || e.keyCode) === 27) {
       onClose();
     }
@@ -22,7 +24,16 @@ export default function LoginModal({ show, onClose }) {
       document.body.removeEventListener('keydown', closeOnEscapeKeyDown);
     };
   }, []);
-
+  const switchToSignUp = () => {
+    dispatch({
+      type: SHOW_SIGN_UP_MODAL,
+      payload: true,
+    });
+    dispatch({
+      type: SHOW_LOG_IN_MODAL,
+      payload: false,
+    });
+  };
   return (
     <div
       aria-hidden="true"
@@ -53,12 +64,12 @@ export default function LoginModal({ show, onClose }) {
         >
           <h1 className="text-2xl font-bold mb-7">Login</h1>
           <LoginForm />
-          <a href=" " className="mb-7">
+          <button type="button" onClick={switchToSignUp} className="mb-7">
             {"Don't have an account? "}
             <button type="button" className="active:underline font-bold">
               Sign up
             </button>
-          </a>
+          </button>
           <LoginWithGoogle />
         </div>
       </div>

@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { login } from 'actions/auth';
 
 export default function LoginForm() {
+  const { LogInModal } = useSelector((state) => state.showModal);
   const { isAuthenticated } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
@@ -18,6 +19,10 @@ export default function LoginForm() {
     dispatch(login(email, password));
   };
   if (isAuthenticated) console.log('Sign in success');
+  useEffect(() => {
+    setEmail('');
+    setPassword('');
+  }, [LogInModal]);
   return (
     <form onSubmit={handleSignIn}>
       <div className="flex flex-col align-end mb-7">
