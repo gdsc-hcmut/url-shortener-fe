@@ -32,7 +32,7 @@ export default function HomepageLogin() {
       onClick={hideModal}
       onKeyDown={closeOnEscapeKeyDown}
     >
-      <NavbarLogin showModal={showNavbarModal} />
+      <NavbarLogin showModal={showNavbarModal} myUrl />
       <NavbarModal show={show} />
       <div className="ml-[1.25rem] mt-[5px] mb-[288px] md:mt-[22px] md:mb-[276px]">
         <UrlInputBoxAndTitle loggedIn />

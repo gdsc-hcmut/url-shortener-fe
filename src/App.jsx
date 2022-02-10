@@ -5,7 +5,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { loadUser } from 'actions/auth';
 import HomepageLogin from 'pages/HomepageLogin';
 import ResetPasswordPage from 'pages/ResetPasswordPage';
-import ChangePasswordPage from 'pages/ChangePasswordPage';
 
 import Homepage from './pages/Homepage';
 import LoginPage from './pages/LoginPage';
