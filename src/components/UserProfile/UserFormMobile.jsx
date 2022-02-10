@@ -39,7 +39,11 @@ export default function UserFormMobile() {
                   type="button"
                   onClick={() => setField({ ...field, name: false })}
                 >
-                  <img className="w-6 h-6" src={DoneIcon} alt="Save new info" />
+                  <img
+                    className="w-6 h-6 ml-[-2px]"
+                    src={DoneIcon}
+                    alt="Save new info"
+                  />
                 </button>
                 <button
                   type="button"
@@ -49,7 +53,7 @@ export default function UserFormMobile() {
                   }}
                 >
                   <img
-                    className="w-6 h-6"
+                    className="w-6 h-6 ml-[-2px]"
                     src={ClearIcon}
                     alt="Return to old info"
                   />
@@ -85,7 +89,11 @@ export default function UserFormMobile() {
                   type="button"
                   onClick={() => setField({ ...field, email: false })}
                 >
-                  <img className="w-6 h-6" src={DoneIcon} alt="Save new info" />
+                  <img
+                    className="w-6 h-6 ml-[-2px]"
+                    src={DoneIcon}
+                    alt="Save new info"
+                  />
                 </button>
                 <button
                   type="button"
@@ -95,7 +103,7 @@ export default function UserFormMobile() {
                   }}
                 >
                   <img
-                    className="w-6 h-6"
+                    className="w-6 h-6 ml-[-2px]"
                     src={ClearIcon}
                     alt="Return to old info"
                   />
@@ -131,7 +139,11 @@ export default function UserFormMobile() {
                   type="button"
                   onClick={() => setField({ ...field, dob: false })}
                 >
-                  <img className="w-6 h-6" src={DoneIcon} alt="Save new info" />
+                  <img
+                    className="w-6 h-6 ml-[-2px]"
+                    src={DoneIcon}
+                    alt="Save new info"
+                  />
                 </button>
                 <button
                   type="button"
@@ -141,7 +153,7 @@ export default function UserFormMobile() {
                   }}
                 >
                   <img
-                    className="w-6 h-6"
+                    className="w-6 h-6 ml-[-2px]"
                     src={ClearIcon}
                     alt="Return to old info"
                   />
