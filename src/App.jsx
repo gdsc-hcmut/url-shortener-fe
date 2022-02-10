@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { loadUser } from 'actions/auth';
 import HomepageLogin from 'pages/HomepageLogin';
+import ResetPasswordPage from 'pages/ResetPasswordPage';
 
 import Homepage from './pages/Homepage';
 import LoginPage from './pages/LoginPage';
@@ -33,8 +34,10 @@ export default function App() {
           <Route path="/log-in" element={<LoginPage />} />
           <Route path="/sign-up-page" element={<SignUpDesktop />} />
           <Route path="/user-home" element={<HomepageLogin />} />
+          <Route path="/reset-pass" element={<ResetPasswordPage />} />
           <Route path="/sign-up" element={<SignUpPage />} />
           <Route path="/sign-in" element={<SignInPage />} />
+          <Route path="/reset-pass" element={<ResetPasswordPage />} />
         </Routes>
       </BrowserRouter>
     </Provider>
