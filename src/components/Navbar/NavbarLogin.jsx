@@ -24,8 +24,8 @@ export default function NavbarLogin({ myUrl, showModal }) {
             <div> </div>
           )}
           <button
-            type="button"
             onClick={showModal}
+            type="button"
             className="hidden bg-gdscBlue-200 ease-out duration-300 hover:bg-login-btn-hover bg-opacity-10
          text-gdscBlue-300 font-normal hover:bg-opacity-10 rounded md:flex justify-end items-center
            w-[100px] h-[36px] md:w-[184px] md:h-[52px] content-center text-base  md:my-0 ml-[30px]"
