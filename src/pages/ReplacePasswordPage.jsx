@@ -61,7 +61,7 @@ export default function ReplacePasswordPage() {
       <NavbarModal show={show} />
       <div className="flex h-full mt-[-130px]">
         <SideMenu toggle={toggleMenu} page="change-pass" />
-        <div className="bg-white md:bg-gdscGrey-100 mt-[24px] md:mt-0 min-h-screen md:overflow-y-scroll flex-1 pb-[120px] md:pb-[156px]">
+        <div className="bg-white md:bg-gdscGrey-100 mt-[48px] md:mt-0 min-h-screen md:overflow-y-scroll flex-1 pb-[120px] md:pb-[156px]">
           <ChangePassword />
         </div>
       </div>
