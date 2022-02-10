@@ -1,9 +1,10 @@
+import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { SHOW_SIGN_UP_MODAL } from 'action-types';
 
-export default function SubTitle() {
+export default function SubTitle({ loggedIn }) {
   const [width, setWidth] = useState(window.innerWidth);
   function handleWindowSizeChange() {
     setWidth(window.innerWidth);
@@ -37,6 +38,15 @@ export default function SubTitle() {
       </div>
     );
   }
+  if (loggedIn) {
+    return (
+      <div className="md:mb-0 md:mt-2 flex flex-col md:items-center flex-end md:h-6 space-y-1.5 md:flex-row md:space-x-3.5 md:space-y-0">
+        <p className="text-base font-normal text-gdscGrey-700">
+          You have shortened 200 links today!
+        </p>
+      </div>
+    );
+  }
   return (
     <div className="md:mb-0 md:mt-2 flex flex-col md:items-center flex-end md:h-6 space-y-1.5 md:flex-row md:space-x-4 md:space-y-0">
       <p className="text-base font-normal text-gdscGrey-700">
@@ -57,3 +67,6 @@ export default function SubTitle() {
     </div>
   );
 }
+SubTitle.propTypes = {
+  loggedIn: PropTypes.bool.isRequired,
+};

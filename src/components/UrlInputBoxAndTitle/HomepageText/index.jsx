@@ -1,9 +1,18 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import MainTitle from './MainTitle';
 import SubTitle from './SubTitle';
 
-export default function HomepageText() {
+export default function HomepageText({ loggedIn }) {
+  if (loggedIn) {
+    return (
+      <div>
+        <MainTitle loggedIn />
+        <SubTitle loggedIn />
+      </div>
+    );
+  }
   return (
     <div>
       <MainTitle />
@@ -11,3 +20,6 @@ export default function HomepageText() {
     </div>
   );
 }
+HomepageText.propTypes = {
+  loggedIn: PropTypes.bool.isRequired,
+};
