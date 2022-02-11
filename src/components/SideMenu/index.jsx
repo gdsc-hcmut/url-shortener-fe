@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import { ReactComponent as AccountCircle } from 'assets/icons/account_circle.svg';
 import { ReactComponent as LinkIcon } from 'assets/icons/link_icon.svg';
 import { ReactComponent as LockIcon } from 'assets/icons/lock_icon.svg';
-import { ReactComponent as LogoutIcon } from 'assets/icons/logout.svg';
+import { ReactComponent as LogoutIcon } from 'assets/icons/logout_icon.svg';
 import { ReactComponent as StatIcon } from 'assets/icons/stat_icon.svg';
 
 export default function SideMenu({ toggle, page }) {
@@ -93,7 +93,7 @@ export default function SideMenu({ toggle, page }) {
           <span>Change Password</span>
         </NavLink>
         <NavLink
-          to="/"
+          to="/logout"
           className="logOut flex flex-row space-x-4 min-w-full md:w-[240px] items-center
             md:h-[52px] h-[58px] px-5 rounded bg-white
             hover:bg-gdscRed-300/10 cursor-pointer
