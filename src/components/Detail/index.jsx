@@ -19,12 +19,11 @@ export default function Detail({ slug }) {
   const urlDetail = _.find(fakeGetUrlsList, { slug: `/${slug}` });
   return (
     <div className="bg-opacity-0 max-w-full h-full overflow-scroll md:no-scrollbar md:p-0 py-5 pr-5">
-      <h1 className="font-normal w-screen sm:w-[376px] 3xl:w-[860px] text-[32px] no-scrollbar mb-4 uppercase truncate">
+      <h1 className="font-normal 3xl:w-[1032px] md:w-[504px] w-full sm:w-[376px] text-[32px] no-scrollbar mb-4 uppercase overflow-x-scroll ">
         {urlDetail.longUrl}
       </h1>
       <div className="mb-[60px] flex">
-        <h1 className="inline font-normal w-[216px] h-8 leading-8 text-xl mr-8 truncate">
-          gdschcmut.url
+        <h1 className="inline font-normal w-[216px] h-8 leading-8 text-xl mr-8 overflow-x-auto">
           {urlDetail.slug}
         </h1>
         <div className="flex space-x-2">
