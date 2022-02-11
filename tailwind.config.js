@@ -66,6 +66,7 @@ module.exports = {
     },
     borderRadius: {
       DEFAULT: '8px',
+      full: '9999px',
     },
   },
   plugins: [],
