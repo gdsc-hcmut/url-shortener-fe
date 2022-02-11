@@ -4,13 +4,13 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { loadUser } from 'actions/auth';
 import NavbarModal from 'components/Modals/NavbarModal';
+import MaterialUIPickers from 'pages/DateTimePicker';
 import EditSlug from 'pages/EditSlug';
+import ForgotPasswordPage from 'pages/ForgotPasswordPage';
 import HomepageLogin from 'pages/HomepageLogin';
 import ResetPasswordPage from 'pages/ResetPasswordPage';
 import UrlWithSlug from 'pages/UrlWithSlug';
 import UserProfilePage from 'pages/UserProfilePage';
-import MaterialUIPickers from 'pages/DateTimePicker';
-import ForgotPasswordPage from 'pages/ForgotPasswordPage';
 
 import DetailPage from './pages/DetailPage';
 import Homepage from './pages/Homepage';
