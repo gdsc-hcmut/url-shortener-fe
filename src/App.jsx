@@ -4,11 +4,11 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { loadUser } from 'actions/auth';
 import NavbarModal from 'components/Modals/NavbarModal';
+import EditSlug from 'pages/EditSlug';
 import HomepageLogin from 'pages/HomepageLogin';
 import ResetPasswordPage from 'pages/ResetPasswordPage';
-import UserProfilePage from 'pages/UserProfilePage';
 import UrlWithSlug from 'pages/UrlWithSlug';
-import EditSlug from 'pages/EditSlug';
+import UserProfilePage from 'pages/UserProfilePage';
 
 import Homepage from './pages/Homepage';
 import LoginPage from './pages/LoginPage';
