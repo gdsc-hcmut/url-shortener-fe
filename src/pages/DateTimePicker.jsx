@@ -4,6 +4,7 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import MobileDateTimePicker from '@mui/lab/MobileDateTimePicker';
 import TextField from '@mui/material/TextField';
 import * as React from 'react';
+import 'index.css';
 
 export default function MaterialUIPickers() {
   const [value, setValue] = React.useState(new Date());
