@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 
-import { ReactComponent as DeleteIcon } from 'assets/icons/delete_icon.svg';
-import { ReactComponent as DeleteIconMobile } from 'assets/icons/delete_icon_mobile.svg';
+import { ReactComponent as DeleteIcon } from 'assets/icons/delete_icon_modal.svg';
 
 import Button from './Button';
 
@@ -37,10 +36,7 @@ export default function DeleteModal({ text, onClose, show }) {
         className="w-[376px] h-[376px] md:w-[412px] px-[58px] py-8 flex flex-col items-center border bg-white rounded"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="md:hidden">
-          <DeleteIconMobile />
-        </div>
-        <div className="hidden md:block">
+        <div>
           <DeleteIcon />
         </div>
         <span className="text-2xl font-normal text-gdscRed-300 mt-7">
