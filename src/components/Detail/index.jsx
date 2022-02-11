@@ -19,7 +19,7 @@ export default function Detail({ slug }) {
   const urlDetail = _.find(fakeGetUrlsList, { slug: `/${slug}` });
   return (
     <div className="bg-opacity-0 max-w-full h-full overflow-scroll md:no-scrollbar md:p-0 py-5 pr-5">
-      <h1 className="font-normal 3xl:w-[1032px] md:w-[504px] w-full sm:w-[376px] text-[32px] no-scrollbar mb-4 uppercase overflow-x-scroll ">
+      <h1 className="font-normal 3xl:w-[1032px] md:w-[504px] w-full sm:w-[376px] text-[32px] mb-4 ">
         {urlDetail.longUrl}
       </h1>
       <div className="mb-[60px] flex">
