@@ -107,12 +107,12 @@ export default function MyUrl({ slug }) {
             >
               <Link
                 to={`/detail${url.slug}`}
-                className="text-xl h-6 font-medium w-64 truncate "
+                className="text-xl h-6 font-medium w-64 overflow-x-hidden truncate "
               >
                 <span>{url.longUrl}</span>
               </Link>
               <span className="flex justify-between">
-                <span className="text-base text-gdscGrey-700 w-32 overflow-clip ">
+                <span className="text-base text-gdscGrey-700 w-32 overflow-clip  ">
                   {url.slug}
                 </span>
                 <div className="flex space-x-2 lg:hidden">
