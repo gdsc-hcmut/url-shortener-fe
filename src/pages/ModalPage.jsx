@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import MordalUrl from 'components/ModalUrl';
 
-export default function App() {
+export default function ModalPage() {
   const [show, setShow] = useState(false);
 
   return (

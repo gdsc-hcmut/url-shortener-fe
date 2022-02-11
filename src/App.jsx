@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { loadUser } from 'actions/auth';
 import NavbarModal from 'components/Modals/NavbarModal';
 import MaterialUIPickers from 'pages/DateTimePicker';
+import DeleteModalPage from 'pages/DeleteModalPage';
 import EditSlug from 'pages/EditSlug';
 import ForgotPasswordPage from 'pages/ForgotPasswordPage';
 import HomepageLogin from 'pages/HomepageLogin';
@@ -53,6 +54,7 @@ export default function App() {
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/date" element={<MaterialUIPickers />} />
           <Route path="/my-url" element={<MyUrlPage />} />
+          <Route path="/delete-modal" element={<DeleteModalPage />} />
         </Routes>
       </BrowserRouter>
     </Provider>
