@@ -1,7 +1,14 @@
-import { SHORTEN_URL, URL_ERROR } from 'action-types';
+import {
+  SHORTEN_URL,
+  URL_ERROR,
+  EDIT_SLUG,
+  SLUG_ALREADY_EXISTS,
+} from 'action-types';
 
 const initialState = {
   shortenedUrl: null,
+  slug: null,
+  slugExist: false,
   error: {},
 };
 
@@ -10,7 +17,22 @@ export default (state = initialState, { type, payload } = {}) => {
     case SHORTEN_URL:
       return {
         ...state,
-        shortenedUrl: payload,
+        shortenedUrl: payload.shortUrl,
+        slug: payload.slug,
+        slugExist: false,
+      };
+    case EDIT_SLUG:
+      return {
+        ...state,
+        shortenedUrl: payload.shortUrl,
+        slug: payload.slug,
+        slugExist: false,
+      };
+    case SLUG_ALREADY_EXISTS:
+      return {
+        ...state,
+        slugExist: true,
+        error: payload,
       };
     case URL_ERROR:
       return {
