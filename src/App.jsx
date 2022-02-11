@@ -16,6 +16,7 @@ import DetailPage from './pages/DetailPage';
 import Homepage from './pages/Homepage';
 import LoginPage from './pages/LoginPage';
 import ModalPage from './pages/ModalPage';
+import MyUrlPage from './pages/MyUrlPage';
 import ChangePasswordPage from './pages/ReplacePasswordPage';
 import SignInPage from './pages/SignInPage';
 import SignUpDesktop from './pages/SignUpDesktop';
@@ -48,9 +49,10 @@ export default function App() {
           <Route path="/modal-nav" element={<NavbarModal />} />
           <Route path="/slug" element={<UrlWithSlug />} />
           <Route path="/edit-slug" element={<EditSlug />} />
-          <Route path="/detail" element={<DetailPage />} />
+          <Route path="/detail/:slug" element={<DetailPage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/date" element={<MaterialUIPickers />} />
+          <Route path="/my-url" element={<MyUrlPage />} />
         </Routes>
       </BrowserRouter>
     </Provider>
