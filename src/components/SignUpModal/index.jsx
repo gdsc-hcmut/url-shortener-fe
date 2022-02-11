@@ -64,7 +64,7 @@ export default function SignUpDesktop({ show, onClose }) {
             <img className="w-3 h-3" src={CloseIcon} alt="X button" />
           </button>
         </div>
-        <SignUpForm />
+        <SignUpForm isMobile={false} />
         <div className="mt-[28px] h-10 self-center flex items-center">
           <div className="w-[170px] h-px bg-gdscGrey-200 mr-1" />
           or

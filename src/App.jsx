@@ -46,7 +46,7 @@ export default function App() {
           <Route path="/reset-pass" element={<ResetPasswordPage />} />
           <Route path="/change-pass" element={<ChangePasswordPage />} />
           <Route path="/user-profile" element={<UserProfilePage />} />
-          <Route path="/modal-nav" element={<NavbarModal />} />
+          <Route path="/modal-nav" element={<NavbarModal show />} />
           <Route path="/slug" element={<UrlWithSlug />} />
           <Route path="/edit-slug" element={<EditSlug />} />
           <Route path="/detail/:slug" element={<DetailPage />} />

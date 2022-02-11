@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 export default function Url({ shortenedUrl }) {
-  if (shortenedUrl == null) {
+  if (shortenedUrl === 'null') {
     return (
       <a
         href={shortenedUrl}

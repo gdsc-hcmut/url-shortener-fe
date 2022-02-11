@@ -17,12 +17,13 @@ export default function Homepage() {
   const { UrlModal, LogInModal, SignupModal } = useSelector(
     (state) => state.showModal,
   );
+  const { shortenedUrl } = useSelector((state) => state.url);
   const dispatch = useDispatch();
   return (
     <div className="flex flex-col justify-center md:items-center bg-mobile-background md:bg-blue md:bg-contain">
-      <NavBar />
+      <NavBar isModalPage={false} />
       <div className="ml-[1.25rem] mt-[216px] mb-[23.5rem] md:mt-[260px] md:mb-[276px]">
-        <UrlInputBoxAndTitle />
+        <UrlInputBoxAndTitle loggedIn={false} />
         <LoginModal
           title="Login Modal"
           onClose={() => dispatch({
@@ -47,6 +48,7 @@ export default function Homepage() {
           payload: false,
         })}
         show={UrlModal}
+        shortenedUrl={shortenedUrl}
       />
       <Footer />
     </div>

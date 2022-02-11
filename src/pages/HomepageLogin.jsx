@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
+import { SHOW_URL_MODAL } from 'action-types';
 import Footer from 'components/Footer';
 import NavbarModal from 'components/Modals/NavbarModal';
+import ModalUrl from 'components/ModalUrl';
 import NavbarLogin from 'components/Navbar/NavbarLogin';
 import UrlInputBoxAndTitle from 'components/UrlInputBoxAndTitle';
 
 export default function HomepageLogin() {
+  const { shortenedUrl } = useSelector((state) => state.urlWithSlug);
   const [show, setShow] = useState(false);
   const showModal = () => setShow(true);
   const hideModal = () => setShow(false);
+  const { UrlModal } = useSelector((state) => state.showModal);
+  const dispatch = useDispatch();
   const showNavbarModal = (e) => {
     e.stopPropagation();
     showModal();
@@ -37,6 +43,15 @@ export default function HomepageLogin() {
       <div className="ml-[1.25rem] mt-[5px] mb-[288px] md:mt-[22px] md:mb-[276px]">
         <UrlInputBoxAndTitle loggedIn />
       </div>
+      <ModalUrl
+        title="My Modal"
+        onClose={() => dispatch({
+          type: SHOW_URL_MODAL,
+          payload: false,
+        })}
+        show={UrlModal}
+        shortenedUrl={shortenedUrl}
+      />
       <Footer />
     </div>
   );

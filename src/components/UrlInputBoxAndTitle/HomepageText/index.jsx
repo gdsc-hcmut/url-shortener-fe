@@ -15,8 +15,8 @@ export default function HomepageText({ loggedIn }) {
   }
   return (
     <div>
-      <MainTitle />
-      <SubTitle />
+      <MainTitle loggedIn={false} />
+      <SubTitle loggedIn={false} />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import { SHORTEN_URL_WITH_SLUG, URL_ERROR } from 'action-types';
 
 const initialState = {
-  shortenedUrl: null,
+  shortenedUrl: 'loading...',
   error: {},
 };
 
