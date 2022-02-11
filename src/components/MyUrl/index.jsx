@@ -107,7 +107,7 @@ export default function MyUrl({ slug }) {
             >
               <Link
                 to={`/detail${url.slug}`}
-                className="text-xl font-medium w-full truncate "
+                className="text-xl h-6 font-medium w-[240px] md:w-full truncate "
               >
                 <span>{url.longUrl}</span>
               </Link>
