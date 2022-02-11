@@ -4,7 +4,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { loadUser } from 'actions/auth';
 import NavbarModal from 'components/Modals/NavbarModal';
+import MaterialUIPickers from 'pages/DateTimePicker';
 import EditSlug from 'pages/EditSlug';
+import ForgotPasswordPage from 'pages/ForgotPasswordPage';
 import HomepageLogin from 'pages/HomepageLogin';
 import ResetPasswordPage from 'pages/ResetPasswordPage';
 import UrlWithSlug from 'pages/UrlWithSlug';
@@ -47,6 +49,8 @@ export default function App() {
           <Route path="/slug" element={<UrlWithSlug />} />
           <Route path="/edit-slug" element={<EditSlug />} />
           <Route path="/detail" element={<DetailPage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="/date" element={<MaterialUIPickers />} />
         </Routes>
       </BrowserRouter>
     </Provider>

@@ -26,3 +26,20 @@ html {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+.test {
+  color: red;
+}
+.css-yquuwn  {
+  background-color: #4285f4;
+  color: white;
+}
+span.MuiTypography-root.MuiTypography-overline.css-1hbyad5-MuiTypography-root, 
+span.MuiTypography-root.MuiTypography-h3.css-1uwj4ci-MuiTypography-root,
+span.MuiTypography-root.MuiTypography-subtitle1.css-1m0r2kt-MuiTypography-root,
+span.MuiTypography-root.MuiTypography-h4.Mui-selected.css-wb55pf-MuiTypography-root,
+span.MuiTypography-root.MuiTypography-h3.css-1nql4ji-MuiTypography-root,
+span.MuiTypography-root.MuiTypography-h3.css-1nql4ji-MuiTypography-root,
+span.MuiTypography-root.MuiTypography-h4.css-wb55pf-MuiTypography-root {
+  color: white;
+}
+
