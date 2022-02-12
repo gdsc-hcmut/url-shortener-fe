@@ -15,12 +15,12 @@ export default function LoginModalMobile() {
         <h1 className="text-2xl font-bold mb-7 self-center">Login</h1>
         <LoginForm />
         <Link to="/sign-up-page">
-          <a href=" " className="mb-7">
+          <p className="mb-7">
             {"Don't have an account? "}
             <button type="button" className="active:underline font-bold">
               Sign up
             </button>
-          </a>
+          </p>
         </Link>
         <LoginWithGoogle />
       </div>

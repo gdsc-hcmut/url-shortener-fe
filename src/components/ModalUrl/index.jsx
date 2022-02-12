@@ -1,14 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 
 import Url from 'components/Url';
 
 import CopyButton from './CopyButton';
 
-export default function ModalUrl({ show, onClose }) {
+export default function ModalUrl({ show, onClose, shortenedUrl }) {
   const [copied, setCopied] = useState(false);
-  const { shortenedUrl } = useSelector((state) => state.url);
   const handleCopy = () => {
     setCopied(true);
     navigator.clipboard.writeText(shortenedUrl);
@@ -62,4 +60,5 @@ export default function ModalUrl({ show, onClose }) {
 ModalUrl.propTypes = {
   show: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
+  shortenedUrl: PropTypes.string.isRequired,
 };

@@ -64,11 +64,9 @@ export default function LoginModal({ show, onClose }) {
         >
           <h1 className="text-2xl font-bold mb-7">Login</h1>
           <LoginForm />
-          <button type="button" onClick={switchToSignUp} className="mb-7">
+          <button type="button" onClick={switchToSignUp} className="mb-7 flex">
             {"Don't have an account? "}
-            <button type="button" className="active:underline font-bold">
-              Sign up
-            </button>
+            <p className="active:underline font-bold ml-1">Sign up</p>
           </button>
           <LoginWithGoogle />
         </div>

@@ -6,8 +6,8 @@ import {
 } from 'action-types';
 
 const initialState = {
-  shortenedUrl: null,
-  slug: null,
+  shortenedUrl: 'loading...',
+  slug: 'loading...',
   slugExist: false,
   error: {},
 };

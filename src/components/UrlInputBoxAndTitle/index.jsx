@@ -16,7 +16,7 @@ export default function UrlInputBoxAndTitle({ loggedIn }) {
   }
   return (
     <div className="flex flex-col md:space-y-[40px]">
-      <HomepageText />
+      <HomepageText loggedIn={false} />
       <InputUrlField />
     </div>
   );

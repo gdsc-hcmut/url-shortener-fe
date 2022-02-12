@@ -1,16 +1,25 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import shortenUrl from 'actions/url';
+import { SHOW_URL_MODAL } from 'action-types';
+import urlAction from 'actions/url';
 import EditIcon from 'assets/icons/edit.svg';
 import { ReactComponent as ReactLogo } from 'assets/image/web.svg';
 
 export default function InputUrlLogIn() {
   const [longUrl, setLongUrl] = useState('');
+  const [slug, setSlug] = useState('');
   const dispatch = useDispatch();
 
   const handleLongUrl = (e) => setLongUrl(e.target.value);
-  const handleClick = () => dispatch(shortenUrl(longUrl));
+  const handleSlug = (e) => setSlug(e.target.value);
+  const handleClick = () => {
+    dispatch(urlAction.shortenUrlWithSlug(longUrl, slug));
+    dispatch({
+      type: SHOW_URL_MODAL,
+      payload: true,
+    });
+  };
 
   return (
     <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 rounded-[8px]">
@@ -33,8 +42,8 @@ export default function InputUrlLogIn() {
             <strong>Slug</strong>
           </p>
           <input
-            value={longUrl}
-            onChange={handleLongUrl}
+            value={slug}
+            onChange={handleSlug}
             className="text-base font-normal text-gdscGrey-700 h-5 w-[16.25rem] border-b-1 outline-none "
             placeholder="gdschcmut.url/ai-series "
           />
@@ -66,6 +75,8 @@ export default function InputUrlLogIn() {
       <div className="relative md:hidden bg-white rounded-[8px] mr-5 h-[70px] flex items-center pl-5 space-x-5 rounded-md border shadow-lg border-gdscGrey-200">
         <img className="w-6 h-6" src={EditIcon} alt="Edit icon" />
         <input
+          value={slug}
+          onChange={handleSlug}
           className="text-base font-normal text-gdscGrey-700 h-5 w-full bg-white outline-none pr-[30px]"
           placeholder="gdschcmut.url/ai-series"
         />
