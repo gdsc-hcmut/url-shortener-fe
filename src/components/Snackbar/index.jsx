@@ -24,10 +24,9 @@ export default function Snackbar({ onClose, show }) {
       className={`fixed z-20 inset-0 bg-black bg-opacity-50 flex justify-center items-center opacity-0 transition-all duration-300 ease-out pointer-events-none ${
         show ? 'opacity-100 pointer-events-auto' : ''
       }`}
-      onClick={onClose}
       onKeyDown={closeOnEscapeKeyDown}
     >
-      <div className="relative w-[376px] h-[92px] p-5 flex bg-white rounded flex items-center">
+      <div className="relative w-[376px] h-[92px] p-5 flex bg-white rounded items-center">
         <DeleteIcon />
         <div className="ml-[18px]">
           <p className="font-semibold leading-5">LINK DELETED</p>
