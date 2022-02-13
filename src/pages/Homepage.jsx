@@ -5,8 +5,10 @@ import {
   SHOW_URL_MODAL,
   SHOW_LOG_IN_MODAL,
   SHOW_SIGN_UP_MODAL,
+  SHOW_FORGOT_PASSWORD_MODAL,
 } from 'action-types';
 import Footer from 'components/Footer';
+import ForgotPassword from 'components/ForgotPassword';
 import LoginModal from 'components/LoginModal';
 import ModalUrl from 'components/ModalUrl';
 import NavBar from 'components/Navbar';
@@ -14,9 +16,9 @@ import SignUpDesktop from 'components/SignUpModal';
 import UrlInputBoxAndTitle from 'components/UrlInputBoxAndTitle';
 
 export default function Homepage() {
-  const { UrlModal, LogInModal, SignupModal } = useSelector(
-    (state) => state.showModal,
-  );
+  const {
+    UrlModal, LogInModal, SignupModal, ForgotPasswordModal,
+  } = useSelector((state) => state.showModal);
   const { shortenedUrl } = useSelector((state) => state.url);
   const dispatch = useDispatch();
   return (
@@ -33,12 +35,20 @@ export default function Homepage() {
           show={LogInModal}
         />
         <SignUpDesktop
-          title="My Modal"
+          title="Signup Modal"
           onClose={() => dispatch({
             type: SHOW_SIGN_UP_MODAL,
             payload: false,
           })}
           show={SignupModal}
+        />
+        <ForgotPassword
+          title="Forgot password"
+          onClose={() => dispatch({
+            type: SHOW_FORGOT_PASSWORD_MODAL,
+            payload: false,
+          })}
+          show={ForgotPasswordModal}
         />
       </div>
       <ModalUrl

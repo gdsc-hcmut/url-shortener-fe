@@ -17,6 +17,15 @@ export default function SubTitle({ loggedIn }) {
   }, []);
   const dispatch = useDispatch();
   const isMobile = width <= 768;
+  if (loggedIn) {
+    return (
+      <div className="md:mb-0 md:mt-2 flex flex-col md:items-center flex-end md:h-6 space-y-1.5 md:flex-row md:space-x-3.5 md:space-y-0">
+        <p className="text-base font-normal text-gdscGrey-700">
+          You have shortened 200 links today!
+        </p>
+      </div>
+    );
+  }
   if (isMobile) {
     return (
       <div className="md:mb-0 md:mt-3.5 flex flex-col md:items-center flex-end md:h-6 space-y-1.5 md:flex-row md:space-x-3.5 md:space-y-0">
@@ -35,15 +44,6 @@ export default function SubTitle({ loggedIn }) {
             Get started
           </div>
         </button>
-      </div>
-    );
-  }
-  if (loggedIn) {
-    return (
-      <div className="md:mb-0 md:mt-2 flex flex-col md:items-center flex-end md:h-6 space-y-1.5 md:flex-row md:space-x-3.5 md:space-y-0">
-        <p className="text-base font-normal text-gdscGrey-700">
-          You have shortened 200 links today!
-        </p>
       </div>
     );
   }

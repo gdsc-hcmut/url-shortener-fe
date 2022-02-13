@@ -1,11 +1,15 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import { logout } from 'actions/auth';
 import AccountCircle from 'assets/icons/account_circle_blue.svg';
 import LogoutIcon from 'assets/icons/logout.svg';
 
 export default function NavbarModal({ show }) {
+  const dispatch = useDispatch();
+  const handleSignOut = () => dispatch(logout());
   return (
     <div
       className={`absolute right-[60px] top-[104px] z-50 w-[300px] h-[158px] pt-8 px-7 bg-white border rounded border-gdscGrey-200 ${
@@ -23,6 +27,7 @@ export default function NavbarModal({ show }) {
         <Link
           to="/"
           role="button"
+        onClick={handleSignOut}
           className="w-[244px] h-[52px] pl-5 flex items-center z-10"
         >
           <img src={LogoutIcon} alt="Logout Icon" />

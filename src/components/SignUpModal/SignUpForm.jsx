@@ -40,7 +40,7 @@ export default function SignUpForm({ isMobile }) {
       payload: true,
     });
   };
-  if (isAuthenticated) console.log('Sign up success');
+  if (isAuthenticated) window.location = 'http://localhost:3000/user-home';
   useEffect(() => {
     setEmail('');
     setPassword('');
