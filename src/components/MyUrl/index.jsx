@@ -1,3 +1,4 @@
+import { Skeleton } from '@mui/material';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -10,19 +11,20 @@ import {
 } from 'actions/notification';
 import { ReactComponent as ArrowBackward } from 'assets/icons/arrow_backward.svg';
 import { ReactComponent as ArrowDown } from 'assets/icons/arrow_down.svg';
-import { ReactComponent as ArrowForward } from 'assets/icons/arrow_forward.svg';
 import { ReactComponent as CopyIcon } from 'assets/icons/copy_icon.svg';
 import { ReactComponent as DeleteIcon } from 'assets/icons/delete_icon.svg';
 import { ReactComponent as EditIcon } from 'assets/icons/edit_icon.svg';
 import EditSlugModal from 'components/EditSludModal';
 import ModalSucess from 'components/ModalSuccess';
-import fakeGetUrlsList, { MAX_URL_PER_PAGE } from 'services/getUrlsList';
+import UrlAPI from 'services/url.service';
 
 export default function MyUrl({ slug }) {
   const [option, setOption] = useState('Most Clicked');
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState('');
-  const [pageNum, setPageNum] = useState(1);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const [urlLists, setUrlLists] = useState([]);
   const [currSlug, setCurrSlug] = useState('');
   const dispatch = useDispatch();
   const { CopySuccessModal, EditUrlModal } = useSelector(
@@ -30,8 +32,6 @@ export default function MyUrl({ slug }) {
   );
 
   const sortOptions = ['Most Clicked', 'Less Clicked', 'Latest', 'Oldest'];
-  const maxNumPage = Math.ceil(fakeGetUrlsList.length / MAX_URL_PER_PAGE);
-
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
@@ -40,19 +40,35 @@ export default function MyUrl({ slug }) {
     setIsOpen(!isOpen);
   };
 
-  const filterUrl = (short, long, searchVal) => {
-    let longFiltered = long;
-    if (longFiltered.startsWith('https://')) {
-      longFiltered = longFiltered.substring(8);
-    } else if (longFiltered.startsWith('http://')) {
-      longFiltered = longFiltered.substring(7);
+  const handleScroll = (e) => {
+    const { scrollTop, clientHeight, scrollHeight } = e.currentTarget;
+    console.log('scrollTop: ', scrollTop);
+    console.log('clientHeight ', clientHeight);
+    console.log('scrollHeight ', scrollHeight);
+    if (scrollHeight - scrollTop - clientHeight < 1) {
+      setPage(page + 1);
     }
-
-    if (longFiltered.startsWith('www.')) {
-      longFiltered = longFiltered.substring(4);
-    }
-    return longFiltered.startsWith(search) || short.startsWith(`/${searchVal}`);
   };
+
+  useEffect(() => {
+    const getUrlList = async () => {
+      console.log('LOADING...');
+      setLoading(true);
+      const { data: newUrlLists } = await UrlAPI.getUrlList(page);
+      setUrlLists((prev) => [...prev, ...newUrlLists]);
+      setLoading(false);
+    };
+    getUrlList();
+  }, [page]);
+
+  useEffect(() => {
+    const mobileScrollDiv = document.querySelector('#MyUrlPage');
+    mobileScrollDiv.addEventListener('scroll', handleScroll);
+    return () => {
+      console.log('remove scroll');
+      mobileScrollDiv.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     if (CopySuccessModal) {
@@ -127,109 +143,64 @@ export default function MyUrl({ slug }) {
         value={search}
         onChange={handleSearch}
       />
-      <ul className="md:overflow-y-scroll mt-10 space-y-10 relative h-full ">
-        {fakeGetUrlsList
-          .filter((url, index) => {
-            if (search) {
-              return filterUrl(url.slug, url.longUrl, search);
-            }
-            return Math.ceil((index + 1) / MAX_URL_PER_PAGE) === pageNum;
-          })
-          .map((url) => (
-            <li
-              key={url.slug}
-              className={`w-full h-[100px] flex flex-col space-y-2 justify-center rounded font-normal md:w-[376px] ${
-                url.slug === `/${slug}`
-                  ? 'bg-[#F1F6FE] border-2 border-gdscBlue-300 p-[18px]'
-                  : 'bg-white px-5'
-              } `}
+      <ul
+        className="md:overflow-y-scroll mt-10 space-y-10 relative h-full "
+        onScroll={handleScroll}
+      >
+        {urlLists.map((url) => (
+          <li
+            key={url.id}
+            className={`w-full h-[100px] flex flex-col space-y-2 justify-center rounded font-normal md:w-[376px] ${
+              url.slug === `/${slug}`
+                ? 'bg-[#F1F6FE] border-2 border-gdscBlue-300 p-[18px]'
+                : 'bg-white px-5'
+            } `}
+          >
+            <Link
+              to={`/detail/${url.slug}`}
+              className="text-xl h-6 font-medium w-64 overflow-x-hidden truncate "
             >
-              <Link
-                to={`/detail${url.slug}`}
-                className="text-xl h-6 font-medium w-64 overflow-x-hidden truncate "
-              >
-                <span>{url.longUrl}</span>
-              </Link>
-              <span className="flex justify-between">
-                <span className="text-base text-gdscGrey-700 w-32 overflow-clip  ">
-                  {url.slug}
-                </span>
-                <div className="flex space-x-2 lg:hidden">
-                  <button
-                    type="button"
-                    aria-label="Copy Button"
-                    className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
-                    onClick={() => dispatch(toggleSuccessModalOpen(url.slug))}
-                  >
-                    <CopyIcon />
-                  </button>
-                  <button
-                    type="button"
-                    aria-label="Edit Button"
-                    className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
-                    onClick={() => {
-                      setCurrSlug(url.slug);
-                      dispatch({
-                        type: SHOW_EDIT_URL_MODAL,
-                        payload: true,
-                      });
-                    }}
-                  >
-                    <EditIcon />
-                  </button>
-                  <button
-                    type="button"
-                    aria-label="Delete Button"
-                    className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
-                  >
-                    <DeleteIcon />
-                  </button>
-                </div>
+              <span>{url.longUrl}</span>
+            </Link>
+            <span className="flex justify-between">
+              <span className="text-base text-gdscGrey-700 w-32 overflow-clip  ">
+                {url.slug}
               </span>
-            </li>
-          ))}
-        <span className="flex w-full h-11 justify-center items-center">
-          <span className="flex justify-between items-center w-[268px] h-full bg-opacity-0">
-            <span
-              aria-hidden="true"
-              className="cursor-pointer"
-              onClick={() => setPageNum(1)}
-            >
-              <ArrowBackward />
+              <div className="flex space-x-2 lg:hidden">
+                <button
+                  type="button"
+                  aria-label="Copy Button"
+                  className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
+                  onClick={() => dispatch(toggleSuccessModalOpen(url.slug))}
+                >
+                  <CopyIcon />
+                </button>
+                <button
+                  type="button"
+                  aria-label="Edit Button"
+                  className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
+                  onClick={() => {
+                    setCurrSlug(url.slug);
+                    dispatch({
+                      type: SHOW_EDIT_URL_MODAL,
+                      payload: true,
+                    });
+                  }}
+                >
+                  <EditIcon />
+                </button>
+                <button
+                  type="button"
+                  aria-label="Delete Button"
+                  className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
+                >
+                  <DeleteIcon />
+                </button>
+              </div>
             </span>
-            <div
-              aria-hidden="true"
-              className="flex justify-center items-center w-11 h-11 rounded-full bg-opcacity-0 text-gdscGrey-700 text-base font-bold cursor-pointer hover:bg-opacity-full hover:bg-gdscGrey-300 transition-all duration-200 ease-out"
-              onClick={() => pageNum - 1 > 0
-                && pageNum - 1 <= maxNumPage
-                && setPageNum(pageNum - 1)}
-            >
-              {pageNum - 1 > 0 && pageNum - 1 <= maxNumPage ? pageNum - 1 : ''}
-            </div>
-            <div
-              aria-hidden="true"
-              className="flex justify-center items-center w-11 h-11 rounded-full bg-gdscBlue-300 text-white text-base font-bold cursor-pointer "
-            >
-              {pageNum > 0 && pageNum <= maxNumPage ? pageNum : ''}
-            </div>
-            <div
-              aria-hidden="true"
-              className="flex justify-center items-center w-11 h-11 rounded-full bg-opacity-0 text-gdscGrey-700 text-base font-bold cursor-pointer hover:bg-opacity-full hover:bg-gdscGrey-300 transition-all duration-200 ease-out"
-              onClick={() => pageNum + 1 > 0
-                && pageNum + 1 <= maxNumPage
-                && setPageNum(pageNum + 1)}
-            >
-              {pageNum + 1 > 0 && pageNum + 1 <= maxNumPage ? pageNum + 1 : ''}
-            </div>
-            <span
-              aria-hidden="true"
-              className="cursor-pointer"
-              onClick={() => setPageNum(maxNumPage)}
-            >
-              <ArrowForward />
-            </span>
-          </span>
-        </span>
+          </li>
+        ))}
+        {loading ? <Skeleton width={376} height={140} /> : ''}
       </ul>
     </div>
   );
