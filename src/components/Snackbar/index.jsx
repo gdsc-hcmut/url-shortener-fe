@@ -30,9 +30,14 @@ export default function Snackbar({ onClose, show }) {
         <DeleteIcon />
         <div className="ml-[18px]">
           <p className="font-semibold leading-5">LINK DELETED</p>
-          <p className="text-gdscGrey-700 mt-3 leading-5">
+          <a
+            rel="noreferrer"
+            target="_blank"
+            href="https://shortlink.com"
+            className="text-gdscGrey-700 mt-3 leading-5"
+          >
             https://shortlink.com
-          </p>
+          </a>
         </div>
         <button
           type="button"
