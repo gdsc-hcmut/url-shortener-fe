@@ -22,7 +22,7 @@ export default function SideMenu({ toggle, page }) {
     >
       <div>
         <NavLink
-          to="/my-profile"
+          to="/user-profile"
           className={() => `flex flex-row space-x-4 min-w-full md:w-[240px] items-center md:h-[52px] h-[58px] px-5 rounded bg-white
           ${
             page === 'my-profile'

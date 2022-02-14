@@ -8,25 +8,27 @@ import LogoutIcon from 'assets/icons/logout.svg';
 export default function NavbarModal({ show }) {
   return (
     <div
-      className={`w-[300px] h-[158px] z-20 pt-8 px-7 self-end mr-[60px] mt-[-28px] bg-white border rounded border-gdscGrey-200 flex flex-col items-start opacity-0 ${
-        show ? 'opacity-100' : ' '
+      className={`absolute right-[60px] top-[104px] z-50 w-[300px] h-[158px] pt-8 px-7 bg-white border rounded border-gdscGrey-200 ${
+        show ? 'block' : 'hidden'
       }`}
     >
-      <button
-        type="button"
-        className="w-[244px] h-[52px] bg-gdscBlue-100 bg-opacity-20 rounded flex items-center pl-5"
-      >
-        <img src={AccountCircle} alt="Account Circle" />
-        <p className="text-gdscBlue-300 ml-4">My profile</p>
-      </button>
-      <Link
-        to="/"
-        role="button"
-        className="w-[244px] h-[52px] pl-5 flex items-center z-10"
-      >
-        <img src={LogoutIcon} alt="Logout Icon" />
-        <p className="ml-4 text-gdscRed-300">Logout</p>
-      </Link>
+      <div className="flex flex-col items-start">
+        <button
+          type="button"
+          className="w-[244px] h-[52px] bg-gdscBlue-100 bg-opacity-20 rounded flex items-center pl-5"
+        >
+          <img src={AccountCircle} alt="Account Circle" />
+          <p className="text-gdscBlue-300 ml-4">My profile</p>
+        </button>
+        <Link
+          to="/"
+          role="button"
+          className="w-[244px] h-[52px] pl-5 flex items-center z-10"
+        >
+          <img src={LogoutIcon} alt="Logout Icon" />
+          <p className="ml-4 text-gdscRed-300">Logout</p>
+        </Link>
+      </div>
     </div>
   );
 }
