@@ -98,7 +98,7 @@ export default function SideMenu({ toggle, page }) {
         </NavLink>
         <NavLink
           to="/"
-          onClick={handleSignOut()}
+          onClick={handleSignOut}
           className="logOut flex flex-row space-x-4 min-w-full md:w-[240px] items-center
             md:h-[52px] h-[58px] px-5 rounded bg-white
             hover:bg-gdscRed-300/10 cursor-pointer
