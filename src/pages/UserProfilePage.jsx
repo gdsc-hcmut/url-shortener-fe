@@ -20,7 +20,7 @@ export default function UserProfilePage() {
       >
         <MenuIcon className="w-10 h-10" />
       </button>
-      <Navbar home={false} loggedIn />
+      <Navbar home={false} />
       <div className="flex overflow-y-scroll overflow-x-scroll md:overflow-hidden h-full">
         <SideMenu toggle={toggleMenu} page="my-profile" />
         <div className="bg-white md:bg-gdscGrey-100 mt-[48px] md:mt-0 h-full w-full md:h-6 md:min-h-screen flex-1 overflow-y-scroll">

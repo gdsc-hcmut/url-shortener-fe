@@ -13,7 +13,7 @@ export default function Homepage() {
   const dispatch = useDispatch();
   return (
     <div className="flex flex-col justify-center md:items-center bg-mobile-background md:bg-blue md:bg-contain">
-      <NavBar home loggedIn />
+      <NavBar home />
       <div className="ml-[1.25rem] mt-[216px] mb-[23.5rem] md:mt-[260px] md:mb-[276px]">
         <UrlInputBoxAndTitle loggedIn />
       </div>

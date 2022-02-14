@@ -10,7 +10,7 @@ import LoginWithGoogle from './LoginWithGoogle';
 export default function LoginModalMobile() {
   return (
     <div>
-      <NavBar isModalPage />
+      <NavBar home={false} />
       <div className="flex flex-col justify-center items-center mt-[92px]">
         <h1 className="text-2xl font-bold mb-7 self-center">Login</h1>
         <LoginForm />

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 
 import MenuIcon from 'assets/icons/menu.svg';
@@ -8,7 +9,8 @@ import NavbarModal from 'components/Modals/NavbarModal';
 import NavbarButton from './NavbarButton';
 import NavbarHome from './NavbarHome';
 
-export default function Navbar({ home, loggedIn }) {
+export default function Navbar({ home }) {
+  const { isAuthenticated } = useSelector((state) => state.auth);
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
 
@@ -32,7 +34,7 @@ export default function Navbar({ home, loggedIn }) {
       <div className="flex h-full w-full justify-between align-center">
         <NavbarHome />
         <div className="hidden md:flex space-x-8">
-          {home && loggedIn ? (
+          {home && isAuthenticated ? (
             <div
               aria-hidden
               className="bg-gdscBlue-300 ease-out duration-300 hover:bg-my-url-button-hover
@@ -45,7 +47,7 @@ export default function Navbar({ home, loggedIn }) {
           ) : (
             <div> </div>
           )}
-          {!loggedIn ? (
+          {!isAuthenticated ? (
             <NavbarButton isMobileHomepage={false} />
           ) : (
             <button
@@ -70,5 +72,4 @@ export default function Navbar({ home, loggedIn }) {
 }
 Navbar.propTypes = {
   home: PropTypes.bool.isRequired,
-  loggedIn: PropTypes.bool.isRequired,
 };
