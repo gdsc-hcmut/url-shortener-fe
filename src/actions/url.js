@@ -21,6 +21,7 @@ const shortenUrl = (longUrl) => async (dispatch) => {
       payload: {
         shortUrl: res.data.shortUrl,
         slug: res.data.slug,
+        qrCode: res.data.qrCode,
       },
     });
   } catch (err) {
@@ -36,7 +37,10 @@ const shortenUrlWithSlug = (longUrl, slug) => async (dispatch) => {
     const res = await UrlAPI.shortenUrlWithSlug(longUrl, slug);
     dispatch({
       type: SHORTEN_URL_WITH_SLUG,
-      payload: res.data.shortUrl,
+      payload: {
+        shortUrl: res.data.shortUrl,
+        qrCode: res.data.qrCode,
+      },
     });
   } catch (err) {
     dispatch({

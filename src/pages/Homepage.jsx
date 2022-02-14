@@ -21,7 +21,7 @@ export default function Homepage() {
     UrlModal, LogInModal, SignupModal, ForgotPasswordModal,
   } = useSelector((state) => state.showModal);
   const { isAuthenticated } = useSelector((state) => state.auth);
-  const { shortenedUrl } = useSelector((state) => state.url);
+  const { shortenedUrl, qrCode } = useSelector((state) => state.url);
   const dispatch = useDispatch();
   if (isAuthenticated) {
     return <Navigate to="/user-home" />;
@@ -64,6 +64,7 @@ export default function Homepage() {
         })}
         show={UrlModal}
         shortenedUrl={shortenedUrl}
+        qrCode={qrCode}
       />
       <Footer />
     </div>
