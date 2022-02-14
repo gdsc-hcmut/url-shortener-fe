@@ -46,7 +46,7 @@ export default function HomepageLogin() {
         })}
         show={UrlModal}
         shortenedUrl={shortenedUrl}
-        qrCode={qrCode}
+        slug={slug}
       />
       <Footer />
     </div>
