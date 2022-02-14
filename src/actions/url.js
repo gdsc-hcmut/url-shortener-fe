@@ -16,7 +16,6 @@ const shortenUrl = (longUrl) => async (dispatch) => {
       payload: {
         shortUrl: res.data.shortUrl,
         slug: res.data.slug,
-        qrCode: res.data.qrCode,
       },
     });
   } catch (err) {
@@ -34,7 +33,7 @@ const shortenUrlWithSlug = (longUrl, slug) => async (dispatch) => {
       type: SHORTEN_URL_WITH_SLUG,
       payload: {
         shortUrl: res.data.shortUrl,
-        qrCode: res.data.qrCode,
+        slug: res.data.slug,
       },
     });
   } catch (err) {

@@ -2,7 +2,7 @@ import { SHORTEN_URL_WITH_SLUG, URL_ERROR } from 'action-types';
 
 const initialState = {
   shortenedUrl: 'loading...',
-  qrCode: 'lodaing...',
+  slug: 'loading...',
   error: {},
 };
 
@@ -12,7 +12,7 @@ export default (state = initialState, { type, payload } = {}) => {
       return {
         ...state,
         shortenedUrl: payload.shortUrl,
-        qrCode: payload.qrCode,
+        slug: payload.slug,
       };
     case URL_ERROR:
       return {
