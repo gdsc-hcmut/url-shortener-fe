@@ -8,6 +8,7 @@ import {
 const initialState = {
   shortenedUrl: 'loading...',
   slug: 'loading...',
+  qrCode: 'loding...',
   slugExist: false,
   error: {},
 };
@@ -19,6 +20,7 @@ export default (state = initialState, { type, payload } = {}) => {
         ...state,
         shortenedUrl: payload.shortUrl,
         slug: payload.slug,
+        qrCode: payload.qrCode,
         slugExist: false,
       };
     case EDIT_SLUG:
@@ -26,6 +28,7 @@ export default (state = initialState, { type, payload } = {}) => {
         ...state,
         shortenedUrl: payload.shortUrl,
         slug: payload.slug,
+        qrCode: payload.qrCode,
         slugExist: false,
       };
     case SLUG_ALREADY_EXISTS:

@@ -1,3 +1,4 @@
+import { saveAs } from 'file-saver';
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 
@@ -5,7 +6,9 @@ import Url from 'components/Url';
 
 import CopyButton from './CopyButton';
 
-export default function ModalUrl({ show, onClose, shortenedUrl }) {
+export default function ModalUrl({
+  show, onClose, shortenedUrl, qrCode,
+}) {
   const [copied, setCopied] = useState(false);
   const handleCopy = () => {
     setCopied(true);
@@ -18,7 +21,10 @@ export default function ModalUrl({ show, onClose, shortenedUrl }) {
       onClose();
     }
   };
-
+  const downloadImage = () => {
+    console.log('download');
+    saveAs(qrCode, `${shortenedUrl}.png`);
+  };
   useEffect(() => {
     document.body.addEventListener('keydown', closeOnEscapeKeyDown);
     return function cleanup() {
@@ -40,9 +46,14 @@ export default function ModalUrl({ show, onClose, shortenedUrl }) {
         className="w-[376px] h-[376px] md:w-[412px] md:h-[376px] flex flex-col items-center border bg-white rounded"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="w-[153px] h-[148px] md:w-[152px] md:h-[152px] mt-[32px] mx-[111px] md:mx-[130px] bg-[#000000]" />
+        <img
+          src={qrCode}
+          alt="QR Code"
+          className="w-[152px] h-[152px] md:w-[152px] md:h-[152px] mt-[32px] mx-[111px] md:mx-[130px]"
+        />
         <button
           type="button"
+          onClick={downloadImage}
           className="w-[180px] h-[44px] text-base bg-gdscBlue-300 hover:bg-shorten-btn-hover rounded-[8px] py-[12px] mt-[36px] text-white transition-all duration-300 ease-out"
         >
           Download PNG
@@ -61,4 +72,5 @@ ModalUrl.propTypes = {
   show: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   shortenedUrl: PropTypes.string.isRequired,
+  qrCode: PropTypes.string.isRequired,
 };
