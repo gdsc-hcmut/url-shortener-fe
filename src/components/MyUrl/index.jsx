@@ -42,9 +42,6 @@ export default function MyUrl({ slug }) {
 
   const handleScroll = (e) => {
     const { scrollTop, clientHeight, scrollHeight } = e.currentTarget;
-    console.log('scrollTop: ', scrollTop);
-    console.log('clientHeight ', clientHeight);
-    console.log('scrollHeight ', scrollHeight);
     if (scrollHeight - scrollTop - clientHeight < 1) {
       setPage(page + 1);
     }
@@ -52,23 +49,18 @@ export default function MyUrl({ slug }) {
 
   useEffect(() => {
     const getUrlList = async () => {
-      console.log('LOADING...');
       setLoading(true);
+      console.log(`LOADING page ${page} ...`);
       const { data: newUrlLists } = await UrlAPI.getUrlList(page);
       setUrlLists((prev) => [...prev, ...newUrlLists]);
       setLoading(false);
     };
     getUrlList();
-  }, [page]);
 
-  useEffect(() => {
     const mobileScrollDiv = document.querySelector('#MyUrlPage');
-    mobileScrollDiv.addEventListener('scroll', handleScroll);
-    return () => {
-      console.log('remove scroll');
-      mobileScrollDiv.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+    mobileScrollDiv.addEventListener('scroll', handleScroll, { passive: true });
+    return () => mobileScrollDiv.removeEventListener('scroll', handleScroll);
+  }, [page]);
 
   useEffect(() => {
     if (CopySuccessModal) {
