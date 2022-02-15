@@ -1,12 +1,15 @@
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import { ReactComponent as CopyIcon } from 'assets/icons/copy_icon.svg';
 import { ReactComponent as DeleteIcon } from 'assets/icons/delete_icon.svg';
 import { ReactComponent as EditIcon } from 'assets/icons/edit_icon.svg';
+import DeleteModal from 'components/DeleteModal';
 import EditSlugModal from 'components/EditSludModal';
 import ModalSucess from 'components/ModalSuccess';
+import Snackbar from 'components/Snackbar';
 import fakeGetUrlsList from 'services/getUrlsList';
 
 import Chart from './Chart';
@@ -21,6 +24,9 @@ export default function Detail({ slug }) {
   const urlDetail = _.find(fakeGetUrlsList, { slug: `/${slug}` });
   const [copied, setCopied] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
+
+  const { showSnackbar } = useSelector((state) => state.notification);
 
   const handleCopy = () => {
     setCopied(true);
@@ -32,7 +38,7 @@ export default function Detail({ slug }) {
   };
 
   return (
-    <div className="bg-opacity-0 max-w-full h-full overflow-scroll md:no-scrollbar md:p-0 py-5 pr-5">
+    <div className="bg-opacity-0 max-w-full h-full overflow-scroll md:no-scrollbar md:p-0 py-5 pr-5 relative">
       <div className="modal absolute z-50">
         {isEdit ? (
           <EditSlugModal
@@ -52,6 +58,16 @@ export default function Detail({ slug }) {
         ) : (
           <h1>{}</h1>
         )}
+        {showDelete && (
+          <DeleteModal
+            text="The shortened link and all relevant data will be removed."
+            onClose={() => setShowDelete(false)}
+            show={showDelete}
+          />
+        )}
+      </div>
+      <div className="absolute bottom-4 right-4">
+        {showSnackbar && <Snackbar />}
       </div>
       <h1 className="font-normal 3xl:w-[1032px] md:w-[504px] w-full sm:w-[376px] text-[32px] mb-4 ">
         {urlDetail.longUrl}
@@ -81,6 +97,7 @@ export default function Detail({ slug }) {
             type="button"
             aria-label="Delete Button"
             className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
+            onClick={() => setShowDelete(true)}
           >
             <DeleteIcon />
           </button>

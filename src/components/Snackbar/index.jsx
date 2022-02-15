@@ -8,7 +8,7 @@ import { ReactComponent as DeleteIcon } from 'assets/icons/delete_icon_snackbar.
 export default function Snackbar() {
   const dispatch = useDispatch();
 
-  const { show } = useSelector((state) => state.notification);
+  const { showSnackbar } = useSelector((state) => state.notification);
 
   let TIMER;
   const handleTimeout = () => {
@@ -23,25 +23,25 @@ export default function Snackbar() {
   }
 
   useEffect(() => {
-    if (show) {
+    if (showSnackbar) {
       handleTimeout();
     }
     return () => {
       clearTimeout(TIMER);
     };
-  }, [show, TIMER]);
+  }, [showSnackbar, TIMER]);
 
   return (
-    show && (
-      <div className="animate-fadeinout relative w-[376px] h-[92px] p-5 flex bg-white rounded items-center shadow-md">
+    showSnackbar && (
+      <div className="animate-fadeinout relative w-[376px] h-[92px] p-5 flex bg-white rounded items-center shadow-md border-t">
         <DeleteIcon />
         <div className="ml-[18px]">
-          <p className="font-semibold leading-5">LINK DELETED</p>
+          <p className="text-base font-semibold leading-5">LINK DELETED</p>
           <a
             rel="noreferrer"
             target="_blank"
             href="https://shortlink.com"
-            className="text-gdscGrey-700 mt-3 leading-5"
+            className="text-base text-gdscGrey-700 mt-3 leading-5"
           >
             https://shortlink.com
           </a>

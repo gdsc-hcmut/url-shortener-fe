@@ -1,11 +1,15 @@
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
+import { toggleSnackbarOpen } from 'actions/notification';
 import { ReactComponent as DeleteIcon } from 'assets/icons/delete_icon_modal.svg';
 
 import Button from './Button';
 
 export default function DeleteModal({ text, onClose, show }) {
+  const dispatch = useDispatch();
+
   const closeOnEscapeKeyDown = (e) => {
     if ((e.charCode || e.keyCode) === 27) {
       onClose();
@@ -20,7 +24,10 @@ export default function DeleteModal({ text, onClose, show }) {
   }, []);
 
   const handleCancel = () => onClose();
-  const handleDelete = () => onClose();
+  const handleDelete = () => {
+    onClose();
+    dispatch(toggleSnackbarOpen());
+  };
 
   return (
     <div

@@ -1,7 +1,7 @@
 import { TOGGLE_SNACKBAR_OPEN, TOGGLE_SNACKBAR_CLOSE } from 'action-types';
 
 const initialState = {
-  show: false,
+  showSnackbar: false,
 };
 
 export default function (state = initialState, action) {
@@ -11,13 +11,13 @@ export default function (state = initialState, action) {
     case TOGGLE_SNACKBAR_OPEN: {
       return {
         ...state,
-        show: true,
+        showSnackbar: true,
       };
     }
     case TOGGLE_SNACKBAR_CLOSE: {
       return {
         ...state,
-        show: false,
+        showSnackbar: false,
       };
     }
     default: {
