@@ -44,7 +44,7 @@ export default function MyUrl({ slug }) {
 
   const handleScroll = (e) => {
     const { scrollTop, clientHeight, scrollHeight } = e.currentTarget;
-    if (scrollHeight - scrollTop - clientHeight === 0) {
+    if (scrollHeight - scrollTop - clientHeight < 1) {
       setPage(page + 1);
     }
   };
