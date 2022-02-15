@@ -15,7 +15,7 @@ export default function MyUrlPage() {
     <div aria-hidden="true" className="max-h-[100vh] detail-page flex flex-col">
       <button
         type="button"
-        className="absolute md:hidden right-5 top-5 z-50"
+        className="absolute md:hidden right-5 top-3 z-50"
         onClick={handleToggleMenu}
       >
         <MenuIcon className="w-10 h-10" />

@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 
-import MenuIcon from 'assets/icons/menu.svg';
 import NavbarModal from 'components/Modals/NavbarModal';
 
 import NavbarButton from './NavbarButton';
@@ -47,7 +46,7 @@ export default function Navbar({ home }) {
       <div className="flex h-full w-full justify-between align-center">
         <NavbarHome />
         <div className="flex space-x-8">
-          {home && isAuthenticated ? (
+          {home && isAuthenticated && !isMobile ? (
             <div
               aria-hidden
               className="bg-gdscBlue-300 ease-out duration-300 hover:bg-my-url-button-hover
@@ -75,11 +74,6 @@ export default function Navbar({ home }) {
                 {' '}
               </div>
             </button>
-          )}
-          {isAuthenticated ? (
-            <img src={MenuIcon} alt="Menu Icon" className="md:hidden" />
-          ) : (
-            <div> </div>
           )}
         </div>
         <NavbarModal show={show} />
