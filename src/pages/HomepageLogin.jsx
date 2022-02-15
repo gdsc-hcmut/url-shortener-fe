@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { SHOW_URL_MODAL } from 'action-types';
@@ -6,29 +6,21 @@ import { ReactComponent as MenuIcon } from 'assets/icons/menu.svg';
 import Footer from 'components/Footer';
 import ModalUrl from 'components/ModalUrl';
 import NavBar from 'components/Navbar';
+import SideMenu from 'components/SideMenu';
 import UrlInputBoxAndTitle from 'components/UrlInputBoxAndTitle';
 
 export default function HomepageLogin() {
   const { shortenedUrl } = useSelector((state) => state.urlWithSlug);
   const [toggleMenu, setToggleMenu] = useState(false);
   const { UrlModal } = useSelector((state) => state.showModal);
-  const { shortenedUrl } = useSelector((state) => state.url);
   const dispatch = useDispatch();
   const handleToggleMenu = () => {
     setToggleMenu(!toggleMenu);
   };
-  useEffect(() => {
-    document.body.addEventListener('keydown', closeOnEscapeKeyDown);
-    return function cleanup() {
-      document.body.removeEventListener('keydown', closeOnEscapeKeyDown);
-    };
-  }, []);
   return (
     <div
       aria-hidden="true"
       className="flex flex-col relative justify-center md:items-center bg-mobile-background md:bg-blue md:bg-contain"
-      onClick={hideModal}
-      onKeyDown={closeOnEscapeKeyDown}
     >
       <button
         type="button"
@@ -42,7 +34,7 @@ export default function HomepageLogin() {
         <div className="md:hidden">
           <SideMenu toggle={toggleMenu} page="user-home" />
         </div>
-        <div className="ml-[1.25rem] mt-[135px] mb-[288px] md:mt-[152px] md:mb-[276px] w-full">
+        <div className="ml-[1.25rem] mt-[135px] mb-[288px] md:mt-[260px] md:mb-[276px] w-full">
           <UrlInputBoxAndTitle loggedIn />
         </div>
       </div>

@@ -12,6 +12,8 @@ import NavbarHome from './NavbarHome';
 export default function Navbar({ home }) {
   const { isAuthenticated } = useSelector((state) => state.auth);
   const [show, setShow] = useState(false);
+  const [width, setWidth] = useState(window.innerWidth);
+
   const navigate = useNavigate();
 
   const handleShow = () => setShow(!show);
@@ -29,11 +31,22 @@ export default function Navbar({ home }) {
       document.body.removeEventListener('keydown', closeOnEscapeKeyDown);
     };
   }, []);
+  function handleWindowSizeChange() {
+    setWidth(window.innerWidth);
+  }
+  useEffect(() => {
+    window.addEventListener('resize', handleWindowSizeChange);
+    return () => {
+      window.removeEventListener('resize', handleWindowSizeChange);
+    };
+  }, []);
+
+  const isMobile = width <= 768;
   return (
     <nav className="shadow-md max-w-full h-fit w-full flex px-[20px] py-[20px] md:px-[60px] md:py-[30px] bg-white z-40">
       <div className="flex h-full w-full justify-between align-center">
         <NavbarHome />
-        <div className="hidden md:flex space-x-8">
+        <div className="flex space-x-8">
           {home && isAuthenticated ? (
             <div
               aria-hidden
@@ -48,7 +61,7 @@ export default function Navbar({ home }) {
             <div> </div>
           )}
           {!isAuthenticated ? (
-            <NavbarButton isMobileHomepage={false} />
+            <NavbarButton isMobileHomepage={isMobile} home={home} />
           ) : (
             <button
               onClick={handleShow}
@@ -63,7 +76,11 @@ export default function Navbar({ home }) {
               </div>
             </button>
           )}
-          <img src={MenuIcon} alt="Menu Icon" className="md:hidden" />
+          {isAuthenticated ? (
+            <img src={MenuIcon} alt="Menu Icon" className="md:hidden" />
+          ) : (
+            <div> </div>
+          )}
         </div>
         <NavbarModal show={show} />
       </div>

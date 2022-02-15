@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { SHOW_SIGN_UP_MODAL } from 'action-types';
 
@@ -32,18 +33,16 @@ export default function SubTitle({ loggedIn }) {
         <p className="text-base font-normal text-gdscGrey-700">
           Want more details on your previous shortened link?
         </p>
-        <button
-          type="button"
-          onClick={(e) => {
-            e.preventDefault();
-            window.location.href = 'http://localhost:3000/sign-up-page';
-          }}
-          className="md:m-0 w-[92px] h-6 b-[50px] bg-get-started-btn rounded-[60px] flex justify-center items-center hover:bg-get-started-btn-hover  ease-out duration-300"
-        >
-          <div className="opacity-100 text-xs font-normal text-gdscBlue-300 flex justify-center items-center">
-            Get started
-          </div>
-        </button>
+        <Link to="/sign-up-page">
+          <button
+            type="button"
+            className="md:m-0 w-[92px] h-6 b-[50px] bg-get-started-btn rounded-[60px] flex justify-center items-center hover:bg-get-started-btn-hover  ease-out duration-300"
+          >
+            <div className="opacity-100 text-xs font-normal text-gdscBlue-300 flex justify-center items-center">
+              Get started
+            </div>
+          </button>
+        </Link>
       </div>
     );
   }
