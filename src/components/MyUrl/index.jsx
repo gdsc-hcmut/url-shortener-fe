@@ -1,4 +1,5 @@
 import { CircularProgress } from '@mui/material';
+import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -21,7 +22,7 @@ import UrlAPI from 'services/url.service';
 export default function MyUrl({ slug }) {
   const SORT_OPTION = ['Most Clicked', 'Least Clicked', 'Latest', 'Oldest'];
 
-  const [option, setOption] = useState(SORT_OPTION[1]);
+  const [option, setOption] = useState(SORT_OPTION[3]);
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
@@ -32,8 +33,6 @@ export default function MyUrl({ slug }) {
   const { CopySuccessModal, EditUrlModal } = useSelector(
     (state) => state.showModal,
   );
-
-  console.log('RENDER');
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
@@ -64,6 +63,7 @@ export default function MyUrl({ slug }) {
         passive: true,
       });
     }
+    return () => mobileScrollDiv.removeEventListener('scroll', handleScroll);
   }, [page]);
 
   useEffect(() => {
@@ -81,6 +81,25 @@ export default function MyUrl({ slug }) {
       searchUrl();
     }
   }, [search]);
+
+  useEffect(() => {
+    switch (option) {
+      case SORT_OPTION[0]:
+        setUrlLists(_.orderBy(urlLists, ['totalClicks'], ['desc']));
+        break;
+      case SORT_OPTION[1]:
+        setUrlLists(_.orderBy(urlLists, ['totalClicks'], ['asc']));
+        break;
+      case SORT_OPTION[2]:
+        setUrlLists(_.orderBy(urlLists, ['updatedAt'], ['desc']));
+        break;
+      case SORT_OPTION[3]:
+        setUrlLists(_.orderBy(urlLists, ['updatedAt'], ['asc']));
+        break;
+      default:
+        break;
+    }
+  }, [option]);
 
   useEffect(() => {
     if (CopySuccessModal) {

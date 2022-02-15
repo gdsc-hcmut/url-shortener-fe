@@ -121,20 +121,27 @@ export default function Detail({ slug }) {
       </div>
       <div className="flex flex-col ">
         <div className="inline-flex flex-wrap gap-6 mb-6 ">
-          <ExpireTime expireTime={urlDetail.expireTime.toString()} />
-          <CreatedOn createOn={urlDetail.createOn.toString()} />
-          <TodayClick todayClick={_.last(urlDetail.click)} />
-          <TotalClick
-            totalClick={Object.values(urlDetail.total).reduce(
-              (sum, el) => sum + el,
-            )}
-          />
+          <ExpireTime expireTime={urlDetail.expireTime} />
+          <CreatedOn createOn={urlDetail.createdAt} />
+          <TodayClick todayClick={1} />
+          <TotalClick totalClick={1} />
         </div>
         <div className="flex flex-col 3xl:flex-row border-x-lime-400:flex-row mb-6 3xl:mb-0">
-          <SocialMedia data={urlDetail.total} />
+          <SocialMedia
+            data={{
+              facebook: 1,
+              instagram: 0,
+              snapchat: 0,
+              somethingelse: 0,
+            }}
+          />
           <QR />
         </div>
-        <Chart data={urlDetail.click} />
+        <Chart
+          data={[
+            1, 2, 3, 34, 12, 24, 1356, 2312, 5233, 2323, 3213, 2154, 213321,
+          ]}
+        />
       </div>
     </div>
   );
