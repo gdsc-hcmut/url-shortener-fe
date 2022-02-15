@@ -132,7 +132,7 @@ export default function Detail({ slug }) {
         </div>
         <div className="flex flex-col 3xl:flex-row border-x-lime-400:flex-row mb-6 3xl:mb-0">
           <SocialMedia data={urlDetail.total} />
-          <QR />
+          <QR shortenedUrl={urlDetail.longUrl} slug={urlDetail.slug} />
         </div>
         <Chart data={urlDetail.click} />
       </div>
