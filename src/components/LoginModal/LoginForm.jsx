@@ -31,6 +31,10 @@ export default function LoginForm() {
 
   const handleSignIn = (e) => {
     e.preventDefault();
+    dispatch({
+      type: SHOW_LOG_IN_MODAL,
+      payload: false,
+    });
     dispatch(login(email, password));
   };
   const showForgotPassword = () => {

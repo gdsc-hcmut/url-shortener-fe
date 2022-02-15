@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { Navigate } from 'react-router';
 
 import SignUpModalMobile from 'components/SignUpModal/SignUpModalMobile';
 
 export default function SignUp() {
+  const { isAuthenticated } = useSelector((state) => state.auth);
   const [width, setWidth] = useState(window.innerWidth);
   function handleWindowSizeChange() {
     setWidth(window.innerWidth);
@@ -16,6 +19,9 @@ export default function SignUp() {
 
   const isMobile = width <= 768;
   if (isMobile) {
+    if (isAuthenticated) {
+      return <Navigate to="/user-home" />;
+    }
     return (
       <div>
         <SignUpModalMobile />

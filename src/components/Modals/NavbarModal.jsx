@@ -16,17 +16,18 @@ export default function NavbarModal({ show }) {
         show ? 'block' : 'hidden'
       }`}
     >
-      <div className="flex flex-col items-start">
+      <Link to="/user-profile">
         <button
           type="button"
-          className="w-[244px] h-[52px] bg-gdscBlue-100 bg-opacity-20 rounded flex items-center pl-5"
+          className="w-[244px] h-[52px] bg-gdscBlue-100 bg-opacity-20 rounded flex items-center pl-6"
         >
           <img src={AccountCircle} alt="Account Circle" />
           <p className="text-gdscBlue-300 ml-4">My profile</p>
         </button>
-        <Link
-          to="/"
-          role="button"
+      </Link>
+      <Link
+        to="/"
+        role="button"
         onClick={handleSignOut}
           className="w-[244px] h-[52px] pl-5 flex items-center z-10"
         >

@@ -8,7 +8,6 @@ import { register } from 'actions/auth';
 
 export default function SignUpForm({ isMobile }) {
   const { SignupModal } = useSelector((state) => state.showModal);
-  const { isAuthenticated } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState('');
@@ -24,6 +23,10 @@ export default function SignUpForm({ isMobile }) {
     if (password === confirmPassword) {
       e.preventDefault();
       setMatch(true);
+      dispatch({
+        type: SHOW_SIGN_UP_MODAL,
+        payload: false,
+      });
       dispatch(register(email, password));
     } else {
       e.preventDefault();
@@ -40,7 +43,6 @@ export default function SignUpForm({ isMobile }) {
       payload: true,
     });
   };
-  if (isAuthenticated) window.location = 'http://localhost:3000/user-home';
   useEffect(() => {
     setEmail('');
     setPassword('');

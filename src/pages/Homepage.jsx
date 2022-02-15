@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Navigate } from 'react-router';
 
 import {
   SHOW_URL_MODAL,
@@ -19,8 +20,12 @@ export default function Homepage() {
   const {
     UrlModal, LogInModal, SignupModal, ForgotPasswordModal,
   } = useSelector((state) => state.showModal);
+  const { isAuthenticated } = useSelector((state) => state.auth);
   const { shortenedUrl } = useSelector((state) => state.url);
   const dispatch = useDispatch();
+  if (isAuthenticated) {
+    return <Navigate to="/user-home" />;
+  }
   return (
     <div className="flex flex-col justify-center md:items-center bg-mobile-background md:bg-blue md:bg-contain">
       <NavBar home />
