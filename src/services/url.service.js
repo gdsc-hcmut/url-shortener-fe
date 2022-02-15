@@ -5,6 +5,7 @@ const UrlAPI = {
   shortenUrlWithSlug: (longUrl, slug) => api.post('/urls/auth', { longUrl, slug }),
   editSlug: (slug, newSlug) => api.post('/urls/edit-slug', { slug, newSlug }),
   getUrlList: async (page) => api.get(`/urls?page=${page}`),
+  searchUrl: async (q) => api.get(`/urls/search?q=${q}`),
 };
 
 export default UrlAPI;

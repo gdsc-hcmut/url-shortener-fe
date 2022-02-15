@@ -1,4 +1,4 @@
-import { Skeleton } from '@mui/material';
+import { CircularProgress } from '@mui/material';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -19,7 +19,9 @@ import ModalSucess from 'components/ModalSuccess';
 import UrlAPI from 'services/url.service';
 
 export default function MyUrl({ slug }) {
-  const [option, setOption] = useState('Most Clicked');
+  const SORT_OPTION = ['Most Clicked', 'Least Clicked', 'Latest', 'Oldest'];
+
+  const [option, setOption] = useState(SORT_OPTION[1]);
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
@@ -31,7 +33,8 @@ export default function MyUrl({ slug }) {
     (state) => state.showModal,
   );
 
-  const sortOptions = ['Most Clicked', 'Less Clicked', 'Latest', 'Oldest'];
+  console.log('RENDER');
+
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
@@ -42,7 +45,7 @@ export default function MyUrl({ slug }) {
 
   const handleScroll = (e) => {
     const { scrollTop, clientHeight, scrollHeight } = e.currentTarget;
-    if (scrollHeight - scrollTop - clientHeight < 1) {
+    if (scrollHeight - scrollTop - clientHeight === 0) {
       setPage(page + 1);
     }
   };
@@ -50,17 +53,34 @@ export default function MyUrl({ slug }) {
   useEffect(() => {
     const getUrlList = async () => {
       setLoading(true);
-      console.log(`LOADING page ${page} ...`);
       const { data: newUrlLists } = await UrlAPI.getUrlList(page);
       setUrlLists((prev) => [...prev, ...newUrlLists]);
       setLoading(false);
     };
-    getUrlList();
-
     const mobileScrollDiv = document.querySelector('#MyUrlPage');
-    mobileScrollDiv.addEventListener('scroll', handleScroll, { passive: true });
-    return () => mobileScrollDiv.removeEventListener('scroll', handleScroll);
+    if (!search) {
+      getUrlList();
+      mobileScrollDiv.addEventListener('scroll', handleScroll, {
+        passive: true,
+      });
+    }
   }, [page]);
+
+  useEffect(() => {
+    const searchUrl = async () => {
+      setLoading(true);
+      const { data: newUrlLists } = await UrlAPI.searchUrl(search);
+      setUrlLists(newUrlLists);
+      setLoading(false);
+    };
+
+    if (!search) {
+      setPage(1);
+      setUrlLists([]);
+    } else {
+      searchUrl();
+    }
+  }, [search]);
 
   useEffect(() => {
     if (CopySuccessModal) {
@@ -111,21 +131,19 @@ export default function MyUrl({ slug }) {
             isOpen ? '' : 'hidden'
           }`}
         >
-          {sortOptions
-            .filter((el) => el !== option)
-            .map((el) => (
-              <div
-                aria-hidden="true"
-                key={el}
-                className="block"
-                onClick={() => {
-                  setOption(el);
-                  setIsOpen(false);
-                }}
-              >
-                {el}
-              </div>
-            ))}
+          {SORT_OPTION.filter((el) => el !== option).map((el) => (
+            <div
+              aria-hidden="true"
+              key={el}
+              className="block"
+              onClick={() => {
+                setOption(el);
+                setIsOpen(false);
+              }}
+            >
+              {el}
+            </div>
+          ))}
         </div>
       </button>
 
@@ -141,7 +159,7 @@ export default function MyUrl({ slug }) {
       >
         {urlLists.map((url) => (
           <li
-            key={url.id}
+            key={url.slug}
             className={`w-full h-[100px] flex flex-col space-y-2 justify-center rounded font-normal md:w-[376px] ${
               url.slug === `/${slug}`
                 ? 'bg-[#F1F6FE] border-2 border-gdscBlue-300 p-[18px]'
@@ -192,7 +210,13 @@ export default function MyUrl({ slug }) {
             </span>
           </li>
         ))}
-        {loading ? <Skeleton width={376} height={140} /> : ''}
+        {loading ? (
+          <div className="text-center">
+            <CircularProgress color="inherit" />
+          </div>
+        ) : (
+          ''
+        )}
       </ul>
     </div>
   );
