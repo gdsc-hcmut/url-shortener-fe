@@ -1,8 +1,11 @@
 import {
+  SHOW_DELETE_URL_MODAL,
   SHOW_URL_MODAL,
   SHOW_LOG_IN_MODAL,
   SHOW_SIGN_UP_MODAL,
   SHOW_FORGOT_PASSWORD_MODAL,
+  SHOW_COPY_SUCCESS_MODAL,
+  SHOW_EDIT_URL_MODAL,
 } from 'action-types';
 
 const defaultSetUp = {
@@ -33,6 +36,21 @@ export default (state = defaultSetUp, { type, payload }) => {
       return {
         ...state,
         ForgotPasswordModal: payload,
+      };
+    case SHOW_DELETE_URL_MODAL:
+      return {
+        ...state,
+        DeleteUrlModal: payload,
+      };
+    case SHOW_COPY_SUCCESS_MODAL:
+      return {
+        ...state,
+        CopySuccessModal: payload,
+      };
+    case SHOW_EDIT_URL_MODAL:
+      return {
+        ...state,
+        EditUrlModal: payload,
       };
     default:
       return state;

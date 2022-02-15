@@ -1,8 +1,13 @@
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
+import {
+  SHOW_COPY_SUCCESS_MODAL,
+  SHOW_DELETE_URL_MODAL,
+  SHOW_EDIT_URL_MODAL,
+} from 'action-types';
 import { ReactComponent as CopyIcon } from 'assets/icons/copy_icon.svg';
 import { ReactComponent as DeleteIcon } from 'assets/icons/delete_icon.svg';
 import { ReactComponent as EditIcon } from 'assets/icons/edit_icon.svg';
@@ -22,49 +27,49 @@ import SocialMedia from './SocialMedia';
 
 export default function Detail({ slug }) {
   const urlDetail = _.find(fakeGetUrlsList, { slug: `/${slug}` });
-  const [copied, setCopied] = useState(false);
-  const [isEdit, setIsEdit] = useState(false);
-  const [showDelete, setShowDelete] = useState(false);
+  const dispatch = useDispatch();
 
   const { showSnackbar } = useSelector((state) => state.notification);
+  const { DeleteUrlModal, CopySuccessModal, EditUrlModal } = useSelector(
+    (state) => state.showModal,
+  );
 
-  const handleCopy = () => {
-    setCopied(true);
-    navigator.clipboard.writeText(`gdschcmut.url${urlDetail.slug}`);
-    setTimeout(() => setCopied(false), 1000);
-  };
-  const handleEdit = () => {
-    setIsEdit(true);
-  };
+  // const handleCopy = () => {
+  //   setCopied(true);
+  //   navigator.clipboard.writeText(`gdschcmut.url${urlDetail.slug}`);
+  //   setTimeout(() => setCopied(false), 1000);
+  // };
+  // const handleEdit = () => {
+  //   setIsEdit(true);
+  // };
 
   return (
     <div className="bg-opacity-0 max-w-full h-full overflow-scroll md:no-scrollbar md:p-0 py-5 pr-5 relative">
       <div className="modal absolute z-50">
-        {isEdit ? (
-          <EditSlugModal
-            slug={urlDetail.slug}
-            onClose={() => setIsEdit(false)}
-            show={isEdit}
-          />
-        ) : (
-          <h1>{}</h1>
-        )}
-        {copied ? (
-          <ModalSucess
-            text="Link copied to clipboard."
-            onClose={() => setCopied(false)}
-            show={copied}
-          />
-        ) : (
-          <h1>{}</h1>
-        )}
-        {showDelete && (
-          <DeleteModal
-            text="The shortened link and all relevant data will be removed."
-            onClose={() => setShowDelete(false)}
-            show={showDelete}
-          />
-        )}
+        <EditSlugModal
+          slug={urlDetail.slug}
+          onClose={() => dispatch({
+            type: SHOW_EDIT_URL_MODAL,
+            payload: false,
+          })}
+          show={EditUrlModal}
+        />
+        <ModalSucess
+          text="Link copied to clipboard."
+          onClose={() => dispatch({
+            type: SHOW_COPY_SUCCESS_MODAL,
+            payload: false,
+          })}
+          show={CopySuccessModal}
+        />
+        <DeleteModal
+          text="The shortened link and all relevant data will be removed."
+          onClose={() => dispatch({
+            type: SHOW_DELETE_URL_MODAL,
+            payload: false,
+          })}
+          show={DeleteUrlModal}
+        />
       </div>
       <div className="absolute bottom-4 right-4">
         {showSnackbar && <Snackbar />}
@@ -81,7 +86,13 @@ export default function Detail({ slug }) {
             type="button"
             aria-label="Copy Button"
             className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
-            onClick={handleCopy}
+            onClick={() => {
+              navigator.clipboard.writeText(`gdschcmut.url${urlDetail.slug}`);
+              dispatch({
+                type: SHOW_COPY_SUCCESS_MODAL,
+                payload: true,
+              });
+            }}
           >
             <CopyIcon />
           </button>
@@ -89,7 +100,10 @@ export default function Detail({ slug }) {
             type="button"
             aria-label="Edit Button"
             className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
-            onClick={handleEdit}
+            onClick={() => dispatch({
+              type: SHOW_EDIT_URL_MODAL,
+              payload: true,
+            })}
           >
             <EditIcon />
           </button>
@@ -97,7 +111,10 @@ export default function Detail({ slug }) {
             type="button"
             aria-label="Delete Button"
             className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
-            onClick={() => setShowDelete(true)}
+            onClick={() => dispatch({
+              type: SHOW_DELETE_URL_MODAL,
+              payload: true,
+            })}
           >
             <DeleteIcon />
           </button>
