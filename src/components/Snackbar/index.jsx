@@ -1,32 +1,39 @@
-import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { toggleSnackbarClose } from 'actions/notification';
 import { ReactComponent as CloseIcon } from 'assets/icons/close_icon_snackbar.svg';
 import { ReactComponent as DeleteIcon } from 'assets/icons/delete_icon_snackbar.svg';
 
-export default function Snackbar({ onClose, show }) {
-  const closeOnEscapeKeyDown = (e) => {
-    if ((e.charCode || e.keyCode) === 27) {
-      onClose();
-    }
+export default function Snackbar() {
+  const dispatch = useDispatch();
+
+  const { show } = useSelector((state) => state.notification);
+
+  let TIMER;
+  const handleTimeout = () => {
+    TIMER = setTimeout(() => {
+      dispatch(toggleSnackbarClose());
+    }, 3000);
   };
 
+  function handleClose() {
+    clearTimeout(TIMER);
+    dispatch(toggleSnackbarClose());
+  }
+
   useEffect(() => {
-    document.body.addEventListener('keydown', closeOnEscapeKeyDown);
-    return function cleanup() {
-      document.body.removeEventListener('keydown', closeOnEscapeKeyDown);
+    if (show) {
+      handleTimeout();
+    }
+    return () => {
+      clearTimeout(TIMER);
     };
-  }, []);
+  }, [show, TIMER]);
 
   return (
-    <div
-      aria-hidden="true"
-      className={`fixed z-20 inset-0 bg-black bg-opacity-50 flex justify-center items-center opacity-0 transition-all duration-300 ease-out pointer-events-none ${
-        show ? 'opacity-100 pointer-events-auto' : ''
-      }`}
-      onKeyDown={closeOnEscapeKeyDown}
-    >
-      <div className="relative w-[376px] h-[92px] p-5 flex bg-white rounded items-center">
+    show && (
+      <div className="animate-fadeinout relative w-[376px] h-[92px] p-5 flex bg-white rounded items-center shadow-md">
         <DeleteIcon />
         <div className="ml-[18px]">
           <p className="font-semibold leading-5">LINK DELETED</p>
@@ -41,17 +48,12 @@ export default function Snackbar({ onClose, show }) {
         </div>
         <button
           type="button"
-          onClick={onClose}
-          className="w-9 h-9 rounded-full bg-gdscGrey-200 flex justify-center items-center absolute right-5"
+          onClick={handleClose}
+          className="w-9 h-9 rounded-full bg-gdscGrey-200 flex justify-center items-center absolute right-5 hover:bg-gdscGrey-300 transition-all duration-300 ease-out"
         >
           <CloseIcon />
         </button>
       </div>
-    </div>
+    )
   );
 }
-
-Snackbar.propTypes = {
-  show: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-};
