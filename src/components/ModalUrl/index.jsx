@@ -1,4 +1,3 @@
-// import { saveAs } from 'file-saver';
 import PropTypes from 'prop-types';
 import QRCode from 'qrcode.react';
 import React, { useState, useEffect } from 'react';
