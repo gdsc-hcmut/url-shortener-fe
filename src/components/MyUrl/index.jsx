@@ -1,7 +1,13 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import { SHOW_COPY_SUCCESS_MODAL, SHOW_EDIT_URL_MODAL } from 'action-types';
+import {
+  toggleSuccessModalOpen,
+  toggleSuccessModalClose,
+} from 'actions/notification';
 import { ReactComponent as ArrowBackward } from 'assets/icons/arrow_backward.svg';
 import { ReactComponent as ArrowDown } from 'assets/icons/arrow_down.svg';
 import { ReactComponent as ArrowForward } from 'assets/icons/arrow_forward.svg';
@@ -17,8 +23,11 @@ export default function MyUrl({ slug }) {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState('');
   const [pageNum, setPageNum] = useState(1);
-  const [copied, setCopied] = useState(false);
-  const [edit, setEdit] = useState('');
+  const [currSlug, setCurrSlug] = useState('');
+  const dispatch = useDispatch();
+  const { CopySuccessModal, EditUrlModal } = useSelector(
+    (state) => state.showModal,
+  );
 
   const sortOptions = ['Most Clicked', 'Less Clicked', 'Latest', 'Oldest'];
   const maxNumPage = Math.ceil(fakeGetUrlsList.length / MAX_URL_PER_PAGE);
@@ -45,23 +54,33 @@ export default function MyUrl({ slug }) {
     return longFiltered.startsWith(search) || short.startsWith(`/${searchVal}`);
   };
 
+  useEffect(() => {
+    if (CopySuccessModal) {
+      setTimeout(() => {
+        dispatch(toggleSuccessModalClose());
+      }, 3000);
+    }
+  }, [CopySuccessModal]);
+
   return (
     <div className="bg-opacity-0 flex flex-col md:w-[392px] h-full w-full md:pr-0 md:p-0 py-5 pr-5">
       <div className="modal absolute z-50">
-        {edit !== '' ? (
-          <EditSlugModal slug={edit} onClose={() => setEdit('')} show={edit} />
-        ) : (
-          <h1>{}</h1>
-        )}
-        {copied ? (
-          <ModalSucess
-            text="Link copied to clipboard."
-            onClose={() => setCopied(false)}
-            show={copied}
-          />
-        ) : (
-          <h1>{}</h1>
-        )}
+        <EditSlugModal
+          slug={currSlug}
+          onClose={() => dispatch({
+            type: SHOW_EDIT_URL_MODAL,
+            payload: false,
+          })}
+          show={EditUrlModal}
+        />
+        <ModalSucess
+          text="Link copied to clipboard."
+          onClose={() => dispatch({
+            type: SHOW_COPY_SUCCESS_MODAL,
+            payload: false,
+          })}
+          show={CopySuccessModal}
+        />
       </div>
       <h1 className="font-normal text-[32px] leading-10">My URLs</h1>
 
@@ -140,11 +159,7 @@ export default function MyUrl({ slug }) {
                     type="button"
                     aria-label="Copy Button"
                     className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
-                    onClick={() => {
-                      setCopied(true);
-                      navigator.clipboard.writeText(`gdschcmut.url${url.slug}`);
-                      setTimeout(() => setCopied(false), 1000);
-                    }}
+                    onClick={() => dispatch(toggleSuccessModalOpen(url.slug))}
                   >
                     <CopyIcon />
                   </button>
@@ -152,7 +167,13 @@ export default function MyUrl({ slug }) {
                     type="button"
                     aria-label="Edit Button"
                     className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
-                    onClick={() => setEdit(url.slug)}
+                    onClick={() => {
+                      setCurrSlug(url.slug);
+                      dispatch({
+                        type: SHOW_EDIT_URL_MODAL,
+                        payload: true,
+                      });
+                    }}
                   >
                     <EditIcon />
                   </button>

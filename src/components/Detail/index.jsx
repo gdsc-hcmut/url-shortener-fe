@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
@@ -8,6 +8,10 @@ import {
   SHOW_DELETE_URL_MODAL,
   SHOW_EDIT_URL_MODAL,
 } from 'action-types';
+import {
+  toggleSuccessModalOpen,
+  toggleSuccessModalClose,
+} from 'actions/notification';
 import { ReactComponent as CopyIcon } from 'assets/icons/copy_icon.svg';
 import { ReactComponent as DeleteIcon } from 'assets/icons/delete_icon.svg';
 import { ReactComponent as EditIcon } from 'assets/icons/edit_icon.svg';
@@ -34,14 +38,13 @@ export default function Detail({ slug }) {
     (state) => state.showModal,
   );
 
-  // const handleCopy = () => {
-  //   setCopied(true);
-  //   navigator.clipboard.writeText(`gdschcmut.url${urlDetail.slug}`);
-  //   setTimeout(() => setCopied(false), 1000);
-  // };
-  // const handleEdit = () => {
-  //   setIsEdit(true);
-  // };
+  useEffect(() => {
+    if (CopySuccessModal) {
+      setTimeout(() => {
+        dispatch(toggleSuccessModalClose());
+      }, 3000);
+    }
+  }, [CopySuccessModal]);
 
   return (
     <div className="bg-opacity-0 max-w-full h-full overflow-scroll md:no-scrollbar md:p-0 py-5 pr-5 relative">
@@ -86,13 +89,7 @@ export default function Detail({ slug }) {
             type="button"
             aria-label="Copy Button"
             className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
-            onClick={() => {
-              navigator.clipboard.writeText(`gdschcmut.url${urlDetail.slug}`);
-              dispatch({
-                type: SHOW_COPY_SUCCESS_MODAL,
-                payload: true,
-              });
-            }}
+            onClick={() => dispatch(toggleSuccessModalOpen(urlDetail.slug))}
           >
             <CopyIcon />
           </button>
@@ -100,10 +97,12 @@ export default function Detail({ slug }) {
             type="button"
             aria-label="Edit Button"
             className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
-            onClick={() => dispatch({
-              type: SHOW_EDIT_URL_MODAL,
-              payload: true,
-            })}
+            onClick={() => {
+              dispatch({
+                type: SHOW_EDIT_URL_MODAL,
+                payload: true,
+              });
+            }}
           >
             <EditIcon />
           </button>

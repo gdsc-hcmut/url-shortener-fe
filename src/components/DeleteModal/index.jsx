@@ -63,6 +63,10 @@ export default function DeleteModal({ text, onClose, show }) {
 
 DeleteModal.propTypes = {
   text: PropTypes.string.isRequired,
-  show: PropTypes.bool.isRequired,
+  show: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
+};
+
+DeleteModal.defaultProps = {
+  show: false,
 };

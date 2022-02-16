@@ -49,6 +49,10 @@ export default function ModalSucess({ text, show, onClose }) {
 
 ModalSucess.propTypes = {
   text: PropTypes.string.isRequired,
-  show: PropTypes.bool.isRequired,
+  show: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
+};
+
+ModalSucess.defaultProps = {
+  show: false,
 };
