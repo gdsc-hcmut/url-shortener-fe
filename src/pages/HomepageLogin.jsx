@@ -10,7 +10,7 @@ import SideMenu from 'components/SideMenu';
 import UrlInputBoxAndTitle from 'components/UrlInputBoxAndTitle';
 
 export default function HomepageLogin() {
-  const { shortenedUrl, qrCode } = useSelector((state) => state.urlWithSlug);
+  const { shortenedUrl, slug } = useSelector((state) => state.urlWithSlug);
   const [toggleMenu, setToggleMenu] = useState(false);
   const { UrlModal } = useSelector((state) => state.showModal);
   const dispatch = useDispatch();
