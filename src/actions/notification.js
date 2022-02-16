@@ -13,7 +13,7 @@ export const toggleSnackbarClose = () => (dispatch) => {
 };
 
 export const toggleSuccessModalOpen = (slug) => (dispatch) => {
-  navigator.clipboard.writeText(`gdschcmut.url${slug}`);
+  navigator.clipboard.writeText(`gdschcmut.url/${slug}`);
   dispatch({
     type: SHOW_COPY_SUCCESS_MODAL,
     payload: true,

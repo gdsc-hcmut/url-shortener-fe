@@ -1,6 +1,7 @@
+import { CircularProgress } from '@mui/material';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
@@ -19,7 +20,7 @@ import DeleteModal from 'components/DeleteModal';
 import EditSlugModal from 'components/EditSludModal';
 import ModalSucess from 'components/ModalSuccess';
 import Snackbar from 'components/Snackbar';
-import fakeGetUrlsList from 'services/getUrlsList';
+import UrlAPI from 'services/url.service';
 
 import Chart from './Chart';
 import CreatedOn from './general/CreatedOn';
@@ -29,14 +30,21 @@ import TotalClick from './general/TotalClick';
 import QR from './QR';
 import SocialMedia from './SocialMedia';
 
-export default function Detail({ slug }) {
-  const urlDetail = _.find(fakeGetUrlsList, { slug: `/${slug}` });
+export default function Detail({ id }) {
   const dispatch = useDispatch();
-
+  const [urlDetail, setUrlDetail] = useState({});
   const { showSnackbar } = useSelector((state) => state.notification);
   const { DeleteUrlModal, CopySuccessModal, EditUrlModal } = useSelector(
     (state) => state.showModal,
   );
+
+  useEffect(() => {
+    const getUrlList = async () => {
+      const { data } = await UrlAPI.getUrlById(id);
+      setUrlDetail(data);
+    };
+    getUrlList();
+  }, [id]);
 
   useEffect(() => {
     if (CopySuccessModal) {
@@ -45,6 +53,15 @@ export default function Detail({ slug }) {
       }, 3000);
     }
   }, [CopySuccessModal]);
+  if (_.isEmpty(urlDetail)) {
+    return (
+      <div className="bg-opacity-0 max-w-full h-full overflow-scroll md:no-scrollbar md:p-0 py-5 pr-5 relative">
+        <div className="w-full flex justify-center items-center">
+          <CircularProgress color="inherit" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-opacity-0 max-w-full h-full overflow-scroll md:no-scrollbar md:p-0 py-5 pr-5 relative">
@@ -123,8 +140,8 @@ export default function Detail({ slug }) {
         <div className="inline-flex flex-wrap gap-6 mb-6 ">
           <ExpireTime expireTime={urlDetail.expireTime} />
           <CreatedOn createOn={urlDetail.createdAt} />
-          <TodayClick todayClick={1} />
-          <TotalClick totalClick={1} />
+          <TodayClick todayClick={_.last(urlDetail.totalClick) || 0} />
+          <TotalClick totalClick={_.sum(urlDetail.totalClick)} />
         </div>
         <div className="flex flex-col 3xl:flex-row border-x-lime-400:flex-row mb-6 3xl:mb-0">
           <SocialMedia
@@ -148,9 +165,9 @@ export default function Detail({ slug }) {
 }
 
 Detail.propTypes = {
-  slug: PropTypes.string,
+  id: PropTypes.string,
 };
 
 Detail.defaultProps = {
-  slug: null,
+  id: null,
 };

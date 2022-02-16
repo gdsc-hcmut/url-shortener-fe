@@ -9,7 +9,7 @@ import Navbar from 'components/Navbar';
 import SideMenu from 'components/SideMenu';
 
 export default function Homepage() {
-  const { slug } = useParams();
+  const { id } = useParams();
 
   return (
     <div className="max-h-[100vh] detail-page flex flex-col">
@@ -21,10 +21,10 @@ export default function Homepage() {
         <SideMenu toggle={false} page="detail" />
         <div className="bg-gdscGrey-100 md:min-h-screen flex-1 detail-md:pl-[60px] md:pt-10 md:pb-[156px] pl-5 text-2xl font-bold flex overflow-x-scroll">
           <div className="w-[392px] h-full hidden xl:block" id="MyUrlPage">
-            <MyUrl slug={slug} detail />
+            <MyUrl id={id} detail />
           </div>
-          <div className={`w-full h-full md:ml-4 ${!slug ? 'hidden' : ''}`}>
-            <Detail slug={slug} />
+          <div className={`w-full h-full md:ml-4 ${!id ? 'hidden' : ''}`}>
+            <Detail id={id} />
           </div>
         </div>
       </div>

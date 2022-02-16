@@ -10,7 +10,6 @@ import {
   toggleSuccessModalOpen,
   toggleSuccessModalClose,
 } from 'actions/notification';
-import { ReactComponent as ArrowBackward } from 'assets/icons/arrow_backward.svg';
 import { ReactComponent as ArrowDown } from 'assets/icons/arrow_down.svg';
 import { ReactComponent as CopyIcon } from 'assets/icons/copy_icon.svg';
 import { ReactComponent as DeleteIcon } from 'assets/icons/delete_icon.svg';
@@ -19,7 +18,7 @@ import EditSlugModal from 'components/EditSludModal';
 import ModalSucess from 'components/ModalSuccess';
 import UrlAPI from 'services/url.service';
 
-export default function MyUrl({ slug }) {
+export default function MyUrl({ id }) {
   const SORT_OPTION = ['Most Clicked', 'Least Clicked', 'Latest', 'Oldest'];
 
   const [option, setOption] = useState(SORT_OPTION[3]);
@@ -180,13 +179,13 @@ export default function MyUrl({ slug }) {
           <li
             key={url.slug}
             className={`w-full h-[100px] flex flex-col space-y-2 justify-center rounded font-normal md:w-[376px] ${
-              url.slug === `/${slug}`
+              url.id === id
                 ? 'bg-[#F1F6FE] border-2 border-gdscBlue-300 p-[18px]'
                 : 'bg-white px-5'
             } `}
           >
             <Link
-              to={`/detail/${url.slug}`}
+              to={`/detail/${url.id}`}
               className="text-xl h-6 font-medium w-64 overflow-x-hidden truncate "
             >
               <span>{url.longUrl}</span>
@@ -242,9 +241,9 @@ export default function MyUrl({ slug }) {
 }
 
 MyUrl.propTypes = {
-  slug: PropTypes.string,
+  id: PropTypes.string,
 };
 
 MyUrl.defaultProps = {
-  slug: null,
+  id: null,
 };
