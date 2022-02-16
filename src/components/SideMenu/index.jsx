@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
+import { logout } from 'actions/auth';
 import { ReactComponent as AccountCircle } from 'assets/icons/account_circle.svg';
 import { ReactComponent as LinkIcon } from 'assets/icons/link_icon.svg';
 import { ReactComponent as LockIcon } from 'assets/icons/lock_icon.svg';
@@ -9,6 +11,8 @@ import { ReactComponent as LogoutIcon } from 'assets/icons/logout_icon.svg';
 import { ReactComponent as StatIcon } from 'assets/icons/stat_icon.svg';
 
 export default function SideMenu({ toggle, page }) {
+  const dispatch = useDispatch();
+  const handleSignOut = () => dispatch(logout());
   useEffect(() => {
     const sideMenu = document.querySelector('.side-menu');
     sideMenu.classList.toggle('-translate-x-full');
@@ -22,7 +26,7 @@ export default function SideMenu({ toggle, page }) {
     >
       <div>
         <NavLink
-          to="/my-profile"
+          to="/user-profile"
           className={() => `flex flex-row space-x-4 min-w-full md:w-[240px] items-center md:h-[52px] h-[58px] px-5 rounded bg-white
           ${
             page === 'my-profile'
@@ -93,7 +97,8 @@ export default function SideMenu({ toggle, page }) {
           <span>Change Password</span>
         </NavLink>
         <NavLink
-          to="/logout"
+          to="/"
+          onClick={handleSignOut}
           className="logOut flex flex-row space-x-4 min-w-full md:w-[240px] items-center
             md:h-[52px] h-[58px] px-5 rounded bg-white
             hover:bg-gdscRed-300/10 cursor-pointer

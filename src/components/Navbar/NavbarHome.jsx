@@ -7,11 +7,13 @@ import Logo from 'assets/image/logo.svg';
 export default function NavBarHome() {
   return (
     <div className="flex items-center">
-      <img
-        className="hidden md:inline w-[401.05px] h-[50px] mr-[30px]"
-        src={Logo}
-        alt="website logo"
-      />
+      <Link to="/" className="flex items-center">
+        <img
+          className="hidden md:inline w-[401.05px] h-[50px] mr-[30px]"
+          src={Logo}
+          alt="website logo"
+        />
+      </Link>
       <Link to="/" className="flex items-center">
         <img
           className="md:hidden w-[48.26px] h-[23.41px]"

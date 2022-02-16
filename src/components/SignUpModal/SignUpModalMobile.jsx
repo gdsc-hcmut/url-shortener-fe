@@ -9,7 +9,7 @@ import SignUpForm from './SignUpForm';
 export default function SignUpModalMobile() {
   return (
     <div>
-      <NavBar isModalPage />
+      <NavBar home={false} />
       <div className="flex flex-col justify-center items-center mt-[112px] px-5">
         <SignUpForm isMobile />
         <div className="mt-[28px] h-10 self-center flex items-center">

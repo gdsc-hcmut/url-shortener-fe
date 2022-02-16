@@ -13,13 +13,13 @@ export default function Homepage() {
 
   return (
     <div className="max-h-[100vh] detail-page flex flex-col">
-      <NavLink to="/my-url" className="absolute md:hidden right-5 top-5 z-50">
+      <NavLink to="/my-url" className="absolute md:hidden right-5 top-3 z-50">
         <BackIcon className="w-10 h-10" />
       </NavLink>
-      <Navbar isModalPage={false} />
+      <Navbar home={false} />
       <div className="flex overflow-hidden h-full">
         <SideMenu toggle={false} page="detail" />
-        <div className="bg-gdscGrey-100 md:min-h-screen flex-1 detail-md:pl-[60px] md:pt-10 md:pb-[156px] pl-5 text-2xl font-bold flex overflow-x-scroll">
+        <div className="bg-gdscGrey-100 md:min-h-screen flex-1 detail-md:pl-[60px] md:pt-10 md:pb-[156px] pl-5 text-2xl font-bold flex overflow-x-scroll ">
           <div className="w-[392px] h-full hidden xl:block">
             <MyUrl slug={slug} />
           </div>

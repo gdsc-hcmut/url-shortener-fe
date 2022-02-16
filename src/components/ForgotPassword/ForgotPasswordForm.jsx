@@ -1,6 +1,17 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+
+import { SHOW_FORGOT_PASSWORD_MODAL } from 'action-types';
 
 export default function ForgotPasswordForm() {
+  const dispatch = useDispatch();
+  const closeForgotPasswordModal = () => {
+    dispatch({
+      type: SHOW_FORGOT_PASSWORD_MODAL,
+      payload: false,
+    });
+  };
   return (
     <form className="flex flex-col justify-center">
       <p className="text-2xl md:mt-[-20px] font-bold self-center">
@@ -21,13 +32,16 @@ export default function ForgotPasswordForm() {
           bg-gdscGrey-100 focus:bg-white focus:outline-gdscBlue-300 p-5"
         />
       </div>
-      <button
-        type="submit"
-        className="w-[376px] md:w-[420px] h-[60px] bg-gdscBlue-300 mt-7 self-center
-        rounded-[8px] text-white hover:bg-shorten-btn-hover transition-all ease-out duration-300"
-      >
-        Reset Password
-      </button>
+      <Link to="/reset-pass" className="self-center">
+        <button
+          type="submit"
+          onClick={closeForgotPasswordModal}
+          className="w-[376px] md:w-[420px] h-[60px] bg-gdscBlue-300 mt-7
+      rounded-[8px] text-white hover:bg-shorten-btn-hover transition-all ease-out duration-300"
+        >
+          Reset Password
+        </button>
+      </Link>
     </form>
   );
 }

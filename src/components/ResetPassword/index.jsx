@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function ResetPasswordForm() {
   return (
@@ -25,14 +26,16 @@ export default function ResetPasswordForm() {
             placeholder="••••••"
           />
         </div>
-        <button
-          className="font-normal text-white w-[376px] md:w-[420px] h-[60px]
+        <Link to="/user-home">
+          <button
+            className="font-normal text-white w-[376px] md:w-[420px] h-[60px]
                   bg-gdscBlue-300 rounded hover:bg-shorten-btn-hover
                   transition-all duration-300 ease-out md:mb-7"
-          type="submit"
-        >
-          Change
-        </button>
+            type="submit"
+          >
+            Change
+          </button>
+        </Link>
       </form>
     </div>
   );

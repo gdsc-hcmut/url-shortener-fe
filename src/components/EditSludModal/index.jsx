@@ -5,10 +5,9 @@ import CloseIcon from 'assets/icons/close.svg';
 import EditIcon from 'assets/icons/edit.svg';
 
 export default function EditSlugModal({ show, onClose, slug }) {
-  const [value, setValue] = useState(slug);
+  const [value, setValue] = useState('');
 
   const closeOnEscapeKeyDown = (e) => {
-    // e.stopPropagation();
     if ((e.charCode || e.keyCode) === 27) {
       onClose();
     }
@@ -23,6 +22,10 @@ export default function EditSlugModal({ show, onClose, slug }) {
       document.body.removeEventListener('keydown', closeOnEscapeKeyDown);
     };
   }, []);
+
+  useEffect(() => {
+    if (show && slug) setValue(slug);
+  }, [show]);
 
   return (
     <div
@@ -73,6 +76,10 @@ export default function EditSlugModal({ show, onClose, slug }) {
             aria-hidden="true"
             type="button"
             className="w-[136px] h-[52px] text-white text-center bg-gdscBlue-300 hover:bg-shorten-btn-hover rounded"
+            onClick={() => {
+              console.log(value);
+              onClose();
+            }}
           >
             Done
           </button>
@@ -83,7 +90,11 @@ export default function EditSlugModal({ show, onClose, slug }) {
 }
 
 EditSlugModal.propTypes = {
-  show: PropTypes.bool.isRequired,
+  show: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
   slug: PropTypes.string.isRequired,
+};
+
+EditSlugModal.defaultProps = {
+  show: false,
 };

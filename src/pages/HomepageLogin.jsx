@@ -1,47 +1,42 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { SHOW_URL_MODAL } from 'action-types';
+import { ReactComponent as MenuIcon } from 'assets/icons/menu.svg';
 import Footer from 'components/Footer';
-import NavbarModal from 'components/Modals/NavbarModal';
 import ModalUrl from 'components/ModalUrl';
-import NavbarLogin from 'components/Navbar/NavbarLogin';
+import NavBar from 'components/Navbar';
+import SideMenu from 'components/SideMenu';
 import UrlInputBoxAndTitle from 'components/UrlInputBoxAndTitle';
 
 export default function HomepageLogin() {
   const { shortenedUrl } = useSelector((state) => state.urlWithSlug);
-  const [show, setShow] = useState(false);
-  const showModal = () => setShow(true);
-  const hideModal = () => setShow(false);
+  const [toggleMenu, setToggleMenu] = useState(false);
   const { UrlModal } = useSelector((state) => state.showModal);
   const dispatch = useDispatch();
-  const showNavbarModal = (e) => {
-    e.stopPropagation();
-    showModal();
+  const handleToggleMenu = () => {
+    setToggleMenu(!toggleMenu);
   };
-  const closeOnEscapeKeyDown = (e) => {
-    if ((e.charCode || e.keyCode) === 27) {
-      hideModal();
-    }
-  };
-
-  useEffect(() => {
-    document.body.addEventListener('keydown', closeOnEscapeKeyDown);
-    return function cleanup() {
-      document.body.removeEventListener('keydown', closeOnEscapeKeyDown);
-    };
-  }, []);
   return (
     <div
       aria-hidden="true"
-      className="flex flex-col justify-center md:items-center bg-mobile-background md:bg-blue md:bg-contain"
-      onClick={hideModal}
-      onKeyDown={closeOnEscapeKeyDown}
+      className="flex flex-col relative justify-center md:items-center bg-mobile-background md:bg-blue md:bg-contain"
     >
-      <NavbarLogin showModal={showNavbarModal} myUrl />
-      <NavbarModal show={show} />
-      <div className="ml-[1.25rem] mt-[5px] mb-[288px] md:mt-[22px] md:mb-[276px]">
-        <UrlInputBoxAndTitle loggedIn />
+      <button
+        type="button"
+        className="absolute md:hidden right-5 top-3 z-50"
+        onClick={handleToggleMenu}
+      >
+        <MenuIcon className="w-10 h-10" />
+      </button>
+      <NavBar home />
+      <div className="flex h-full mt-[-130px]">
+        <div className="md:hidden mt-[104px]">
+          <SideMenu toggle={toggleMenu} page="user-home" />
+        </div>
+        <div className="ml-[1.25rem] mt-[216px] mb-[288px] md:mt-[260px] md:mb-[276px] w-full">
+          <UrlInputBoxAndTitle loggedIn />
+        </div>
       </div>
       <ModalUrl
         title="My Modal"

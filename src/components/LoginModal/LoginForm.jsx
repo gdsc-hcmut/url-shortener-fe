@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
+import { SHOW_LOG_IN_MODAL, SHOW_FORGOT_PASSWORD_MODAL } from 'action-types';
 import { login } from 'actions/auth';
 
 export default function LoginForm() {
@@ -10,15 +12,42 @@ export default function LoginForm() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [width, setWidth] = useState(window.innerWidth);
+
+  function handleWindowSizeChange() {
+    setWidth(window.innerWidth);
+  }
+  useEffect(() => {
+    window.addEventListener('resize', handleWindowSizeChange);
+    return () => {
+      window.removeEventListener('resize', handleWindowSizeChange);
+    };
+  }, []);
+
+  const isMobile = width <= 768;
 
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
 
   const handleSignIn = (e) => {
     e.preventDefault();
+    dispatch({
+      type: SHOW_LOG_IN_MODAL,
+      payload: false,
+    });
     dispatch(login(email, password));
   };
-  if (isAuthenticated) console.log('Sign in success');
+  const showForgotPassword = () => {
+    dispatch({
+      type: SHOW_FORGOT_PASSWORD_MODAL,
+      payload: true,
+    });
+    dispatch({
+      type: SHOW_LOG_IN_MODAL,
+      payload: false,
+    });
+  };
+  if (isAuthenticated) window.location = 'http://localhost:3000/user-home';
   useEffect(() => {
     setEmail('');
     setPassword('');
@@ -49,9 +78,17 @@ export default function LoginForm() {
           onChange={handlePassword}
         />
       </div>
-      <div className="mb-10 md:mb-7 text-right">
-        <a href=" ">Forgot your password?</a>
-      </div>
+      {isMobile ? (
+        <div className="mb-10 md:mb-7 text-right">
+          <Link to="/forgot-password">Forgot your password?</Link>
+        </div>
+      ) : (
+        <div className="mb-10 md:mb-7 text-right">
+          <button type="button" onClick={showForgotPassword}>
+            Forgot your password?
+          </button>
+        </div>
+      )}
       <button
         className="font-normal text-white w-[376px] md:w-full h-[60px]
                   bg-gdscBlue-300 rounded hover:bg-shorten-btn-hover

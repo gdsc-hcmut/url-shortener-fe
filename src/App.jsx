@@ -5,22 +5,24 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { loadUser } from 'actions/auth';
 import NavbarModal from 'components/Modals/NavbarModal';
 import MaterialUIPickers from 'pages/DateTimePicker';
+import DeleteModalPage from 'pages/DeleteModalPage';
+import DetailPage from 'pages/DetailPage';
 import EditSlug from 'pages/EditSlug';
 import ForgotPasswordPage from 'pages/ForgotPasswordPage';
+import Homepage from 'pages/Homepage';
 import HomepageLogin from 'pages/HomepageLogin';
+import LoginPage from 'pages/LoginPage';
+import ModalPage from 'pages/ModalPage';
+import MyUrlPage from 'pages/MyUrlPage';
+import ChangePasswordPage from 'pages/ReplacePasswordPage';
 import ResetPasswordPage from 'pages/ResetPasswordPage';
+import SignInPage from 'pages/SignInPage';
+import SignUpDesktop from 'pages/SignUpDesktop';
+import SignUpPage from 'pages/SignUpPage';
+import SnackbarPage from 'pages/SnackbarPage';
 import UrlWithSlug from 'pages/UrlWithSlug';
 import UserProfilePage from 'pages/UserProfilePage';
 
-import DetailPage from './pages/DetailPage';
-import Homepage from './pages/Homepage';
-import LoginPage from './pages/LoginPage';
-import ModalPage from './pages/ModalPage';
-import MyUrlPage from './pages/MyUrlPage';
-import ChangePasswordPage from './pages/ReplacePasswordPage';
-import SignInPage from './pages/SignInPage';
-import SignUpDesktop from './pages/SignUpDesktop';
-import SignUpPage from './pages/SignUpPage';
 import store from './store';
 import './index.css';
 import setAuthToken from './utils/setAuthToken';
@@ -53,6 +55,8 @@ export default function App() {
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/date" element={<MaterialUIPickers />} />
           <Route path="/my-url" element={<MyUrlPage />} />
+          <Route path="/delete-modal" element={<DeleteModalPage />} />
+          <Route path="/snackbar" element={<SnackbarPage />} />
         </Routes>
       </BrowserRouter>
     </Provider>

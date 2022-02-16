@@ -8,7 +8,7 @@ import ForgotPasswordForm from './ForgotPasswordForm';
 export default function ForgotPasswordMobile() {
   return (
     <div className="md:hidden">
-      <NavBar isModalPage />
+      <NavBar home={false} />
       <div className="flex justify-center items-center mt-[100px] px-5 mb-[120px]">
         <ForgotPasswordForm />
       </div>
