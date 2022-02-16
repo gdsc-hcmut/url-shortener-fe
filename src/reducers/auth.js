@@ -6,13 +6,18 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
+  USER_NOT_FOUND,
 } from 'action-types';
 
 const initialState = {
   token: localStorage.getItem('user'),
   isAuthenticated: null,
   loading: true,
-  user: null,
+  user: {
+    name: 'user name',
+    email: 'user email',
+    dateOfBirth: 'user birthday',
+  },
 };
 
 export default function (state = initialState, action) {
@@ -20,6 +25,7 @@ export default function (state = initialState, action) {
 
   switch (type) {
     case USER_LOADED:
+      console.log(payload);
       return {
         ...state,
         isAuthenticated: true,
@@ -39,6 +45,7 @@ export default function (state = initialState, action) {
     case REGISTER_FAIL:
     case AUTH_ERROR:
     case LOGIN_FAIL:
+    case USER_NOT_FOUND:
     case LOGOUT:
       localStorage.removeItem('user');
       return {

@@ -1,19 +1,31 @@
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
+import { editProfile } from 'actions/user';
 import AddPhoto from 'assets/icons/add_a_photo.svg';
 import ClearIcon from 'assets/icons/clear.svg';
 import DoneIcon from 'assets/icons/done.svg';
 import EditIcon from 'assets/icons/edit.svg';
 
 export default function UserFormMobile() {
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
   const [field, setField] = useState({ name: false, email: false, dob: false });
-  const [content, setContent] = useState({
-    name: 'Jerome',
-    email: 'example@gmail.com',
-    dob: '01/01/2020',
-  });
+  const [name, setName] = useState(user.name);
+  const [email, setEmail] = useState(user.email);
+  const [dateOfBirth, setDateOfBirth] = useState(user.dateOfBirth);
+  const handleName = (e) => setName(e.target.value);
+  const handleEmail = (e) => setEmail(e.target.value);
+  const handleDateOfBirth = (e) => setDateOfBirth(e.target.value);
+  const editUserProfile = (e) => {
+    e.preventDefault();
+    dispatch(editProfile(name, email, dateOfBirth));
+  };
   return (
-    <form className="md:hidden flex flex-col justify-center items-center">
+    <form
+      className="md:hidden flex flex-col justify-center items-center"
+      onSubmit={editUserProfile}
+    >
       <div className="flex justify-items-start w-[376px]">
         <h1 className="text-[32px] font-medium">My Profile</h1>
       </div>
@@ -31,8 +43,9 @@ export default function UserFormMobile() {
                 className="w-[376px] md:w-[420px] h-[64px] bg-white border
                       border-1 border-gdscBlue-300 px-5 outline-none rounded"
                 type="text"
-                placeholder={content.name}
-                onChange={(e) => setContent({ ...content, name: e.target.value })}
+                value={name}
+                placeholder={name}
+                onChange={handleName}
               />
               <div className="flex flex-col space-y-1 mr-[-24px] mt-1">
                 <button
@@ -49,7 +62,7 @@ export default function UserFormMobile() {
                   type="button"
                   onClick={() => {
                     setField({ ...field, name: false });
-                    setContent({ ...content, name: 'Jerome' });
+                    setName(user.name);
                   }}
                 >
                   <img
@@ -62,7 +75,7 @@ export default function UserFormMobile() {
             </div>
           ) : (
             <div className="relative w-[376px] md:w-[420px] h-[64px] flex px-5 pt-5 outline-none rounded bg-gdscGrey-100 text-input-text">
-              {content.name}
+              {name}
               <button
                 type="button"
                 className="absolute right-5"
@@ -81,8 +94,8 @@ export default function UserFormMobile() {
                 className="w-[376px] md:w-[420px] h-[64px] bg-white border
                         border-1 border-gdscBlue-300 px-5 outline-none rounded"
                 type="email"
-                placeholder={content.email}
-                onChange={(e) => setContent({ ...content, email: e.target.value })}
+                placeholder={email}
+                onChange={handleEmail}
               />
               <div className="flex flex-col space-y-1 mr-[-24px] mt-1">
                 <button
@@ -99,7 +112,7 @@ export default function UserFormMobile() {
                   type="button"
                   onClick={() => {
                     setField({ ...field, email: false });
-                    setContent({ ...content, email: 'example@gmail.com' });
+                    setEmail(user.email);
                   }}
                 >
                   <img
@@ -112,7 +125,7 @@ export default function UserFormMobile() {
             </div>
           ) : (
             <div className="relative w-[376px] md:w-[420px] h-[64px] flex px-5 pt-5 outline-none rounded bg-gdscGrey-100 text-input-text">
-              {content.email}
+              {email}
               <button
                 type="button"
                 className="absolute right-5"
@@ -131,8 +144,8 @@ export default function UserFormMobile() {
                 className="w-[376px] md:w-[420px] h-[64px] bg-white border
                           border-1 border-gdscBlue-300 px-5 outline-none rounded"
                 type="date"
-                placeholder={content.dob}
-                onChange={(e) => setContent({ ...content, dob: e.target.value })}
+                placeholder={dateOfBirth}
+                onChange={handleDateOfBirth}
               />
               <div className="flex flex-col space-y-1 mr-[-24px] mt-1">
                 <button
@@ -149,7 +162,7 @@ export default function UserFormMobile() {
                   type="button"
                   onClick={() => {
                     setField({ ...field, dob: false });
-                    setContent({ ...content, dob: '01/01/2020' });
+                    setDateOfBirth(user.dateOfBirth);
                   }}
                 >
                   <img
@@ -162,7 +175,7 @@ export default function UserFormMobile() {
             </div>
           ) : (
             <div className="relative w-[376px] md:w-[420px] h-[64px] flex px-5 pt-5 outline-none rounded bg-gdscGrey-100 text-input-text">
-              {content.dob}
+              {dateOfBirth}
               <button
                 type="button"
                 className="absolute right-5"
