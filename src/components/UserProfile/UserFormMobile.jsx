@@ -9,8 +9,10 @@ import EditIcon from 'assets/icons/edit.svg';
 
 export default function UserFormMobile() {
   const dispatch = useDispatch();
+  const avatar = new FormData();
   const { user } = useSelector((state) => state.auth);
   const [field, setField] = useState({ name: false, email: false, dob: false });
+  const [selectedImage, setSelectedImage] = useState(null);
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
   const [dateOfBirth, setDateOfBirth] = useState(user.dateOfBirth);
@@ -19,8 +21,12 @@ export default function UserFormMobile() {
   const handleDateOfBirth = (e) => setDateOfBirth(e.target.value);
   const editUserProfile = (e) => {
     e.preventDefault();
-    dispatch(editProfile(name, email, dateOfBirth));
+    dispatch(editProfile(name, email, dateOfBirth, avatar));
   };
+  // eslint-disable-next-line no-restricted-syntax
+  for (const [key, value] of avatar.entries()) {
+    console.log(key, value);
+  }
   return (
     <form
       className="md:hidden flex flex-col justify-center items-center"
@@ -30,9 +36,42 @@ export default function UserFormMobile() {
         <h1 className="text-[32px] font-medium">My Profile</h1>
       </div>
       <div className="relative w-[148px] h-[148px] bg-gdscGrey-200 rounded-[8px] mt-8">
-        <div className="absolute top-[132px] left-[56px] w-9 h-9 rounded-[9999px] bg-gdscGrey-200 flex justify-center items-center">
-          <img className="w-5 h-5" src={AddPhoto} alt="Add avatar icon" />
-        </div>
+        {!selectedImage ? (
+          <div className="absolute top-[132px] left-[56px] w-9 h-9 rounded-[9999px] bg-gdscGrey-200 flex justify-center items-center">
+            <label htmlFor="input-avatar" className="cursor-pointer">
+              <img className="w-5 h-5" src={AddPhoto} alt="Add avatar icon" />
+              <input
+                type="file"
+                id="input-avatar"
+                onChange={(event) => {
+                  setSelectedImage(event.target.files[0]);
+                  avatar.append(
+                    'user-avatar',
+                    event.target.files[0],
+                    event.target.files[0].name,
+                  );
+                  console.log(avatar);
+                }}
+                hidden
+              />
+            </label>
+          </div>
+        ) : (
+          <div>
+            <img
+              alt="user avatar"
+              className="w-[148px] h-[148px] rounded"
+              src={URL.createObjectURL(selectedImage)}
+            />
+            <button
+              type="button"
+              className="self-center"
+              onClick={() => setSelectedImage(null)}
+            >
+              Remove
+            </button>
+          </div>
+        )}
       </div>
       <div>
         <div className="flex flex-col align-end mb-6 mt-[52px]">

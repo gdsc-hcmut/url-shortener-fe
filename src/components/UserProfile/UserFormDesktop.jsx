@@ -8,8 +8,10 @@ import EditIcon from 'assets/icons/edit.svg';
 
 export default function UserFormDesktop() {
   const dispatch = useDispatch();
+  const avatar = new FormData();
   const { user } = useSelector((state) => state.auth);
   const [field, setField] = useState({ name: false, email: false, dob: false });
+  const [selectedImage, setSelectedImage] = useState(null);
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
   const [dateOfBirth, setDateOfBirth] = useState(user.dateOfBirth);
@@ -18,7 +20,7 @@ export default function UserFormDesktop() {
   const handleDateOfBirth = (e) => setDateOfBirth(e.target.value);
   const editUserProfile = (e) => {
     e.preventDefault();
-    dispatch(editProfile(name, email, dateOfBirth));
+    dispatch(editProfile(name, email, dateOfBirth, avatar));
   };
   return (
     <div className="hidden md:block ml-[60px] mr-[60px] mt-[64px]">
@@ -29,14 +31,43 @@ export default function UserFormDesktop() {
       <div className="mt-[88px] w-full bg-white rounded-[8px] pl-8 pt-10">
         <form className="mt-[40px] flex flex-col" onSubmit={editUserProfile}>
           <div className="flex">
-            <div className="md:w-[100px] md:h-[100px] lg:w-[152px] lg:h-[152px] bg-gdscGrey-200 rounded" />
+            {selectedImage ? (
+              <div>
+                <img
+                  alt="user avatar"
+                  className="md:w-[100px] md:h-[100px] lg:w-[152px] lg:h-[152px] rounded"
+                  src={URL.createObjectURL(selectedImage)}
+                />
+                <button type="button" onClick={() => setSelectedImage(null)}>
+                  Remove
+                </button>
+              </div>
+            ) : (
+              <div className="md:w-[100px] md:h-[100px] lg:w-[152px] lg:h-[152px] bg-gdscGrey-200 rounded" />
+            )}
             <div className="flex flex-col self-end ml-8">
               <button
                 type="button"
-                className="w-[160px] h-[52px] mb-7 bg-gdscBlue-200 bg-opacity-20
+                className="w-[160px] h-[52px] mb-7 bg-gdscBlue-200 bg-opacity-20 overflow-hidden
               hover:bg-opacity-40 transition-all duration-300 ease-out text-gdscBlue-300 rounded"
               >
-                Browse
+                <label htmlFor="input-avatar" className="cursor-pointer">
+                  Browse
+                  <input
+                    type="file"
+                    id="input-avatar"
+                    onChange={(event) => {
+                      setSelectedImage(event.target.files[0]);
+                      avatar.append(
+                        'user-avatar',
+                        event.target.files[0],
+                        event.target.files[0].name,
+                      );
+                      console.log(avatar);
+                    }}
+                    hidden
+                  />
+                </label>
               </button>
               <p className="text-xs">
                 Max file size is 1MB, Minimum dimension: 330x300 And Suitable
