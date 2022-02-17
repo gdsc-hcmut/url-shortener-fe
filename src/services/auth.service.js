@@ -3,6 +3,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  updateEmail,
 } from 'firebase/auth';
 
 import setAuthToken from 'utils/setAuthToken';
@@ -73,12 +74,23 @@ const getCurrentUser = async () => {
   const res = await api.get('/auth');
   return res.data;
 };
+const changeEmail = (newEmail) => {
+  const auth = getAuth();
+  updateEmail(auth.currentUser, newEmail)
+    .then(() => {
+      console.log('email update');
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
 
 const AuthService = {
   register,
   login,
   logout,
   getCurrentUser,
+  changeEmail,
 };
 
 export default AuthService;

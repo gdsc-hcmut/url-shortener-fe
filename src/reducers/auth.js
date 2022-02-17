@@ -17,7 +17,6 @@ const initialState = {
     name: 'user name',
     email: 'user email',
     dateOfBirth: 'user birthday',
-    avatar: 'user avatar',
   },
 };
 

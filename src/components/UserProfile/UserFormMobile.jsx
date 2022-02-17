@@ -14,19 +14,16 @@ export default function UserFormMobile() {
   const [field, setField] = useState({ name: false, email: false, dob: false });
   const [selectedImage, setSelectedImage] = useState(null);
   const [name, setName] = useState(user.name);
-  const [email, setEmail] = useState(user.email);
+  const [newEmail, setNewEmail] = useState(user.email);
   const [dateOfBirth, setDateOfBirth] = useState(user.dateOfBirth);
   const handleName = (e) => setName(e.target.value);
-  const handleEmail = (e) => setEmail(e.target.value);
+  const handleEmail = (e) => setNewEmail(e.target.value);
   const handleDateOfBirth = (e) => setDateOfBirth(e.target.value);
+  const { email } = user;
   const editUserProfile = (e) => {
     e.preventDefault();
-    dispatch(editProfile(name, email, dateOfBirth, avatar));
+    dispatch(editProfile(name, newEmail, email, dateOfBirth));
   };
-  // eslint-disable-next-line no-restricted-syntax
-  for (const [key, value] of avatar.entries()) {
-    console.log(key, value);
-  }
   return (
     <form
       className="md:hidden flex flex-col justify-center items-center"
@@ -133,7 +130,7 @@ export default function UserFormMobile() {
                 className="w-[376px] md:w-[420px] h-[64px] bg-white border
                         border-1 border-gdscBlue-300 px-5 outline-none rounded"
                 type="email"
-                placeholder={email}
+                placeholder={newEmail}
                 onChange={handleEmail}
               />
               <div className="flex flex-col space-y-1 mr-[-24px] mt-1">
@@ -151,7 +148,7 @@ export default function UserFormMobile() {
                   type="button"
                   onClick={() => {
                     setField({ ...field, email: false });
-                    setEmail(user.email);
+                    setNewEmail(user.email);
                   }}
                 >
                   <img
@@ -164,7 +161,7 @@ export default function UserFormMobile() {
             </div>
           ) : (
             <div className="relative w-[376px] md:w-[420px] h-[64px] flex px-5 pt-5 outline-none rounded bg-gdscGrey-100 text-input-text">
-              {email}
+              {newEmail}
               <button
                 type="button"
                 className="absolute right-5"

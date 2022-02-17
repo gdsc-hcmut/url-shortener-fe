@@ -13,14 +13,15 @@ export default function UserFormDesktop() {
   const [field, setField] = useState({ name: false, email: false, dob: false });
   const [selectedImage, setSelectedImage] = useState(null);
   const [name, setName] = useState(user.name);
-  const [email, setEmail] = useState(user.email);
+  const [newEmail, setNewEmail] = useState(user.email);
   const [dateOfBirth, setDateOfBirth] = useState(user.dateOfBirth);
   const handleName = (e) => setName(e.target.value);
-  const handleEmail = (e) => setEmail(e.target.value);
+  const handleEmail = (e) => setNewEmail(e.target.value);
   const handleDateOfBirth = (e) => setDateOfBirth(e.target.value);
+  const { email } = user;
   const editUserProfile = (e) => {
     e.preventDefault();
-    dispatch(editProfile(name, email, dateOfBirth, avatar));
+    dispatch(editProfile(name, newEmail, email, dateOfBirth));
   };
   return (
     <div className="hidden md:block ml-[60px] mr-[60px] mt-[64px]">
@@ -135,7 +136,7 @@ export default function UserFormDesktop() {
                     className="mt-4 w-[320px] lg:w-[460px] h-[60px] bg-white border
                             border-1 border-gdscBlue-300 px-5 outline-none rounded"
                     type="email"
-                    value={email}
+                    value={newEmail}
                     placeholder={email}
                     onChange={handleEmail}
                   />
@@ -154,7 +155,7 @@ export default function UserFormDesktop() {
                       type="button"
                       onClick={() => {
                         setField({ ...field, email: false });
-                        setEmail(user.email);
+                        setNewEmail(user.email);
                       }}
                     >
                       <img
@@ -167,7 +168,7 @@ export default function UserFormDesktop() {
                 </div>
               ) : (
                 <div className="relative mt-4 w-[320px] lg:w-[460px] h-[60px] flex px-5 pt-5 outline-none rounded bg-gdscGrey-100 text-input-text">
-                  {email}
+                  {newEmail}
                   <button
                     type="button"
                     className="absolute right-5"
