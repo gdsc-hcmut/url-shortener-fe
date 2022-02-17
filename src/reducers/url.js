@@ -11,6 +11,8 @@ const initialState = {
   slug: 'loading...',
   slugExist: false,
   error: {},
+  data: {},
+  newSlug: '',
 };
 
 export default (state = initialState, { type, payload } = {}) => {
@@ -26,8 +28,7 @@ export default (state = initialState, { type, payload } = {}) => {
       return {
         ...state,
         shortenedUrl: payload.shortUrl,
-        slug: payload.slug,
-        id: payload.id,
+        newSlug: payload.slug,
         slugExist: false,
       };
     case SLUG_ALREADY_EXISTS:

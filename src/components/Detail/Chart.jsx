@@ -36,8 +36,6 @@ export default function Chart({ data }) {
     0,
   ).getDate();
 
-  console.log(data);
-
   const setLabel = () => {
     switch (option) {
       case 'Last Year':

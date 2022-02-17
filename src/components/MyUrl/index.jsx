@@ -40,6 +40,7 @@ export default function MyUrl({ id }) {
     (state) => state.showModal,
   );
   const { showSnackbar } = useSelector((state) => state.notification);
+  const { newSlug } = useSelector((state) => state.url);
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
@@ -71,7 +72,7 @@ export default function MyUrl({ id }) {
       });
     }
     return () => mobileScrollDiv.removeEventListener('scroll', handleScroll);
-  }, [page]);
+  }, [page, search]);
 
   useEffect(() => {
     const searchUrl = async () => {
@@ -81,11 +82,11 @@ export default function MyUrl({ id }) {
       setLoading(false);
     };
 
-    if (!search) {
-      setPage(1);
-      setUrlLists([]);
-    } else {
+    if (search) {
       searchUrl();
+    } else {
+      setUrlLists([]);
+      setPage(1);
     }
   }, [search]);
 
@@ -115,6 +116,26 @@ export default function MyUrl({ id }) {
       }, 3000);
     }
   }, [CopySuccessModal]);
+
+  useEffect(() => {
+    if (!DeleteUrlModal) {
+      setUrlLists(urlLists.filter((url) => url.id !== currId));
+      setCurrId('');
+    }
+  }, [DeleteUrlModal]);
+  useEffect(() => {
+    if (newSlug) {
+      setUrlLists(
+        urlLists.map((url) => {
+          if (url.slug === currSlug) {
+            return { ...url, slug: newSlug };
+          }
+          return url;
+        }),
+      );
+      setCurrSlug('');
+    }
+  }, [newSlug]);
 
   return (
     <div className="bg-opacity-0 flex flex-col md:w-[392px] h-full w-full md:pr-0 md:p-0 py-5 pr-5">
@@ -192,7 +213,7 @@ export default function MyUrl({ id }) {
         onChange={handleSearch}
       />
       <ul
-        className="md:overflow-y-scroll mt-10 space-y-10 relative h-full "
+        className="md:overflow-y-scroll mt-10 space-y-5 relative h-full "
         onScroll={handleScroll}
       >
         {urlLists.map((url) => (
