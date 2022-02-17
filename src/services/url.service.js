@@ -8,6 +8,7 @@ const UrlAPI = {
   searchUrl: async (q) => api.get(`/urls/search?q=${q}`),
   getUrlById: async (id) => api.get(`/urls/${id}`),
   deleteUrl: async (id) => api.delete(`/urls/${id}`),
+  editExpireTime: (id, newExpireTime) => api.patch(`/urls/${id}/expire`, { newExpireTime }),
 };
 
 export default UrlAPI;

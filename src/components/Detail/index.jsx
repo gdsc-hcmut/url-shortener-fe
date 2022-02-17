@@ -142,7 +142,7 @@ export default function Detail({ id }) {
       </div>
       <div className="flex flex-col ">
         <div className="inline-flex flex-wrap gap-6 mb-6 ">
-          <ExpireTime expireTime={urlDetail.expireTime} />
+          <ExpireTime expireTime={urlDetail.expireTime} id={id} />
           <CreatedOn createOn={urlDetail.createdAt} />
           <TodayClick todayClick={_.last(urlDetail.totalClick) || 0} />
           <TotalClick totalClick={_.sum(urlDetail.totalClick)} />

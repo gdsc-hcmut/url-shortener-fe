@@ -6,6 +6,7 @@ import {
   SHORTEN_URL_WITH_SLUG,
   SHOW_EDIT_URL_MODAL,
   SHOW_DELETE_URL_MODAL,
+  EDIT_EXPIRE_TIME,
 } from 'action-types';
 import { toggleSnackbarOpen } from 'actions/notification';
 import UrlAPI from 'services/url.service';
@@ -83,10 +84,25 @@ const deleteUrl = (id) => async (dispatch) => {
     });
   }
 };
+const editExpireTime = (id, newExpireTime) => async (dispatch) => {
+  try {
+    const res = await UrlAPI.editExpireTime(id, newExpireTime);
+    dispatch({
+      type: EDIT_EXPIRE_TIME,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: URL_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
 
 export default {
   shortenUrl,
   editSlug,
   shortenUrlWithSlug,
   deleteUrl,
+  editExpireTime,
 };

@@ -3,6 +3,7 @@ import {
   URL_ERROR,
   EDIT_SLUG,
   SLUG_ALREADY_EXISTS,
+  EDIT_EXPIRE_TIME,
 } from 'action-types';
 
 const initialState = {
@@ -34,6 +35,11 @@ export default (state = initialState, { type, payload } = {}) => {
         ...state,
         slugExist: true,
         error: payload,
+      };
+    case EDIT_EXPIRE_TIME:
+      return {
+        ...state,
+        data: payload,
       };
     case URL_ERROR:
       return {

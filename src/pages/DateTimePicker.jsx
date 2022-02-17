@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import MobileDateTimePicker from '@mui/lab/MobileDateTimePicker';
