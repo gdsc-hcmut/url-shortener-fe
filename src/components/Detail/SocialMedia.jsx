@@ -19,7 +19,7 @@ export default function SocialMedia({ data }) {
           <FacebookLogo />
           <span className="font-normal text-xl ml-3">Facebook</span>
           <span className="font-thin text-base text-gdscGrey-700 ml-auto">
-            {data.facebook}
+            {data.Facebook}
           </span>
         </div>
         <div className="flex items-center h-[52px] mt-8">
@@ -28,7 +28,7 @@ export default function SocialMedia({ data }) {
           </div>
           <span className="font-normal text-xl ml-3">Instagram</span>
           <span className="font-thin text-base text-gdscGrey-700 ml-auto">
-            {data.instagram}
+            {data.Instagram}
           </span>
         </div>
         <div className="flex items-center h-[52px] mt-8">
@@ -37,7 +37,7 @@ export default function SocialMedia({ data }) {
           </div>
           <span className="font-normal text-xl ml-3">Other Social Media</span>
           <span className="font-thin text-base text-gdscGrey-700 ml-auto">
-            {Object.values(_.omit(data, ['facebook', 'instagram'])).reduce(
+            {Object.values(_.omit(data, ['Facebook', 'Instagram'])).reduce(
               (sum, el) => sum + el,
             )}
           </span>
@@ -58,7 +58,7 @@ export default function SocialMedia({ data }) {
 
 SocialMedia.propTypes = {
   data: PropTypes.shape({
-    facebook: PropTypes.number.isRequired,
-    instagram: PropTypes.number.isRequired,
+    Facebook: PropTypes.number.isRequired,
+    Instagram: PropTypes.number.isRequired,
   }).isRequired,
 };

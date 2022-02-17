@@ -8,12 +8,13 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import {} from 'lodash';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { Line } from 'react-chartjs-2';
 
 import { ReactComponent as ArrowDown } from 'assets/icons/arrow_down.svg';
-import { MONTH } from 'constant/dateName';
+import { MONTH, DATE } from 'constant/dateName';
 
 ChartJS.register(
   CategoryScale,
@@ -28,16 +29,79 @@ ChartJS.register(
 export default function Chart({ data }) {
   const [option, setOption] = useState('Last Year');
   const [isOpen, setIsOpen] = useState(false);
+  const today = new Date();
+  const daysInThisMonth = new Date(
+    today.getFullYear(),
+    today.getMonth() + 1,
+    0,
+  ).getDate();
+
+  console.log(data);
+
+  const setLabel = () => {
+    switch (option) {
+      case 'Last Year':
+        return MONTH;
+      case 'Last Day':
+        return Array.from(Array(24).keys()).map((el) => `${el}:00`);
+      case 'Last Week':
+        return DATE;
+      case 'Last Month':
+        return Array.from({ length: daysInThisMonth }, (_, i) => i + 1);
+      default:
+        return MONTH;
+    }
+  };
+
+  const transform = (transformData, max) => {
+    const result = [];
+    for (let i = 0; i < max; i += 1) {
+      result[i] = transformData.reduce((prev, curr) => {
+        if (curr === i) {
+          return prev + 1;
+        }
+        return prev;
+      }, 0);
+    }
+    return result;
+  };
+
+  const proccessData = () => {
+    switch (option) {
+      case 'Last Year':
+        return transform(
+          data.map((click) => new Date(click.dateClicked).getMonth()),
+          MONTH.length,
+        );
+      case 'Last Day':
+        return transform(
+          data.map((click) => new Date(click.dateClicked).getHours()),
+          24,
+        );
+      case 'Last Week':
+        return transform(
+          data.map((click) => new Date(click.dateClicked).getDay() - 1),
+          7,
+        );
+      case 'Last Month':
+        return transform(
+          data.map((click) => new Date(click.dateClicked).getDate() - 1),
+          daysInThisMonth,
+        );
+      default:
+        return [];
+    }
+  };
 
   const sortOptions = ['Last Year', 'Last Day', 'Last Week', 'Last Month'];
 
   const handleClick = () => setIsOpen(!isOpen);
 
   const datasets = {
-    labels: MONTH,
+    labels: setLabel(),
     datasets: [
       {
-        data,
+        data: proccessData(),
         label: '',
         borderColor: '#4285F4',
         fill: false,

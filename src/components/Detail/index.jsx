@@ -19,6 +19,7 @@ import { ReactComponent as EditIcon } from 'assets/icons/edit_icon.svg';
 import DeleteModal from 'components/DeleteModal';
 import EditSlugModal from 'components/EditSludModal';
 import ModalSucess from 'components/ModalSuccess';
+import { PLATFORMS } from 'constant/common';
 import UrlAPI from 'services/url.service';
 
 import Chart from './Chart';
@@ -144,25 +145,44 @@ export default function Detail({ id }) {
         <div className="inline-flex flex-wrap gap-6 mb-6 ">
           <ExpireTime expireTime={urlDetail.expireTime} id={id} />
           <CreatedOn createOn={urlDetail.createdAt} />
-          <TodayClick todayClick={_.last(urlDetail.totalClick) || 0} />
-          <TotalClick totalClick={_.sum(urlDetail.totalClick)} />
+          <TodayClick
+            todayClick={
+              urlDetail.totalClicks.filter((click) => {
+                const today = new Date();
+                const dateClicked = new Date(click.dateClicked);
+                return (
+                  today.getDate() === dateClicked.getDate()
+                  && today.getMonth() === dateClicked.getMonth()
+                  && today.getFullYear() === dateClicked.getFullYear()
+                );
+              }).length
+            }
+          />
+          <TotalClick totalClick={urlDetail.totalClicks.length} />
         </div>
         <div className="flex flex-col 3xl:flex-row border-x-lime-400:flex-row mb-6 3xl:mb-0">
           <SocialMedia
             data={{
-              facebook: 1,
-              instagram: 0,
-              snapchat: 0,
-              somethingelse: 0,
+              Facebook: urlDetail.totalClicks.filter(
+                (click) => click.origin === 'Facebook',
+              ).length,
+              Messenger: urlDetail.totalClicks.filter(
+                (click) => click.origin === 'Messenger',
+              ).length,
+              Instagram: urlDetail.totalClicks.filter(
+                (click) => click.origin === 'Instagram',
+              ).length,
+              Zalo: urlDetail.totalClicks.filter(
+                (click) => click.origin === 'Zalo',
+              ).length,
+              Others: urlDetail.totalClicks.filter(
+                (click) => !PLATFORMS.includes(click.origin),
+              ).length,
             }}
           />
           <QR />
         </div>
-        <Chart
-          data={[
-            1, 2, 3, 34, 12, 24, 1356, 2312, 5233, 2323, 3213, 2154, 213321,
-          ]}
-        />
+        <Chart data={urlDetail.totalClicks} />
       </div>
     </div>
   );
