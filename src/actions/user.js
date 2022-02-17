@@ -12,6 +12,7 @@ export const editProfile = (name, newEmail, email, dateOfBirth) => async (dispat
         name: res.data.name,
         email: res.data.email,
         dateOfBirth: res.data.dateOfBirth,
+        avatar: res.data.avatar,
       },
     });
   } catch (err) {

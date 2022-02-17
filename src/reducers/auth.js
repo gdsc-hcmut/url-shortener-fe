@@ -17,6 +17,7 @@ const initialState = {
     name: 'user name',
     email: 'user email',
     dateOfBirth: 'user birthday',
+    avatar: 'user avatar',
   },
 };
 
@@ -25,7 +26,6 @@ export default function (state = initialState, action) {
 
   switch (type) {
     case USER_LOADED:
-      console.log(payload);
       return {
         ...state,
         isAuthenticated: true,

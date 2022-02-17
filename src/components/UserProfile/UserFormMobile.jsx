@@ -24,6 +24,10 @@ export default function UserFormMobile() {
     e.preventDefault();
     dispatch(editProfile(name, newEmail, email, dateOfBirth));
   };
+  // eslint-disable-next-line no-restricted-syntax
+  for (const [key, value] of avatar.entries()) {
+    console.log(key, value);
+  }
   return (
     <form
       className="md:hidden flex flex-col justify-center items-center"
