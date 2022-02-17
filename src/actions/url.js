@@ -4,6 +4,7 @@ import {
   EDIT_SLUG,
   SLUG_ALREADY_EXISTS,
   SHORTEN_URL_WITH_SLUG,
+  SHOW_EDIT_URL_MODAL,
 } from 'action-types';
 import UrlAPI from 'services/url.service';
 
@@ -55,6 +56,10 @@ const editSlug = (slug, newSlug) => async (dispatch) => {
           shortUrl: res.data.shortUrl,
           slug: res.data.slug,
         },
+      });
+      dispatch({
+        type: SHOW_EDIT_URL_MODAL,
+        payload: false,
       });
     }
   } catch (err) {

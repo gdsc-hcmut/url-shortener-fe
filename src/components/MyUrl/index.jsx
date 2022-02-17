@@ -49,6 +49,10 @@ export default function MyUrl({ id }) {
   };
 
   useEffect(() => {
+    console.log('GETTTT');
+  }, [EditUrlModal]);
+
+  useEffect(() => {
     const getUrlList = async () => {
       setLoading(true);
       const { data: newUrlLists } = await UrlAPI.getUrlList(page);

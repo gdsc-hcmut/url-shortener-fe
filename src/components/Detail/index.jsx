@@ -44,7 +44,7 @@ export default function Detail({ id }) {
       setUrlDetail(data);
     };
     getUrlList();
-  }, [id]);
+  }, [id, EditUrlModal]);
 
   useEffect(() => {
     if (CopySuccessModal) {
@@ -53,6 +53,7 @@ export default function Detail({ id }) {
       }, 3000);
     }
   }, [CopySuccessModal]);
+
   if (_.isEmpty(urlDetail)) {
     return (
       <div className="bg-opacity-0 max-w-full h-full overflow-scroll md:no-scrollbar md:p-0 py-5 pr-5 relative">
