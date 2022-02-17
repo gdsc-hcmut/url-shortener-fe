@@ -7,6 +7,7 @@ const UrlAPI = {
   getUrlList: async (page) => api.get(`/urls?page=${page}`),
   searchUrl: async (q) => api.get(`/urls/search?q=${q}`),
   getUrlById: async (id) => api.get(`/urls/${id}`),
+  deleteUrl: async (id) => api.delete(`/urls/${id}`),
 };
 
 export default UrlAPI;

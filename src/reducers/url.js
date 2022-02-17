@@ -26,6 +26,7 @@ export default (state = initialState, { type, payload } = {}) => {
         ...state,
         shortenedUrl: payload.shortUrl,
         slug: payload.slug,
+        id: payload.id,
         slugExist: false,
       };
     case SLUG_ALREADY_EXISTS:

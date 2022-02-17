@@ -5,7 +5,9 @@ import {
   SLUG_ALREADY_EXISTS,
   SHORTEN_URL_WITH_SLUG,
   SHOW_EDIT_URL_MODAL,
+  SHOW_DELETE_URL_MODAL,
 } from 'action-types';
+import { toggleSnackbarOpen } from 'actions/notification';
 import UrlAPI from 'services/url.service';
 
 const shortenUrl = (longUrl) => async (dispatch) => {
@@ -52,10 +54,7 @@ const editSlug = (slug, newSlug) => async (dispatch) => {
     } else {
       dispatch({
         type: EDIT_SLUG,
-        payload: {
-          shortUrl: res.data.shortUrl,
-          slug: res.data.slug,
-        },
+        payload: res.data,
       });
       dispatch({
         type: SHOW_EDIT_URL_MODAL,
@@ -69,5 +68,25 @@ const editSlug = (slug, newSlug) => async (dispatch) => {
     });
   }
 };
+const deleteUrl = (id) => async (dispatch) => {
+  try {
+    await UrlAPI.deleteUrl(id);
+    dispatch({
+      type: SHOW_DELETE_URL_MODAL,
+      payload: false,
+    });
+    dispatch(toggleSnackbarOpen());
+  } catch (err) {
+    dispatch({
+      type: URL_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
 
-export default { shortenUrl, editSlug, shortenUrlWithSlug };
+export default {
+  shortenUrl,
+  editSlug,
+  shortenUrlWithSlug,
+  deleteUrl,
+};

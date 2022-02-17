@@ -5,7 +5,11 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { SHOW_COPY_SUCCESS_MODAL, SHOW_EDIT_URL_MODAL } from 'action-types';
+import {
+  SHOW_COPY_SUCCESS_MODAL,
+  SHOW_DELETE_URL_MODAL,
+  SHOW_EDIT_URL_MODAL,
+} from 'action-types';
 import {
   toggleSuccessModalOpen,
   toggleSuccessModalClose,
@@ -14,8 +18,10 @@ import { ReactComponent as ArrowDown } from 'assets/icons/arrow_down.svg';
 import { ReactComponent as CopyIcon } from 'assets/icons/copy_icon.svg';
 import { ReactComponent as DeleteIcon } from 'assets/icons/delete_icon.svg';
 import { ReactComponent as EditIcon } from 'assets/icons/edit_icon.svg';
+import DeleteModal from 'components/DeleteModal';
 import EditSlugModal from 'components/EditSludModal';
 import ModalSucess from 'components/ModalSuccess';
+import Snackbar from 'components/Snackbar';
 import UrlAPI from 'services/url.service';
 
 export default function MyUrl({ id }) {
@@ -28,10 +34,12 @@ export default function MyUrl({ id }) {
   const [loading, setLoading] = useState(true);
   const [urlLists, setUrlLists] = useState([]);
   const [currSlug, setCurrSlug] = useState('');
+  const [currId, setCurrId] = useState('');
   const dispatch = useDispatch();
-  const { CopySuccessModal, EditUrlModal } = useSelector(
+  const { DeleteUrlModal, CopySuccessModal, EditUrlModal } = useSelector(
     (state) => state.showModal,
   );
+  const { showSnackbar } = useSelector((state) => state.notification);
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
@@ -47,10 +55,6 @@ export default function MyUrl({ id }) {
       setPage(page + 1);
     }
   };
-
-  useEffect(() => {
-    console.log('GETTTT');
-  }, [EditUrlModal]);
 
   useEffect(() => {
     const getUrlList = async () => {
@@ -131,6 +135,18 @@ export default function MyUrl({ id }) {
           })}
           show={CopySuccessModal}
         />
+        <DeleteModal
+          id={currId}
+          text="The shortened link and all relevant data will be removed."
+          onClose={() => dispatch({
+            type: SHOW_DELETE_URL_MODAL,
+            payload: false,
+          })}
+          show={DeleteUrlModal}
+        />
+      </div>
+      <div className="absolute bottom-4 right-4">
+        {showSnackbar && <Snackbar />}
       </div>
       <h1 className="font-normal text-[32px] leading-10">My URLs</h1>
 
@@ -225,6 +241,13 @@ export default function MyUrl({ id }) {
                   type="button"
                   aria-label="Delete Button"
                   className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
+                  onClick={() => {
+                    setCurrId(url.id);
+                    dispatch({
+                      type: SHOW_DELETE_URL_MODAL,
+                      payload: true,
+                    });
+                  }}
                 >
                   <DeleteIcon />
                 </button>
@@ -249,5 +272,5 @@ MyUrl.propTypes = {
 };
 
 MyUrl.defaultProps = {
-  id: null,
+  id: '',
 };
