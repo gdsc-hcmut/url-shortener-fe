@@ -25,9 +25,11 @@ export default function ExpireTime({ expireTime, id }) {
       <div className="flex flex-col justify-between items-end">
         <span className="text-gdscRed-300 text-xl md:text-2xl font-normal truncate">
           <span className="hidden md:inline">{DATE[time.getDay()]}</span>
-          {` ${time.getDate()}/${
-            time.getMonth() + 1
-          }/${time.getFullYear()} ${time.toLocaleTimeString()}`}
+          {time.getTime() < new Date().getTime()
+            ? 'Expired'
+            : `${time.getDate()}/${
+              time.getMonth() + 1
+            }/${time.getFullYear()} ${time.toLocaleTimeString()}`}
         </span>
         <span className="font-normal text-base inline-flex justify-center items-center">
           Expire Time

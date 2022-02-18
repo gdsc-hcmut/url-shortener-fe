@@ -31,6 +31,7 @@ export default function MyUrl({ id }) {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
+  const [maxPage, setMaxPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [urlLists, setUrlLists] = useState([]);
   const [currSlug, setCurrSlug] = useState('');
@@ -52,7 +53,7 @@ export default function MyUrl({ id }) {
 
   const handleScroll = (e) => {
     const { scrollTop, clientHeight, scrollHeight } = e.currentTarget;
-    if (scrollHeight - scrollTop - clientHeight < 1) {
+    if (scrollHeight - scrollTop - clientHeight < 1 && page <= maxPage) {
       setPage(page + 1);
     }
   };
@@ -61,7 +62,11 @@ export default function MyUrl({ id }) {
     const getUrlList = async () => {
       setLoading(true);
       const { data: newUrlLists } = await UrlAPI.getUrlList(page);
-      setUrlLists((prev) => [...prev, ...newUrlLists]);
+      if (newUrlLists === []) {
+        setMaxPage(page);
+      } else {
+        setUrlLists((prev) => [...prev, ...newUrlLists]);
+      }
       setLoading(false);
     };
     const mobileScrollDiv = document.querySelector('#MyUrlPage');

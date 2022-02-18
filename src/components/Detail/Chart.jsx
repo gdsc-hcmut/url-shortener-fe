@@ -68,22 +68,58 @@ export default function Chart({ data }) {
     switch (option) {
       case 'Last Year':
         return transform(
-          data.map((click) => new Date(click.dateClicked).getMonth()),
+          data.map((click) => {
+            const clickDate = new Date(click.dateClicked);
+            if (clickDate.getYear() === today.getYear()) {
+              return clickDate.getMonth();
+            }
+            return null;
+          }),
           MONTH.length,
         );
       case 'Last Day':
         return transform(
-          data.map((click) => new Date(click.dateClicked).getHours()),
+          data.map((click) => {
+            const clickDate = new Date(click.dateClicked);
+            if (
+              clickDate.getFullYear() === today.getFullYear()
+              && clickDate.getMonth() === today.getMonth()
+              && clickDate.getDate() === today.getDate()
+            ) {
+              return clickDate.getHours();
+            }
+            return null;
+          }),
           24,
         );
       case 'Last Week':
         return transform(
-          data.map((click) => new Date(click.dateClicked).getDay() - 1),
+          data.map((click) => {
+            const clickDate = new Date(click.dateClicked);
+            if (
+              clickDate.getFullYear() === today.getFullYear()
+              && clickDate.getMonth() === today.getMonth()
+              && today.getDay() - clickDate.getDay() < 7
+              && today.getDay() - clickDate.getDay() > -7
+            ) {
+              return clickDate.getDay() - 1;
+            }
+            return null;
+          }),
           7,
         );
       case 'Last Month':
         return transform(
-          data.map((click) => new Date(click.dateClicked).getDate() - 1),
+          data.map((click) => {
+            const clickDate = new Date(click.dateClicked);
+            if (
+              clickDate.getFullYear() === today.getFullYear()
+              && clickDate.getMonth() === today.getMonth()
+            ) {
+              return clickDate.getDate() - 1;
+            }
+            return null;
+          }),
           daysInThisMonth,
         );
       default:
@@ -118,7 +154,15 @@ export default function Chart({ data }) {
     },
     elements: {
       line: {
-        tension: 0.3,
+        tension: 0,
+      },
+    },
+    scales: {
+      y: {
+        ticks: {
+          precision: 0,
+          beginAtZero: true,
+        },
       },
     },
     maintainAspectRatio: false,
