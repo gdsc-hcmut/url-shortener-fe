@@ -14,11 +14,11 @@ export const MONTH = [
 ];
 
 export const DATE = [
+  'Sunday',
   'Monday',
   'Tuesday',
   'Wednesday',
   'Thursday',
   'Friday',
   'Saturday',
-  'Sunday',
 ];

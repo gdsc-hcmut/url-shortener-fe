@@ -74,9 +74,9 @@ const getCurrentUser = async () => {
   const res = await api.get('/auth');
   return res.data;
 };
-const changeEmail = (newEmail) => {
+const changeEmail = async (newEmail) => {
   const auth = getAuth();
-  updateEmail(auth.currentUser, newEmail)
+  return updateEmail(auth.currentUser, newEmail)
     .then(() => {
       console.log('email update');
     })
