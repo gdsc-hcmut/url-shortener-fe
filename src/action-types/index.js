@@ -20,9 +20,6 @@ export const SHOW_DELETE_URL_MODAL = 'SHOW_DELETE_URL_MODAL';
 export const SHOW_COPY_SUCCESS_MODAL = 'SHOW_COPY_SUCCESS_MODAL';
 export const SHOW_EDIT_URL_MODAL = 'SHOW_EDIT_URL_MODAL';
 export const EDIT_EXPIRE_TIME = 'EDIT_EXPIRE_TIME';
-<<<<<<< HEAD
 export const UPDATE_URL_LISTS = 'UPDATE_URL_LISTS';
-=======
 export const EDIT_PROFILE = 'EDIT_PROFILE';
 export const USER_NOT_FOUND = 'USER_NOT_FOUND';
->>>>>>> [f] 543 - Integrate user profile apis
