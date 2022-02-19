@@ -26,7 +26,7 @@ import Snackbar from 'components/Snackbar';
 import UrlAPI from 'services/url.service';
 
 export default function MyUrl({ id }) {
-  const SORT_OPTION = ['Oldest', 'Least Clicked', 'Latest', 'Most Clicked'];
+  const SORT_OPTION = ['Oldest', 'Latest', 'Least Clicked', 'Most Clicked'];
 
   const [option, setOption] = useState(SORT_OPTION[0]);
   const [isOpen, setIsOpen] = useState(false);
@@ -63,9 +63,9 @@ export default function MyUrl({ id }) {
       case SORT_OPTION[0]:
         return _.orderBy(list, ['updatedAt'], ['asc']);
       case SORT_OPTION[1]:
-        return _.orderBy(list, ['totalClicks'], ['asc']);
-      case SORT_OPTION[2]:
         return _.orderBy(list, ['updatedAt'], ['desc']);
+      case SORT_OPTION[2]:
+        return _.orderBy(list, ['totalClicks'], ['asc']);
       case SORT_OPTION[3]:
         return _.orderBy(list, ['totalClicks'], ['desc']);
       default:
@@ -125,6 +125,16 @@ export default function MyUrl({ id }) {
       }, 3000);
     }
   }, [CopySuccessModal]);
+
+  useEffect(() => {
+    const closeSelect = () => setIsOpen(false);
+    setTimeout(() => {
+      if (isOpen) {
+        window.addEventListener('click', closeSelect);
+      }
+    }, 0);
+    return () => window.removeEventListener('click', closeSelect);
+  }, [isOpen]);
 
   return (
     <div className="bg-opacity-0 flex flex-col md:w-[392px] h-full w-full md:pr-0 md:p-0 py-5 pr-5">

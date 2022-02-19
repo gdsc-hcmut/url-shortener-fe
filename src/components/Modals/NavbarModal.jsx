@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { logout } from 'actions/auth';
-import AccountCircle from 'assets/icons/account_circle_blue.svg';
+import AccountCircle from 'assets/icons/account_circle.svg';
 import LogoutIcon from 'assets/icons/logout.svg';
 
 export default function NavbarModal({ show, onClose }) {
@@ -27,24 +27,24 @@ export default function NavbarModal({ show, onClose }) {
       onKeyDown={closeOnEscapeKeyDown}
     >
       <div
-        className={`absolute right-[60px] top-[104px] z-50 w-[300px] h-[158px] pt-8 px-7 bg-white border rounded border-gdscGrey-300 ${
+        className={`absolute right-[60px] top-[104px] z-50 w-[300px] py-8 px-7 bg-white border rounded border-gdscGrey-300 ${
           show ? 'block' : 'hidden'
         }`}
       >
         <Link to="/user-profile">
           <button
             type="button"
-            className="w-[244px] h-[52px] bg-gdscBlue-100 bg-opacity-20 rounded flex items-center pl-6"
+            className="relative w-[244px] h-[52px] text-gdscGrey-700 hover:text-gdscBlue-300 bg-white hover:bg-gdscBlue-100 hover:bg-opacity-20 rounded flex items-center pl-6 transition duration-300 ease-out"
           >
             <img src={AccountCircle} alt="Account Circle" />
-            <p className="text-gdscBlue-300 ml-4">My profile</p>
+            <p className="ml-4">My profile</p>
           </button>
         </Link>
         <Link
           to="/"
           role="button"
           onClick={handleSignOut}
-          className="w-[244px] h-[52px] pl-5 flex items-center z-10 hover:bg-gdscRed-300/10 text-gdscRed-300 rounded transition-all duration-300 ease-out"
+          className="realtive w-[244px] h-[52px] pl-5 flex items-center z-10 hover:bg-gdscRed-300/10 text-gdscRed-300 rounded transition-all duration-300 ease-out"
         >
           <img src={LogoutIcon} alt="Logout Icon" />
           <p className="ml-4">Logout</p>

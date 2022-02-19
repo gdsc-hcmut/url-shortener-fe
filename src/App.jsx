@@ -3,7 +3,6 @@ import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { loadUser } from 'actions/auth';
-import NavbarModal from 'components/Modals/NavbarModal';
 import MaterialUIPickers from 'pages/DateTimePicker';
 import DeleteModalPage from 'pages/DeleteModalPage';
 import DetailPage from 'pages/DetailPage';
@@ -49,7 +48,6 @@ export default function App() {
           <Route path="/reset-pass" element={<ResetPasswordPage />} />
           <Route path="/change-pass" element={<ChangePasswordPage />} />
           <Route path="/user-profile" element={<UserProfilePage />} />
-          <Route path="/modal-nav" element={<NavbarModal show />} />
           <Route path="/slug" element={<UrlWithSlug />} />
           <Route path="/edit-slug" element={<EditSlug />} />
           <Route path="/detail/:id" element={<DetailPage />} />

@@ -10,7 +10,7 @@ import {
 } from 'chart.js';
 import {} from 'lodash';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 
 import { ReactComponent as ArrowDown } from 'assets/icons/arrow_down.svg';
@@ -169,13 +169,23 @@ export default function Chart({ data }) {
     responsive: true,
   };
 
+  useEffect(() => {
+    const closeSelect = () => setIsOpen(false);
+    setTimeout(() => {
+      if (isOpen) {
+        window.addEventListener('click', closeSelect);
+      }
+    }, 0);
+    return () => window.removeEventListener('click', closeSelect);
+  }, [isOpen]);
+
   return (
     <div className="md:h-[496px] h-[240px] 3xl:w-[1032px] md:w-[504px] w-full px-5 py-5 lg:px-8 flex flex-col space-y-3 md:space-y-7  bg-white rounded">
       <div className="flex justify-between">
         <h1 className="font-medium text-xs md:text-base">Times Clicked On</h1>
-        <button
-          type="button"
-          className="w-[128px] h-11 text-base text-gdscGrey-700 p-2 lg:p-3 outline-none bg-[#F0F5F7] mt-3 mx-0 self-end text-left cursor-pointer rounded block md:mt-1 md:mr-3 focus:outline-none"
+        <div
+          aria-hidden
+          className="w-[128px] h-11 text-base text-gdscGrey-700 p-2 lg:p-3 outline-none bg-[#F0F5F7] mt-3 mx-0 self-end text-left cursor-pointer rounded block md:mt-1 md:mr-3 focus:outline-none cursor-pointer"
           aria-haspopup="listbox"
           aria-expanded="true"
           aria-labelledby="listbox-label"
@@ -195,8 +205,9 @@ export default function Chart({ data }) {
             {sortOptions
               .filter((el) => el !== option)
               .map((el) => (
-                <div
-                  aria-hidden="true"
+                <button
+                  aria-hidden
+                  type="button"
                   key={el}
                   className="block"
                   onClick={() => {
@@ -205,10 +216,10 @@ export default function Chart({ data }) {
                   }}
                 >
                   {el}
-                </div>
+                </button>
               ))}
           </div>
-        </button>
+        </div>
       </div>
       <div className="relative w-full h-[164px] md:h-[372px]">
         <Line data={datasets} options={options} />
