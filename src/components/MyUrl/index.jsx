@@ -231,7 +231,7 @@ export default function MyUrl({ id }) {
               <span>{url.longUrl}</span>
             </Link>
             <span className="flex justify-between">
-              <span className="text-base text-gdscGrey-700 w-32 overflow-clip  ">
+              <span className="text-base text-gdscGrey-700 w-32 truncate  ">
                 {url.slug}
               </span>
               <div className="flex space-x-2 lg:hidden">

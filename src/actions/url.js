@@ -71,6 +71,15 @@ const editSlug = (slug, newSlug, urlList) => async (dispatch) => {
       payload: res.data,
     });
     dispatch({
+      type: UPDATE_URL_LISTS,
+      payload: urlList.map((url) => {
+        if (url.slug === slug) {
+          return { ...url, slug: newSlug };
+        }
+        return url;
+      }),
+    });
+    dispatch({
       type: SHOW_EDIT_URL_MODAL,
       payload: false,
     });
@@ -89,15 +98,6 @@ const editSlug = (slug, newSlug, urlList) => async (dispatch) => {
       dispatch({
         type: URL_ERROR,
         payload: { msg: err.response.statusText, status: err.response.status },
-      });
-      dispatch({
-        type: UPDATE_URL_LISTS,
-        payload: urlList.map((url) => {
-          if (url.slug === slug) {
-            return { ...url, slug: newSlug };
-          }
-          return url;
-        }),
       });
     }
   }
