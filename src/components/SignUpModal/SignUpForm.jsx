@@ -55,7 +55,6 @@ export default function SignUpForm({ isMobile }) {
         <p>Email</p>
         <input
           type="email"
-          placeholder="Ali Tuf..."
           required
           value={email}
           onChange={handleEmail}
@@ -68,7 +67,6 @@ export default function SignUpForm({ isMobile }) {
         <p>Password</p>
         <input
           type="password"
-          placeholder="••••••"
           required
           value={password}
           onChange={handlePassword}
@@ -81,7 +79,6 @@ export default function SignUpForm({ isMobile }) {
         <p>Confirm Password</p>
         <input
           type="password"
-          placeholder="••••••"
           required
           value={confirmPassword}
           onChange={handleConfirmPassword}

@@ -10,7 +10,6 @@ export default function ChangePassDesktop() {
           <p>Old Password</p>
           <input
             type="password"
-            placeholder="••••••"
             className="mt-4 h-[60px]
           bg-gdscGrey-100 focus:bg-white focus:border
             focus:border-1 focus:border-gdscBlue-300 px-5 outline-none rounded"
@@ -18,7 +17,6 @@ export default function ChangePassDesktop() {
           <p className="mt-6">New Password</p>
           <input
             type="password"
-            placeholder="••••••"
             className="mt-4 h-[60px]
           bg-gdscGrey-100 focus:bg-white focus:border
             focus:border-1 focus:border-gdscBlue-300  px-5 outline-none rounded"
@@ -26,7 +24,6 @@ export default function ChangePassDesktop() {
           <p className="mt-6">Confirm Password</p>
           <input
             type="password"
-            placeholder="••••••"
             className="mt-4 h-[60px]
           bg-gdscGrey-100 focus:bg-white focus:border
             focus:border-1 focus:border-gdscBlue-300  px-5 outline-none rounded"
