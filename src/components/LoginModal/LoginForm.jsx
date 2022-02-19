@@ -8,15 +8,18 @@ import { login } from 'actions/auth';
 export default function LoginForm() {
   const { LogInModal } = useSelector((state) => state.showModal);
   const { isAuthenticated } = useSelector((state) => state.auth);
+  const { error } = useSelector((state) => state.error);
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState({});
   const [width, setWidth] = useState(window.innerWidth);
 
   function handleWindowSizeChange() {
     setWidth(window.innerWidth);
   }
+
   useEffect(() => {
     window.addEventListener('resize', handleWindowSizeChange);
     return () => {
@@ -29,14 +32,48 @@ export default function LoginForm() {
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
 
+  const handleValidation = () => {
+    const newErrors = {};
+    let formIsValid = true;
+
+    if (
+      !String(email)
+        .toLowerCase()
+        .match(
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        )
+    ) {
+      formIsValid = false;
+      newErrors.email = 'Email is not valid.';
+    }
+
+    if (!email) {
+      formIsValid = false;
+      newErrors.email = 'Email cannot be empty.';
+    }
+
+    if (!password) {
+      formIsValid = false;
+      newErrors.password = 'Password cannot be empty.';
+    }
+
+    if (password.length < 6) {
+      formIsValid = false;
+      newErrors.password = 'Password should be at least 6 characters.';
+    }
+
+    setErrors(newErrors);
+    return formIsValid;
+  };
+
   const handleSignIn = (e) => {
     e.preventDefault();
-    dispatch({
-      type: SHOW_LOG_IN_MODAL,
-      payload: false,
-    });
-    dispatch(login(email, password));
+
+    if (handleValidation()) {
+      dispatch(login(email, password));
+    }
   };
+
   const showForgotPassword = () => {
     dispatch({
       type: SHOW_FORGOT_PASSWORD_MODAL,
@@ -47,11 +84,13 @@ export default function LoginForm() {
       payload: false,
     });
   };
+
   if (isAuthenticated) window.location = 'http://localhost:3000/user-home';
   useEffect(() => {
     setEmail('');
     setPassword('');
   }, [LogInModal]);
+
   return (
     <form onSubmit={handleSignIn}>
       <div className="flex flex-col align-end mb-7">
@@ -59,23 +98,28 @@ export default function LoginForm() {
         <input
           className="w-[376px] md:w-[420px] h-[60px] bg-gdscGrey-100 focus:bg-white focus:border
                       focus:border-1 focus:border-gdscBlue-300  px-5 outline-none rounded"
-          type="email"
-          required
           value={email}
           onChange={handleEmail}
         />
+        <span className="text-gdscRed-300 mt-2">
+          {errors.email || error.signIn.email}
+        </span>
       </div>
+
       <div className="flex flex-col align-end mb-7">
         <p className="pb-2">Password</p>
         <input
           className="w-[376px] md:w-[420px] h-[60px] bg-gdscGrey-100 focus:bg-white focus:border
                       focus:border-1 focus:border-gdscBlue-300  px-5 outline-none rounded"
           type="password"
-          required
           value={password}
           onChange={handlePassword}
         />
+        <span className="text-gdscRed-300 mt-2">
+          {errors.password || error.signIn.password}
+        </span>
       </div>
+
       {isMobile ? (
         <div className="mb-10 md:mb-7 text-right">
           <Link to="/forgot-password">Forgot your password?</Link>

@@ -6,6 +6,8 @@ import {
   updateEmail,
 } from 'firebase/auth';
 
+import { setError } from 'actions/error';
+import store from 'store';
 import setAuthToken from 'utils/setAuthToken';
 
 import api from './api';
@@ -30,8 +32,8 @@ const register = async (email, password) => {
       }
       return res.data;
     })
-    .catch((err) => {
-      console.log(err);
+    .catch((error) => {
+      store.dispatch(setError(error.code));
     });
 };
 
@@ -51,8 +53,8 @@ const login = async (email, password) => {
       }
       return res.data;
     })
-    .catch((err) => {
-      console.log(err);
+    .catch((error) => {
+      store.dispatch(setError(error.code));
     });
 };
 
@@ -74,6 +76,7 @@ const getCurrentUser = async () => {
   const res = await api.get('/auth');
   return res.data;
 };
+
 const changeEmail = async (newEmail) => {
   const auth = getAuth();
   return updateEmail(auth.currentUser, newEmail)

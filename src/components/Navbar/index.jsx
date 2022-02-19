@@ -70,7 +70,7 @@ export default function Navbar({ home }) {
           text-gdscBlue-300 font-normal hover:bg-opacity-10 rounded md:flex justify-end items-center
             w-[100px] h-[36px] md:w-[184px] md:h-[52px] content-center text-base  md:my-0 ml-[30px]"
             >
-              <p className="mr-10">{user.name}</p>
+              <p className="mr-10">{user && user.name}</p>
               <div className="h-[44px] w-[44px] bg-gdscBlue-300 rounded-[9999px] mr-1">
                 {' '}
               </div>

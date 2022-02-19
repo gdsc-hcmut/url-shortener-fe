@@ -4,7 +4,7 @@ import GoogleLogo from 'assets/icons/GoogleLogo.svg';
 
 export default function LoginWithGoogle() {
   return (
-    <div className=" flex flex-col items-center">
+    <div className="flex flex-col items-center">
       <div className="h-10 self-center flex items-center">
         <div className="w-[170px] h-px bg-gdscGrey-200 mr-1" />
         or
@@ -23,7 +23,7 @@ export default function LoginWithGoogle() {
           src={GoogleLogo}
           alt="Google Logo"
         />
-        {' Log In with Google'}
+        Sign in with Google
       </button>
     </div>
   );

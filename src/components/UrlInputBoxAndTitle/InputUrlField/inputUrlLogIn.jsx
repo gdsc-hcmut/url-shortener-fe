@@ -45,7 +45,7 @@ export default function InputUrlLogIn() {
             value={slug}
             onChange={handleSlug}
             className="text-base font-normal text-gdscGrey-700 h-5 w-[16.25rem] border-b-1 outline-none "
-            placeholder="gdschcmut.url/ai-series "
+            placeholder="Input your custom slug"
           />
         </div>
         <img
@@ -78,7 +78,7 @@ export default function InputUrlLogIn() {
           value={slug}
           onChange={handleSlug}
           className="text-base font-normal text-gdscGrey-700 h-5 w-full bg-white outline-none pr-[30px]"
-          placeholder="gdschcmut.url/ai-series"
+          placeholder="Input your custom slug"
         />
       </div>
       <button

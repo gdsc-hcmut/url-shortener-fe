@@ -9,7 +9,7 @@ export default function MainTitle({ loggedIn }) {
       <p className="text-[32px] font-bold md:text-[52px]">
         Welcome back,
         <br />
-        {user.name}
+        {user && user.name}
       </p>
     );
   }

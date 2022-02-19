@@ -6,8 +6,12 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
+  SHOW_LOG_IN_MODAL,
+  SHOW_SIGN_UP_MODAL,
 } from 'action-types';
 import AuthService from 'services/auth.service';
+
+import { clearError } from './error';
 
 export const loadUser = () => async (dispatch) => {
   try {
@@ -32,6 +36,12 @@ export const register = (email, password) => async (dispatch) => {
       payload: { user, token },
     });
 
+    dispatch({
+      type: SHOW_SIGN_UP_MODAL,
+      payload: false,
+    });
+    dispatch(clearError());
+
     dispatch(loadUser());
   } catch (err) {
     dispatch({
@@ -48,6 +58,12 @@ export const login = (email, password) => async (dispatch) => {
       type: LOGIN_SUCCESS,
       payload: { user, token },
     });
+
+    dispatch({
+      type: SHOW_LOG_IN_MODAL,
+      payload: false,
+    });
+    dispatch(clearError());
 
     dispatch(loadUser());
   } catch (err) {
