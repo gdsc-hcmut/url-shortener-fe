@@ -9,6 +9,7 @@ import {
   SHOW_COPY_SUCCESS_MODAL,
   SHOW_DELETE_URL_MODAL,
   SHOW_EDIT_URL_MODAL,
+  UPDATE_URL_LISTS,
 } from 'action-types';
 import {
   toggleSuccessModalOpen,
@@ -33,7 +34,6 @@ export default function MyUrl({ id }) {
   const [page, setPage] = useState(1);
   const [maxPage, setMaxPage] = useState(1);
   const [loading, setLoading] = useState(true);
-  const [urlLists, setUrlLists] = useState([]);
   const [currSlug, setCurrSlug] = useState('');
   const [currId, setCurrId] = useState('');
   const dispatch = useDispatch();
@@ -41,7 +41,7 @@ export default function MyUrl({ id }) {
     (state) => state.showModal,
   );
   const { showSnackbar } = useSelector((state) => state.notification);
-  const { newSlug } = useSelector((state) => state.url);
+  const { urlList } = useSelector((state) => state.url);
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
@@ -65,13 +65,16 @@ export default function MyUrl({ id }) {
       if (newUrlLists === []) {
         setMaxPage(page);
       } else {
-        setUrlLists((prev) => [...prev, ...newUrlLists]);
+        dispatch({
+          type: UPDATE_URL_LISTS,
+          payload: [...urlList, ...newUrlLists],
+        });
       }
       setLoading(false);
     };
     const mobileScrollDiv = document.querySelector('#MyUrlPage');
     if (!search) {
-      getUrlList();
+      getUrlList().catch(() => setLoading(false));
       mobileScrollDiv.addEventListener('scroll', handleScroll, {
         passive: true,
       });
@@ -83,14 +86,20 @@ export default function MyUrl({ id }) {
     const searchUrl = async () => {
       setLoading(true);
       const { data: newUrlLists } = await UrlAPI.searchUrl(search);
-      setUrlLists(newUrlLists);
+      dispatch({
+        type: UPDATE_URL_LISTS,
+        payload: newUrlLists,
+      });
       setLoading(false);
     };
 
     if (search) {
       searchUrl();
     } else {
-      setUrlLists([]);
+      dispatch({
+        type: UPDATE_URL_LISTS,
+        payload: [],
+      });
       setPage(1);
     }
   }, [search]);
@@ -98,16 +107,28 @@ export default function MyUrl({ id }) {
   useEffect(() => {
     switch (option) {
       case SORT_OPTION[0]:
-        setUrlLists(_.orderBy(urlLists, ['totalClicks'], ['desc']));
+        dispatch({
+          type: UPDATE_URL_LISTS,
+          payload: _.orderBy(urlList, ['totalClicks'], ['desc']),
+        });
         break;
       case SORT_OPTION[1]:
-        setUrlLists(_.orderBy(urlLists, ['totalClicks'], ['asc']));
+        dispatch({
+          type: UPDATE_URL_LISTS,
+          payload: _.orderBy(urlList, ['totalClicks'], ['asc']),
+        });
         break;
       case SORT_OPTION[2]:
-        setUrlLists(_.orderBy(urlLists, ['updatedAt'], ['desc']));
+        dispatch({
+          type: UPDATE_URL_LISTS,
+          payload: _.orderBy(urlList, ['updatedAt'], ['desc']),
+        });
         break;
       case SORT_OPTION[3]:
-        setUrlLists(_.orderBy(urlLists, ['updatedAt'], ['asc']));
+        dispatch({
+          type: UPDATE_URL_LISTS,
+          payload: _.orderBy(urlList, ['updatedAt'], ['asc']),
+        });
         break;
       default:
         break;
@@ -121,26 +142,6 @@ export default function MyUrl({ id }) {
       }, 3000);
     }
   }, [CopySuccessModal]);
-
-  useEffect(() => {
-    if (!DeleteUrlModal) {
-      setUrlLists(urlLists.filter((url) => url.id !== currId));
-      setCurrId('');
-    }
-  }, [DeleteUrlModal]);
-  useEffect(() => {
-    if (newSlug) {
-      setUrlLists(
-        urlLists.map((url) => {
-          if (url.slug === currSlug) {
-            return { ...url, slug: newSlug };
-          }
-          return url;
-        }),
-      );
-      setCurrSlug('');
-    }
-  }, [newSlug]);
 
   return (
     <div className="bg-opacity-0 flex flex-col md:w-[392px] h-full w-full md:pr-0 md:p-0 py-5 pr-5">
@@ -221,7 +222,7 @@ export default function MyUrl({ id }) {
         className="md:overflow-y-scroll mt-10 space-y-5 relative h-full "
         onScroll={handleScroll}
       >
-        {urlLists.map((url) => (
+        {urlList.map((url) => (
           <li
             key={url.slug}
             className={`w-full h-[100px] flex flex-col space-y-2 justify-center rounded font-normal md:w-[376px] ${

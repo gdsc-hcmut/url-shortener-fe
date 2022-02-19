@@ -26,8 +26,8 @@ export default function ExpireTime({ expireTime, id }) {
         <span className="text-gdscRed-300 text-xl md:text-2xl font-normal truncate">
           <span className="hidden md:inline">{DATE[time.getDay()]}</span>
           {time.getTime() < new Date().getTime()
-            ? 'Expired'
-            : `${time.getDate()}/${
+            ? ' Expired'
+            : ` ${time.getDate()}/${
               time.getMonth() + 1
             }/${time.getFullYear()} ${time.toLocaleTimeString()}`}
         </span>

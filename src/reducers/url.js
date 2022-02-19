@@ -4,6 +4,7 @@ import {
   EDIT_SLUG,
   SLUG_ALREADY_EXISTS,
   EDIT_EXPIRE_TIME,
+  UPDATE_URL_LISTS,
 } from 'action-types';
 
 const initialState = {
@@ -13,6 +14,7 @@ const initialState = {
   error: {},
   data: {},
   newSlug: '',
+  urlList: [],
 };
 
 export default (state = initialState, { type, payload } = {}) => {
@@ -46,6 +48,11 @@ export default (state = initialState, { type, payload } = {}) => {
       return {
         ...state,
         error: payload,
+      };
+    case UPDATE_URL_LISTS:
+      return {
+        ...state,
+        urlList: payload,
       };
     default:
       return state;

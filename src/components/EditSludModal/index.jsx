@@ -10,7 +10,7 @@ export default function EditSlugModal({ show, onClose, slug }) {
   const [value, setValue] = useState('');
   const dispatch = useDispatch();
 
-  const { slugExist } = useSelector((state) => state.url);
+  const { slugExist, urlList } = useSelector((state) => state.url);
 
   const closeOnEscapeKeyDown = (e) => {
     if ((e.charCode || e.keyCode) === 27) {
@@ -81,9 +81,7 @@ export default function EditSlugModal({ show, onClose, slug }) {
             aria-hidden="true"
             type="button"
             className="w-[136px] h-[52px] text-white text-center bg-gdscBlue-300 hover:bg-shorten-btn-hover rounded"
-            onClick={() => {
-              dispatch(urlAction.editSlug(slug, value));
-            }}
+            onClick={async () => dispatch(urlAction.editSlug(slug, value, urlList))}
           >
             Done
           </button>

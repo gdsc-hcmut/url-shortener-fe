@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import urlAction from 'actions/url';
 import { ReactComponent as DeleteIcon } from 'assets/icons/delete_icon_modal.svg';
@@ -11,6 +11,7 @@ export default function DeleteModal({
   id, text, onClose, show,
 }) {
   const dispatch = useDispatch();
+  const { urlList } = useSelector((state) => state.url);
 
   const closeOnEscapeKeyDown = (e) => {
     if ((e.charCode || e.keyCode) === 27) {
@@ -27,7 +28,7 @@ export default function DeleteModal({
 
   const handleCancel = () => onClose();
   const handleDelete = () => {
-    dispatch(urlAction.deleteUrl(id));
+    dispatch(urlAction.deleteUrl(id, urlList));
   };
 
   return (

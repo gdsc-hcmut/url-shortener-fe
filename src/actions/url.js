@@ -7,6 +7,7 @@ import {
   SHOW_EDIT_URL_MODAL,
   SHOW_DELETE_URL_MODAL,
   EDIT_EXPIRE_TIME,
+  UPDATE_URL_LISTS,
 } from 'action-types';
 import { toggleSnackbarOpen } from 'actions/notification';
 import UrlAPI from 'services/url.service';
@@ -44,7 +45,7 @@ const shortenUrlWithSlug = (longUrl, slug) => async (dispatch) => {
     });
   }
 };
-const editSlug = (slug, newSlug) => async (dispatch) => {
+const editSlug = (slug, newSlug, urlList) => async (dispatch) => {
   try {
     const res = await UrlAPI.editSlug(slug, newSlug);
     if (res.data.SLUG_ALREADY_EXISTS === 'Slug already exists') {
@@ -61,6 +62,15 @@ const editSlug = (slug, newSlug) => async (dispatch) => {
         type: SHOW_EDIT_URL_MODAL,
         payload: false,
       });
+      dispatch({
+        type: UPDATE_URL_LISTS,
+        payload: urlList.map((url) => {
+          if (url.slug === slug) {
+            return { ...url, slug: newSlug };
+          }
+          return url;
+        }),
+      });
     }
   } catch (err) {
     dispatch({
@@ -69,12 +79,16 @@ const editSlug = (slug, newSlug) => async (dispatch) => {
     });
   }
 };
-const deleteUrl = (id) => async (dispatch) => {
+const deleteUrl = (id, urlList) => async (dispatch) => {
   try {
     await UrlAPI.deleteUrl(id);
     dispatch({
       type: SHOW_DELETE_URL_MODAL,
       payload: false,
+    });
+    dispatch({
+      type: UPDATE_URL_LISTS,
+      payload: urlList.filter((url) => url.id !== id),
     });
     dispatch(toggleSnackbarOpen());
   } catch (err) {
