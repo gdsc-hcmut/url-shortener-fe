@@ -7,7 +7,6 @@ import { login } from 'actions/auth';
 
 export default function LoginForm() {
   const { LogInModal } = useSelector((state) => state.showModal);
-  const { isAuthenticated } = useSelector((state) => state.auth);
   const { error } = useSelector((state) => state.error);
   const dispatch = useDispatch();
 
@@ -85,7 +84,6 @@ export default function LoginForm() {
     });
   };
 
-  if (isAuthenticated) window.location = 'http://localhost:3000/user-home';
   useEffect(() => {
     setEmail('');
     setPassword('');

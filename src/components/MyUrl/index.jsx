@@ -225,7 +225,7 @@ export default function MyUrl({ id }) {
             } `}
           >
             <Link
-              to={`/detail/${url.id}`}
+              to={`/urls/${url.id}`}
               className="text-xl h-6 font-medium w-64 overflow-x-hidden truncate "
             >
               <span>{url.longUrl}</span>

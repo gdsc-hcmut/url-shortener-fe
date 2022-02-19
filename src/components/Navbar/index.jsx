@@ -53,7 +53,7 @@ export default function Navbar({ home }) {
               className="bg-gdscBlue-300 ease-out duration-300 hover:bg-my-url-button-hover
               text-white font-normal rounded w-[100px] h-[36px] md:w-[144px] md:h-[52px]
                 content-center text-base md:my-0 flex justify-center items-center cursor-pointer"
-              onClick={() => navigate('/my-url')}
+              onClick={() => navigate('/urls')}
             >
               My URL
             </div>

@@ -4,10 +4,10 @@ import { Navigate } from 'react-router';
 
 import LoginModalMobile from 'components/LoginModal/LoginModalMobile';
 
-export default function App() {
+export default function SignInMobilePage() {
   const { isAuthenticated } = useSelector((state) => state.auth);
   if (isAuthenticated) {
-    return <Navigate to="/user-home" />;
+    return <Navigate to="/home" />;
   }
   return (
     <div>

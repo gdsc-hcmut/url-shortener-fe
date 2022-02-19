@@ -17,7 +17,7 @@ import NavBar from 'components/Navbar';
 import SignUpDesktop from 'components/SignUpModal';
 import UrlInputBoxAndTitle from 'components/UrlInputBoxAndTitle';
 
-export default function Homepage() {
+export default function HomePage() {
   const {
     UrlModal, LogInModal, SignupModal, ForgotPasswordModal,
   } = useSelector((state) => state.showModal);
@@ -25,7 +25,7 @@ export default function Homepage() {
   const { shortenedUrl, slug } = useSelector((state) => state.url);
   const dispatch = useDispatch();
   if (isAuthenticated) {
-    return <Navigate to="/user-home" />;
+    return <Navigate to="/home" />;
   }
   return (
     <div className="flex flex-col justify-center md:items-center bg-mobile-background md:bg-blue md:bg-contain">

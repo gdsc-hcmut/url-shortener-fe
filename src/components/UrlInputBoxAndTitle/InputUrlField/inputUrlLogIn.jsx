@@ -51,11 +51,7 @@ export default function InputUrlLogIn() {
               className="text-base font-normal text-gdscGrey-700 h-5 w-[16.25rem] border-b-1 outline-none "
               placeholder="Input the URL you want to shorten"
             />
-            {alert ? (
-              <p className="text-gdscRed-300">Invalid Url!</p>
-            ) : (
-              <p> </p>
-            )}
+            {alert && <p className="text-gdscRed-300">Invalid Url!</p>}
           </div>
         </div>
         <ReactLogo className="absolute top-[52px] left-[292px]" />

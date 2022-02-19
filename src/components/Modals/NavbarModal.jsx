@@ -31,7 +31,7 @@ export default function NavbarModal({ show, onClose }) {
           show ? 'block' : 'hidden'
         }`}
       >
-        <Link to="/user-profile">
+        <Link to="/profile">
           <button
             type="button"
             className="relative w-[244px] h-[52px] text-gdscGrey-700 hover:text-gdscBlue-300 bg-white hover:bg-gdscBlue-100 hover:bg-opacity-20 rounded flex items-center pl-6 transition duration-300 ease-out"

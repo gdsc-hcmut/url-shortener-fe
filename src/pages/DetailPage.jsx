@@ -13,7 +13,7 @@ export default function Homepage() {
 
   return (
     <div className="max-h-[100vh] detail-page flex flex-col">
-      <NavLink to="/my-url" className="absolute md:hidden right-5 top-3 z-50">
+      <NavLink to="/urls" className="absolute md:hidden right-5 top-3 z-50">
         <div className="w-10 h-10 flex justify-center items-center">
           <BackIcon />
         </div>

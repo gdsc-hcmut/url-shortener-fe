@@ -6,7 +6,7 @@ import Footer from 'components/Footer';
 import Navbar from 'components/Navbar';
 import SideMenu from 'components/SideMenu';
 
-export default function ReplacePasswordPage() {
+export default function ChangePasswordPage() {
   const [toggleMenu, setToggleMenu] = useState(false);
   // const [width, setWidth] = useState(window.innerWidth);
   const handleToggleMenu = () => {
