@@ -28,7 +28,7 @@ import UrlAPI from 'services/url.service';
 export default function MyUrl({ id }) {
   const SORT_OPTION = ['Oldest', 'Least Clicked', 'Latest', 'Most Clicked'];
 
-  const [option, setOption] = useState(SORT_OPTION[3]);
+  const [option, setOption] = useState(SORT_OPTION[0]);
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
@@ -58,14 +58,33 @@ export default function MyUrl({ id }) {
     }
   };
 
+  const orderUrlList = (list) => {
+    switch (option) {
+      case SORT_OPTION[0]:
+        return _.orderBy(list, ['updatedAt'], ['asc']);
+      case SORT_OPTION[1]:
+        return _.orderBy(list, ['totalClicks'], ['asc']);
+      case SORT_OPTION[2]:
+        return _.orderBy(list, ['updatedAt'], ['desc']);
+      case SORT_OPTION[3]:
+        return _.orderBy(list, ['totalClicks'], ['desc']);
+      default:
+        break;
+    }
+    return urlList;
+  };
+
   useEffect(() => {
     const getUrlList = async () => {
       setLoading(true);
       const { data: newUrlLists } = await UrlAPI.getUrlList(page);
       if (newUrlLists.length > 0) {
+        const orderedUrlLists = orderUrlList(
+          _.uniqBy([...urlList, ...newUrlLists], 'id'),
+        );
         dispatch({
           type: UPDATE_URL_LISTS,
-          payload: _.unionBy(newUrlLists, urlList, 'id'),
+          payload: orderedUrlLists,
         });
       } else {
         setStopSending(true);
@@ -93,34 +112,10 @@ export default function MyUrl({ id }) {
   }, [search]);
 
   useEffect(() => {
-    switch (option) {
-      case SORT_OPTION[0]:
-        dispatch({
-          type: UPDATE_URL_LISTS,
-          payload: _.orderBy(urlList, ['updatedAt'], ['asc']),
-        });
-        break;
-      case SORT_OPTION[1]:
-        dispatch({
-          type: UPDATE_URL_LISTS,
-          payload: _.orderBy(urlList, ['totalClicks'], ['asc']),
-        });
-        break;
-      case SORT_OPTION[2]:
-        dispatch({
-          type: UPDATE_URL_LISTS,
-          payload: _.orderBy(urlList, ['updatedAt'], ['desc']),
-        });
-        break;
-      case SORT_OPTION[3]:
-        dispatch({
-          type: UPDATE_URL_LISTS,
-          payload: _.orderBy(urlList, ['totalClicks'], ['desc']),
-        });
-        break;
-      default:
-        break;
-    }
+    dispatch({
+      type: UPDATE_URL_LISTS,
+      payload: orderUrlList(urlList),
+    });
   }, [option]);
 
   useEffect(() => {
@@ -167,7 +162,7 @@ export default function MyUrl({ id }) {
 
       <button
         type="button"
-        className="z-10 w-40 h-11 text-base text-gdscGrey-700 px-5 outline-none bg-white my-3 mx-0 self-end text-left cursor-pointer focus:outline-none focus:ring-1 focus:ring-gdscBlue-300 focus:border-gdscBlue-300 rounded block md:absolute md:mt-1 md:mr-4"
+        className="z-10 w-40 h-11 text-base text-gdscGrey-700 px-5 outline-none bg-white my-3 mx-0 self-end text-left cursor-pointer focus:outline-none rounded block md:absolute md:mt-1 md:mr-4"
         aria-haspopup="listbox"
         aria-expanded="true"
         aria-labelledby="listbox-label"

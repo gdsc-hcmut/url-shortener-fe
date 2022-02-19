@@ -3,8 +3,8 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import MobileDateTimePicker from '@mui/lab/MobileDateTimePicker';
 import TextField from '@mui/material/TextField';
 import PropTypes from 'prop-types';
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import 'index.css';
 
 import urlAction from 'actions/url';
@@ -12,9 +12,17 @@ import { ReactComponent as EditExpireIcon } from 'assets/icons/edit_expire_icon.
 import { ReactComponent as ExpireTimeIcon } from 'assets/icons/expire_time_icon.svg';
 
 export default function ExpireTime({ expireTime, id }) {
-  const [time, setTime] = React.useState(new Date(expireTime));
-  const [open, setOpen] = React.useState(false);
+  const [currTime, setCurrTime] = useState(new Date(expireTime));
+  const [time, setTime] = useState(new Date(expireTime));
+  const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
+  const { newExpireTime } = useSelector((state) => state.url);
+
+  useEffect(() => {
+    if (newExpireTime) {
+      setTime(new Date(newExpireTime));
+    }
+  }, [newExpireTime]);
 
   return (
     <div className="h-[116px] md:h-32 md:w-[504px] w-full py-7 px-5 flex justify-between mx-0 bg-white rounded">
@@ -48,13 +56,14 @@ export default function ExpireTime({ expireTime, id }) {
       <div className="hidden">
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <MobileDateTimePicker
-            value={time}
+            value={currTime}
             allowSameDateSelection
-            onChange={() => {}}
-            onAccept={(newTime) => {
-              dispatch(urlAction.editExpireTime(id, time.toString(0)));
+            onChange={(curr) => {
+              setCurrTime(curr);
+            }}
+            onAccept={() => {
+              dispatch(urlAction.editExpireTime(id, currTime.toString(0)));
               setOpen(false);
-              setTime(newTime);
             }}
             onClose={() => setOpen(false)}
             open={open}

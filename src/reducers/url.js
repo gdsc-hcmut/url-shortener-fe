@@ -14,6 +14,7 @@ const initialState = {
   error: {},
   data: {},
   newSlug: '',
+  newExpireTime: null,
   urlList: [],
 };
 
@@ -42,7 +43,7 @@ export default (state = initialState, { type, payload } = {}) => {
     case EDIT_EXPIRE_TIME:
       return {
         ...state,
-        data: payload,
+        newExpireTime: payload.expireTime,
       };
     case URL_ERROR:
       return {
