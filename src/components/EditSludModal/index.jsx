@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useStore } from 'react-redux';
 
 import urlAction from 'actions/url';
 import CloseIcon from 'assets/icons/close.svg';
@@ -8,9 +8,10 @@ import EditIcon from 'assets/icons/edit.svg';
 
 export default function EditSlugModal({ show, onClose, slug }) {
   const [value, setValue] = useState('');
+  const [slugErr, setSlugErr] = useState({ invalid: false, exist: false });
   const dispatch = useDispatch();
-
-  const { slugExist, urlList } = useSelector((state) => state.url);
+  const store = useStore();
+  const { urlList } = useSelector((state) => state.url);
 
   const closeOnEscapeKeyDown = (e) => {
     if ((e.charCode || e.keyCode) === 27) {
@@ -31,7 +32,17 @@ export default function EditSlugModal({ show, onClose, slug }) {
   useEffect(() => {
     if (show && slug) setValue(slug);
   }, [show]);
-
+  const editSlug = async () => {
+    await dispatch(urlAction.editSlug(slug, value, urlList));
+    const reduxState = store.getState();
+    if (reduxState.url.invalidSlug.msg === 'Bad Request') {
+      setSlugErr({ ...slugErr, invalid: true });
+      setTimeout(() => setSlugErr({ ...slugErr, invalid: false }), 2000);
+    } else if (reduxState.url.slugExist === true) {
+      setSlugErr({ ...slugErr, exist: true });
+      setTimeout(() => setSlugErr({ ...slugErr, invalid: false }), 2000);
+    }
+  };
   return (
     <div
       aria-hidden="true"
@@ -76,13 +87,14 @@ export default function EditSlugModal({ show, onClose, slug }) {
             />
           </div>
           <span className="h-5 text-base font-normal text-gdscRed-300 mb-4">
-            {slugExist ? 'Slug has been taken' : ''}
+            {slugErr.exist ? 'Slug has been taken' : ''}
+            {slugErr.invalid ? 'Invalid slug' : ''}
           </span>
           <button
             aria-hidden="true"
             type="button"
             className="w-[136px] h-[52px] text-white text-center bg-gdscBlue-300 hover:bg-shorten-btn-hover rounded"
-            onClick={async () => dispatch(urlAction.editSlug(slug, value, urlList))}
+            onClick={editSlug}
           >
             Done
           </button>

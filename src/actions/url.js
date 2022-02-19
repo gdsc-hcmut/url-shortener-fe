@@ -7,6 +7,9 @@ import {
   SHOW_EDIT_URL_MODAL,
   SHOW_DELETE_URL_MODAL,
   EDIT_EXPIRE_TIME,
+  INVALID_SLUG,
+  SLUG_TAKEN,
+  SLUG_EDIT_INVALID,
   UPDATE_URL_LISTS,
 } from 'action-types';
 import { toggleSnackbarOpen } from 'actions/notification';
@@ -42,28 +45,50 @@ const shortenUrlWithSlug = (longUrl, slug) => async (dispatch) => {
       },
     });
   } catch (err) {
-    dispatch({
-      type: URL_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
-    });
+    if (err.response.data.errors.message === 'Invalid slug') {
+      dispatch({
+        type: INVALID_SLUG,
+        payload: { msg: err.response.statusText, status: err.response.status },
+      });
+    } else if (err.response.data.errors.message === 'Slug already exists') {
+      dispatch({
+        type: SLUG_TAKEN,
+        payload: { msg: err.response.statusText, status: err.response.status },
+      });
+    } else {
+      dispatch({
+        type: URL_ERROR,
+        payload: { msg: err.response.statusText, status: err.response.status },
+      });
+    }
   }
 };
 const editSlug = (slug, newSlug, urlList) => async (dispatch) => {
   try {
     const res = await UrlAPI.editSlug(slug, newSlug);
-    if (res.data.SLUG_ALREADY_EXISTS === 'Slug already exists') {
+    dispatch({
+      type: EDIT_SLUG,
+      payload: res.data,
+    });
+    dispatch({
+      type: SHOW_EDIT_URL_MODAL,
+      payload: false,
+    });
+  } catch (err) {
+    if (err.response.data.errors.message === 'Invalid slug') {
+      dispatch({
+        type: SLUG_EDIT_INVALID,
+        payload: { msg: err.response.statusText, status: err.response.status },
+      });
+    } else if (err.response.data.errors.message === 'Slug already exists') {
       dispatch({
         type: SLUG_ALREADY_EXISTS,
-        payload: res.data.SLUG_ALREADY_EXISTS,
+        payload: { msg: err.response.statusText, status: err.response.status },
       });
     } else {
       dispatch({
-        type: EDIT_SLUG,
-        payload: res.data,
-      });
-      dispatch({
-        type: SHOW_EDIT_URL_MODAL,
-        payload: false,
+        type: URL_ERROR,
+        payload: { msg: err.response.statusText, status: err.response.status },
       });
       dispatch({
         type: UPDATE_URL_LISTS,
@@ -75,11 +100,6 @@ const editSlug = (slug, newSlug, urlList) => async (dispatch) => {
         }),
       });
     }
-  } catch (err) {
-    dispatch({
-      type: URL_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
-    });
   }
 };
 const deleteUrl = (id, urlList) => async (dispatch) => {

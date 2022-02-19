@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useStore } from 'react-redux';
 
 import { SHOW_URL_MODAL } from 'action-types';
 import urlAction from 'actions/url';
@@ -9,16 +9,30 @@ import { ReactComponent as ReactLogo } from 'assets/image/web.svg';
 export default function InputUrlLogIn() {
   const [longUrl, setLongUrl] = useState('');
   const [slug, setSlug] = useState('');
+  const [alert, setAlert] = useState(false);
+  const [slugErr, setSlugErr] = useState({ invalid: false, exist: false });
   const dispatch = useDispatch();
-
+  const store = useStore();
   const handleLongUrl = (e) => setLongUrl(e.target.value);
   const handleSlug = (e) => setSlug(e.target.value);
-  const handleClick = () => {
-    dispatch(urlAction.shortenUrlWithSlug(longUrl, slug));
-    dispatch({
-      type: SHOW_URL_MODAL,
-      payload: true,
-    });
+  const handleClick = async () => {
+    await dispatch(urlAction.shortenUrlWithSlug(longUrl, slug));
+    const reduxState = store.getState();
+    if (reduxState.urlWithSlug.error.msg === 'Bad Request') {
+      setAlert(true);
+      setTimeout(() => setAlert(false), 2000);
+    } else if (reduxState.urlWithSlug.invalidSlug.msg === 'Bad Request') {
+      setSlugErr({ ...slugErr, invalid: true });
+      setTimeout(() => setSlugErr({ ...slugErr, invalid: false }), 2000);
+    } else if (reduxState.urlWithSlug.slugTaken === true) {
+      setSlugErr({ ...slugErr, exist: true });
+      setTimeout(() => setSlugErr({ ...slugErr, invalid: false }), 2000);
+    } else {
+      dispatch({
+        type: SHOW_URL_MODAL,
+        payload: true,
+      });
+    }
   };
 
   return (
@@ -28,12 +42,19 @@ export default function InputUrlLogIn() {
           <p className="text-base font-medium h-5">
             <strong>Your URL</strong>
           </p>
-          <input
-            value={longUrl}
-            onChange={handleLongUrl}
-            className="text-base font-normal text-gdscGrey-700 h-5 w-[16.25rem] border-b-1 outline-none "
-            placeholder="Input the URL you want to shorten"
-          />
+          <div>
+            <input
+              value={longUrl}
+              onChange={handleLongUrl}
+              className="text-base font-normal text-gdscGrey-700 h-5 w-[16.25rem] border-b-1 outline-none "
+              placeholder="Input the URL you want to shorten"
+            />
+            {alert ? (
+              <p className="text-gdscRed-300">Invalid Url!</p>
+            ) : (
+              <p> </p>
+            )}
+          </div>
         </div>
         <ReactLogo className="absolute top-[52px] left-[292px]" />
         <div className="w-px h-16 bg-gdscGrey-200 absolute left-[344px] top-5" />
@@ -41,12 +62,24 @@ export default function InputUrlLogIn() {
           <p className="text-base font-medium h-5">
             <strong>Slug</strong>
           </p>
-          <input
-            value={slug}
-            onChange={handleSlug}
-            className="text-base font-normal text-gdscGrey-700 h-5 w-[16.25rem] border-b-1 outline-none "
-            placeholder="Input your custom slug"
-          />
+          <div>
+            <input
+              value={slug}
+              onChange={handleSlug}
+              className="text-base font-normal text-gdscGrey-700 h-5 w-[16.25rem] border-b-1 outline-none "
+              placeholder="gdschcmut.url/ai-series "
+            />
+            {slugErr.invalid ? (
+              <p className="text-gdscRed-300">Invalid Slug!</p>
+            ) : (
+              <p> </p>
+            )}
+            {slugErr.exist ? (
+              <p className="text-gdscRed-300">Slug already exists!</p>
+            ) : (
+              <p> </p>
+            )}
+          </div>
         </div>
         <img
           className="w-6 h-6 absolute top-12 left-[562px]"
