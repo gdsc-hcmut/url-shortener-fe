@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useStore } from 'react-redux';
+import { useDispatch, useStore, useSelector } from 'react-redux';
 
 import urlAction from 'actions/url';
 import CloseIcon from 'assets/icons/close.svg';
