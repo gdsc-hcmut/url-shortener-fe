@@ -25,7 +25,7 @@ export default function Homepage() {
           <div className="w-[392px] h-full hidden xl:block" id="MyUrlPage">
             <MyUrl id={id} detail />
           </div>
-          <div className={`w-full h-full md:ml-4 ${!id ? 'hidden' : ''}`}>
+          <div className="w-full h-full md:ml-4">
             <Detail id={id} />
           </div>
         </div>

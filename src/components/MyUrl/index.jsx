@@ -26,23 +26,23 @@ import Snackbar from 'components/Snackbar';
 import UrlAPI from 'services/url.service';
 
 export default function MyUrl({ id }) {
-  const SORT_OPTION = ['Most Clicked', 'Least Clicked', 'Latest', 'Oldest'];
+  const SORT_OPTION = ['Oldest', 'Least Clicked', 'Latest', 'Most Clicked'];
 
   const [option, setOption] = useState(SORT_OPTION[3]);
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
-  const [maxPage, setMaxPage] = useState(1);
+  const [searchList, setSearchList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currSlug, setCurrSlug] = useState('');
   const [currId, setCurrId] = useState('');
+  const [stopSending, setStopSending] = useState(false);
   const dispatch = useDispatch();
   const { DeleteUrlModal, CopySuccessModal, EditUrlModal } = useSelector(
     (state) => state.showModal,
   );
   const { showSnackbar } = useSelector((state) => state.notification);
   const { urlList } = useSelector((state) => state.url);
-
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
@@ -53,7 +53,7 @@ export default function MyUrl({ id }) {
 
   const handleScroll = (e) => {
     const { scrollTop, clientHeight, scrollHeight } = e.currentTarget;
-    if (scrollHeight - scrollTop - clientHeight < 1 && page <= maxPage) {
+    if (!stopSending && scrollHeight - scrollTop - clientHeight < 1) {
       setPage(page + 1);
     }
   };
@@ -62,45 +62,33 @@ export default function MyUrl({ id }) {
     const getUrlList = async () => {
       setLoading(true);
       const { data: newUrlLists } = await UrlAPI.getUrlList(page);
-      if (newUrlLists === []) {
-        setMaxPage(page);
-      } else {
+      if (newUrlLists.length > 0) {
         dispatch({
           type: UPDATE_URL_LISTS,
-          payload: [...urlList, ...newUrlLists],
+          payload: _.unionBy(newUrlLists, urlList, 'id'),
         });
+      } else {
+        setStopSending(true);
       }
       setLoading(false);
     };
     const mobileScrollDiv = document.querySelector('#MyUrlPage');
-    if (!search) {
-      getUrlList().catch(() => setLoading(false));
-      mobileScrollDiv.addEventListener('scroll', handleScroll, {
-        passive: true,
-      });
-    }
+    getUrlList().catch(() => setLoading(false));
+    mobileScrollDiv.addEventListener('scroll', handleScroll, {
+      passive: true,
+    });
     return () => mobileScrollDiv.removeEventListener('scroll', handleScroll);
-  }, [page, search]);
+  }, [page]);
 
   useEffect(() => {
     const searchUrl = async () => {
       setLoading(true);
       const { data: newUrlLists } = await UrlAPI.searchUrl(search);
-      dispatch({
-        type: UPDATE_URL_LISTS,
-        payload: newUrlLists,
-      });
+      setSearchList(newUrlLists);
       setLoading(false);
     };
-
     if (search) {
       searchUrl();
-    } else {
-      dispatch({
-        type: UPDATE_URL_LISTS,
-        payload: [],
-      });
-      setPage(1);
     }
   }, [search]);
 
@@ -109,7 +97,7 @@ export default function MyUrl({ id }) {
       case SORT_OPTION[0]:
         dispatch({
           type: UPDATE_URL_LISTS,
-          payload: _.orderBy(urlList, ['totalClicks'], ['desc']),
+          payload: _.orderBy(urlList, ['updatedAt'], ['asc']),
         });
         break;
       case SORT_OPTION[1]:
@@ -127,7 +115,7 @@ export default function MyUrl({ id }) {
       case SORT_OPTION[3]:
         dispatch({
           type: UPDATE_URL_LISTS,
-          payload: _.orderBy(urlList, ['updatedAt'], ['asc']),
+          payload: _.orderBy(urlList, ['totalClicks'], ['desc']),
         });
         break;
       default:
@@ -222,7 +210,7 @@ export default function MyUrl({ id }) {
         className="md:overflow-y-scroll mt-10 space-y-5 relative h-full "
         onScroll={handleScroll}
       >
-        {urlList.map((url) => (
+        {(search ? searchList : urlList).map((url) => (
           <li
             key={url.slug}
             className={`w-full h-[100px] flex flex-col space-y-2 justify-center rounded font-normal md:w-[376px] ${

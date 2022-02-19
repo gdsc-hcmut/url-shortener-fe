@@ -39,6 +39,7 @@ export default function EditSlugModal({ show, onClose, slug }) {
         show ? 'opacity-100 pointer-events-auto' : ''
       }`}
       onKeyDown={closeOnEscapeKeyDown}
+      onClick={onClose}
     >
       <div
         aria-hidden="true"

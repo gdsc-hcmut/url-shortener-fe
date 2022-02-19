@@ -39,11 +39,12 @@ export default function Detail({ id }) {
   );
 
   useEffect(() => {
-    const getUrlList = async () => {
+    setIsDeleted(false);
+    const getUrlDetail = async () => {
       const { data } = await UrlAPI.getUrlById(id);
       setUrlDetail(data);
     };
-    getUrlList().catch(() => {
+    getUrlDetail().catch(() => {
       setIsDeleted(true);
     });
   }, [id, EditUrlModal, DeleteUrlModal]);
@@ -56,6 +57,13 @@ export default function Detail({ id }) {
     }
   }, [CopySuccessModal]);
 
+  if (isDeleted) {
+    return (
+      <div className="font-normal 3xl:w-[1032px] md:w-[504px] w-full sm:w-[376px] text-[32px] mb-4 ">
+        This url doesn&apos;t exist
+      </div>
+    );
+  }
   if (_.isEmpty(urlDetail)) {
     return (
       <div className="bg-opacity-0 max-w-full h-full overflow-scroll md:no-scrollbar md:p-0 py-5 pr-5 relative">
@@ -64,10 +72,6 @@ export default function Detail({ id }) {
         </div>
       </div>
     );
-  }
-
-  if (isDeleted) {
-    return <div>{}</div>;
   }
 
   return (

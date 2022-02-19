@@ -10,7 +10,6 @@ import 'index.css';
 import urlAction from 'actions/url';
 import { ReactComponent as EditExpireIcon } from 'assets/icons/edit_expire_icon.svg';
 import { ReactComponent as ExpireTimeIcon } from 'assets/icons/expire_time_icon.svg';
-import { DATE } from 'constant/dateName';
 
 export default function ExpireTime({ expireTime, id }) {
   const [time, setTime] = React.useState(new Date(expireTime));
@@ -24,10 +23,11 @@ export default function ExpireTime({ expireTime, id }) {
       </div>
       <div className="flex flex-col justify-between items-end">
         <span className="text-gdscRed-300 text-xl md:text-2xl font-normal truncate">
-          <span className="hidden md:inline">{DATE[time.getDay()]}</span>
           {time.getTime() < new Date().getTime()
             ? ' Expired'
-            : ` ${time.getDate()}/${
+            : `${new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(
+              time,
+            )} ${time.getDate()}/${
               time.getMonth() + 1
             }/${time.getFullYear()} ${time.toLocaleTimeString()}`}
         </span>
@@ -50,12 +50,11 @@ export default function ExpireTime({ expireTime, id }) {
           <MobileDateTimePicker
             value={time}
             allowSameDateSelection
-            onChange={(newTime) => {
-              setTime(newTime);
-            }}
-            onAccept={() => {
+            onChange={() => {}}
+            onAccept={(newTime) => {
               dispatch(urlAction.editExpireTime(id, time.toString(0)));
               setOpen(false);
+              setTime(newTime);
             }}
             onClose={() => setOpen(false)}
             open={open}

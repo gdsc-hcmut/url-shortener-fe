@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import { ReactComponent as CreatedOnIcon } from 'assets/icons/create_on_icon.svg';
-import { DATE } from 'constant/dateName';
 
 export default function CreatedOn({ createOn }) {
   const time = new Date(createOn);
@@ -13,7 +12,9 @@ export default function CreatedOn({ createOn }) {
       </div>
       <div className="flex flex-col justify-between items-end">
         <span className="text-gdscBlue-300 text-xl sm:text-2xl font-normal truncate">
-          <span className="hidden md:inline">{DATE[time.getDay()]}</span>
+          <span className="hidden md:inline">
+            {new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(time)}
+          </span>
           {` ${time.getDate()}/${
             time.getMonth() + 1
           }/${time.getFullYear()} ${time.toLocaleTimeString()}`}
