@@ -11,6 +11,7 @@ import ForgotPasswordPage from 'pages/ForgotPasswordPage';
 import HomePage from 'pages/HomePage';
 import HomepageLogin from 'pages/HomepageLogin';
 import MyUrlPage from 'pages/MyUrlPage';
+import NotFoundPage from 'pages/NotFoundPage';
 import ResetPasswordPage from 'pages/ResetPasswordPage';
 import SignInMobilePage from 'pages/SignInMobilePage';
 import SignUpMobilePage from 'pages/SignUpMobilePage';
@@ -84,9 +85,6 @@ export default function App() {
             }
           />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-          <Route path="/date" element={<MaterialUIPickers />} />
-          <Route path="/delete-modal" element={<DeleteModalPage />} />
-          <Route path="/snackbar" element={<SnackbarPage />} />
           <Route path="/stat" element={<StatisticPage />} />
           <Route
             path="/my-url"
@@ -96,8 +94,8 @@ export default function App() {
               </RequireAuth>
             }
           />
-          <Route path="*" element={<NotFoundPage />} />
           <Route path="/statistics" element={<StatisticPage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
     </Provider>
