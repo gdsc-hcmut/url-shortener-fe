@@ -7,6 +7,9 @@ export default function ResetPasswordForm() {
       <h1 className="font-bold text-2xl self-center mb-8 md:mb-7">
         Reset password
       </h1>
+      <p className="mt-8 md:mt-6 mx-[68px] w-full md:w-auto text-gdscRed-300 text-center">
+        This feature is still in development. Sorry for the inconvenience!
+      </p>
       <form>
         <div className="flex flex-col align-end mb-7">
           <p className="pb-2">New Password</p>

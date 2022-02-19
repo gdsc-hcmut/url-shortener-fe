@@ -29,10 +29,10 @@ export default function NavbarModal({ show }) {
         to="/"
         role="button"
         onClick={handleSignOut}
-        className="w-[244px] h-[52px] pl-5 flex items-center z-10"
+        className="w-[244px] h-[52px] pl-5 flex items-center z-10 hover:bg-gdscRed-300/10 text-gdscRed-300 rounded transition-all duration-300 ease-out"
       >
         <img src={LogoutIcon} alt="Logout Icon" />
-        <p className="ml-4 text-gdscRed-300">Logout</p>
+        <p className="ml-4">Logout</p>
       </Link>
     </div>
   );

@@ -20,6 +20,7 @@ import SignInPage from 'pages/SignInPage';
 import SignUpDesktop from 'pages/SignUpDesktop';
 import SignUpPage from 'pages/SignUpPage';
 import SnackbarPage from 'pages/SnackbarPage';
+import StatisticPage from 'pages/StatisticPage';
 import UrlWithSlug from 'pages/UrlWithSlug';
 import UserProfilePage from 'pages/UserProfilePage';
 
@@ -57,6 +58,7 @@ export default function App() {
           <Route path="/my-url" element={<MyUrlPage />} />
           <Route path="/delete-modal" element={<DeleteModalPage />} />
           <Route path="/snackbar" element={<SnackbarPage />} />
+          <Route path="/stat" element={<StatisticPage />} />
         </Routes>
       </BrowserRouter>
     </Provider>
