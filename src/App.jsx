@@ -22,10 +22,7 @@ import SignInPage from 'pages/SignInPage';
 import SignUpDesktop from 'pages/SignUpDesktop';
 import SignUpPage from 'pages/SignUpPage';
 import SnackbarPage from 'pages/SnackbarPage';
-<<<<<<< HEAD
 import StatisticPage from 'pages/StatisticPage';
-=======
->>>>>>> [f] 465 - Fix bugs
 import UrlWithSlug from 'pages/UrlWithSlug';
 import UserProfilePage from 'pages/UserProfilePage';
 
