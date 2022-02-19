@@ -76,15 +76,15 @@ export default function SideMenu({ toggle, page }) {
           <span>Statistics</span>
         </NavLink>
         <NavLink
-          to="/change-pass"
+          to="/change-password"
           className={() => `flex flex-row space-x-4 min-w-full md:w-[240px] items-center md:h-[52px] h-[58px] px-5 rounded bg-white
           ${
-            page === 'change-pass'
+            page === 'change-password'
               ? 'bg-gdscBlue-300/10'
               : 'hover:bg-gdscBlue-300/10'
           } cursor-pointer 
           ${
-            page === 'change-pass'
+            page === 'change-password'
               ? 'text-gdscBlue-300'
               : 'hover:text-gdscBlue-300'
           } transition-all

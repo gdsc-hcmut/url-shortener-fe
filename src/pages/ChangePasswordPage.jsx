@@ -23,7 +23,7 @@ export default function ChangePasswordPage() {
       </button>
       <Navbar home={false} />
       <div className="flex md:overflow-x-scroll md:overflow-hidden h-full">
-        <SideMenu toggle={toggleMenu} page="change-pass" />
+        <SideMenu toggle={toggleMenu} page="change-password" />
         <div className="bg-white md:bg-gdscGrey-100 mt-[48px] md:mt-0 h-full w-full md:h-6 md:min-h-screen flex-1 md:overflow-y-scroll">
           <div className="pb-[120px] md:pb-[156px]">
             <ChangePassword />

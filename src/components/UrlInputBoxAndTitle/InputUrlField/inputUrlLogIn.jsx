@@ -65,17 +65,13 @@ export default function InputUrlLogIn() {
               value={slug}
               onChange={handleSlug}
               className="text-base font-normal text-gdscGrey-700 h-5 w-[16.25rem] border-b-1 outline-none "
-              placeholder="gdschcmut.url/ai-series "
+              placeholder="Input your custom slug"
             />
-            {slugErr.invalid ? (
+            {slugErr.invalid && (
               <p className="text-gdscRed-300">Invalid Slug!</p>
-            ) : (
-              <p> </p>
             )}
-            {slugErr.exist ? (
+            {slugErr.exist && (
               <p className="text-gdscRed-300">Slug already exists!</p>
-            ) : (
-              <p> </p>
             )}
           </div>
         </div>
