@@ -76,7 +76,7 @@ export default function Navbar({ home }) {
             </button>
           )}
         </div>
-        <NavbarModal show={show} />
+        <NavbarModal show={show} onClose={hideModal} />
       </div>
     </nav>
   );
