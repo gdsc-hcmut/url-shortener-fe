@@ -105,7 +105,11 @@ export default function InputUrlLogIn() {
           placeholder="Input the URL you want to shorten"
         />
       </div>
-      {alert ? <p className="text-gdscRed-300">Invalid Url!</p> : <p> </p>}
+      {alert ? (
+        <p className="text-gdscRed-300 md:hidden">Invalid Url!</p>
+      ) : (
+        <p> </p>
+      )}
       <div className="relative md:hidden bg-white rounded-[8px] mr-5 h-[70px] flex items-center pl-5 space-x-5 rounded-md border shadow-lg border-gdscGrey-200">
         <img className="w-6 h-6" src={EditIcon} alt="Edit icon" />
         <input
@@ -116,12 +120,12 @@ export default function InputUrlLogIn() {
         />
       </div>
       {slugErr.invalid ? (
-        <p className="text-gdscRed-300">Invalid Slug!</p>
+        <p className="text-gdscRed-300 md:hidden">Invalid Slug!</p>
       ) : (
         <p> </p>
       )}
       {slugErr.exist ? (
-        <p className="text-gdscRed-300">Slug already exists!</p>
+        <p className="text-gdscRed-300 md:hidden">Slug already exists!</p>
       ) : (
         <p> </p>
       )}

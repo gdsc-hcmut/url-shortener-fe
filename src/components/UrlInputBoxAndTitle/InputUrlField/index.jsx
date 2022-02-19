@@ -65,7 +65,11 @@ export default function InputUrlField() {
           placeholder="Input the URL you want to shorten"
         />
       </div>
-      {alert ? <p className="text-gdscRed-300">Invalid Url!</p> : <p> </p>}
+      {alert ? (
+        <p className="text-gdscRed-300 md:hidden">Invalid Url!</p>
+      ) : (
+        <p> </p>
+      )}
       <button
         type="button"
         className="text-base text-white md:hidden w-[152px] h-[60px] bg-gdscBlue-300 rounded hover:bg-shorten-btn-hover"
