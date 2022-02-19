@@ -16,7 +16,9 @@ import { clearError } from './error';
 export const loadUser = () => async (dispatch) => {
   try {
     const data = await AuthService.getCurrentUser();
-
+    localStorage.setItem('userName', data.name);
+    localStorage.setItem('userEmail', data.email);
+    localStorage.setItem('userBirthday', data.dateOfBirth);
     dispatch({
       type: USER_LOADED,
       payload: data,

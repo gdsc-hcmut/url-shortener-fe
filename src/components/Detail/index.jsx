@@ -184,7 +184,7 @@ export default function Detail({ id }) {
               ).length,
             }}
           />
-          <QR shortenedUrl={urlDetail.longUrl} slug={urlDetail.slug} />
+          <QR shortenedUrl={urlDetail.shortUrl} slug={urlDetail.slug} />
         </div>
         <Chart data={urlDetail.totalClicks} />
       </div>

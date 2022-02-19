@@ -30,6 +30,9 @@ const setUser = (user) => {
 
 const removeUser = () => {
   localStorage.removeItem('user');
+  localStorage.removeItem('userName');
+  localStorage.removeItem('userEmail');
+  localStorage.removeItem('userBirthday');
 };
 
 const TokenService = {
