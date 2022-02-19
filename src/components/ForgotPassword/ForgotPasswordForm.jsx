@@ -26,7 +26,6 @@ export default function ForgotPasswordForm() {
         <p>Enter your email to reset password</p>
         <input
           type="email"
-          placeholder="example@gmail.com"
           required
           className="mt-2 w-[376px] md:w-[420px] h-[60px]
           focus:border focus:border-1 rounded-[8px]
