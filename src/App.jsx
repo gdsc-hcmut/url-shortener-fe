@@ -84,6 +84,19 @@ export default function App() {
             }
           />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="/date" element={<MaterialUIPickers />} />
+          <Route path="/delete-modal" element={<DeleteModalPage />} />
+          <Route path="/snackbar" element={<SnackbarPage />} />
+          <Route path="/stat" element={<StatisticPage />} />
+          <Route
+            path="/my-url"
+            element={
+              <RequireAuth redirectTo="/">
+                <MyUrlPage />
+              </RequireAuth>
+            }
+          />
+          <Route path="*" element={<NotFoundPage />} />
           <Route path="/statistics" element={<StatisticPage />} />
         </Routes>
       </BrowserRouter>
