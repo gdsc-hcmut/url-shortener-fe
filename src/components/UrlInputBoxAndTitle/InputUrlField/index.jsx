@@ -12,16 +12,18 @@ export default function InputUrlField() {
   const store = useStore();
   const handleLongUrl = (e) => setLongUrl(e.target.value);
   const handleClick = async () => {
-    await dispatch(urlAction.shortenUrl(longUrl));
-    const reduxState = store.getState();
-    if (reduxState.url.error.msg === 'Bad Request') {
-      setAlert(true);
-      setTimeout(() => setAlert(false), 2000);
-    } else {
-      dispatch({
-        type: SHOW_URL_MODAL,
-        payload: true,
-      });
+    if (longUrl) {
+      await dispatch(urlAction.shortenUrl(longUrl));
+      const reduxState = store.getState();
+      if (reduxState.url.error.msg === 'Bad Request') {
+        setAlert(true);
+        setTimeout(() => setAlert(false), 2000);
+      } else {
+        dispatch({
+          type: SHOW_URL_MODAL,
+          payload: true,
+        });
+      }
     }
   };
   return (
@@ -49,7 +51,10 @@ export default function InputUrlField() {
         <div>
           <button
             type="button"
-            className="absolute inset-y-5 right-5 hidden text-base text-white md:block w-[152px] h-[60px] bg-gdscBlue-300 rounded-[8px] hover:bg-shorten-btn-hover ease-out duration-300 "
+            className={`absolute inset-y-5 right-5 hidden text-base text-white md:block w-[152px] h-[60px] bg-gdscBlue-300 rounded-[8px] hover:bg-shorten-btn-hover ease-out duration-300 ${
+              !longUrl
+              && 'bg-gdscBlue-100 hover:bg-gdscBlue-100 cursor-not-allowed'
+            }`}
             onClick={handleClick}
           >
             Shorten
@@ -72,7 +77,9 @@ export default function InputUrlField() {
       )}
       <button
         type="button"
-        className="text-base text-white md:hidden w-[152px] h-[60px] bg-gdscBlue-300 rounded hover:bg-shorten-btn-hover"
+        className={`text-base text-white md:hidden w-[152px] h-[60px] bg-gdscBlue-300 rounded hover:bg-shorten-btn-hover ${
+          !longUrl && 'bg-gdscBlue-100 hover:bg-gdscBlue-100 cursor-not-allowed'
+        }`}
         onClick={handleClick}
       >
         Shorten

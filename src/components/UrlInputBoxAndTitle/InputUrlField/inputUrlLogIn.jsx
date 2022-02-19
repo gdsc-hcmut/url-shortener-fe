@@ -16,22 +16,24 @@ export default function InputUrlLogIn() {
   const handleLongUrl = (e) => setLongUrl(e.target.value);
   const handleSlug = (e) => setSlug(e.target.value);
   const handleClick = async () => {
-    await dispatch(urlAction.shortenUrlWithSlug(longUrl, slug));
-    const reduxState = store.getState();
-    if (reduxState.urlWithSlug.error.msg === 'Bad Request') {
-      setAlert(true);
-      setTimeout(() => setAlert(false), 2000);
-    } else if (reduxState.urlWithSlug.invalidSlug.msg === 'Bad Request') {
-      setSlugErr({ ...slugErr, invalid: true });
-      setTimeout(() => setSlugErr({ ...slugErr, invalid: false }), 2000);
-    } else if (reduxState.urlWithSlug.slugTaken === true) {
-      setSlugErr({ ...slugErr, exist: true });
-      setTimeout(() => setSlugErr({ ...slugErr, invalid: false }), 2000);
-    } else {
-      dispatch({
-        type: SHOW_URL_MODAL,
-        payload: true,
-      });
+    if (longUrl) {
+      await dispatch(urlAction.shortenUrlWithSlug(longUrl, slug));
+      const reduxState = store.getState();
+      if (reduxState.urlWithSlug.error.msg === 'Bad Request') {
+        setAlert(true);
+        setTimeout(() => setAlert(false), 2000);
+      } else if (reduxState.urlWithSlug.invalidSlug.msg === 'Bad Request') {
+        setSlugErr({ ...slugErr, invalid: true });
+        setTimeout(() => setSlugErr({ ...slugErr, invalid: false }), 2000);
+      } else if (reduxState.urlWithSlug.slugTaken === true) {
+        setSlugErr({ ...slugErr, exist: true });
+        setTimeout(() => setSlugErr({ ...slugErr, invalid: false }), 2000);
+      } else {
+        dispatch({
+          type: SHOW_URL_MODAL,
+          payload: true,
+        });
+      }
     }
   };
 
@@ -89,7 +91,10 @@ export default function InputUrlLogIn() {
         <div>
           <button
             type="button"
-            className="absolute inset-y-5 right-5 hidden text-base text-white md:block w-[152px] h-[64px] bg-gdscBlue-300 rounded-[8px] hover:bg-shorten-btn-hover ease-out duration-300 "
+            className={`absolute inset-y-5 right-5 hidden text-base text-white md:block w-[152px] h-[64px] bg-gdscBlue-300 rounded-[8px] hover:bg-shorten-btn-hover ease-out duration-300 ${
+              !longUrl
+              && 'bg-gdscBlue-100 hover:bg-gdscBlue-100 cursor-not-allowed'
+            }`}
             onClick={handleClick}
           >
             Shorten
@@ -131,7 +136,9 @@ export default function InputUrlLogIn() {
       )}
       <button
         type="button"
-        className="text-base text-white md:hidden w-[152px] h-[60px] bg-gdscBlue-300 rounded hover:bg-shorten-btn-hover"
+        className={`text-base text-white md:hidden w-[152px] h-[60px] bg-gdscBlue-300 rounded hover:bg-shorten-btn-hover ${
+          !longUrl && 'bg-gdscBlue-100 hover:bg-gdscBlue-100 cursor-not-allowed'
+        }`}
         onClick={handleClick}
       >
         Shorten

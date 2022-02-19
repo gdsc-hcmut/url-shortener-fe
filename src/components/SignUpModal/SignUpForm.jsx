@@ -92,6 +92,8 @@ export default function SignUpForm({ isMobile }) {
     setEmail('');
     setPassword('');
     setConfirmPassword('');
+
+    return () => setErrors({});
   }, [SignupModal]);
 
   return (
