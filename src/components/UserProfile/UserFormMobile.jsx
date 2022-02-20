@@ -3,7 +3,7 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import MobileDatePicker from '@mui/lab/MobileDatePicker';
 import TextField from '@mui/material/TextField';
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, useStore } from 'react-redux';
 
 import { editProfile } from 'actions/user';
 import AddPhoto from 'assets/icons/add_a_photo.svg';
@@ -11,6 +11,7 @@ import EditIcon from 'assets/icons/edit.svg';
 
 export default function UserFormMobile() {
   const dispatch = useDispatch();
+  const store = useStore();
   const avatar = new FormData();
   const { user } = useSelector((state) => state.auth);
   const [field, setField] = useState({
@@ -19,6 +20,7 @@ export default function UserFormMobile() {
     dob: false,
     notification: false,
   });
+  const [emailError, setEmailError] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [name, setName] = useState(localStorage.getItem('userName'));
   const [datePicker, setDatePicker] = useState(false);
@@ -29,12 +31,18 @@ export default function UserFormMobile() {
   const handleName = (e) => setName(e.target.value);
   const handleEmail = (e) => setNewEmail(e.target.value);
   const { email } = user;
-  const editUserProfile = (e) => {
+  const editUserProfile = async (e) => {
     e.preventDefault();
-    dispatch(editProfile(name, newEmail, email, dateOfBirth));
-    localStorage.setItem('userName', name);
-    localStorage.setItem('userEmail', newEmail);
-    localStorage.setItem('userBirthday', dateOfBirth);
+    await dispatch(editProfile(name, newEmail, email, dateOfBirth));
+    const reduxState = store.getState();
+    if (reduxState.auth.error.email === 'Email taken') {
+      setEmailError(true);
+      setTimeout(() => setEmailError(false), 2000);
+    } else {
+      localStorage.setItem('userName', name);
+      localStorage.setItem('userEmail', newEmail);
+      localStorage.setItem('userBirthday', dateOfBirth);
+    }
   };
   return (
     <form
@@ -149,6 +157,9 @@ export default function UserFormMobile() {
                 <img className="w-6 h-6" src={EditIcon} alt="Edit info" />
               </button>
             </div>
+          )}
+          {emailError && (
+            <p className="text-gdscRed-300">Email has been taken</p>
           )}
         </div>
         <div className="flex flex-col align-end mb-8">
