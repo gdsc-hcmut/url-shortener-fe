@@ -12,7 +12,12 @@ export default function UserFormDesktop() {
   const dispatch = useDispatch();
   const avatar = new FormData();
   const { user } = useSelector((state) => state.auth);
-  const [field, setField] = useState({ name: false, email: false, dob: false });
+  const [field, setField] = useState({
+    name: false,
+    email: false,
+    dob: false,
+    notification: false,
+  });
   const [selectedImage, setSelectedImage] = useState(null);
   const [name, setName] = useState(localStorage.getItem('userName'));
   const [datePicker, setDatePicker] = useState(false);
@@ -41,9 +46,6 @@ export default function UserFormDesktop() {
           email: false,
           dob: false,
         });
-        setName(localStorage.getItem('userName'));
-        setNewEmail(localStorage.getItem('userEmail'));
-        setDateOfBirth(new Date(localStorage.getItem('userBirthday')));
       }}
     >
       <h1 className="text-[32px] font-medium">My Profile</h1>
@@ -102,14 +104,7 @@ export default function UserFormDesktop() {
               </p>
             </div>
           </div>
-          {field.name || field.email || field.dob ? (
-            <p className="mt-2 text-gdscBlue-200 mb-[-32px]">
-              Click on Save Button to submit your changes
-            </p>
-          ) : (
-            <div> </div>
-          )}
-          <div className="flex flex-wrap 2xl:space-x-7 mt-[52px]">
+          <div className="flex md:flex-col input-field-col:flex-row flex-wrap input-field-col:space-x-7 mt-[52px]">
             <div className="flex flex-col">
               <p>Name</p>
               {field.name ? (
@@ -132,7 +127,7 @@ export default function UserFormDesktop() {
                     className="absolute right-5"
                     onClick={(e) => {
                       e.stopPropagation();
-                      setField({ ...field, name: true });
+                      setField({ ...field, name: true, notification: true });
                     }}
                   >
                     <img className="w-6 h-6" src={EditIcon} alt="Edit info" />
@@ -141,7 +136,7 @@ export default function UserFormDesktop() {
               )}
             </div>
             <div className="flex flex-col">
-              <p className="md:mt-6 2xl:mt-0">Email address</p>
+              <p className="md:mt-6 input-field-col:mt-0">Email address</p>
               {field.email ? (
                 <div className="flex">
                   <input
@@ -162,7 +157,7 @@ export default function UserFormDesktop() {
                     className="absolute right-5"
                     onClick={(e) => {
                       e.stopPropagation();
-                      setField({ ...field, email: true });
+                      setField({ ...field, email: true, notification: true });
                     }}
                   >
                     <img className="w-6 h-6" src={EditIcon} alt="Edit info" />
@@ -205,17 +200,17 @@ export default function UserFormDesktop() {
             </div>
           ) : (
             <div className="relative mt-4 w-[320px] lg:w-[460px] h-[60px] flex px-5 pt-5 outline-none rounded bg-gdscGrey-100 text-input-text">
-              {dateOfBirth.getDate()}
+              {dateOfBirth.getFullYear()}
               /
               {dateOfBirth.getMonth() + 1}
               /
-              {dateOfBirth.getFullYear()}
+              {dateOfBirth.getDate()}
               <button
                 type="button"
                 className="absolute right-5"
                 onClick={(e) => {
                   e.stopPropagation();
-                  setField({ ...field, dob: true });
+                  setField({ ...field, dob: true, notification: true });
                   setDatePicker(true);
                 }}
               >
@@ -223,22 +218,30 @@ export default function UserFormDesktop() {
               </button>
             </div>
           )}
-          <button
-            type="submit"
-            className="w-[152px] h-[52px] mb-7 text-white mt-9 bg-gdscBlue-300 rounded hover:bg-shorten-btn-hover
+          <div className="flex">
+            <button
+              type="submit"
+              className="w-[152px] h-[52px] mb-7 text-white mt-9 bg-gdscBlue-300 rounded hover:bg-shorten-btn-hover
           transition-all duration-300 ease-out"
-            onClick={(e) => {
-              e.stopPropagation();
-              setField({
-                ...field,
-                name: false,
-                email: false,
-                dob: false,
-              });
-            }}
-          >
-            Save
-          </button>
+              onClick={(e) => {
+                e.stopPropagation();
+                setField({
+                  ...field,
+                  name: false,
+                  email: false,
+                  dob: false,
+                  notification: false,
+                });
+              }}
+            >
+              Save
+            </button>
+            {field.notification && (
+              <p className="mt-12 text-gdscBlue-200 ml-4">
+                Click on Save Button to submit your changes
+              </p>
+            )}
+          </div>
         </form>
       </div>
     </div>
