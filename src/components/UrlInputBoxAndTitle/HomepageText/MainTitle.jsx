@@ -4,12 +4,14 @@ import { useSelector } from 'react-redux';
 
 export default function MainTitle({ loggedIn }) {
   const { user } = useSelector((state) => state.auth);
+  const getName = user.name.split(' ');
+  const userName = getName[getName.length - 1];
   if (loggedIn) {
     return (
       <p className="text-[32px] font-bold md:text-[52px]">
         Welcome back,
         <br />
-        {user && user.name}
+        {user && userName}
       </p>
     );
   }
