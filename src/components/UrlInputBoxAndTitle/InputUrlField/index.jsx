@@ -17,7 +17,7 @@ export default function InputUrlField() {
       const reduxState = store.getState();
       if (reduxState.url.error.msg === 'Bad Request') {
         setAlert(true);
-        setTimeout(() => setAlert(false), 2000);
+        setTimeout(() => setAlert(false), 3000);
       } else {
         dispatch({
           type: SHOW_URL_MODAL,
@@ -40,11 +40,7 @@ export default function InputUrlField() {
               className="text-base font-normal text-gdscGrey-700 h-5 w-[16.25rem] border-b-1 outline-none "
               placeholder="Input the URL you want to shorten"
             />
-            {alert ? (
-              <p className="text-gdscRed-300">Invalid Url!</p>
-            ) : (
-              <p> </p>
-            )}
+            {alert && <p className="text-gdscRed-300">Invalid Url!</p>}
           </div>
         </div>
         <ReactLogo className="absolute top-12 left-[292px]" />

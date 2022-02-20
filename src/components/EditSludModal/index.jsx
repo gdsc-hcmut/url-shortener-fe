@@ -37,10 +37,10 @@ export default function EditSlugModal({ show, onClose, slug }) {
     const reduxState = store.getState();
     if (reduxState.url.invalidSlug.msg === 'Bad Request') {
       setSlugErr({ ...slugErr, invalid: true });
-      setTimeout(() => setSlugErr({ ...slugErr, invalid: false }), 2000);
+      setTimeout(() => setSlugErr({ ...slugErr, invalid: false }), 3000);
     } else if (reduxState.url.slugExist === true) {
       setSlugErr({ ...slugErr, exist: true });
-      setTimeout(() => setSlugErr({ ...slugErr, invalid: false }), 2000);
+      setTimeout(() => setSlugErr({ ...slugErr, invalid: false }), 3000);
     }
   };
   return (
