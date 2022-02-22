@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { SHOW_LOG_IN_MODAL, SHOW_SIGN_UP_MODAL } from 'action-types';
+import { clearError } from 'actions/error';
 import CloseIcon from 'assets/icons/close.svg';
 
 import LoginForm from './LoginForm';
@@ -24,6 +25,7 @@ export default function LoginModal({ show, onClose }) {
       document.body.removeEventListener('keydown', closeOnEscapeKeyDown);
     };
   }, []);
+
   const switchToSignUp = () => {
     dispatch({
       type: SHOW_SIGN_UP_MODAL,
@@ -33,7 +35,9 @@ export default function LoginModal({ show, onClose }) {
       type: SHOW_LOG_IN_MODAL,
       payload: false,
     });
+    dispatch(clearError());
   };
+
   return (
     <div
       aria-hidden="true"
@@ -45,7 +49,7 @@ export default function LoginModal({ show, onClose }) {
     >
       <div
         aria-hidden="true"
-        className="relative w-[500px] h-[628px] flex items-center border bg-white rounded px-[40px] py-[32px]"
+        className="relative w-[500px] h-[660px] flex items-center border bg-white rounded px-[40px] py-[32px]"
       >
         <button
           aria-hidden="true"

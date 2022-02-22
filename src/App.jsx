@@ -90,7 +90,7 @@ export default function App() {
             }
           />
           <Route
-            path="/detail/:slug"
+            path="/detail/:id"
             element={
               <RequireAuth redirectTo="/">
                 <DetailPage />

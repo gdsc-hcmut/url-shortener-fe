@@ -13,7 +13,6 @@ export default function ChangePasswordMobile() {
             className="w-[376px] md:w-[420px] h-[60px] bg-gdscGrey-100 focus:bg-white focus:border
                       focus:border-1 focus:border-gdscBlue-300  px-5 outline-none rounded"
             type="email"
-            placeholder="Ali Tuf..."
           />
         </div>
         <div className="flex flex-col align-end mb-7">
@@ -22,7 +21,6 @@ export default function ChangePasswordMobile() {
             className="w-[376px] md:w-[420px] h-[60px] bg-gdscGrey-100 focus:bg-white focus:border
                       focus:border-1 focus:border-gdscBlue-300  px-5 outline-none rounded"
             type="password"
-            placeholder="••••••"
           />
         </div>
         <div className="flex flex-col align-end mb-7">
@@ -31,7 +29,6 @@ export default function ChangePasswordMobile() {
             className="w-[376px] md:w-[420px] h-[60px] bg-gdscGrey-100 focus:bg-white focus:border
                       focus:border-1 focus:border-gdscBlue-300  px-5 outline-none rounded"
             type="password"
-            placeholder="••••••"
           />
         </div>
         <button

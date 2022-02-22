@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { SHOW_LOG_IN_MODAL, SHOW_SIGN_UP_MODAL } from 'action-types';
+import { clearError } from 'actions/error';
 import BackIcon from 'assets/icons/BackIcon.svg';
 import CloseIcon from 'assets/icons/close.svg';
 
@@ -32,6 +33,7 @@ export default function SignUpDesktop({ show, onClose }) {
       type: SHOW_LOG_IN_MODAL,
       payload: true,
     });
+    dispatch(clearError());
   };
   return (
     <div
@@ -65,7 +67,7 @@ export default function SignUpDesktop({ show, onClose }) {
           </button>
         </div>
         <SignUpForm isMobile={false} />
-        <div className="mt-[28px] h-10 self-center flex items-center">
+        <div className="mt-[16px] h-10 self-center flex items-center">
           <div className="w-[170px] h-px bg-gdscGrey-200 mr-1" />
           or
           <div className="w-[170px] h-px bg-gdscGrey-200 ml-1" />

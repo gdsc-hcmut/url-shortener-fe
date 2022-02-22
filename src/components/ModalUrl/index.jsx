@@ -1,11 +1,14 @@
 import PropTypes from 'prop-types';
+import QRCode from 'qrcode.react';
 import React, { useState, useEffect } from 'react';
 
 import Url from 'components/Url';
 
 import CopyButton from './CopyButton';
 
-export default function ModalUrl({ show, onClose, shortenedUrl }) {
+export default function ModalUrl({
+  show, onClose, shortenedUrl, slug,
+}) {
   const [copied, setCopied] = useState(false);
   const handleCopy = () => {
     setCopied(true);
@@ -18,14 +21,24 @@ export default function ModalUrl({ show, onClose, shortenedUrl }) {
       onClose();
     }
   };
-
+  const downloadQR = () => {
+    const canvas = document.getElementById('qrcode');
+    const pngUrl = canvas
+      .toDataURL('image/png')
+      .replace('image/png', 'image/octet-stream');
+    const downloadLink = document.createElement('a');
+    downloadLink.href = pngUrl;
+    downloadLink.download = `${slug}.png`;
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+  };
   useEffect(() => {
     document.body.addEventListener('keydown', closeOnEscapeKeyDown);
     return function cleanup() {
       document.body.removeEventListener('keydown', closeOnEscapeKeyDown);
     };
   }, []);
-
   return (
     <div
       aria-hidden="true"
@@ -40,9 +53,15 @@ export default function ModalUrl({ show, onClose, shortenedUrl }) {
         className="w-[376px] h-[376px] md:w-[412px] md:h-[376px] flex flex-col items-center border bg-white rounded"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="w-[153px] h-[148px] md:w-[152px] md:h-[152px] mt-[32px] mx-[111px] md:mx-[130px] bg-[#000000]" />
+        <QRCode
+          id="qrcode"
+          value={shortenedUrl}
+          size={152}
+          className="w-[152px] h-[152px] mt-[32px] mx-[111px] md:mx-[130px]"
+        />
         <button
           type="button"
+          onClick={downloadQR}
           className="w-[180px] h-[44px] text-base bg-gdscBlue-300 hover:bg-shorten-btn-hover rounded-[8px] py-[12px] mt-[36px] text-white transition-all duration-300 ease-out"
         >
           Download PNG
@@ -61,4 +80,5 @@ ModalUrl.propTypes = {
   show: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   shortenedUrl: PropTypes.string.isRequired,
+  slug: PropTypes.string.isRequired,
 };

@@ -8,31 +8,75 @@ import { register } from 'actions/auth';
 
 export default function SignUpForm({ isMobile }) {
   const { SignupModal } = useSelector((state) => state.showModal);
+  const { error } = useSelector((state) => state.error);
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [match, setMatch] = useState(true);
+  const [errors, setErrors] = useState({});
 
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
   const handleConfirmPassword = (e) => setConfirmPassword(e.target.value);
 
+  const handleValidation = () => {
+    const newErrors = {};
+    let formIsValid = true;
+
+    if (
+      !String(email)
+        .toLowerCase()
+        .match(
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        )
+    ) {
+      formIsValid = false;
+      newErrors.email = 'Email is not valid.';
+    }
+
+    if (!email) {
+      formIsValid = false;
+      newErrors.email = 'Email cannot be empty.';
+    }
+
+    if (!password) {
+      formIsValid = false;
+      newErrors.password = 'Password cannot be empty.';
+    }
+
+    if (password.length < 6) {
+      formIsValid = false;
+      newErrors.password = 'Password should be at least 6 characters.';
+    }
+
+    if (!confirmPassword) {
+      formIsValid = false;
+      newErrors.confirmPassword = 'Password cannot be empty.';
+    }
+
+    if (confirmPassword.length < 6) {
+      formIsValid = false;
+      newErrors.confirmPassword = 'Password should be at least 6 characters.';
+    }
+
+    if (confirmPassword !== password) {
+      formIsValid = false;
+      newErrors.confirmPassword = 'Password mismatch.';
+    }
+
+    setErrors(newErrors);
+    return formIsValid;
+  };
+
   const handleSignUp = (e) => {
-    if (password === confirmPassword) {
-      e.preventDefault();
-      setMatch(true);
-      dispatch({
-        type: SHOW_SIGN_UP_MODAL,
-        payload: false,
-      });
+    e.preventDefault();
+
+    if (handleValidation()) {
       dispatch(register(email, password));
-    } else {
-      e.preventDefault();
-      setMatch(false);
     }
   };
+
   const switchToLogIn = () => {
     dispatch({
       type: SHOW_SIGN_UP_MODAL,
@@ -43,20 +87,19 @@ export default function SignUpForm({ isMobile }) {
       payload: true,
     });
   };
+
   useEffect(() => {
     setEmail('');
     setPassword('');
     setConfirmPassword('');
   }, [SignupModal]);
+
   return (
     <form className="flex flex-col justify-center" onSubmit={handleSignUp}>
       <p className="text-2xl md:mt-[-20px] font-bold self-center">Sign up</p>
       <div className="mt-7 px-0 md:px-10">
         <p>Email</p>
         <input
-          type="email"
-          placeholder="Ali Tuf..."
-          required
           value={email}
           onChange={handleEmail}
           className="mt-2 w-[376px] md:w-[420px] h-[60px]
@@ -64,12 +107,13 @@ export default function SignUpForm({ isMobile }) {
           bg-gdscGrey-100 focus:bg-white focus:outline-gdscBlue-300 p-5"
         />
       </div>
+      <span className="text-gdscRed-300 mt-2 md:px-10">
+        {errors.email || error.signUp.email}
+      </span>
       <div className="mt-7 px-0 md:px-10">
         <p>Password</p>
         <input
           type="password"
-          placeholder="••••••"
-          required
           value={password}
           onChange={handlePassword}
           className="mt-2 w-[376px] md:w-[420px] h-[60px]
@@ -77,12 +121,13 @@ export default function SignUpForm({ isMobile }) {
           bg-gdscGrey-100 focus:bg-white focus:outline-gdscBlue-300 p-5"
         />
       </div>
+      <span className="text-gdscRed-300 mt-2 md:px-10">
+        {errors.password || error.signUp.password}
+      </span>
       <div className="mt-7 px-0 md:px-10">
         <p>Confirm Password</p>
         <input
           type="password"
-          placeholder="••••••"
-          required
           value={confirmPassword}
           onChange={handleConfirmPassword}
           className="mt-2 w-[376px] md:w-[420px] h-[60px]
@@ -90,11 +135,9 @@ export default function SignUpForm({ isMobile }) {
           bg-gdscGrey-100 focus:bg-white focus:outline-gdscBlue-300 p-5"
         />
       </div>
-      {!match ? (
-        <p className="text-gdscRed-200 mt-2 md:px-10">Password mismatch</p>
-      ) : (
-        <div> </div>
-      )}
+      <span className="text-gdscRed-300 mt-2 md:px-10">
+        {errors.confirmPassword}
+      </span>
       <button
         type="submit"
         className="w-[376px] md:w-[420px] h-[60px] bg-gdscBlue-300 mt-7 self-center
@@ -106,8 +149,7 @@ export default function SignUpForm({ isMobile }) {
         <Link to="/log-in" className="self-center">
           <button type="button" className="mt-7 text-base">
             Already have an account?
-            {' '}
-            <b className="active:underline">Login</b>
+            <b className="active:underline"> Login</b>
           </button>
         </Link>
       ) : (
@@ -117,8 +159,7 @@ export default function SignUpForm({ isMobile }) {
           className="mt-7 self-center text-base"
         >
           Already have an account?
-          {' '}
-          <b className="active:underline">Login</b>
+          <b className="active:underline"> Login</b>
         </button>
       )}
     </form>
