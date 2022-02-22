@@ -57,7 +57,6 @@ export default function SideMenu({ toggle, page }) {
               : 'hover:text-gdscBlue-300'
           } transition-all
           ease-out duration-300`}
-          // isActive={() => page === 'detail' || page === 'my-url'}
         >
           <LinkIcon />
           <span>My URLs</span>
@@ -72,7 +71,6 @@ export default function SideMenu({ toggle, page }) {
             page === 'stat' ? 'text-gdscBlue-300' : 'hover:text-gdscBlue-300'
           } transition-all
           ease-out duration-300`}
-          // isActive={() => page === 'stat'}
         >
           <StatIcon />
           <span>Statistics</span>
@@ -91,7 +89,6 @@ export default function SideMenu({ toggle, page }) {
               : 'hover:text-gdscBlue-300'
           } transition-all
           ease-out duration-300`}
-          // isActive={() => page === 'change-pass'}
         >
           <LockIcon />
           <span>Change Password</span>
