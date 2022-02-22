@@ -4,26 +4,18 @@ import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { loadUser } from 'actions/auth';
-import NavbarModal from 'components/Modals/NavbarModal';
 import RequireAuth from 'components/RequireAuth';
-import MaterialUIPickers from 'pages/DateTimePicker';
-import DeleteModalPage from 'pages/DeleteModalPage';
+import ChangePasswordPage from 'pages/ChangePasswordPage';
 import DetailPage from 'pages/DetailPage';
-import EditSlug from 'pages/EditSlug';
 import ForgotPasswordPage from 'pages/ForgotPasswordPage';
-import Homepage from 'pages/Homepage';
+import HomePage from 'pages/HomePage';
 import HomepageLogin from 'pages/HomepageLogin';
-import LoginPage from 'pages/LoginPage';
-import ModalPage from 'pages/ModalPage';
 import MyUrlPage from 'pages/MyUrlPage';
-import ChangePasswordPage from 'pages/ReplacePasswordPage';
+import NotFoundPage from 'pages/NotFoundPage';
 import ResetPasswordPage from 'pages/ResetPasswordPage';
-import SignInPage from 'pages/SignInPage';
-import SignUpDesktop from 'pages/SignUpDesktop';
-import SignUpPage from 'pages/SignUpPage';
-import SnackbarPage from 'pages/SnackbarPage';
+import SignInMobilePage from 'pages/SignInMobilePage';
+import SignUpMobilePage from 'pages/SignUpMobilePage';
 import StatisticPage from 'pages/StatisticPage';
-import UrlWithSlug from 'pages/UrlWithSlug';
 import UserProfilePage from 'pages/UserProfilePage';
 
 import store from './store';
@@ -41,14 +33,11 @@ export default function App() {
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route path="/modal" element={<ModalPage />} />
-          <Route path="/sign-up-firebase" element={<SignUpPage />} />
-          <Route path="/sign-in-firebase" element={<SignInPage />} />
-          <Route path="/log-in" element={<LoginPage />} />
-          <Route path="/sign-up-page" element={<SignUpDesktop />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/sign-in" element={<SignInMobilePage />} />
+          <Route path="/sign-up" element={<SignUpMobilePage />} />
           <Route
-            path="/user-home"
+            path="/home"
             element={
               <RequireAuth redirectTo="/">
                 <HomepageLogin />
@@ -56,7 +45,7 @@ export default function App() {
             }
           />
           <Route
-            path="/reset-pass"
+            path="/reset-password"
             element={
               <RequireAuth redirectTo="/">
                 <ResetPasswordPage />
@@ -64,7 +53,7 @@ export default function App() {
             }
           />
           <Route
-            path="/change-pass"
+            path="/change-password"
             element={
               <RequireAuth redirectTo="/">
                 <ChangePasswordPage />
@@ -72,25 +61,23 @@ export default function App() {
             }
           />
           <Route
-            path="/user-profile"
+            path="/profile"
             element={
               <RequireAuth redirectTo="/">
                 <UserProfilePage />
               </RequireAuth>
             }
           />
-          <Route path="/modal-nav" element={<NavbarModal show />} />
-          <Route path="/slug" element={<UrlWithSlug />} />
           <Route
-            path="/edit-slug"
+            path="/urls"
             element={
               <RequireAuth redirectTo="/">
-                <EditSlug />
+                <MyUrlPage />
               </RequireAuth>
             }
           />
           <Route
-            path="/detail/:id"
+            path="/urls/:id"
             element={
               <RequireAuth redirectTo="/">
                 <DetailPage />
@@ -98,9 +85,6 @@ export default function App() {
             }
           />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-          <Route path="/date" element={<MaterialUIPickers />} />
-          <Route path="/delete-modal" element={<DeleteModalPage />} />
-          <Route path="/snackbar" element={<SnackbarPage />} />
           <Route path="/stat" element={<StatisticPage />} />
           <Route
             path="/my-url"
@@ -110,6 +94,8 @@ export default function App() {
               </RequireAuth>
             }
           />
+          <Route path="/statistics" element={<StatisticPage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
     </Provider>

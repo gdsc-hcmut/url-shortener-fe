@@ -14,7 +14,7 @@ export default function LoginModalMobile() {
       <div className="flex flex-col justify-center items-center mt-[92px]">
         <h1 className="text-2xl font-bold mb-7 self-center">Login</h1>
         <LoginForm />
-        <Link to="/sign-up-page">
+        <Link to="/sign-up">
           <p className="mb-7">
             {"Don't have an account? "}
             <button type="button" className="active:underline font-bold">

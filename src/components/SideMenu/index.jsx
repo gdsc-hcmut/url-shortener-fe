@@ -26,7 +26,7 @@ export default function SideMenu({ toggle, page }) {
     >
       <div>
         <NavLink
-          to="/user-profile"
+          to="/profile"
           className={() => `flex flex-row space-x-4 min-w-full md:w-[240px] items-center md:h-[52px] h-[58px] px-5 rounded bg-white
           ${
             page === 'my-profile'
@@ -44,15 +44,15 @@ export default function SideMenu({ toggle, page }) {
           <span>My Profile</span>
         </NavLink>
         <NavLink
-          to="/my-url"
+          to="/urls"
           className={() => `flex flex-row space-x-4 min-w-full md:w-[240px] items-center md:h-[52px] h-[58px] px-5 rounded bg-white
           ${
-            page === 'detail' || page === 'my-url'
+            page === 'detail' || page === 'urls'
               ? 'bg-gdscBlue-300/10'
               : 'hover:bg-gdscBlue-300/10'
           } cursor-pointer 
           ${
-            page === 'detail' || page === 'my-url'
+            page === 'detail' || page === 'urls'
               ? 'text-gdscBlue-300'
               : 'hover:text-gdscBlue-300'
           } transition-all
@@ -62,7 +62,7 @@ export default function SideMenu({ toggle, page }) {
           <span>My URLs</span>
         </NavLink>
         <NavLink
-          to="/stat"
+          to="/statistics"
           className={() => `flex flex-row space-x-4 min-w-full md:w-[240px] items-center md:h-[52px] h-[58px] px-5 rounded bg-white
           ${
             page === 'stat' ? 'bg-gdscBlue-300/10' : 'hover:bg-gdscBlue-300/10'
@@ -76,15 +76,15 @@ export default function SideMenu({ toggle, page }) {
           <span>Statistics</span>
         </NavLink>
         <NavLink
-          to="/change-pass"
+          to="/change-password"
           className={() => `flex flex-row space-x-4 min-w-full md:w-[240px] items-center md:h-[52px] h-[58px] px-5 rounded bg-white
           ${
-            page === 'change-pass'
+            page === 'change-password'
               ? 'bg-gdscBlue-300/10'
               : 'hover:bg-gdscBlue-300/10'
           } cursor-pointer 
           ${
-            page === 'change-pass'
+            page === 'change-password'
               ? 'text-gdscBlue-300'
               : 'hover:text-gdscBlue-300'
           } transition-all

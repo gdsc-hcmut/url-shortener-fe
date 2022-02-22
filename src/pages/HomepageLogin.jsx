@@ -32,7 +32,7 @@ export default function HomepageLogin() {
       <NavBar home />
       <div className="flex h-full mt-[-130px]">
         <div className="md:hidden mt-[104px]">
-          <SideMenu toggle={toggleMenu} page="user-home" />
+          <SideMenu toggle={toggleMenu} page="home" />
         </div>
         <div className="ml-[1.25rem] mt-[216px] mb-[288px] md:mt-[260px] md:mb-[276px] w-full">
           <UrlInputBoxAndTitle loggedIn />

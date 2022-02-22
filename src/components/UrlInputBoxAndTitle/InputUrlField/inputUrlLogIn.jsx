@@ -16,22 +16,24 @@ export default function InputUrlLogIn() {
   const handleLongUrl = (e) => setLongUrl(e.target.value);
   const handleSlug = (e) => setSlug(e.target.value);
   const handleClick = async () => {
-    await dispatch(urlAction.shortenUrlWithSlug(longUrl, slug));
-    const reduxState = store.getState();
-    if (reduxState.urlWithSlug.error.msg === 'Bad Request') {
-      setAlert(true);
-      setTimeout(() => setAlert(false), 2000);
-    } else if (reduxState.urlWithSlug.invalidSlug.msg === 'Bad Request') {
-      setSlugErr({ ...slugErr, invalid: true });
-      setTimeout(() => setSlugErr({ ...slugErr, invalid: false }), 2000);
-    } else if (reduxState.urlWithSlug.slugTaken === true) {
-      setSlugErr({ ...slugErr, exist: true });
-      setTimeout(() => setSlugErr({ ...slugErr, invalid: false }), 2000);
-    } else {
-      dispatch({
-        type: SHOW_URL_MODAL,
-        payload: true,
-      });
+    if (longUrl) {
+      await dispatch(urlAction.shortenUrlWithSlug(longUrl, slug));
+      const reduxState = store.getState();
+      if (reduxState.urlWithSlug.error.msg === 'Bad Request') {
+        setAlert(true);
+        setTimeout(() => setAlert(false), 2000);
+      } else if (reduxState.urlWithSlug.invalidSlug.msg === 'Bad Request') {
+        setSlugErr({ ...slugErr, invalid: true });
+        setTimeout(() => setSlugErr({ ...slugErr, invalid: false }), 2000);
+      } else if (reduxState.urlWithSlug.slugTaken === true) {
+        setSlugErr({ ...slugErr, exist: true });
+        setTimeout(() => setSlugErr({ ...slugErr, invalid: false }), 2000);
+      } else {
+        dispatch({
+          type: SHOW_URL_MODAL,
+          payload: true,
+        });
+      }
     }
   };
 
@@ -49,11 +51,7 @@ export default function InputUrlLogIn() {
               className="text-base font-normal text-gdscGrey-700 h-5 w-[16.25rem] border-b-1 outline-none "
               placeholder="Input the URL you want to shorten"
             />
-            {alert ? (
-              <p className="text-gdscRed-300">Invalid Url!</p>
-            ) : (
-              <p> </p>
-            )}
+            {alert && <p className="text-gdscRed-300">Invalid Url!</p>}
           </div>
         </div>
         <ReactLogo className="absolute top-[52px] left-[292px]" />
@@ -67,17 +65,13 @@ export default function InputUrlLogIn() {
               value={slug}
               onChange={handleSlug}
               className="text-base font-normal text-gdscGrey-700 h-5 w-[16.25rem] border-b-1 outline-none "
-              placeholder="gdschcmut.url/ai-series "
+              placeholder="Input your custom slug"
             />
-            {slugErr.invalid ? (
+            {slugErr.invalid && (
               <p className="text-gdscRed-300">Invalid Slug!</p>
-            ) : (
-              <p> </p>
             )}
-            {slugErr.exist ? (
+            {slugErr.exist && (
               <p className="text-gdscRed-300">Slug already exists!</p>
-            ) : (
-              <p> </p>
             )}
           </div>
         </div>
@@ -89,7 +83,10 @@ export default function InputUrlLogIn() {
         <div>
           <button
             type="button"
-            className="absolute inset-y-5 right-5 hidden text-base text-white md:block w-[152px] h-[64px] bg-gdscBlue-300 rounded-[8px] hover:bg-shorten-btn-hover ease-out duration-300 "
+            className={`absolute inset-y-5 right-5 hidden text-base text-white md:block w-[152px] h-[64px] bg-gdscBlue-300 rounded-[8px] hover:bg-shorten-btn-hover ease-out duration-300 ${
+              !longUrl
+              && 'bg-gdscBlue-100 hover:bg-gdscBlue-100 cursor-not-allowed'
+            }`}
             onClick={handleClick}
           >
             Shorten
@@ -131,7 +128,9 @@ export default function InputUrlLogIn() {
       )}
       <button
         type="button"
-        className="text-base text-white md:hidden w-[152px] h-[60px] bg-gdscBlue-300 rounded hover:bg-shorten-btn-hover"
+        className={`text-base text-white md:hidden w-[152px] h-[60px] bg-gdscBlue-300 rounded hover:bg-shorten-btn-hover ${
+          !longUrl && 'bg-gdscBlue-100 hover:bg-gdscBlue-100 cursor-not-allowed'
+        }`}
         onClick={handleClick}
       >
         Shorten

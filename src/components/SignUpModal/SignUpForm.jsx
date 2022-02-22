@@ -92,6 +92,8 @@ export default function SignUpForm({ isMobile }) {
     setEmail('');
     setPassword('');
     setConfirmPassword('');
+
+    return () => setErrors({});
   }, [SignupModal]);
 
   return (
@@ -146,7 +148,7 @@ export default function SignUpForm({ isMobile }) {
         Register
       </button>
       {isMobile ? (
-        <Link to="/log-in" className="self-center">
+        <Link to="/sign-in" className="self-center">
           <button type="button" className="mt-7 text-base">
             Already have an account?
             <b className="active:underline"> Login</b>

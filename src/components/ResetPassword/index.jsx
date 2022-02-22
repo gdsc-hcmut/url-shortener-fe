@@ -29,7 +29,7 @@ export default function ResetPasswordForm() {
             placeholder="••••••"
           />
         </div>
-        <Link to="/user-home">
+        <Link to="/home">
           <button
             className="font-normal text-white w-[376px] md:w-[420px] h-[60px]
                   bg-gdscBlue-300 rounded hover:bg-shorten-btn-hover

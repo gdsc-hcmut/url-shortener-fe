@@ -46,7 +46,7 @@ export default function SignUpDesktop({ show, onClose }) {
     >
       <div
         aria-hidden="true"
-        className="w-[500px] h-[692px] flex flex-col border bg-white rounded"
+        className="w-[500px] h-[692px] flex flex-col border bg-white rounded overflow-y-scroll no-scrollbar"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="mt-3 px-3 flex gap-x-[396px]">

@@ -33,7 +33,7 @@ export default function SubTitle({ loggedIn }) {
         <p className="text-base font-normal text-gdscGrey-700">
           Want more details on your previous shortened link?
         </p>
-        <Link to="/sign-up-page">
+        <Link to="/sign-up">
           <button
             type="button"
             className="md:m-0 w-[92px] h-6 b-[50px] bg-get-started-btn rounded-[60px] flex justify-center items-center hover:bg-get-started-btn-hover  ease-out duration-300"
