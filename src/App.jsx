@@ -1,8 +1,11 @@
+/* eslint-disable react/jsx-wrap-multilines */
 import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { loadUser } from 'actions/auth';
+import NavbarModal from 'components/Modals/NavbarModal';
+import RequireAuth from 'components/RequireAuth';
 import MaterialUIPickers from 'pages/DateTimePicker';
 import DeleteModalPage from 'pages/DeleteModalPage';
 import DetailPage from 'pages/DetailPage';
@@ -44,19 +47,69 @@ export default function App() {
           <Route path="/sign-in-firebase" element={<SignInPage />} />
           <Route path="/log-in" element={<LoginPage />} />
           <Route path="/sign-up-page" element={<SignUpDesktop />} />
-          <Route path="/user-home" element={<HomepageLogin />} />
-          <Route path="/reset-pass" element={<ResetPasswordPage />} />
-          <Route path="/change-pass" element={<ChangePasswordPage />} />
-          <Route path="/user-profile" element={<UserProfilePage />} />
+          <Route
+            path="/user-home"
+            element={
+              <RequireAuth redirectTo="/">
+                <HomepageLogin />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/reset-pass"
+            element={
+              <RequireAuth redirectTo="/">
+                <ResetPasswordPage />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/change-pass"
+            element={
+              <RequireAuth redirectTo="/">
+                <ChangePasswordPage />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/user-profile"
+            element={
+              <RequireAuth redirectTo="/">
+                <UserProfilePage />
+              </RequireAuth>
+            }
+          />
+          <Route path="/modal-nav" element={<NavbarModal show />} />
           <Route path="/slug" element={<UrlWithSlug />} />
-          <Route path="/edit-slug" element={<EditSlug />} />
-          <Route path="/detail/:id" element={<DetailPage />} />
+          <Route
+            path="/edit-slug"
+            element={
+              <RequireAuth redirectTo="/">
+                <EditSlug />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/detail/:slug"
+            element={
+              <RequireAuth redirectTo="/">
+                <DetailPage />
+              </RequireAuth>
+            }
+          />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/date" element={<MaterialUIPickers />} />
-          <Route path="/my-url" element={<MyUrlPage />} />
           <Route path="/delete-modal" element={<DeleteModalPage />} />
           <Route path="/snackbar" element={<SnackbarPage />} />
           <Route path="/stat" element={<StatisticPage />} />
+          <Route
+            path="/my-url"
+            element={
+              <RequireAuth redirectTo="/">
+                <MyUrlPage />
+              </RequireAuth>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </Provider>
