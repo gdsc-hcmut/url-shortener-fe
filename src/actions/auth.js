@@ -8,6 +8,7 @@ import {
   LOGOUT,
   SHOW_LOG_IN_MODAL,
   SHOW_SIGN_UP_MODAL,
+  UPDATE_URL_LISTS,
 } from 'action-types';
 import AuthService from 'services/auth.service';
 
@@ -77,5 +78,9 @@ export const login = (email, password) => async (dispatch) => {
 
 export const logout = () => (dispatch) => {
   AuthService.logout();
+  dispatch({
+    type: UPDATE_URL_LISTS,
+    payload: [],
+  });
   dispatch({ type: LOGOUT });
 };

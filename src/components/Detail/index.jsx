@@ -60,7 +60,7 @@ export default function Detail({ id }) {
   if (isDeleted) {
     return (
       <div className="font-normal 3xl:w-[1032px] md:w-[504px] w-full sm:w-[376px] text-[32px] mb-4 ">
-        This url doesn&apos;t exist
+        Url not found.
       </div>
     );
   }
@@ -103,11 +103,11 @@ export default function Detail({ id }) {
           show={DeleteUrlModal}
         />
       </div>
-      <h1 className="font-normal 3xl:w-[1032px] md:w-[504px] w-full sm:w-[376px] text-[32px] mb-4 ">
+      <h1 className="font-normal 3xl:w-[1032px] md:w-[504px] w-full h-8 hover:h-fit sm:w-[376px] text-[32px] mb-4 break-words cursor-pointer overflow-y-hidden hover:overflow-y-visible transition duration-300 ease-out">
         {urlDetail.longUrl}
       </h1>
       <div className="mb-[60px] flex">
-        <h1 className="inline font-normal w-[216px] h-8 leading-8 text-xl mr-8 overflow-x-auto">
+        <h1 className="inline font-normal w-[216px] h-8 leading-8 text-xl mr-8 overflow-x-auto truncate">
           {urlDetail.slug}
         </h1>
         <div className="flex space-x-2">

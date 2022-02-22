@@ -7,6 +7,7 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   USER_NOT_FOUND,
+  NEW_EMAIL_TAKEN,
 } from 'action-types';
 
 const initialState = {
@@ -19,6 +20,7 @@ const initialState = {
     dateOfBirth: 'user birthday',
     avatar: 'user avatar',
   },
+  error: {},
 };
 
 export default function (state = initialState, action) {
@@ -31,6 +33,7 @@ export default function (state = initialState, action) {
         isAuthenticated: true,
         loading: false,
         user: payload,
+        error: {},
       };
     case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
@@ -41,11 +44,17 @@ export default function (state = initialState, action) {
         token: payload.token,
         isAuthenticated: true,
         loading: false,
+        error: {},
       };
     case REGISTER_FAIL:
     case AUTH_ERROR:
     case LOGIN_FAIL:
     case USER_NOT_FOUND:
+    case NEW_EMAIL_TAKEN:
+      return {
+        ...state,
+        error: { email: 'Email taken' },
+      };
     case LOGOUT:
       localStorage.removeItem('user');
       return {

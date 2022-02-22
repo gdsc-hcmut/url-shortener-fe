@@ -24,10 +24,10 @@ export default function InputUrlLogIn() {
         setTimeout(() => setAlert(false), 2000);
       } else if (reduxState.urlWithSlug.invalidSlug.msg === 'Bad Request') {
         setSlugErr({ ...slugErr, invalid: true });
-        setTimeout(() => setSlugErr({ ...slugErr, invalid: false }), 2000);
+        setTimeout(() => setSlugErr({ ...slugErr, invalid: false }), 3000);
       } else if (reduxState.urlWithSlug.slugTaken === true) {
         setSlugErr({ ...slugErr, exist: true });
-        setTimeout(() => setSlugErr({ ...slugErr, invalid: false }), 2000);
+        setTimeout(() => setSlugErr({ ...slugErr, invalid: false }), 3000);
       } else {
         dispatch({
           type: SHOW_URL_MODAL,
@@ -102,11 +102,7 @@ export default function InputUrlLogIn() {
           placeholder="Input the URL you want to shorten"
         />
       </div>
-      {alert ? (
-        <p className="text-gdscRed-300 md:hidden">Invalid Url!</p>
-      ) : (
-        <p> </p>
-      )}
+      {alert && <p className="text-gdscRed-300 md:hidden">Invalid Url!</p>}
       <div className="relative md:hidden bg-white rounded-[8px] mr-5 h-[70px] flex items-center pl-5 space-x-5 rounded-md border shadow-lg border-gdscGrey-200">
         <img className="w-6 h-6" src={EditIcon} alt="Edit icon" />
         <input
@@ -116,15 +112,11 @@ export default function InputUrlLogIn() {
           placeholder="Input your custom slug"
         />
       </div>
-      {slugErr.invalid ? (
+      {slugErr.invalid && (
         <p className="text-gdscRed-300 md:hidden">Invalid Slug!</p>
-      ) : (
-        <p> </p>
       )}
-      {slugErr.exist ? (
+      {slugErr.exist && (
         <p className="text-gdscRed-300 md:hidden">Slug already exists!</p>
-      ) : (
-        <p> </p>
       )}
       <button
         type="button"

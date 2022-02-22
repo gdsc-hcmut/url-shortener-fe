@@ -3,7 +3,7 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import MobileDatePicker from '@mui/lab/MobileDatePicker';
 import TextField from '@mui/material/TextField';
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, useStore } from 'react-redux';
 
 import { editProfile } from 'actions/user';
 import AddPhoto from 'assets/icons/add_a_photo.svg';
@@ -11,9 +11,16 @@ import EditIcon from 'assets/icons/edit.svg';
 
 export default function UserFormMobile() {
   const dispatch = useDispatch();
+  const store = useStore();
   const avatar = new FormData();
   const { user } = useSelector((state) => state.auth);
-  const [field, setField] = useState({ name: false, email: false, dob: false });
+  const [field, setField] = useState({
+    name: false,
+    email: false,
+    dob: false,
+    notification: false,
+  });
+  const [emailError, setEmailError] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [name, setName] = useState(localStorage.getItem('userName'));
   const [datePicker, setDatePicker] = useState(false);
@@ -24,17 +31,19 @@ export default function UserFormMobile() {
   const handleName = (e) => setName(e.target.value);
   const handleEmail = (e) => setNewEmail(e.target.value);
   const { email } = user;
-  const editUserProfile = (e) => {
+  const editUserProfile = async (e) => {
     e.preventDefault();
-    dispatch(editProfile(name, newEmail, email, dateOfBirth));
-    localStorage.setItem('userName', name);
-    localStorage.setItem('userEmail', newEmail);
-    localStorage.setItem('userBirthday', dateOfBirth);
+    await dispatch(editProfile(name, newEmail, email, dateOfBirth));
+    const reduxState = store.getState();
+    if (reduxState.auth.error.email === 'Email taken') {
+      setEmailError(true);
+      setTimeout(() => setEmailError(false), 2000);
+    } else {
+      localStorage.setItem('userName', name);
+      localStorage.setItem('userEmail', newEmail);
+      localStorage.setItem('userBirthday', dateOfBirth);
+    }
   };
-  // eslint-disable-next-line no-restricted-syntax
-  for (const [key, value] of avatar.entries()) {
-    console.log(key, value);
-  }
   return (
     <form
       aria-hidden
@@ -47,9 +56,6 @@ export default function UserFormMobile() {
           email: false,
           dob: false,
         });
-        setName(localStorage.getItem('userName'));
-        setNewEmail(localStorage.getItem('userEmail'));
-        setDateOfBirth(new Date(localStorage.getItem('userBirthday')));
       }}
     >
       <div className="flex justify-items-start w-[376px]">
@@ -92,13 +98,6 @@ export default function UserFormMobile() {
           </div>
         )}
       </div>
-      {field.name || field.email || field.dob ? (
-        <p className="mt-5 text-gdscBlue-200 mb-[-44px]">
-          Click on Save Button to submit your changes
-        </p>
-      ) : (
-        <div> </div>
-      )}
       <div>
         <div className="flex flex-col align-end mb-6 mt-[52px]">
           <p className="pb-3">Name</p>
@@ -122,7 +121,7 @@ export default function UserFormMobile() {
                 className="absolute right-5"
                 onClick={(e) => {
                   e.stopPropagation();
-                  setField({ ...field, name: true });
+                  setField({ ...field, name: true, notification: true });
                 }}
               >
                 <img className="w-6 h-6" src={EditIcon} alt="Edit info" />
@@ -152,12 +151,15 @@ export default function UserFormMobile() {
                 className="absolute right-5"
                 onClick={(e) => {
                   e.stopPropagation();
-                  setField({ ...field, email: true });
+                  setField({ ...field, email: true, notification: true });
                 }}
               >
                 <img className="w-6 h-6" src={EditIcon} alt="Edit info" />
               </button>
             </div>
+          )}
+          {emailError && (
+            <p className="text-gdscRed-300">Email has been taken</p>
           )}
         </div>
         <div className="flex flex-col align-end mb-8">
@@ -195,17 +197,17 @@ export default function UserFormMobile() {
             </div>
           ) : (
             <div className="relative w-[376px] md:w-[420px] h-[64px] flex px-5 pt-5 outline-none rounded bg-gdscGrey-100 text-input-text">
-              {dateOfBirth.getDate()}
+              {dateOfBirth.getFullYear()}
               /
               {dateOfBirth.getMonth() + 1}
               /
-              {dateOfBirth.getFullYear()}
+              {dateOfBirth.getDate()}
               <button
                 type="button"
                 className="absolute right-5"
                 onClick={(e) => {
                   e.stopPropagation();
-                  setField({ ...field, dob: true });
+                  setField({ ...field, dob: true, notification: true });
                   setDatePicker(true);
                 }}
               >
@@ -215,6 +217,11 @@ export default function UserFormMobile() {
           )}
         </div>
       </div>
+      {field.notification && (
+        <p className="text-gdscBlue-200 mt-[-12px] mb-2">
+          Click on Save Button to submit your changes
+        </p>
+      )}
       <button
         className="font-normal text-white w-[152px] md:w-[420px] h-[60px]
                   bg-gdscBlue-300 rounded hover:bg-shorten-btn-hover
@@ -227,6 +234,7 @@ export default function UserFormMobile() {
             name: false,
             email: false,
             dob: false,
+            notification: false,
           });
         }}
       >

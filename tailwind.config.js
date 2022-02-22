@@ -93,6 +93,14 @@ module.exports = {
       DEFAULT: '8px',
       full: '9999px',
     },
+    screens: {
+      sm: '640px',
+      md: '768px',
+      lg: '1024px',
+      xl: '1280px',
+      '2xl': '1536px',
+      'input-field-col': '1452px',
+    },
   },
   plugins: [],
 };
