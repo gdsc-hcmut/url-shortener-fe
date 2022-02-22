@@ -32,7 +32,8 @@
         }
       }
     ],
-    "default-param-last": "off"
+    "default-param-last": "off",
+    "react/jsx-props-no-spreading": "off"
   },
   "settings": {
     "import/resolver": {

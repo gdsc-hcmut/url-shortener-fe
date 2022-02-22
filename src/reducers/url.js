@@ -3,6 +3,8 @@ import {
   URL_ERROR,
   EDIT_SLUG,
   SLUG_ALREADY_EXISTS,
+  EDIT_EXPIRE_TIME,
+  UPDATE_URL_LISTS,
 } from 'action-types';
 
 const initialState = {
@@ -10,6 +12,10 @@ const initialState = {
   slug: 'loading...',
   slugExist: false,
   error: {},
+  data: {},
+  newSlug: '',
+  newExpireTime: null,
+  urlList: [],
 };
 
 export default (state = initialState, { type, payload } = {}) => {
@@ -25,7 +31,7 @@ export default (state = initialState, { type, payload } = {}) => {
       return {
         ...state,
         shortenedUrl: payload.shortUrl,
-        slug: payload.slug,
+        newSlug: payload.slug,
         slugExist: false,
       };
     case SLUG_ALREADY_EXISTS:
@@ -34,10 +40,20 @@ export default (state = initialState, { type, payload } = {}) => {
         slugExist: true,
         error: payload,
       };
+    case EDIT_EXPIRE_TIME:
+      return {
+        ...state,
+        newExpireTime: payload.expireTime,
+      };
     case URL_ERROR:
       return {
         ...state,
         error: payload,
+      };
+    case UPDATE_URL_LISTS:
+      return {
+        ...state,
+        urlList: payload,
       };
     default:
       return state;

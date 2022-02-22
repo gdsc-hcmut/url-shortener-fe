@@ -21,7 +21,10 @@ export default function MyUrlPage() {
         <MenuIcon className="w-10 h-10" />
       </button>
       <Navbar home={false} />
-      <div className="flex overflow-y-scroll overflow-x-scroll md:overflow-hidden h-full">
+      <div
+        id="MyUrlPage"
+        className="flex overflow-y-scroll overflow-x-scroll md:overflow-hidden h-full"
+      >
         <SideMenu toggle={toggleMenu} page="my-url" />
         <div className="bg-gdscGrey-100 h-full md:h-6 md:min-h-screen flex-1 md:pl-[60px] md:pt-10 md:pb-[156px] pl-5 text-2xl font-bold flex">
           <MyUrl />
