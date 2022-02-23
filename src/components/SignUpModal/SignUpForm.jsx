@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { SHOW_LOG_IN_MODAL, SHOW_SIGN_UP_MODAL } from 'action-types';
 import { register } from 'actions/auth';
+import loadingIcon from 'assets/icons/loading.svg';
 
 export default function SignUpForm({ isMobile }) {
   const { SignupModal } = useSelector((state) => state.showModal);
@@ -12,6 +13,7 @@ export default function SignUpForm({ isMobile }) {
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errors, setErrors] = useState({});
@@ -73,6 +75,8 @@ export default function SignUpForm({ isMobile }) {
     e.preventDefault();
 
     if (handleValidation()) {
+      setLoading(true);
+      setTimeout(() => setLoading(false), 2000);
       dispatch(register(email, password));
     }
   };
@@ -140,13 +144,29 @@ export default function SignUpForm({ isMobile }) {
       <span className="text-gdscRed-300 mt-2 md:px-10">
         {errors.confirmPassword}
       </span>
-      <button
-        type="submit"
-        className="w-[376px] md:w-[420px] h-[60px] bg-gdscBlue-300 mt-7 self-center
-        rounded-[8px] text-white hover:bg-shorten-btn-hover transition-all ease-out duration-300"
-      >
-        Register
-      </button>
+      {!loading ? (
+        <button
+          className="w-[376px] md:w-[420px] h-[60px] bg-gdscBlue-300 mt-7 self-center
+          rounded-[8px] text-white hover:bg-shorten-btn-hover transition-all ease-out duration-300"
+          type="submit"
+        >
+          Register
+        </button>
+      ) : (
+        <button
+          type="button"
+          className="w-[376px] md:w-[420px] h-[60px] bg-gdscBlue-300 mt-7 self-center
+          rounded-[8px] text-white hover:bg-shorten-btn-hover transition-all ease-out duration-300"
+          disabled
+        >
+          <img
+            src={loadingIcon}
+            className="inline mr-3 w-6 h-6 animate-spin"
+            alt="Loading indicator"
+          />
+          Loading...
+        </button>
+      )}
       {isMobile ? (
         <Link to="/sign-in" className="self-center">
           <button type="button" className="mt-7 text-base">

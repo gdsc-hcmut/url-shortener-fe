@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { SHOW_LOG_IN_MODAL, SHOW_FORGOT_PASSWORD_MODAL } from 'action-types';
 import { login } from 'actions/auth';
+import loadingIcon from 'assets/icons/loading.svg';
 
 export default function LoginForm() {
   const { LogInModal } = useSelector((state) => state.showModal);
@@ -11,6 +12,7 @@ export default function LoginForm() {
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
   const [width, setWidth] = useState(window.innerWidth);
@@ -69,6 +71,8 @@ export default function LoginForm() {
     e.preventDefault();
 
     if (handleValidation()) {
+      setLoading(true);
+      setTimeout(() => setLoading(false), 2000);
       dispatch(login(email, password));
     }
   };
@@ -129,14 +133,31 @@ export default function LoginForm() {
           </button>
         </div>
       )}
-      <button
-        className="font-normal text-white w-[376px] md:w-full h-[60px]
-                  bg-gdscBlue-300 rounded hover:bg-shorten-btn-hover
-                  transition-all duration-300 ease-out mb-7"
-        type="submit"
-      >
-        Log In
-      </button>
+      {!loading ? (
+        <button
+          className="font-normal text-white w-[376px] md:w-full h-[60px]
+          bg-gdscBlue-300 rounded hover:bg-shorten-btn-hover
+          transition-all duration-300 ease-out mb-7"
+          type="submit"
+        >
+          Log In
+        </button>
+      ) : (
+        <button
+          type="button"
+          className="font-normal text-white w-[376px] md:w-full h-[60px]
+          bg-gdscBlue-300 rounded hover:bg-shorten-btn-hover
+          transition-all duration-300 ease-out mb-7"
+          disabled
+        >
+          <img
+            src={loadingIcon}
+            className="inline mr-3 w-6 h-6 animate-spin"
+            alt="Loading indicator"
+          />
+          Loading...
+        </button>
+      )}
     </form>
   );
 }
