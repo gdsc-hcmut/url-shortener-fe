@@ -4,11 +4,13 @@ import { useDispatch, useStore } from 'react-redux';
 import { SHOW_URL_MODAL } from 'action-types';
 import urlAction from 'actions/url';
 import EditIcon from 'assets/icons/edit.svg';
+import loadingIcon from 'assets/icons/loading.svg';
 import { ReactComponent as ReactLogo } from 'assets/image/web.svg';
 
 export default function InputUrlLogIn() {
   const [longUrl, setLongUrl] = useState('');
   const [slug, setSlug] = useState('');
+  const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState(false);
   const [slugErr, setSlugErr] = useState({ invalid: false, exist: false });
   const dispatch = useDispatch();
@@ -29,6 +31,8 @@ export default function InputUrlLogIn() {
         setSlugErr({ ...slugErr, exist: true });
         setTimeout(() => setSlugErr({ ...slugErr, invalid: false }), 3000);
       } else {
+        setLoading(true);
+        setTimeout(() => setLoading(false), 1000);
         dispatch({
           type: SHOW_URL_MODAL,
           payload: true,
@@ -91,6 +95,30 @@ export default function InputUrlLogIn() {
           >
             Shorten
           </button>
+          {!loading ? (
+            <button
+              type="button"
+              className={`absolute inset-y-5 right-5 hidden text-base text-white md:block w-[152px] h-[64px] bg-gdscBlue-300 rounded-[8px] hover:bg-shorten-btn-hover ease-out duration-300 ${
+                !longUrl
+                && 'bg-gdscBlue-100 hover:bg-gdscBlue-100 cursor-not-allowed'
+              }`}
+              onClick={handleClick}
+            >
+              Shorten
+            </button>
+          ) : (
+            <button
+              type="button"
+              className="absolute inset-y-5 right-5 hidden text-base text-white md:block w-[152px] h-[64px] bg-gdscBlue-300 rounded-[8px] hover:bg-shorten-btn-hover ease-out duration-300"
+              disabled
+            >
+              <img
+                src={loadingIcon}
+                className="inline mr-3 w-6 h-6 animate-spin"
+                alt="Loading indicator"
+              />
+            </button>
+          )}
         </div>
       </div>
       <div className="relative md:hidden bg-white rounded-[8px] mr-5 h-[70px] flex items-center pl-5 space-x-5 rounded-md border shadow-lg border-gdscGrey-200">
@@ -118,15 +146,30 @@ export default function InputUrlLogIn() {
       {slugErr.exist && (
         <p className="text-gdscRed-300 md:hidden">Slug already exists!</p>
       )}
-      <button
-        type="button"
-        className={`text-base text-white md:hidden w-[152px] h-[60px] bg-gdscBlue-300 rounded hover:bg-shorten-btn-hover ${
-          !longUrl && 'bg-gdscBlue-100 hover:bg-gdscBlue-100 cursor-not-allowed'
-        }`}
-        onClick={handleClick}
-      >
-        Shorten
-      </button>
+      {!loading ? (
+        <button
+          type="button"
+          className={`text-base text-white md:hidden w-[152px] h-[60px] bg-gdscBlue-300 rounded hover:bg-shorten-btn-hover ${
+            !longUrl
+            && 'bg-gdscBlue-100 hover:bg-gdscBlue-100 cursor-not-allowed'
+          }`}
+          onClick={handleClick}
+        >
+          Shorten
+        </button>
+      ) : (
+        <button
+          type="button"
+          className="text-base text-white md:hidden w-[152px] h-[60px] bg-gdscBlue-300 rounded hover:bg-shorten-btn-hover"
+          disabled
+        >
+          <img
+            src={loadingIcon}
+            className="inline mr-3 w-6 h-6 animate-spin"
+            alt="Loading indicator"
+          />
+        </button>
+      )}
     </div>
   );
 }

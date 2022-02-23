@@ -164,7 +164,6 @@ export default function SignUpForm({ isMobile }) {
             className="inline mr-3 w-6 h-6 animate-spin"
             alt="Loading indicator"
           />
-          Loading...
         </button>
       )}
       {isMobile ? (
