@@ -15,18 +15,19 @@ export default function InputUrlField() {
   const handleLongUrl = (e) => setLongUrl(e.target.value);
   const handleClick = async () => {
     if (longUrl) {
+      setLoading(true);
       await dispatch(urlAction.shortenUrl(longUrl));
       const reduxState = store.getState();
       if (reduxState.url.error.msg === 'Bad Request') {
+        setLoading(reduxState.url.loading);
         setAlert(true);
         setTimeout(() => setAlert(false), 3000);
       } else {
-        setLoading(true);
-        setTimeout(() => setLoading(false), 1000);
         dispatch({
           type: SHOW_URL_MODAL,
           payload: true,
         });
+        setLoading(reduxState.url.loading);
       }
     }
   };

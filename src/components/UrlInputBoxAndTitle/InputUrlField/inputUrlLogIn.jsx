@@ -19,24 +19,27 @@ export default function InputUrlLogIn() {
   const handleSlug = (e) => setSlug(e.target.value);
   const handleClick = async () => {
     if (longUrl) {
+      setLoading(true);
       await dispatch(urlAction.shortenUrlWithSlug(longUrl, slug));
       const reduxState = store.getState();
       if (reduxState.urlWithSlug.error.msg === 'Bad Request') {
+        setLoading(reduxState.urlWithSlug.loading);
         setAlert(true);
         setTimeout(() => setAlert(false), 2000);
       } else if (reduxState.urlWithSlug.invalidSlug.msg === 'Bad Request') {
+        setLoading(reduxState.urlWithSlug.loading);
         setSlugErr({ ...slugErr, invalid: true });
         setTimeout(() => setSlugErr({ ...slugErr, invalid: false }), 3000);
       } else if (reduxState.urlWithSlug.slugTaken === true) {
+        setLoading(reduxState.urlWithSlug.loading);
         setSlugErr({ ...slugErr, exist: true });
         setTimeout(() => setSlugErr({ ...slugErr, invalid: false }), 3000);
       } else {
-        setLoading(true);
-        setTimeout(() => setLoading(false), 1000);
         dispatch({
           type: SHOW_URL_MODAL,
           payload: true,
         });
+        setLoading(reduxState.urlWithSlug.loading);
       }
     }
   };

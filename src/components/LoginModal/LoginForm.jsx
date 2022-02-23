@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, useStore } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { SHOW_LOG_IN_MODAL, SHOW_FORGOT_PASSWORD_MODAL } from 'action-types';
@@ -10,7 +10,7 @@ export default function LoginForm() {
   const { LogInModal } = useSelector((state) => state.showModal);
   const { error } = useSelector((state) => state.error);
   const dispatch = useDispatch();
-
+  const store = useStore();
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState('');
@@ -67,13 +67,14 @@ export default function LoginForm() {
     return formIsValid;
   };
 
-  const handleSignIn = (e) => {
+  const handleSignIn = async (e) => {
     e.preventDefault();
 
     if (handleValidation()) {
       setLoading(true);
-      setTimeout(() => setLoading(false), 2000);
-      dispatch(login(email, password));
+      await dispatch(login(email, password));
+      const reduxState = store.getState();
+      setLoading(reduxState.auth.loading);
     }
   };
 

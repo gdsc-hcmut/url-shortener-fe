@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, useStore } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { SHOW_LOG_IN_MODAL, SHOW_SIGN_UP_MODAL } from 'action-types';
@@ -11,7 +11,7 @@ export default function SignUpForm({ isMobile }) {
   const { SignupModal } = useSelector((state) => state.showModal);
   const { error } = useSelector((state) => state.error);
   const dispatch = useDispatch();
-
+  const store = useStore();
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState('');
@@ -71,13 +71,14 @@ export default function SignUpForm({ isMobile }) {
     return formIsValid;
   };
 
-  const handleSignUp = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
 
     if (handleValidation()) {
       setLoading(true);
-      setTimeout(() => setLoading(false), 2000);
-      dispatch(register(email, password));
+      await dispatch(register(email, password));
+      const reduxState = store.getState();
+      setLoading(reduxState.auth.loading);
     }
   };
 
