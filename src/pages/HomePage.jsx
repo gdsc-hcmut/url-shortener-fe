@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Navigate } from 'react-router';
@@ -9,6 +10,7 @@ import {
   SHOW_FORGOT_PASSWORD_MODAL,
 } from 'action-types';
 import { clearError } from 'actions/error';
+import transitionAnimation from 'animations';
 import Footer from 'components/Footer';
 import ForgotPassword from 'components/ForgotPassword';
 import LoginModal from 'components/LoginModal';
@@ -28,7 +30,14 @@ export default function HomePage() {
     return <Navigate to="/home" />;
   }
   return (
-    <div className="flex flex-col justify-center md:items-center bg-mobile-background md:bg-blue md:bg-contain">
+    <motion.div
+      className="flex flex-col justify-center md:items-center bg-mobile-background md:bg-blue md:bg-contain"
+      initial="out"
+      animate="in"
+      exit="out"
+      variants={transitionAnimation.pageTransition}
+      transition={transitionAnimation.transitionDuration}
+    >
       <NavBar home />
       <div className="ml-[1.25rem] mt-[136px] mb-[23.5rem] md:mt-[152px] md:mb-[276px]">
         <UrlInputBoxAndTitle loggedIn={false} />
@@ -78,6 +87,6 @@ export default function HomePage() {
         slug={slug}
       />
       <Footer />
-    </div>
+    </motion.div>
   );
 }

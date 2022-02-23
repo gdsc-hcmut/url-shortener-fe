@@ -1,7 +1,9 @@
+import { motion } from 'framer-motion';
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { SHOW_URL_MODAL } from 'action-types';
+import transitionAnimation from 'animations';
 import { ReactComponent as MenuIcon } from 'assets/icons/menu.svg';
 import Footer from 'components/Footer';
 import ModalUrl from 'components/ModalUrl';
@@ -18,9 +20,14 @@ export default function HomepageLogin() {
     setToggleMenu(!toggleMenu);
   };
   return (
-    <div
+    <motion.div
       aria-hidden="true"
       className="flex flex-col relative justify-center md:items-center bg-mobile-background md:bg-blue md:bg-contain"
+      initial="out"
+      animate="in"
+      exit="out"
+      variants={transitionAnimation.pageTransition}
+      transition={transitionAnimation.transitionDuration}
     >
       <button
         type="button"
@@ -49,6 +56,6 @@ export default function HomepageLogin() {
         slug={slug}
       />
       <Footer />
-    </div>
+    </motion.div>
   );
 }

@@ -1,5 +1,7 @@
+import { motion } from 'framer-motion';
 import React, { useState } from 'react';
 
+import transitionAnimation from 'animations';
 import { ReactComponent as MenuIcon } from 'assets/icons/menu.svg';
 import ChangePassword from 'components/ChangePassword';
 import Footer from 'components/Footer';
@@ -13,7 +15,15 @@ export default function ChangePasswordPage() {
     setToggleMenu(!toggleMenu);
   };
   return (
-    <div aria-hidden="true" className="max-h-[100vh] detail-page flex flex-col">
+    <motion.div
+      aria-hidden="true"
+      className="max-h-[100vh] detail-page flex flex-col"
+      initial="out"
+      animate="in"
+      exit="out"
+      variants={transitionAnimation.pageTransition}
+      transition={transitionAnimation.transitionDuration}
+    >
       <button
         type="button"
         className="absolute md:hidden right-5 top-3 z-50"
@@ -33,6 +43,6 @@ export default function ChangePasswordPage() {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

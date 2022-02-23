@@ -1,7 +1,9 @@
+import { motion } from 'framer-motion';
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router';
 
+import transitionAnimation from 'animations';
 import SignUpModalMobile from 'components/SignUpModal/SignUpModalMobile';
 
 export default function SignUpMobilePage() {
@@ -23,9 +25,15 @@ export default function SignUpMobilePage() {
       return <Navigate to="/home" />;
     }
     return (
-      <div>
+      <motion.div
+        initial="out"
+        animate="in"
+        exit="out"
+        variants={transitionAnimation.pageTransition}
+        transition={transitionAnimation.transitionDuration}
+      >
         <SignUpModalMobile />
-      </div>
+      </motion.div>
     );
   }
   return <div> </div>;
