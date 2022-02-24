@@ -24,7 +24,7 @@ export default function StatisticPage() {
         <SideMenu toggle={toggleMenu} page="stat" />
         <div className="bg-white md:bg-gdscGrey-100 mt-[48px] md:mt-0 h-full w-full md:h-6 md:min-h-screen flex-1 md:overflow-y-scroll">
           <div className="mt-60 pb-[120px] md:pb-[156px] flex justify-center items-center text-2xl text-gdscRed-300">
-            The This Page is still in development. Sorry for the inconvenience.
+            This Page is still in development. Sorry for the inconvenience.
           </div>
           <div className="md:hidden">
             <Footer />
