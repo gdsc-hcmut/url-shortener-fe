@@ -102,5 +102,8 @@ module.exports = {
       'input-field-col': '1452px',
     },
   },
+  variants: {
+    fill: ['hover', 'focus'],
+  },
   plugins: [],
 };

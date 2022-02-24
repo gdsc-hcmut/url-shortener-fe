@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { logout } from 'actions/auth';
-import AccountCircle from 'assets/icons/account_circle.svg';
+import { ReactComponent as AccountCircle } from 'assets/icons/account_circle.svg';
 import LogoutIcon from 'assets/icons/logout.svg';
 
 export default function NavbarModal({ show, onClose }) {
@@ -34,9 +34,9 @@ export default function NavbarModal({ show, onClose }) {
         <Link to="/profile">
           <button
             type="button"
-            className="relative w-[244px] h-[52px] text-gdscGrey-700 hover:text-gdscBlue-300 bg-white hover:bg-gdscBlue-100 hover:bg-opacity-20 rounded flex items-center pl-6 transition duration-300 ease-out"
+            className="relative w-[244px] h-[52px] text-gdscGrey-700 hover:text-gdscBlue-300 bg-white hover:bg-gdscBlue-100 hover:bg-opacity-20 rounded flex items-center pl-5 transition duration-300 ease-out"
           >
-            <img src={AccountCircle} alt="Account Circle" />
+            <AccountCircle />
             <p className="ml-4">My profile</p>
           </button>
         </Link>
