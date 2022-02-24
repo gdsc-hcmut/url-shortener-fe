@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .social-media {
+    @apply text-base md:text-[18px] my-[5px];
+  }
+}
+@font-face {
+  font-family: 'GoogleSans';
+  src: local('GoogleSans'), url(./assets/fonts/GoogleSans-Regular-v1.27.ttf),
+    format('truetype');
+}
+
+body,
+html {
+  font-family: GoogleSans, sans-serif;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.rounded-full {
+  border-radius: 100%;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f2f2f2;
+}
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background-color: #e7e7e7;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #babac0;
+}
+.test {
+  color: red;
+}
+.css-yquuwn,
+.PrivatePickersToolbar-root.css-ctu4nj {
+  background-color: #4285f4;
+  color: white;
+}
+span.MuiTypography-root.MuiTypography-overline.css-1hbyad5-MuiTypography-root,
+span.MuiTypography-root.MuiTypography-h3.css-1uwj4ci-MuiTypography-root,
+span.MuiTypography-root.MuiTypography-subtitle1.css-1m0r2kt-MuiTypography-root,
+span.MuiTypography-root.MuiTypography-h4.Mui-selected.css-wb55pf-MuiTypography-root,
+span.MuiTypography-root.MuiTypography-h3.css-1nql4ji-MuiTypography-root,
+span.MuiTypography-root.MuiTypography-h3.css-1nql4ji-MuiTypography-root,
+span.MuiTypography-root.MuiTypography-h4.css-wb55pf-MuiTypography-root {
+  color: white;
+}
