@@ -11,6 +11,7 @@ const initialState = {
   error: {},
   invalidSlug: {},
   slugTaken: false,
+  loading: true,
 };
 
 export default (state = initialState, { type, payload } = {}) => {
@@ -23,6 +24,7 @@ export default (state = initialState, { type, payload } = {}) => {
         error: {},
         invalidSlug: {},
         slugTaken: false,
+        loading: false,
       };
     case URL_ERROR:
       return {
@@ -30,6 +32,7 @@ export default (state = initialState, { type, payload } = {}) => {
         error: payload,
         invalidSlug: {},
         slugTaken: false,
+        loading: false,
       };
     case INVALID_SLUG:
       return {
@@ -37,6 +40,7 @@ export default (state = initialState, { type, payload } = {}) => {
         error: {},
         invalidSlug: payload,
         slugTaken: false,
+        loading: false,
       };
     case SLUG_TAKEN:
       return {
@@ -44,6 +48,7 @@ export default (state = initialState, { type, payload } = {}) => {
         error: {},
         invalidSlug: {},
         slugTaken: true,
+        loading: false,
       };
     default:
       return state;

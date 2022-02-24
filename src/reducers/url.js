@@ -18,6 +18,7 @@ const initialState = {
   newSlug: '',
   newExpireTime: null,
   urlList: [],
+  loading: true,
 };
 
 export default (state = initialState, { type, payload } = {}) => {
@@ -30,6 +31,7 @@ export default (state = initialState, { type, payload } = {}) => {
         slugExist: false,
         error: {},
         invalidSlug: {},
+        loading: false,
       };
     case EDIT_SLUG:
       return {
@@ -61,6 +63,7 @@ export default (state = initialState, { type, payload } = {}) => {
         error: payload,
         slugExist: false,
         invalidSlug: {},
+        loading: false,
       };
     case SLUG_EDIT_INVALID:
       return {

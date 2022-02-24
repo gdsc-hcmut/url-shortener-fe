@@ -3,19 +3,23 @@ import { useDispatch, useStore } from 'react-redux';
 
 import { SHOW_URL_MODAL } from 'action-types';
 import urlAction from 'actions/url';
+import loadingIcon from 'assets/icons/loading.svg';
 import { ReactComponent as ReactLogo } from 'assets/image/web.svg';
 
 export default function InputUrlField() {
   const [longUrl, setLongUrl] = useState('');
   const [alert, setAlert] = useState(false);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const store = useStore();
   const handleLongUrl = (e) => setLongUrl(e.target.value);
   const handleClick = async () => {
     if (longUrl) {
+      setLoading(true);
       await dispatch(urlAction.shortenUrl(longUrl));
       const reduxState = store.getState();
       if (reduxState.url.error.msg === 'Bad Request') {
+        setLoading(reduxState.url.loading);
         setAlert(true);
         setTimeout(() => setAlert(false), 3000);
       } else {
@@ -23,6 +27,7 @@ export default function InputUrlField() {
           type: SHOW_URL_MODAL,
           payload: true,
         });
+        setLoading(reduxState.url.loading);
       }
     }
   };
@@ -45,16 +50,30 @@ export default function InputUrlField() {
         </div>
         <ReactLogo className="absolute top-12 left-[292px]" />
         <div>
-          <button
-            type="button"
-            className={`absolute inset-y-5 right-5 hidden text-base text-white md:block w-[152px] h-[60px] bg-gdscBlue-300 rounded-[8px] hover:bg-shorten-btn-hover ease-out duration-300 ${
-              !longUrl
-              && 'bg-gdscBlue-100 hover:bg-gdscBlue-100 cursor-not-allowed'
-            }`}
-            onClick={handleClick}
-          >
-            Shorten
-          </button>
+          {!loading ? (
+            <button
+              type="button"
+              className={`absolute inset-y-5 right-5 hidden text-base text-white md:block w-[152px] h-[60px] bg-gdscBlue-300 rounded-[8px] hover:bg-shorten-btn-hover ease-out duration-300 ${
+                !longUrl
+                && 'bg-gdscBlue-100 hover:bg-gdscBlue-100 cursor-not-allowed'
+              }`}
+              onClick={handleClick}
+            >
+              Shorten
+            </button>
+          ) : (
+            <button
+              type="button"
+              className="absolute inset-y-5 right-5 hidden text-base text-white md:block w-[152px] h-[60px] bg-gdscBlue-300 rounded-[8px] hover:bg-shorten-btn-hover ease-out duration-300"
+              disabled
+            >
+              <img
+                src={loadingIcon}
+                className="inline mr-3 w-6 h-6 animate-spin"
+                alt="Loading indicator"
+              />
+            </button>
+          )}
         </div>
       </div>
       <div className="relative md:hidden bg-white rounded-[8px] mr-5 h-[72px] flex items-center pl-6 space-x-5 border shadow-lg border-gdscGrey-200">
@@ -67,15 +86,30 @@ export default function InputUrlField() {
         />
       </div>
       {alert && <p className="text-gdscRed-300 md:hidden">Invalid Url!</p>}
-      <button
-        type="button"
-        className={`text-base text-white md:hidden w-[152px] h-[60px] bg-gdscBlue-300 rounded hover:bg-shorten-btn-hover ${
-          !longUrl && 'bg-gdscBlue-100 hover:bg-gdscBlue-100 cursor-not-allowed'
-        }`}
-        onClick={handleClick}
-      >
-        Shorten
-      </button>
+      {!loading ? (
+        <button
+          type="button"
+          className={`text-base text-white md:hidden w-[152px] h-[60px] bg-gdscBlue-300 rounded hover:bg-shorten-btn-hover ${
+            !longUrl
+            && 'bg-gdscBlue-100 hover:bg-gdscBlue-100 cursor-not-allowed'
+          }`}
+          onClick={handleClick}
+        >
+          Shorten
+        </button>
+      ) : (
+        <button
+          type="button"
+          className="text-base text-white md:hidden w-[152px] h-[60px] bg-gdscBlue-300 rounded hover:bg-shorten-btn-hover"
+          disabled
+        >
+          <img
+            src={loadingIcon}
+            className="inline mr-3 w-6 h-6 animate-spin"
+            alt="Loading indicator"
+          />
+        </button>
+      )}
     </div>
   );
 }

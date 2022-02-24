@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, useStore } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { SHOW_LOG_IN_MODAL, SHOW_FORGOT_PASSWORD_MODAL } from 'action-types';
 import { login } from 'actions/auth';
+import loadingIcon from 'assets/icons/loading.svg';
 
 export default function LoginForm() {
   const { LogInModal } = useSelector((state) => state.showModal);
   const { error } = useSelector((state) => state.error);
   const dispatch = useDispatch();
-
+  const store = useStore();
   const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
   const [width, setWidth] = useState(window.innerWidth);
@@ -65,11 +67,14 @@ export default function LoginForm() {
     return formIsValid;
   };
 
-  const handleSignIn = (e) => {
+  const handleSignIn = async (e) => {
     e.preventDefault();
 
     if (handleValidation()) {
-      dispatch(login(email, password));
+      setLoading(true);
+      await dispatch(login(email, password));
+      const reduxState = store.getState();
+      setLoading(reduxState.auth.loading);
     }
   };
 
@@ -129,14 +134,30 @@ export default function LoginForm() {
           </button>
         </div>
       )}
-      <button
-        className="font-normal text-white w-[376px] md:w-full h-[60px]
-                  bg-gdscBlue-300 rounded hover:bg-shorten-btn-hover
-                  transition-all duration-300 ease-out mb-7"
-        type="submit"
-      >
-        Log In
-      </button>
+      {!loading ? (
+        <button
+          className="font-normal text-white w-[376px] md:w-full h-[60px]
+          bg-gdscBlue-300 rounded hover:bg-shorten-btn-hover
+          transition-all duration-300 ease-out mb-7"
+          type="submit"
+        >
+          Log In
+        </button>
+      ) : (
+        <button
+          type="button"
+          className="font-normal text-white w-[376px] md:w-full h-[60px]
+          bg-gdscBlue-300 rounded hover:bg-shorten-btn-hover
+          transition-all duration-300 ease-out mb-7"
+          disabled
+        >
+          <img
+            src={loadingIcon}
+            className="inline mr-3 w-6 h-6 animate-spin"
+            alt="Loading indicator"
+          />
+        </button>
+      )}
     </form>
   );
 }

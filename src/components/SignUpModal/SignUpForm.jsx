@@ -1,17 +1,19 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, useStore } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { SHOW_LOG_IN_MODAL, SHOW_SIGN_UP_MODAL } from 'action-types';
 import { register } from 'actions/auth';
+import loadingIcon from 'assets/icons/loading.svg';
 
 export default function SignUpForm({ isMobile }) {
   const { SignupModal } = useSelector((state) => state.showModal);
   const { error } = useSelector((state) => state.error);
   const dispatch = useDispatch();
-
+  const store = useStore();
   const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errors, setErrors] = useState({});
@@ -69,11 +71,14 @@ export default function SignUpForm({ isMobile }) {
     return formIsValid;
   };
 
-  const handleSignUp = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
 
     if (handleValidation()) {
-      dispatch(register(email, password));
+      setLoading(true);
+      await dispatch(register(email, password));
+      const reduxState = store.getState();
+      setLoading(reduxState.auth.loading);
     }
   };
 
@@ -140,13 +145,28 @@ export default function SignUpForm({ isMobile }) {
       <span className="text-gdscRed-300 mt-2 md:px-10">
         {errors.confirmPassword}
       </span>
-      <button
-        type="submit"
-        className="w-[376px] md:w-[420px] h-[60px] bg-gdscBlue-300 mt-7 self-center
-        rounded-[8px] text-white hover:bg-shorten-btn-hover transition-all ease-out duration-300"
-      >
-        Register
-      </button>
+      {!loading ? (
+        <button
+          className="w-[376px] md:w-[420px] h-[60px] bg-gdscBlue-300 mt-7 self-center
+          rounded-[8px] text-white hover:bg-shorten-btn-hover transition-all ease-out duration-300"
+          type="submit"
+        >
+          Register
+        </button>
+      ) : (
+        <button
+          type="button"
+          className="w-[376px] md:w-[420px] h-[60px] bg-gdscBlue-300 mt-7 self-center
+          rounded-[8px] text-white hover:bg-shorten-btn-hover transition-all ease-out duration-300"
+          disabled
+        >
+          <img
+            src={loadingIcon}
+            className="inline mr-3 w-6 h-6 animate-spin"
+            alt="Loading indicator"
+          />
+        </button>
+      )}
       {isMobile ? (
         <Link to="/sign-in" className="self-center">
           <button type="button" className="mt-7 text-base">
