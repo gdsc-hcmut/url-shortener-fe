@@ -46,7 +46,7 @@ export default function UserFormDesktop() {
   return (
     <div
       aria-hidden
-      className="hidden md:block ml-[60px] mr-[60px] mt-[64px]"
+      className="hidden md:block ml-[60px] mr-[60px] mt-10"
       onClick={() => {
         setField({
           ...field,

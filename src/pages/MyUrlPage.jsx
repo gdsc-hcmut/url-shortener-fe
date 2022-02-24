@@ -26,7 +26,7 @@ export default function MyUrlPage() {
         className="flex overflow-y-scroll overflow-x-scroll md:overflow-hidden h-full"
       >
         <SideMenu toggle={toggleMenu} page="urls" />
-        <div className="bg-gdscGrey-100 h-full md:h-6 md:min-h-screen flex-1 md:pl-[60px] md:pt-10 md:pb-[156px] pl-5 text-2xl font-bold flex">
+        <div className="bg-gdscGrey-100 h-full md:h-full flex-1 pl-5 md:pl-[60px] md:pt-10 md:pb-[156px] text-2xl font-bold flex">
           <MyUrl />
         </div>
       </div>

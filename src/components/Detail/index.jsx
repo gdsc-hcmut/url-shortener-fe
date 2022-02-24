@@ -146,7 +146,7 @@ export default function Detail({ id }) {
         </div>
       </div>
       <div className="flex flex-col ">
-        <div className="inline-flex flex-wrap gap-6 mb-6 ">
+        <div className="inline-flex flex-wrap gap-6 mb-6 md:gap-4 md:mb-4 3xl:gap-6 3xl:mb-6 ">
           <ExpireTime expireTime={urlDetail.expireTime} id={id} />
           <CreatedOn createOn={urlDetail.createdAt} />
           <TodayClick
@@ -164,7 +164,7 @@ export default function Detail({ id }) {
           />
           <TotalClick totalClick={urlDetail.totalClicks.length} />
         </div>
-        <div className="flex flex-col 3xl:flex-row border-x-lime-400:flex-row mb-6 3xl:mb-0">
+        <div className="flex flex-col lg:flex-row border-x-lime-400:flex-row mb-6 lg:mb-0">
           <SocialMedia
             data={{
               Facebook: urlDetail.totalClicks.filter(

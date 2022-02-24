@@ -5,7 +5,7 @@ import { ReactComponent as TodayClickIcon } from 'assets/icons/today_click_icon.
 
 export default function TodayClick({ todayClick }) {
   return (
-    <div className="h-[116px] md:h-32 md:w-[504px] w-full py-7 px-5 flex justify-between mx-0  bg-white rounded">
+    <div className="h-[116px] md:h-[100px] 3xl:h-32 3xl:w-[504px] md:w-[504px] lg:w-[312px] w-full py-7 md:py-3 3xl:py-7 px-5 flex justify-between bg-white rounded">
       <div className="h-[72px] w-[72px] bg-opacity-10 bg-gdscYellow-300 rounded flex justify-center items-center ">
         <TodayClickIcon />
       </div>

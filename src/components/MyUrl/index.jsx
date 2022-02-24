@@ -137,7 +137,7 @@ export default function MyUrl({ id }) {
   }, [isOpen]);
 
   return (
-    <div className="bg-opacity-0 flex flex-col md:w-[392px] h-full w-full md:pr-0 md:p-0 py-5 pr-5">
+    <div className="bg-opacity-0 flex flex-col xl:w-[296px] 3xl:w-[392px] h-full w-full xl:p-0 py-5 pr-5 md:pr-[60px] xl:pr-0 md:overflow-y-scroll no-scrollbar">
       <div className="modal absolute z-50">
         <EditSlugModal
           slug={currSlug}
@@ -172,7 +172,7 @@ export default function MyUrl({ id }) {
 
       <button
         type="button"
-        className="z-10 w-40 h-11 text-base text-gdscGrey-700 px-5 outline-none bg-white my-3 mx-0 self-end text-left cursor-pointer focus:outline-none rounded block md:absolute md:mt-1 md:mr-4"
+        className="z-10 w-40 xl:w-32 3xl:w-40 h-11 text-base text-gdscGrey-700 px-5 outline-none bg-white my-3 mx-0 self-end text-left cursor-pointer focus:outline-none rounded block xl:absolute xl:mt-1 xl:mr-4"
         aria-haspopup="listbox"
         aria-expanded="true"
         aria-labelledby="listbox-label"
@@ -185,7 +185,7 @@ export default function MyUrl({ id }) {
           </span>
         </span>
         <div
-          className={`relative top-2 right-5 space-y-2 w-40 h-[116px] bg-white rounded font-light shadow-md text-base px-5 py-3 ${
+          className={`relative top-2 right-5 space-y-2 w-40 h-[116px] bg-white rounded font-light shadow-xl text-base px-5 py-3 ${
             isOpen ? '' : 'hidden'
           }`}
         >
@@ -206,19 +206,19 @@ export default function MyUrl({ id }) {
       </button>
 
       <input
-        className="w-full h-14 bg-white border-[1px] border-gdscGrey-300 focus:border-gdscBlue-300 px-5 outline-none rounded text-base mt-5 font-light md:w-[376px] relative"
+        className="w-full h-14 bg-white border-[1px] border-gdscGrey-300 focus:border-gdscBlue-300 px-5 outline-none rounded text-base mt-5 font-light xl:w-[284px] 3xl:w-[376px] relative"
         placeholder="Search your URL ..."
         value={search}
         onChange={handleSearch}
       />
       <ul
-        className="md:overflow-y-scroll mt-10 space-y-5 relative h-full "
+        className="xl:overflow-y-scroll mt-10 space-y-5 relative h-full "
         onScroll={handleScroll}
       >
         {(search ? searchList : urlList).map((url) => (
           <li
             key={url.slug}
-            className={`w-full h-[100px] flex flex-col space-y-2 justify-center rounded font-normal md:w-[376px] ${
+            className={`w-full h-[100px] flex flex-col space-y-2 justify-center rounded font-normal xl:w-[284px] 3xl:w-[376px] ${
               url.id === id
                 ? 'bg-[#F1F6FE] border-2 border-gdscBlue-300 p-[18px]'
                 : 'bg-white px-5'
@@ -234,7 +234,7 @@ export default function MyUrl({ id }) {
               <span className="text-base text-gdscGrey-700 w-32 truncate  ">
                 {url.slug}
               </span>
-              <div className="flex space-x-2 lg:hidden">
+              <div className="flex space-x-2 xl:hidden">
                 <button
                   type="button"
                   aria-label="Copy Button"
