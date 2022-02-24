@@ -2,13 +2,13 @@ import { getAnalytics } from 'firebase/analytics';
 import { initializeApp } from 'firebase/app';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyAgrh6lQMSuP9bN1D85qUDb8lf6P9A8TfY',
-  authDomain: 'gdsc-url-shortener.firebaseapp.com',
-  projectId: 'gdsc-url-shortener',
-  storageBucket: 'gdsc-url-shortener.appspot.com',
-  messagingSenderId: '887409352695',
-  appId: '1:887409352695:web:244cb0a1dba2c71d2cd8f2',
-  measurementId: 'G-FRQH8KNRVC',
+  apiKey: 'AIzaSyAtEmHhdbIDe5u91yCeYl3rqmsFm9n6VkA',
+  authDomain: 'url-shortener-production.firebaseapp.com',
+  projectId: 'url-shortener-production',
+  storageBucket: 'url-shortener-production.appspot.com',
+  messagingSenderId: '441677540122',
+  appId: '1:441677540122:web:c77a756155c498c0bc9aa3',
+  measurementId: 'G-EPB91F8BWG',
 };
 
 const app = initializeApp(firebaseConfig);
