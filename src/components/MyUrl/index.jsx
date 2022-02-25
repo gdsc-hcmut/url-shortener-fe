@@ -206,13 +206,13 @@ export default function MyUrl({ id }) {
       </button>
 
       <input
-        className="w-full h-14 bg-white border-[1px] border-gdscGrey-300 focus:border-gdscBlue-300 px-5 outline-none rounded text-base mt-5 font-light xl:w-[284px] 3xl:w-[376px] relative"
+        className="w-full min-h-[56px] bg-white border-[1px] border-gdscGrey-300 focus:border-gdscBlue-300 px-5 outline-none rounded text-base mt-5 mb-10 font-light xl:w-[284px] 3xl:w-[376px] relative"
         placeholder="Search your URL ..."
         value={search}
         onChange={handleSearch}
       />
       <ul
-        className="xl:overflow-y-scroll mt-10 space-y-5 relative h-full "
+        className="xl:overflow-y-scroll space-y-5 relative h-full "
         onScroll={handleScroll}
       >
         {(search ? searchList : urlList).map((url) => (
