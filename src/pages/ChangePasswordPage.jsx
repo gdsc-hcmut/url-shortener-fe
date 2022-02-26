@@ -15,15 +15,7 @@ export default function ChangePasswordPage() {
     setToggleMenu(!toggleMenu);
   };
   return (
-    <motion.div
-      aria-hidden="true"
-      className="max-h-[100vh] detail-page flex flex-col"
-      initial="out"
-      animate="in"
-      exit="out"
-      variants={transitionAnimation.pageTransition}
-      transition={transitionAnimation.transitionDuration}
-    >
+    <div aria-hidden="true" className="max-h-[100vh] detail-page flex flex-col">
       <button
         type="button"
         className="absolute md:hidden right-5 top-3 z-50"
@@ -35,14 +27,21 @@ export default function ChangePasswordPage() {
       <div className="flex md:overflow-x-scroll md:overflow-hidden h-full">
         <SideMenu toggle={toggleMenu} page="change-password" />
         <div className="bg-white md:bg-gdscGrey-100 mt-[48px] md:mt-0 h-full w-full md:h-6 md:min-h-screen flex-1 md:overflow-y-scroll">
-          <div className="pb-[120px] md:pb-[156px]">
+          <motion.div
+            className="pb-[120px] md:pb-[156px]"
+            initial="out"
+            animate="in"
+            exit="out"
+            variants={transitionAnimation.bodyTransition}
+            transition={transitionAnimation.transitionDuration}
+          >
             <ChangePassword />
-          </div>
+          </motion.div>
           <div className="md:hidden">
             <Footer />
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }

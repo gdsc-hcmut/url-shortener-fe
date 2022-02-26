@@ -30,17 +30,27 @@ export default function HomePage() {
     return <Navigate to="/home" />;
   }
   return (
-    <motion.div
-      className="flex flex-col justify-center md:items-center bg-mobile-background md:bg-blue md:bg-contain"
-      initial="out"
-      animate="in"
-      exit="out"
-      variants={transitionAnimation.pageTransition}
-      transition={transitionAnimation.transitionDuration}
-    >
-      <NavBar home />
+    <div className="flex flex-col justify-center md:items-center bg-mobile-background md:bg-blue md:bg-contain">
+      <motion.div
+        initial="out"
+        animate="in"
+        exit="out"
+        variants={transitionAnimation.navbarTransition}
+        transition={transitionAnimation.transitionDuration}
+        className="w-full"
+      >
+        <NavBar home />
+      </motion.div>
       <div className="ml-[1.25rem] mt-[136px] mb-[23.5rem] md:mt-[152px] md:mb-[276px]">
-        <UrlInputBoxAndTitle loggedIn={false} />
+        <motion.div
+          initial="out"
+          animate="in"
+          exit="out"
+          variants={transitionAnimation.urlInputBoxTransition}
+          transition={transitionAnimation.transitionDuration}
+        >
+          <UrlInputBoxAndTitle loggedIn={false} />
+        </motion.div>
         <LoginModal
           title="Login Modal"
           onClose={() => {
@@ -87,6 +97,6 @@ export default function HomePage() {
         slug={slug}
       />
       <Footer />
-    </motion.div>
+    </div>
   );
 }

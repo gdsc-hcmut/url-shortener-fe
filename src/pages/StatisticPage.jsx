@@ -13,15 +13,7 @@ export default function StatisticPage() {
     setToggleMenu(!toggleMenu);
   };
   return (
-    <motion.div
-      aria-hidden="true"
-      className="max-h-[100vh] detail-page flex flex-col"
-      initial="out"
-      animate="in"
-      exit="out"
-      variants={transitionAnimation.pageTransition}
-      transition={transitionAnimation.transitionDuration}
-    >
+    <div aria-hidden="true" className="max-h-[100vh] detail-page flex flex-col">
       <button
         type="button"
         className="absolute md:hidden right-5 top-3 z-50"
@@ -33,14 +25,21 @@ export default function StatisticPage() {
       <div className="flex md:overflow-x-scroll md:overflow-hidden h-full">
         <SideMenu toggle={toggleMenu} page="stat" />
         <div className="bg-white md:bg-gdscGrey-100 mt-[48px] md:mt-0 h-full w-full md:h-6 md:min-h-screen flex-1 md:overflow-y-scroll">
-          <div className="mt-60 pb-[120px] md:pb-[156px] flex justify-center items-center text-2xl text-gdscRed-300">
-            This Page is still in development. Sorry for the inconvenience.
-          </div>
+          <motion.div
+            className="mt-60 pb-[120px] md:pb-[156px] flex justify-center items-center text-2xl text-gdscRed-300"
+            initial="out"
+            animate="in"
+            exit="out"
+            variants={transitionAnimation.bodyTransition}
+            transition={transitionAnimation.transitionDuration}
+          >
+            The This Page is still in development. Sorry for the inconvenience.
+          </motion.div>
           <div className="md:hidden">
             <Footer />
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }

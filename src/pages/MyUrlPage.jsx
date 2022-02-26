@@ -14,15 +14,7 @@ export default function MyUrlPage() {
   };
 
   return (
-    <motion.div
-      aria-hidden="true"
-      className="max-h-[100vh] detail-page flex flex-col"
-      initial="out"
-      animate="in"
-      exit="out"
-      variants={transitionAnimation.pageTransition}
-      transition={transitionAnimation.transitionDuration}
-    >
+    <div aria-hidden="true" className="max-h-[100vh] detail-page flex flex-col">
       <button
         type="button"
         className="absolute md:hidden right-5 top-3 z-50"
@@ -36,10 +28,17 @@ export default function MyUrlPage() {
         className="flex overflow-y-scroll overflow-x-scroll md:overflow-hidden h-full"
       >
         <SideMenu toggle={toggleMenu} page="urls" />
-        <div className="bg-gdscGrey-100 md:min-h-screen flex-1 md:pl-[60px] pl-5 3xl:pl-[60px] md:pt-10 md:pb-[132px] text-2xl font-bold flex overflow-x-scroll">
+        <motion.div
+          className="bg-gdscGrey-100 md:min-h-screen flex-1 md:pl-[60px] pl-5 3xl:pl-[60px] md:pt-10 md:pb-[132px] text-2xl font-bold flex overflow-x-scroll">
+          initial="out"
+          animate="in"
+          exit="out"
+          variants={transitionAnimation.bodyTransition}
+          transition={transitionAnimation.transitionDuration}
+        >
           <MyUrl />
-        </div>
+        </motion.div>
       </div>
-    </motion.div>
+    </div>
   );
 }

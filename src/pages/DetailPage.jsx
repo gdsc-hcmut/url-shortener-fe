@@ -14,14 +14,7 @@ export default function Homepage() {
   const { id } = useParams();
 
   return (
-    <motion.div
-      className="max-h-[100vh] detail-page flex flex-col"
-      initial="out"
-      animate="in"
-      exit="out"
-      variants={transitionAnimation.pageTransition}
-      transition={transitionAnimation.transitionDuration}
-    >
+    <div className="max-h-[100vh] detail-page flex flex-col">
       <NavLink to="/urls" className="absolute md:hidden right-5 top-3 z-50">
         <div className="w-10 h-10 flex justify-center items-center">
           <BackIcon />
@@ -34,11 +27,18 @@ export default function Homepage() {
           <div className="w-[392px] h-full hidden xl:block" id="MyUrlPage">
             <MyUrl id={id} detail />
           </div>
-          <div className="w-full h-full md:ml-4">
+          <motion.div
+            className="w-full h-full md:ml-4"
+            initial="out"
+            animate="in"
+            exit="out"
+            variants={transitionAnimation.bodyTransition}
+            transition={transitionAnimation.transitionDuration}
+          >
             <Detail id={id} />
-          </div>
+          </motion.div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
