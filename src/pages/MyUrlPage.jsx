@@ -29,7 +29,7 @@ export default function MyUrlPage() {
       >
         <SideMenu toggle={toggleMenu} page="urls" />
         <motion.div
-          className="bg-gdscGrey-100 md:min-h-screen flex-1 md:pl-[60px] pl-5 3xl:pl-[60px] md:pt-10 md:pb-[132px] text-2xl font-bold flex overflow-x-scroll">
+          className="bg-gdscGrey-100 md:min-h-screen flex-1 md:pl-[60px] pl-5 3xl:pl-[60px] md:pt-10 md:pb-[132px] text-2xl font-bold flex overflow-x-scroll"
           initial="out"
           animate="in"
           exit="out"
