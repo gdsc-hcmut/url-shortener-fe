@@ -29,7 +29,7 @@ export default function QR({ shortenedUrl, slug }) {
     document.body.removeChild(downloadLink);
   };
   return (
-    <div className="md:h-[480px] md:w-[504px] w-full pt-11 pb-[72px] flex flex-col space-y-6 md:space-y-14 items-center bg-white rounded">
+    <div className="md:h-[480px] md:w-[504px] lg:w-[312px] 3xl:w-[504px] w-full pt-11 pb-[72px] flex flex-col space-y-6 md:space-y-14 items-center bg-white rounded">
       {isMobile ? (
         <QRCode id="qrcode" value={shortenedUrl} size={240} />
       ) : (

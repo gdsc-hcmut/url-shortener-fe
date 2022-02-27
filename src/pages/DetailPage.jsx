@@ -21,7 +21,7 @@ export default function Homepage() {
       <Navbar home={false} />
       <div className="flex overflow-hidden h-full">
         <SideMenu toggle={false} page="detail" />
-        <div className="bg-gdscGrey-100 md:min-h-screen flex-1 detail-md:pl-[60px] md:pt-10 md:pb-[156px] pl-5 text-2xl font-bold flex overflow-x-scroll">
+        <div className="bg-gdscGrey-100 md:min-h-screen flex-1 md:pl-[60px] pl-5 3xl:pl-[60px] md:pt-10 md:pb-[132px] text-2xl font-bold flex overflow-x-scroll">
           <div className="w-[392px] h-full hidden xl:block" id="MyUrlPage">
             <MyUrl id={id} detail />
           </div>
