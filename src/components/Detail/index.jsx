@@ -103,7 +103,7 @@ export default function Detail({ id }) {
           show={DeleteUrlModal}
         />
       </div>
-      <h1 className="font-normal 3xl:w-[1032px] md:w-[504px] w-full h-8 hover:h-fit sm:w-[376px] text-[32px] mb-4 break-words cursor-pointer overflow-y-hidden hover:overflow-y-visible transition duration-300 ease-out">
+      <h1 className="font-normal 3xl:w-[1032px] md:w-[504px] w-full h-9 leading-9 hover:h-fit sm:w-[376px] text-[32px] mb-4 break-words cursor-pointer overflow-y-hidden hover:overflow-y-visible transition duration-300 ease-out">
         {urlDetail.longUrl}
       </h1>
       <div className="mb-[60px] flex">
@@ -146,7 +146,7 @@ export default function Detail({ id }) {
         </div>
       </div>
       <div className="flex flex-col ">
-        <div className="inline-flex flex-wrap gap-6 mb-6 ">
+        <div className="inline-flex flex-wrap gap-6 mb-6 md:gap-4 md:mb-4 3xl:gap-6 3xl:mb-6 ">
           <ExpireTime expireTime={urlDetail.expireTime} id={id} />
           <CreatedOn createOn={urlDetail.createdAt} />
           <TodayClick
@@ -164,7 +164,7 @@ export default function Detail({ id }) {
           />
           <TotalClick totalClick={urlDetail.totalClicks.length} />
         </div>
-        <div className="flex flex-col 3xl:flex-row border-x-lime-400:flex-row mb-6 3xl:mb-0">
+        <div className="flex flex-col lg:flex-row border-x-lime-400:flex-row mb-6 lg:mb-0">
           <SocialMedia
             data={{
               Facebook: urlDetail.totalClicks.filter(

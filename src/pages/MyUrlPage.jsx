@@ -1,5 +1,7 @@
+import { motion } from 'framer-motion';
 import React, { useState } from 'react';
 
+import transitionAnimation from 'animations';
 import { ReactComponent as MenuIcon } from 'assets/icons/menu.svg';
 import MyUrl from 'components/MyUrl';
 import Navbar from 'components/Navbar';
@@ -26,9 +28,16 @@ export default function MyUrlPage() {
         className="flex overflow-y-scroll overflow-x-scroll md:overflow-hidden h-full"
       >
         <SideMenu toggle={toggleMenu} page="urls" />
-        <div className="bg-gdscGrey-100 h-full md:h-6 md:min-h-screen flex-1 md:pl-[60px] md:pt-10 md:pb-[156px] pl-5 text-2xl font-bold flex">
+        <motion.div
+          className="bg-gdscGrey-100 md:min-h-screen flex-1 md:pl-[60px] pl-5 3xl:pl-[60px] md:pt-10 md:pb-[132px] text-2xl font-bold flex overflow-x-scroll"
+          initial="out"
+          animate="in"
+          exit="out"
+          variants={transitionAnimation.bodyTransition}
+          transition={transitionAnimation.transitionDuration}
+        >
           <MyUrl />
-        </div>
+        </motion.div>
       </div>
     </div>
   );

@@ -25,25 +25,32 @@ export default function ExpireTime({ expireTime, id }) {
   }, [newExpireTime]);
 
   return (
-    <div className="h-[116px] md:h-32 md:w-[504px] w-full py-7 px-5 flex justify-between mx-0 bg-white rounded">
+    <div className="h-[116px] md:h-[100px] 3xl:h-32 3xl:w-[504px] md:w-[504px] lg:w-[312px] w-full py-7 md:py-3 3xl:py-7 px-5 flex justify-between bg-white rounded">
       <div className="h-[72px] w-[72px] bg-opacity-10 bg-gdscRed-300 rounded flex justify-center items-center ">
         <ExpireTimeIcon />
       </div>
       <div className="flex flex-col justify-between items-end">
-        <span className="text-gdscRed-300 text-xl md:text-2xl font-normal truncate">
-          {time.getTime() < new Date().getTime()
-            ? ' Expired'
-            : `${new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(
-              time,
-            )} ${time.getDate()}/${
-              time.getMonth() + 1
-            }/${time.getFullYear()} ${time.toLocaleTimeString()}`}
+        <span className="text-gdscRed-300 text-xl lg:text-lg 3xl:text-2xl font-normal truncate">
+          {time.getTime() < new Date().getTime() ? (
+            ' Expired'
+          ) : (
+            <span>
+              <span className="hidden 3xl:inline">
+                {`${new Intl.DateTimeFormat('en-US', {
+                  weekday: 'long',
+                }).format(time)}`}
+              </span>
+              <span>{` ${time.getDate()}/${time.getMonth() + 1}`}</span>
+              <span>{`/${time.getFullYear()}`}</span>
+              <span>{` ${time.toLocaleTimeString()}`}</span>
+            </span>
+          )}
         </span>
         <span className="font-normal text-base inline-flex justify-center items-center">
-          Expire Time
+          <span className>Expire Time</span>
           <span
             aria-hidden
-            className="ml-4 w-[100px] h-7 rounded-[60px] flex justify-center items-center px-7 bg-[#DA4436] bg-opacity-10 active:bg-opacity-20 hover:cursor-pointer"
+            className="ml-4 lg:ml-1 3xl:ml-4 w-[100px] lg:w-[84px] 3xl:w-[100px] h-7 rounded-[60px] flex justify-center items-center px-7 lg:px-5 3xl:px-7 bg-[#DA4436] bg-opacity-10 active:bg-opacity-20 hover:cursor-pointer"
             onClick={() => setOpen(true)}
           >
             <span className="inline-flex w-full justify-between items-center">

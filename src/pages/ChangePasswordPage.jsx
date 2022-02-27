@@ -1,5 +1,7 @@
+import { motion } from 'framer-motion';
 import React, { useState } from 'react';
 
+import transitionAnimation from 'animations';
 import { ReactComponent as MenuIcon } from 'assets/icons/menu.svg';
 import ChangePassword from 'components/ChangePassword';
 import Footer from 'components/Footer';
@@ -25,9 +27,16 @@ export default function ChangePasswordPage() {
       <div className="flex md:overflow-x-scroll md:overflow-hidden h-full">
         <SideMenu toggle={toggleMenu} page="change-password" />
         <div className="bg-white md:bg-gdscGrey-100 mt-[48px] md:mt-0 h-full w-full md:h-6 md:min-h-screen flex-1 md:overflow-y-scroll">
-          <div className="pb-[120px] md:pb-[156px]">
+          <motion.div
+            className="pb-[120px] md:pb-[156px]"
+            initial="out"
+            animate="in"
+            exit="out"
+            variants={transitionAnimation.bodyTransition}
+            transition={transitionAnimation.transitionDuration}
+          >
             <ChangePassword />
-          </div>
+          </motion.div>
           <div className="md:hidden">
             <Footer />
           </div>

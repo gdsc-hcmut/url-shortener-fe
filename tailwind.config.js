@@ -3,7 +3,6 @@ module.exports = {
   theme: {
     extend: {
       screens: {
-        'detail-md': '920px',
         '3xl': '1872px',
       },
       borderColor: {
