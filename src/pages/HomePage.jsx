@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Navigate } from 'react-router';
@@ -9,6 +10,7 @@ import {
   SHOW_FORGOT_PASSWORD_MODAL,
 } from 'action-types';
 import { clearError } from 'actions/error';
+import transitionAnimation from 'animations';
 import Footer from 'components/Footer';
 import ForgotPassword from 'components/ForgotPassword';
 import LoginModal from 'components/LoginModal';
@@ -29,9 +31,26 @@ export default function HomePage() {
   }
   return (
     <div className="flex flex-col justify-center md:items-center bg-mobile-background md:bg-blue md:bg-contain">
-      <NavBar home />
+      <motion.div
+        initial="out"
+        animate="in"
+        exit="out"
+        variants={transitionAnimation.navbarTransition}
+        transition={transitionAnimation.transitionDuration}
+        className="w-full"
+      >
+        <NavBar home />
+      </motion.div>
       <div className="ml-[1.25rem] mt-[136px] mb-[23.5rem] md:mt-[152px] md:mb-[276px]">
-        <UrlInputBoxAndTitle loggedIn={false} />
+        <motion.div
+          initial="out"
+          animate="in"
+          exit="out"
+          variants={transitionAnimation.urlInputBoxTransition}
+          transition={transitionAnimation.transitionDuration}
+        >
+          <UrlInputBoxAndTitle loggedIn={false} />
+        </motion.div>
         <LoginModal
           title="Login Modal"
           onClose={() => {

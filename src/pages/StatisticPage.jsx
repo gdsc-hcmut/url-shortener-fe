@@ -1,5 +1,7 @@
+import { motion } from 'framer-motion';
 import React, { useState } from 'react';
 
+import transitionAnimation from 'animations';
 import { ReactComponent as MenuIcon } from 'assets/icons/menu.svg';
 import Footer from 'components/Footer';
 import Navbar from 'components/Navbar';
@@ -23,9 +25,16 @@ export default function StatisticPage() {
       <div className="flex md:overflow-x-scroll md:overflow-hidden h-full">
         <SideMenu toggle={toggleMenu} page="stat" />
         <div className="bg-white md:bg-gdscGrey-100 mt-[48px] md:mt-0 h-full w-full md:h-6 md:min-h-screen flex-1 md:overflow-y-scroll">
-          <div className="mt-60 pb-[120px] md:pb-[156px] flex justify-center items-center text-2xl text-gdscRed-300">
-            This Page is still in development. Sorry for the inconvenience.
-          </div>
+          <motion.div
+            className="mt-60 pb-[120px] md:pb-[156px] flex justify-center items-center text-2xl text-gdscRed-300"
+            initial="out"
+            animate="in"
+            exit="out"
+            variants={transitionAnimation.bodyTransition}
+            transition={transitionAnimation.transitionDuration}
+          >
+            The This Page is still in development. Sorry for the inconvenience.
+          </motion.div>
           <div className="md:hidden">
             <Footer />
           </div>

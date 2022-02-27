@@ -1,7 +1,9 @@
+import { motion } from 'framer-motion';
 import React from 'react';
 import { useParams } from 'react-router';
 import { NavLink } from 'react-router-dom';
 
+import transitionAnimation from 'animations';
 import { ReactComponent as BackIcon } from 'assets/icons/BackIcon.svg';
 import Detail from 'components/Detail';
 import MyUrl from 'components/MyUrl';
@@ -25,9 +27,16 @@ export default function Homepage() {
           <div className="w-[392px] h-full hidden xl:block" id="MyUrlPage">
             <MyUrl id={id} detail />
           </div>
-          <div className="w-full h-full md:ml-4">
+          <motion.div
+            className="w-full h-full md:ml-4"
+            initial="out"
+            animate="in"
+            exit="out"
+            variants={transitionAnimation.bodyTransition}
+            transition={transitionAnimation.transitionDuration}
+          >
             <Detail id={id} />
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>

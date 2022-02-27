@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-wrap-multilines */
+import { AnimatePresence } from 'framer-motion';
 import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -32,71 +33,73 @@ export default function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/sign-in" element={<SignInMobilePage />} />
-          <Route path="/sign-up" element={<SignUpMobilePage />} />
-          <Route
-            path="/home"
-            element={
-              <RequireAuth redirectTo="/">
-                <HomepageLogin />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/reset-password"
-            element={
-              <RequireAuth redirectTo="/">
-                <ResetPasswordPage />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/change-password"
-            element={
-              <RequireAuth redirectTo="/">
-                <ChangePasswordPage />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              <RequireAuth redirectTo="/">
-                <UserProfilePage />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/urls"
-            element={
-              <RequireAuth redirectTo="/">
-                <MyUrlPage />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/urls/:id"
-            element={
-              <RequireAuth redirectTo="/">
-                <DetailPage />
-              </RequireAuth>
-            }
-          />
-          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-          <Route path="/stat" element={<StatisticPage />} />
-          <Route
-            path="/my-url"
-            element={
-              <RequireAuth redirectTo="/">
-                <MyUrlPage />
-              </RequireAuth>
-            }
-          />
-          <Route path="/statistics" element={<StatisticPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
+        <AnimatePresence exitBeforeEnter>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/sign-in" element={<SignInMobilePage />} />
+            <Route path="/sign-up" element={<SignUpMobilePage />} />
+            <Route
+              path="/home"
+              element={
+                <RequireAuth redirectTo="/">
+                  <HomepageLogin />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/reset-password"
+              element={
+                <RequireAuth redirectTo="/">
+                  <ResetPasswordPage />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/change-password"
+              element={
+                <RequireAuth redirectTo="/">
+                  <ChangePasswordPage />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <RequireAuth redirectTo="/">
+                  <UserProfilePage />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/urls"
+              element={
+                <RequireAuth redirectTo="/">
+                  <MyUrlPage />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/urls/:id"
+              element={
+                <RequireAuth redirectTo="/">
+                  <DetailPage />
+                </RequireAuth>
+              }
+            />
+            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+            <Route path="/stat" element={<StatisticPage />} />
+            <Route
+              path="/my-url"
+              element={
+                <RequireAuth redirectTo="/">
+                  <MyUrlPage />
+                </RequireAuth>
+              }
+            />
+            <Route path="/statistics" element={<StatisticPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </AnimatePresence>
       </BrowserRouter>
     </Provider>
   );
