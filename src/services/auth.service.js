@@ -4,9 +4,13 @@ import {
   signInWithEmailAndPassword,
   signOut,
   updateEmail,
+  updatePassword,
+  reauthenticateWithCredential,
+  EmailAuthProvider,
 } from 'firebase/auth';
 
-import { setError } from 'actions/error';
+import { CHANGE_PASSWORD_LOADING } from 'action-types';
+import { clearError, setError } from 'actions/error';
 import store from 'store';
 import setAuthToken from 'utils/setAuthToken';
 
@@ -84,7 +88,30 @@ const changeEmail = async (newEmail) => {
       console.log('email update');
     })
     .catch((err) => {
-      console.log(err);
+      console.log(err.code);
+    });
+};
+
+const changePassword = async (newPassword, oldPassword) => {
+  const auth = getAuth();
+  const credentials = EmailAuthProvider.credential(
+    auth.currentUser.email,
+    oldPassword,
+  );
+  return reauthenticateWithCredential(auth.currentUser, credentials)
+    .then(() => updatePassword(auth.currentUser, newPassword)
+      .then(() => {
+        store.dispatch(clearError());
+        store.dispatch({
+          type: CHANGE_PASSWORD_LOADING,
+        });
+        console.log('password update');
+      })
+      .catch((err) => {
+        console.log(err);
+      }))
+    .catch((error) => {
+      store.dispatch(setError(error.code));
     });
 };
 
@@ -94,6 +121,7 @@ const AuthService = {
   logout,
   getCurrentUser,
   changeEmail,
+  changePassword,
 };
 
 export default AuthService;
