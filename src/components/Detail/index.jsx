@@ -108,7 +108,7 @@ export default function Detail({ id }) {
       <div className="flex">
         <h1
           aria-hidden
-          className="font-normal w-fit h-9 leading-9 hover:h-fit sm:w-[376px] text-[32px] mb-4 break-words cursor-pointer overflow-y-hidden "
+          className="font-normal w-fit h-9 leading-9 text-[32px] mb-4 break-words cursor-pointer overflow-y-hidden "
           onClick={() => {
             navigator.clipboard.writeText(
               `${REACT_APP_SHORTEN_BASE_URL}/${urlDetail.slug}`,
@@ -116,7 +116,7 @@ export default function Detail({ id }) {
             dispatch(toggleSuccessModalOpen());
           }}
         >
-          <span className="hidden sm:inline">{`/${REACT_APP_SHORTEN_BASE_URL}`}</span>
+          <span className="hidden sm:inline">{`${REACT_APP_SHORTEN_BASE_URL}/`}</span>
           {urlDetail.slug}
         </h1>
         <div className="ml-2 flex space-x-2">
