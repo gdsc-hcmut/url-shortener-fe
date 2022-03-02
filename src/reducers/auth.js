@@ -49,8 +49,16 @@ export default function (state = initialState, action) {
         error: {},
       };
     case REGISTER_FAIL:
+      return {
+        ...state,
+        loading: false,
+      };
     case AUTH_ERROR:
     case LOGIN_FAIL:
+      return {
+        ...state,
+        loading: false,
+      };
     case USER_NOT_FOUND:
     case CHANGE_PASSWORD_FAIL:
       return {
