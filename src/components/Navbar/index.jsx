@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 
+import defaultAvatar from 'assets/icons/account_circle_blue.svg';
 import { closeInfoBar } from 'actions/notification';
 import CloseIcon from 'assets/icons/close_info_bar.svg';
 import NavbarModal from 'components/Modals/NavbarModal';
@@ -94,9 +95,11 @@ export default function Navbar({ home }) {
             w-[100px] h-[36px] md:w-[184px] md:h-[52px] content-center text-base  md:my-0 ml-[30px]"
               >
                 <p className="mr-10">{user && userName}</p>
-                <div className="h-[44px] w-[44px] bg-gdscBlue-300 rounded-[9999px] mr-1">
-                  {' '}
-                </div>
+              <img
+                className="h-[44px] w-[44px] mr-1"
+                src={defaultAvatar}
+                alt="avatar icon"
+              />
               </button>
             )}
           </div>
