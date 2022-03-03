@@ -7,10 +7,12 @@ import {
   updatePassword,
   reauthenticateWithCredential,
   EmailAuthProvider,
+  sendEmailVerification,
 } from 'firebase/auth';
 
 import { CHANGE_PASSWORD_LOADING } from 'action-types';
 import { clearError, setError } from 'actions/error';
+import { showInfoBar } from 'actions/notification';
 import store from 'store';
 import setAuthToken from 'utils/setAuthToken';
 
@@ -18,27 +20,30 @@ import api from './api';
 import TokenService from './token.service';
 
 const register = async (email, password) => {
-  const auth = getAuth();
+  try {
+    const auth = getAuth();
 
-  return createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      const firebaseToken = userCredential.user.accessToken;
-      localStorage.setItem('firebaseToken', firebaseToken);
-      return firebaseToken;
-    })
-    .then((firebaseToken) => {
-      const res = api.post('/users', { firebaseToken });
-      return res;
-    })
-    .then((res) => {
-      if (res.data.token) {
-        TokenService.setUser(res.data.token);
-      }
-      return res.data;
-    })
-    .catch((error) => {
-      store.dispatch(setError(error.code));
-    });
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password,
+    );
+
+    await sendEmailVerification(auth.currentUser);
+
+    const firebaseToken = userCredential.user.accessToken;
+    localStorage.setItem('firebaseToken', firebaseToken);
+
+    const res = await api.post('/users', { firebaseToken });
+
+    if (res.data.token) {
+      TokenService.setUser(res.data.token);
+    }
+    store.dispatch(showInfoBar(email));
+    return res.data;
+  } catch (error) {
+    return store.dispatch(setError(error.code));
+  }
 };
 
 const login = async (email, password) => {
@@ -99,17 +104,19 @@ const changePassword = async (newPassword, oldPassword) => {
     oldPassword,
   );
   return reauthenticateWithCredential(auth.currentUser, credentials)
-    .then(() => updatePassword(auth.currentUser, newPassword)
-      .then(() => {
-        store.dispatch(clearError());
-        store.dispatch({
-          type: CHANGE_PASSWORD_LOADING,
+    .then(() => {
+      updatePassword(auth.currentUser, newPassword)
+        .then(() => {
+          store.dispatch(clearError());
+          store.dispatch({
+            type: CHANGE_PASSWORD_LOADING,
+          });
+          console.log('password update');
+        })
+        .catch((err) => {
+          console.log(err);
         });
-        console.log('password update');
-      })
-      .catch((err) => {
-        console.log(err);
-      }))
+    })
     .catch((error) => {
       store.dispatch(setError(error.code));
     });

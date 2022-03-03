@@ -12,7 +12,6 @@ import EditIcon from 'assets/icons/edit.svg';
 export default function UserFormMobile() {
   const dispatch = useDispatch();
   const store = useStore();
-  const avatar = new FormData();
   const { user } = useSelector((state) => state.auth);
   const [field, setField] = useState({
     name: false,
@@ -21,7 +20,6 @@ export default function UserFormMobile() {
     notification: false,
   });
   const [emailError, setEmailError] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
   const [name, setName] = useState(localStorage.getItem('userName'));
   const [datePicker, setDatePicker] = useState(false);
   const [newEmail, setNewEmail] = useState(localStorage.getItem('userEmail'));
@@ -62,41 +60,14 @@ export default function UserFormMobile() {
         <h1 className="text-[32px] font-medium">My Profile</h1>
       </div>
       <div className="relative w-[148px] h-[148px] bg-gdscGrey-200 rounded-[8px] mt-8">
-        {!selectedImage ? (
-          <div className="absolute top-[132px] left-[56px] w-9 h-9 rounded-[9999px] bg-gdscGrey-200 flex justify-center items-center">
-            <label htmlFor="input-avatar" className="cursor-pointer">
-              <img className="w-5 h-5" src={AddPhoto} alt="Add avatar icon" />
-              <input
-                type="file"
-                id="input-avatar"
-                onChange={(event) => {
-                  setSelectedImage(event.target.files[0]);
-                  avatar.append(
-                    'user-avatar',
-                    event.target.files[0],
-                    event.target.files[0].name,
-                  );
-                }}
-                hidden
-              />
-            </label>
-          </div>
-        ) : (
-          <div>
-            <img
-              alt="user avatar"
-              className="w-[148px] h-[148px] rounded"
-              src={URL.createObjectURL(selectedImage)}
-            />
-            <button
-              type="button"
-              className="self-center"
-              onClick={() => setSelectedImage(null)}
-            >
-              Remove
-            </button>
-          </div>
-        )}
+        <img
+          src="https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"
+          className="w-[148px] h-[148px] rounded-[8px] border border-gdscGrey-200"
+          alt="user avatar"
+        />
+        <div className="absolute top-[132px] left-[56px] w-9 h-9 rounded-[9999px] bg-gdscGrey-200 flex justify-center items-center">
+          <img className="w-5 h-5" src={AddPhoto} alt="Add avatar icon" />
+        </div>
       </div>
       <div>
         <div className="flex flex-col align-end mb-6 mt-[52px]">

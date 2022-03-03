@@ -28,6 +28,7 @@ module.exports = {
         'sign-in-with-google': '#FCEAE9',
         'input-text': '#696969',
         gdscBlue: {
+          50: '#EFF7FC',
           100: '#A0C3FF',
           200: '#76A7FA',
           300: '#4285F4',

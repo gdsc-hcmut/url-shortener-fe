@@ -26,6 +26,8 @@ export const USER_NOT_FOUND = 'USER_NOT_FOUND';
 export const INVALID_SLUG = 'INVALID_SLUG';
 export const SLUG_TAKEN = 'SLUG_TAKEN';
 export const SLUG_EDIT_INVALID = 'SLUG_EDIT_INVALID';
+export const SHOW_INFO_BAR = 'SHOW_INFO_BAR';
+export const CLOSE_INFO_BAR = 'CLOSE_INFO_BAR';
 
 export const WRONG_PASSWORD = 'WRONG_PASSWORD';
 export const ACCOUNT_NOT_EXISTS = 'ACCOUNT_NOT_EXISTS';
