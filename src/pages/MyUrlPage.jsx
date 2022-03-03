@@ -23,13 +23,10 @@ export default function MyUrlPage() {
         <MenuIcon className="w-10 h-10" />
       </button>
       <Navbar home={false} />
-      <div
-        id="MyUrlPage"
-        className="flex overflow-y-scroll overflow-x-scroll md:overflow-hidden h-full"
-      >
+      <div className="flex overflow-x-scroll md:overflow-hidden h-full bg-gdscGrey-100">
         <SideMenu toggle={toggleMenu} page="urls" />
         <motion.div
-          className="bg-gdscGrey-100 md:min-h-screen flex-1 md:pl-[60px] pl-5 3xl:pl-[60px] md:pt-10 md:pb-[132px] text-2xl font-bold flex overflow-x-scroll"
+          className="bg-gdscGrey-100 md:min-h-screen flex-1 md:pl-[60px] pl-5 3xl:pl-[60px] md:pt-10 md:pb-[132px] text-2xl font-bold flex overflow-y-hidden"
           initial="out"
           animate="in"
           exit="out"

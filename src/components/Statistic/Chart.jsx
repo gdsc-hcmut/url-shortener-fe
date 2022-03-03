@@ -38,8 +38,6 @@ export default function Chart({ data, option, onFilter }) {
     0,
   ).getDate();
 
-  console.log(data);
-
   const setLabel = () => {
     switch (option) {
       case LAST_YEAR:
