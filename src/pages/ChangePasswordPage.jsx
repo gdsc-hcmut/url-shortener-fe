@@ -7,6 +7,7 @@ import ChangePassword from 'components/ChangePassword';
 import Footer from 'components/Footer';
 import Navbar from 'components/Navbar';
 import SideMenu from 'components/SideMenu';
+import ChangePasswordSnackbar from 'components/Snackbar/ChangePasswordSnackBar';
 
 export default function ChangePasswordPage() {
   const [toggleMenu, setToggleMenu] = useState(false);
@@ -26,7 +27,7 @@ export default function ChangePasswordPage() {
       <Navbar home={false} />
       <div className="flex md:overflow-x-scroll md:overflow-hidden h-full">
         <SideMenu toggle={toggleMenu} page="change-password" />
-        <div className="bg-white md:bg-gdscGrey-100 mt-[48px] md:mt-0 h-full w-full md:h-6 md:min-h-screen flex-1 md:overflow-y-scroll">
+        <div className="bg-white relative md:bg-gdscGrey-100 mt-[48px] md:mt-0 h-full w-full md:h-6 md:min-h-screen flex-1 md:overflow-y-scroll">
           <motion.div
             className="pb-[120px] md:pb-[156px]"
             initial="out"
@@ -37,6 +38,9 @@ export default function ChangePasswordPage() {
           >
             <ChangePassword />
           </motion.div>
+          <div className="absolute bottom-[720px] md:bottom-4 right-4">
+            <ChangePasswordSnackbar />
+          </div>
           <div className="md:hidden">
             <Footer />
           </div>

@@ -9,7 +9,6 @@ export default function ChangePassDesktop() {
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [notification, setNotification] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
@@ -70,8 +69,6 @@ export default function ChangePassDesktop() {
         setOldPassword('');
         setNewPassword('');
         setConfirmPassword('');
-        setNotification(true);
-        setTimeout(() => setNotification(false), 2000);
       }
     }
   };
@@ -137,11 +134,6 @@ export default function ChangePassDesktop() {
                   alt="Loading indicator"
                 />
               </button>
-            )}
-            {notification && (
-              <p className="mt-10 text-gdscBlue-200 ml-4">
-                Change Password successful!
-              </p>
             )}
           </div>
         </form>

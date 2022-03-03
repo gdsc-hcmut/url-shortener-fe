@@ -1,6 +1,8 @@
 import {
   TOGGLE_SNACKBAR_OPEN,
   TOGGLE_SNACKBAR_CLOSE,
+  TOGGLE_CHANGE_PASSWORD_SNACKBAR_OPEN,
+  TOGGLE_CHANGE_PASSWORD_SNACKBAR_CLOSE,
   SHOW_COPY_SUCCESS_MODAL,
   SHOW_INFO_BAR,
   CLOSE_INFO_BAR,
@@ -12,6 +14,14 @@ export const toggleSnackbarOpen = () => (dispatch) => {
 
 export const toggleSnackbarClose = () => (dispatch) => {
   dispatch({ type: TOGGLE_SNACKBAR_CLOSE });
+};
+
+export const toggleChangePasswordSnackbarOpen = () => (dispatch) => {
+  dispatch({ type: TOGGLE_CHANGE_PASSWORD_SNACKBAR_OPEN });
+};
+
+export const toggleChangePasswordSnackbarClose = () => (dispatch) => {
+  dispatch({ type: TOGGLE_CHANGE_PASSWORD_SNACKBAR_CLOSE });
 };
 
 export const showInfoBar = (email) => (dispatch) => {

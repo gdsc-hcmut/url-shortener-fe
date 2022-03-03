@@ -13,7 +13,10 @@ import {
 
 import { CHANGE_PASSWORD_LOADING } from 'action-types';
 import { clearError, setError } from 'actions/error';
-import { showInfoBar } from 'actions/notification';
+import {
+  toggleChangePasswordSnackbarOpen,
+  showInfoBar,
+} from 'actions/notification';
 import store from 'store';
 import setAuthToken from 'utils/setAuthToken';
 
@@ -112,6 +115,7 @@ const changePassword = async (newPassword, oldPassword) => {
           store.dispatch({
             type: CHANGE_PASSWORD_LOADING,
           });
+          store.dispatch(toggleChangePasswordSnackbarOpen());
           console.log('password update');
         })
         .catch((err) => {
