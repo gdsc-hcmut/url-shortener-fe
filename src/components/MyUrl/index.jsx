@@ -23,12 +23,13 @@ import DeleteModal from 'components/DeleteModal';
 import EditSlugModal from 'components/EditSludModal';
 import ModalSucess from 'components/ModalSuccess';
 import Snackbar from 'components/Snackbar';
+import {
+  LATEST, OLDEST, LEAST_CLICKED, MOST_CLICKED,
+} from 'constant/options';
 import UrlAPI from 'services/url.service';
 
 export default function MyUrl({ id }) {
-  const SORT_OPTION = ['Oldest', 'Latest', 'Least Clicked', 'Most Clicked'];
-
-  const [option, setOption] = useState(SORT_OPTION[0]);
+  const [option, setOption] = useState(LATEST);
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
@@ -53,38 +54,30 @@ export default function MyUrl({ id }) {
 
   const handleScroll = (e) => {
     const { scrollTop, clientHeight, scrollHeight } = e.currentTarget;
+    console.log(stopSending);
     if (!stopSending && scrollHeight - scrollTop - clientHeight < 1) {
       setPage(page + 1);
     }
   };
 
-  const orderUrlList = (list) => {
-    switch (option) {
-      case SORT_OPTION[0]:
-        return _.orderBy(list, ['updatedAt'], ['asc']);
-      case SORT_OPTION[1]:
-        return _.orderBy(list, ['updatedAt'], ['desc']);
-      case SORT_OPTION[2]:
-        return _.orderBy(list, ['totalClicks'], ['asc']);
-      case SORT_OPTION[3]:
-        return _.orderBy(list, ['totalClicks'], ['desc']);
-      default:
-        break;
-    }
-    return urlList;
-  };
+  useEffect(() => {
+    setStopSending(false);
+    setPage(1);
+    dispatch({
+      type: UPDATE_URL_LISTS,
+      payload: [],
+    });
+  }, [option]);
 
   useEffect(() => {
     const getUrlList = async () => {
       setLoading(true);
-      const { data: newUrlLists } = await UrlAPI.getUrlList(page);
+      const { data: newUrlLists } = await UrlAPI.getUrlList(page, option);
       if (newUrlLists.length > 0) {
-        const orderedUrlLists = orderUrlList(
-          _.uniqBy([...urlList, ...newUrlLists], 'id'),
-        );
+        const combinedList = _.uniqBy([...urlList, ...newUrlLists], 'id');
         dispatch({
           type: UPDATE_URL_LISTS,
-          payload: orderedUrlLists,
+          payload: combinedList,
         });
       } else {
         setStopSending(true);
@@ -93,9 +86,12 @@ export default function MyUrl({ id }) {
     };
     const mobileScrollDiv = document.querySelector('#MyUrlPage');
     getUrlList().catch(() => setLoading(false));
-    mobileScrollDiv.addEventListener('scroll', handleScroll, {
-      passive: true,
-    });
+    if (mobileScrollDiv.getAttribute('scroll') !== true) {
+      mobileScrollDiv.addEventListener('scroll', handleScroll, {
+        passive: true,
+      });
+      console.log('run page ', page);
+    }
     return () => mobileScrollDiv.removeEventListener('scroll', handleScroll);
   }, [page]);
 
@@ -110,13 +106,6 @@ export default function MyUrl({ id }) {
       searchUrl();
     }
   }, [search]);
-
-  useEffect(() => {
-    dispatch({
-      type: UPDATE_URL_LISTS,
-      payload: orderUrlList(urlList),
-    });
-  }, [option]);
 
   useEffect(() => {
     if (CopySuccessModal) {
@@ -137,7 +126,10 @@ export default function MyUrl({ id }) {
   }, [isOpen]);
 
   return (
-    <div className="bg-opacity-0 flex flex-col xl:w-[296px] 3xl:w-[392px] h-full w-full xl:p-0 py-5 pr-5 md:pr-[60px] xl:pr-0 md:overflow-y-scroll no-scrollbar">
+    <div
+      id="MyUrlPage"
+      className="bg-opacity-0 flex flex-col xl:w-[296px] 3xl:w-[392px] h-full w-full pr-5 md:pr-[60px] xl:pr-0  pt-5 md:pt-0 overflow-y-scroll no-scrollbar-desktop"
+    >
       <div className="modal absolute z-50">
         <EditSlugModal
           slug={currSlug}
@@ -189,19 +181,21 @@ export default function MyUrl({ id }) {
             isOpen ? '' : 'hidden'
           }`}
         >
-          {SORT_OPTION.filter((el) => el !== option).map((el) => (
-            <div
-              aria-hidden="true"
-              key={el}
-              className="block"
-              onClick={() => {
-                setOption(el);
-                setIsOpen(false);
-              }}
-            >
-              {el}
-            </div>
-          ))}
+          {[LATEST, OLDEST, LEAST_CLICKED, MOST_CLICKED]
+            .filter((el) => el !== option)
+            .map((el) => (
+              <div
+                aria-hidden="true"
+                key={el}
+                className="block"
+                onClick={() => {
+                  setOption(el);
+                  setIsOpen(false);
+                }}
+              >
+                {el}
+              </div>
+            ))}
         </div>
       </button>
 
@@ -212,7 +206,7 @@ export default function MyUrl({ id }) {
         onChange={handleSearch}
       />
       <ul
-        className="xl:overflow-y-scroll space-y-5 relative h-full "
+        className="xl:overflow-y-scroll space-y-5 relative h-full"
         onScroll={handleScroll}
       >
         {(search ? searchList : urlList).map((url) => (

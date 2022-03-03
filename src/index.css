@@ -27,6 +27,17 @@ html {
   scrollbar-width: none;
 }
 
+@media screen and (min-width: 1280px) {
+  .no-scrollbar-desktop::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .no-scrollbar-desktop {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
 .rounded-full {
   border-radius: 100%;
 }

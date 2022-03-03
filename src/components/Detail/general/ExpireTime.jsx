@@ -47,7 +47,7 @@ export default function ExpireTime({ expireTime, id }) {
           )}
         </span>
         <span className="font-normal text-base inline-flex justify-center items-center">
-          <span className>Expire Time</span>
+          <span>Expire Time</span>
           <span
             aria-hidden
             className="ml-4 lg:ml-1 3xl:ml-4 w-[100px] lg:w-[84px] 3xl:w-[100px] h-7 rounded-[60px] flex justify-center items-center px-7 lg:px-5 3xl:px-7 bg-[#DA4436] bg-opacity-10 active:bg-opacity-20 hover:cursor-pointer"
