@@ -52,7 +52,7 @@ export default function Navbar({ home }) {
   return (
     <>
       {showingInfoBar && (
-        <div className="relative flex justify-center items-center h-16 bg-gdscBlue-50">
+        <div className="hidden relative md:flex justify-center items-center px-5 h-16 bg-gdscBlue-50">
           <p className="text-gdscGrey-900">
             Please confirm your email address by clicking the &ldquo;verify
             email&rdquo; button in the email we sent to
