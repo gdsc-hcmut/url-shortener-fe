@@ -9,6 +9,7 @@ const UrlAPI = {
   getUrlById: (id) => api.get(`/urls/${id}`),
   deleteUrl: (id) => api.delete(`/urls/${id}`),
   editExpireTime: (id, newExpireTime) => api.patch(`/urls/${id}/expire`, { newExpireTime }),
+  getStatistic: (chartFilter) => api.get(`/urls/statistic?chartFilter=${chartFilter}`),
 };
 
 export default UrlAPI;
