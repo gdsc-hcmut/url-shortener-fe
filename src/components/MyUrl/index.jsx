@@ -60,30 +60,45 @@ export default function MyUrl({ id }) {
     }
   };
 
-  useEffect(() => {
+  const getUrlList = async () => {
+    setLoading(true);
+    const { data: newUrlLists } = await UrlAPI.getUrlList(page, option);
+    if (newUrlLists.length > 0) {
+      const combinedList = _.uniqBy([...urlList, ...newUrlLists], 'id');
+      dispatch({
+        type: UPDATE_URL_LISTS,
+        payload: combinedList,
+      });
+    } else {
+      setStopSending(true);
+    }
+    setLoading(false);
+  };
+
+  useEffect(async () => {
     setStopSending(false);
-    setPage(1);
     dispatch({
       type: UPDATE_URL_LISTS,
       payload: [],
     });
-  }, [option]);
-
-  useEffect(() => {
-    const getUrlList = async () => {
+    if (page === 1) {
       setLoading(true);
-      const { data: newUrlLists } = await UrlAPI.getUrlList(page, option);
+      const { data: newUrlLists } = await UrlAPI.getUrlList(1, option);
       if (newUrlLists.length > 0) {
-        const combinedList = _.uniqBy([...urlList, ...newUrlLists], 'id');
         dispatch({
           type: UPDATE_URL_LISTS,
-          payload: combinedList,
+          payload: newUrlLists,
         });
       } else {
         setStopSending(true);
       }
       setLoading(false);
-    };
+    } else {
+      setPage(1);
+    }
+  }, [option]);
+
+  useEffect(() => {
     const mobileScrollDiv = document.querySelector('#MyUrlPage');
     getUrlList().catch(() => setLoading(false));
     if (mobileScrollDiv.getAttribute('scroll') !== true) {
