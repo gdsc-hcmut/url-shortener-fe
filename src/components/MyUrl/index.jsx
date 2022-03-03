@@ -54,7 +54,6 @@ export default function MyUrl({ id }) {
 
   const handleScroll = (e) => {
     const { scrollTop, clientHeight, scrollHeight } = e.currentTarget;
-    console.log(stopSending);
     if (!stopSending && scrollHeight - scrollTop - clientHeight < 1) {
       setPage(page + 1);
     }
@@ -105,7 +104,6 @@ export default function MyUrl({ id }) {
       mobileScrollDiv.addEventListener('scroll', handleScroll, {
         passive: true,
       });
-      console.log('run page ', page);
     }
     return () => mobileScrollDiv.removeEventListener('scroll', handleScroll);
   }, [page]);
