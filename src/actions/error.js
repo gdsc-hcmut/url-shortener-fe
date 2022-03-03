@@ -3,6 +3,7 @@ import {
   ACCOUNT_NOT_EXISTS,
   WEAK_PASSWORD,
   EMAIL_ALREADY_IN_USE,
+  TOO_MANY_REQUESTS,
   CLEAR_ERROR,
 } from 'action-types';
 
@@ -22,6 +23,10 @@ export const setError = (errCode) => (dispatch) => {
 
     case 'auth/email-already-in-use':
       dispatch({ type: EMAIL_ALREADY_IN_USE });
+      break;
+
+    case 'auth/too-many-requests':
+      dispatch({ type: TOO_MANY_REQUESTS });
       break;
 
     default:

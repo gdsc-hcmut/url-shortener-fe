@@ -1,20 +1,36 @@
+/* eslint-disable operator-linebreak */
+import { yupResolver } from '@hookform/resolvers/yup';
 import React, { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch, useStore } from 'react-redux';
 import { Link } from 'react-router-dom';
+import * as yup from 'yup';
 
 import { SHOW_LOG_IN_MODAL, SHOW_FORGOT_PASSWORD_MODAL } from 'action-types';
 import { login } from 'actions/auth';
 import loadingIcon from 'assets/icons/loading.svg';
+
+const schema = yup
+  .object({
+    email: yup
+      .string()
+      .email('Email is not valid.')
+      .max(255, 'Max length is 255 characters.')
+      .required('Email is required.'),
+    password: yup
+      .string()
+      .min(6, 'Password should be at least 6 characters.')
+      .max(255, 'Max length is 255 characters.')
+      .required('Password is required.'),
+  })
+  .required();
 
 export default function LoginForm() {
   const { LogInModal } = useSelector((state) => state.showModal);
   const { error } = useSelector((state) => state.error);
   const dispatch = useDispatch();
   const store = useStore();
-  const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
-  const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState({});
   const [width, setWidth] = useState(window.innerWidth);
 
   function handleWindowSizeChange() {
@@ -28,55 +44,25 @@ export default function LoginForm() {
     };
   }, []);
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmit = async (data) => {
+    const { email, password } = data;
+
+    setLoading(true);
+    await dispatch(login(email, password));
+    const reduxState = store.getState();
+    setLoading(reduxState.auth.loading);
+  };
+
   const isMobile = width <= 768;
-
-  const handleEmail = (e) => setEmail(e.target.value);
-  const handlePassword = (e) => setPassword(e.target.value);
-
-  const handleValidation = () => {
-    const newErrors = {};
-    let formIsValid = true;
-
-    if (
-      !String(email)
-        .toLowerCase()
-        .match(
-          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-        )
-    ) {
-      formIsValid = false;
-      newErrors.email = 'Email is not valid.';
-    }
-
-    if (!email) {
-      formIsValid = false;
-      newErrors.email = 'Email cannot be empty.';
-    }
-
-    if (!password) {
-      formIsValid = false;
-      newErrors.password = 'Password cannot be empty.';
-    }
-
-    if (password.length < 6) {
-      formIsValid = false;
-      newErrors.password = 'Password should be at least 6 characters.';
-    }
-
-    setErrors(newErrors);
-    return formIsValid;
-  };
-
-  const handleSignIn = async (e) => {
-    e.preventDefault();
-
-    if (handleValidation()) {
-      setLoading(true);
-      await dispatch(login(email, password));
-      const reduxState = store.getState();
-      setLoading(reduxState.auth.loading);
-    }
-  };
 
   const showForgotPassword = () => {
     dispatch({
@@ -90,22 +76,20 @@ export default function LoginForm() {
   };
 
   useEffect(() => {
-    setEmail('');
-    setPassword('');
+    reset();
   }, [LogInModal]);
 
   return (
-    <form onSubmit={handleSignIn}>
+    <form className="mx-5" onSubmit={handleSubmit(onSubmit)} autoComplete="off">
       <div className="flex flex-col align-end mb-7">
         <p className="pb-2">Email</p>
         <input
           className="w-[376px] md:w-[420px] h-[60px] bg-gdscGrey-100 focus:bg-white focus:border
                       focus:border-1 focus:border-gdscBlue-300  px-5 outline-none rounded"
-          value={email}
-          onChange={handleEmail}
+          {...register('email')}
         />
         <span className="text-gdscRed-300 mt-2">
-          {errors.email || error.signIn.email}
+          {(errors.email && errors.email.message) || error.signIn.email}
         </span>
       </div>
 
@@ -115,11 +99,11 @@ export default function LoginForm() {
           className="w-[376px] md:w-[420px] h-[60px] bg-gdscGrey-100 focus:bg-white focus:border
                       focus:border-1 focus:border-gdscBlue-300  px-5 outline-none rounded"
           type="password"
-          value={password}
-          onChange={handlePassword}
+          {...register('password')}
         />
         <span className="text-gdscRed-300 mt-2">
-          {errors.password || error.signIn.password}
+          {(errors.password && errors.password.message) ||
+            error.signIn.password}
         </span>
       </div>
 
