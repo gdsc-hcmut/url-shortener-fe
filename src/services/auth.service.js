@@ -12,6 +12,7 @@ import {
 
 import { CHANGE_PASSWORD_LOADING } from 'action-types';
 import { clearError, setError } from 'actions/error';
+import { showInfoBar } from 'actions/notification';
 import store from 'store';
 import setAuthToken from 'utils/setAuthToken';
 
@@ -28,8 +29,7 @@ const register = async (email, password) => {
       password,
     );
 
-    const a = await sendEmailVerification(auth.currentUser);
-    console.log(a.data);
+    await sendEmailVerification(auth.currentUser);
 
     const firebaseToken = userCredential.user.accessToken;
     localStorage.setItem('firebaseToken', firebaseToken);
@@ -39,6 +39,7 @@ const register = async (email, password) => {
     if (res.data.token) {
       TokenService.setUser(res.data.token);
     }
+    store.dispatch(showInfoBar(email));
     return res.data;
   } catch (error) {
     return store.dispatch(setError(error.code));
@@ -103,17 +104,19 @@ const changePassword = async (newPassword, oldPassword) => {
     oldPassword,
   );
   return reauthenticateWithCredential(auth.currentUser, credentials)
-    .then(() => updatePassword(auth.currentUser, newPassword)
-      .then(() => {
-        store.dispatch(clearError());
-        store.dispatch({
-          type: CHANGE_PASSWORD_LOADING,
+    .then(() => {
+      updatePassword(auth.currentUser, newPassword)
+        .then(() => {
+          store.dispatch(clearError());
+          store.dispatch({
+            type: CHANGE_PASSWORD_LOADING,
+          });
+          console.log('password update');
+        })
+        .catch((err) => {
+          console.log(err);
         });
-        console.log('password update');
-      })
-      .catch((err) => {
-        console.log(err);
-      }))
+    })
     .catch((error) => {
       store.dispatch(setError(error.code));
     });
