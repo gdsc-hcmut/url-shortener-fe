@@ -31,7 +31,7 @@ export const loadUser = () => async (dispatch) => {
   }
 };
 
-export const register = (email, password) => async (dispatch) => {
+export const signup = (email, password) => async (dispatch) => {
   try {
     const { user, token } = await AuthService.register(email, password);
     dispatch({
