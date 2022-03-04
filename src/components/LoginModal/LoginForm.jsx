@@ -88,7 +88,7 @@ export default function LoginForm() {
                       focus:border-1 focus:border-gdscBlue-300  px-5 outline-none rounded"
           {...register('email')}
         />
-        <span className="text-gdscRed-300 mt-2">
+        <span className="text-gdscRed-300 mt-2 w-[376px] md:w-[420px]">
           {(errors.email && errors.email.message) || error.signIn.email}
         </span>
       </div>
@@ -101,7 +101,7 @@ export default function LoginForm() {
           type="password"
           {...register('password')}
         />
-        <span className="text-gdscRed-300 mt-2">
+        <span className="text-gdscRed-300 mt-2 w-[376px] md:w-[420px]">
           {(errors.password && errors.password.message) ||
             error.signIn.password}
         </span>

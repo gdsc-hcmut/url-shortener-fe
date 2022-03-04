@@ -7,7 +7,7 @@ import Footer from 'components/Footer';
 import NavBar from 'components/Navbar';
 
 import LoginForm from './LoginForm';
-import LoginWithGoogle from './LoginWithGoogle';
+// import LoginWithGoogle from './LoginWithGoogle';
 
 export default function LoginModalMobile() {
   return (
@@ -31,7 +31,7 @@ export default function LoginModalMobile() {
             </button>
           </p>
         </Link>
-        <LoginWithGoogle />
+        {/* <LoginWithGoogle /> */}
       </motion.div>
       <Footer />
     </div>
