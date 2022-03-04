@@ -22,6 +22,7 @@ export default function ForgotPasswordDesktop({ show, onClose }) {
       document.body.removeEventListener('keydown', closeOnEscapeKeyDown);
     };
   }, []);
+
   const backToLogin = () => {
     dispatch({
       type: SHOW_FORGOT_PASSWORD_MODAL,
@@ -32,6 +33,7 @@ export default function ForgotPasswordDesktop({ show, onClose }) {
       payload: true,
     });
   };
+
   return (
     <div
       aria-hidden="true"
@@ -43,10 +45,10 @@ export default function ForgotPasswordDesktop({ show, onClose }) {
     >
       <div
         aria-hidden="true"
-        className="w-[376px] h-[376px] md:w-[500px] md:h-[360px] flex flex-col items-center border bg-white rounded"
+        className="relative w-[376px] h-[376px] md:w-[500px] md:h-[416px] flex flex-col items-center justify-center border bg-white rounded"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="mt-3 px-3 flex gap-x-[396px]">
+        <div className="absolute top-3 inset-x-3 flex gap-x-[396px]">
           <button
             type="button"
             onClick={backToLogin}

@@ -8,6 +8,7 @@ import {
   reauthenticateWithCredential,
   EmailAuthProvider,
   sendEmailVerification,
+  sendPasswordResetEmail,
 } from 'firebase/auth';
 
 import { CHANGE_PASSWORD_LOADING } from 'action-types';
@@ -122,6 +123,16 @@ const changePassword = async (newPassword, oldPassword) => {
     });
 };
 
+const resetPassword = async (email) => {
+  try {
+    const auth = getAuth();
+
+    await sendPasswordResetEmail(auth, email);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const AuthService = {
   register,
   login,
@@ -129,6 +140,7 @@ const AuthService = {
   getCurrentUser,
   changeEmail,
   changePassword,
+  resetPassword,
 };
 
 export default AuthService;
