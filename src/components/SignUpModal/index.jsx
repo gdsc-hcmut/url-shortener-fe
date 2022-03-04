@@ -7,7 +7,7 @@ import { clearError } from 'actions/error';
 import BackIcon from 'assets/icons/BackIcon.svg';
 import CloseIcon from 'assets/icons/close.svg';
 
-import LoginWithGoogle from './LoginWithGoogle';
+// import LoginWithGoogle from './LoginWithGoogle';
 import SignUpForm from './SignUpForm';
 
 export default function SignUpDesktop({ show, onClose }) {
@@ -67,12 +67,12 @@ export default function SignUpDesktop({ show, onClose }) {
           </button>
         </div>
         <SignUpForm isMobile={false} />
-        <div className="mt-[16px] h-10 self-center flex items-center">
+        {/* <div className="mt-[16px] h-10 self-center flex items-center">
           <div className="w-[170px] h-px bg-gdscGrey-200 mr-1" />
           or
           <div className="w-[170px] h-px bg-gdscGrey-200 ml-1" />
-        </div>
-        <LoginWithGoogle />
+        </div> */}
+        {/* <LoginWithGoogle /> */}
       </div>
     </div>
   );

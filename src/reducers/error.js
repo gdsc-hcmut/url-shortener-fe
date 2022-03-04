@@ -3,6 +3,7 @@ import {
   ACCOUNT_NOT_EXISTS,
   WEAK_PASSWORD,
   EMAIL_ALREADY_IN_USE,
+  TOO_MANY_REQUESTS,
   CLEAR_ERROR,
 } from 'action-types';
 
@@ -57,6 +58,19 @@ export default function (state = initialState, action) {
           ...state.error,
           signUp: {
             email: 'An account with that email already exists.',
+            password: null,
+          },
+        },
+      };
+
+    case TOO_MANY_REQUESTS:
+      return {
+        ...state,
+        error: {
+          ...state.error,
+          signIn: {
+            email:
+              'Access to this account has been temporarily disabled due to many failed login attempts.',
             password: null,
           },
         },

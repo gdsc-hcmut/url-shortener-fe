@@ -2,9 +2,9 @@ import {
   TOGGLE_SNACKBAR_OPEN,
   TOGGLE_SNACKBAR_CLOSE,
   SHOW_COPY_SUCCESS_MODAL,
+  SHOW_INFO_BAR,
+  CLOSE_INFO_BAR,
 } from 'action-types';
-
-const { REACT_APP_SHORTEN_BASE_URL } = process.env;
 
 export const toggleSnackbarOpen = () => (dispatch) => {
   dispatch({ type: TOGGLE_SNACKBAR_OPEN });
@@ -14,8 +14,15 @@ export const toggleSnackbarClose = () => (dispatch) => {
   dispatch({ type: TOGGLE_SNACKBAR_CLOSE });
 };
 
-export const toggleSuccessModalOpen = (slug) => (dispatch) => {
-  navigator.clipboard.writeText(`${REACT_APP_SHORTEN_BASE_URL}/${slug}`);
+export const showInfoBar = (email) => (dispatch) => {
+  dispatch({ type: SHOW_INFO_BAR, payload: email });
+};
+
+export const closeInfoBar = () => (dispatch) => {
+  dispatch({ type: CLOSE_INFO_BAR });
+};
+
+export const toggleSuccessModalOpen = () => (dispatch) => {
   dispatch({
     type: SHOW_COPY_SUCCESS_MODAL,
     payload: true,

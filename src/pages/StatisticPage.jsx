@@ -6,6 +6,7 @@ import { ReactComponent as MenuIcon } from 'assets/icons/menu.svg';
 import Footer from 'components/Footer';
 import Navbar from 'components/Navbar';
 import SideMenu from 'components/SideMenu';
+import Statistic from 'components/Statistic';
 
 export default function StatisticPage() {
   const [toggleMenu, setToggleMenu] = useState(false);
@@ -24,16 +25,16 @@ export default function StatisticPage() {
       <Navbar home={false} />
       <div className="flex md:overflow-x-scroll md:overflow-hidden h-full">
         <SideMenu toggle={toggleMenu} page="stat" />
-        <div className="bg-white md:bg-gdscGrey-100 mt-[48px] md:mt-0 h-full w-full md:h-6 md:min-h-screen flex-1 md:overflow-y-scroll">
+        <div className="bg-gdscGrey-100 md:mt-0 h-full w-full md:h-6 md:min-h-screen flex-1 md:overflow-y-scroll">
           <motion.div
-            className="mt-60 pb-[120px] md:pb-[156px] flex justify-center items-center text-2xl text-gdscRed-300"
+            className="w-full h-full text-2xl "
             initial="out"
             animate="in"
             exit="out"
             variants={transitionAnimation.bodyTransition}
             transition={transitionAnimation.transitionDuration}
           >
-            The This Page is still in development. Sorry for the inconvenience.
+            <Statistic />
           </motion.div>
           <div className="md:hidden">
             <Footer />

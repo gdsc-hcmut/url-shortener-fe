@@ -1,4 +1,9 @@
-import { USER_LOADED, USER_NOT_FOUND, NEW_EMAIL_TAKEN } from 'action-types';
+import {
+  USER_LOADED,
+  USER_NOT_FOUND,
+  NEW_EMAIL_TAKEN,
+  CHANGE_PASSWORD_FAIL,
+} from 'action-types';
 import AuthService from 'services/auth.service';
 import UserAPI from 'services/user.service';
 
@@ -27,5 +32,13 @@ export const editProfile = (name, newEmail, email, dateOfBirth) => async (dispat
     }
   }
 };
-
-export default { editProfile };
+export const changePassword = (newPassword, oldPassword) => async (dispatch) => {
+  try {
+    await AuthService.changePassword(newPassword, oldPassword);
+  } catch (err) {
+    dispatch({
+      type: CHANGE_PASSWORD_FAIL,
+    });
+  }
+};
+export default { editProfile, changePassword };

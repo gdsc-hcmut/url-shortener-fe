@@ -30,6 +30,8 @@ import TotalClick from './general/TotalClick';
 import QR from './QR';
 import SocialMedia from './SocialMedia';
 
+const { REACT_APP_SHORTEN_BASE_URL } = process.env;
+
 export default function Detail({ id }) {
   const dispatch = useDispatch();
   const [urlDetail, setUrlDetail] = useState({});
@@ -103,19 +105,29 @@ export default function Detail({ id }) {
           show={DeleteUrlModal}
         />
       </div>
-      <h1 className="font-normal 3xl:w-[1032px] md:w-[504px] w-full h-9 leading-9 hover:h-fit sm:w-[376px] text-[32px] mb-4 break-words cursor-pointer overflow-y-hidden hover:overflow-y-visible transition duration-300 ease-out">
-        {urlDetail.longUrl}
-      </h1>
-      <div className="mb-[60px] flex">
-        <h1 className="inline font-normal w-[216px] h-8 leading-8 text-xl mr-8 overflow-x-auto truncate">
+      <div className="flex">
+        <h1
+          aria-hidden
+          className="font-normal w-fit h-9 leading-9 text-[32px] mb-4 break-words cursor-pointer overflow-y-hidden "
+          onClick={() => {
+            navigator.clipboard.writeText(
+              `${REACT_APP_SHORTEN_BASE_URL}/${urlDetail.slug}`,
+            );
+            dispatch(toggleSuccessModalOpen());
+          }}
+        >
+          <span className="hidden sm:inline">{`${REACT_APP_SHORTEN_BASE_URL}/`}</span>
           {urlDetail.slug}
         </h1>
-        <div className="flex space-x-2">
+        <div className="ml-2 flex space-x-2">
           <button
             type="button"
             aria-label="Copy Button"
             className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
-            onClick={() => dispatch(toggleSuccessModalOpen(urlDetail.slug))}
+            onClick={() => {
+              navigator.clipboard.writeText(urlDetail.longUrl);
+              dispatch(toggleSuccessModalOpen());
+            }}
           >
             <CopyIcon />
           </button>
@@ -144,6 +156,16 @@ export default function Detail({ id }) {
             <DeleteIcon />
           </button>
         </div>
+      </div>
+      <div className="mb-[60px] flex">
+        <a
+          href={urlDetail.longUrl}
+          className="inline font-normal w-[216px] h-8 leading-8 text-xl mr-8 overflow-x-auto truncate"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {urlDetail.longUrl}
+        </a>
       </div>
       <div className="flex flex-col ">
         <div className="inline-flex flex-wrap gap-6 mb-6 md:gap-4 md:mb-4 3xl:gap-6 3xl:mb-6 ">

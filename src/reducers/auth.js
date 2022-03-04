@@ -8,6 +8,8 @@ import {
   LOGOUT,
   USER_NOT_FOUND,
   NEW_EMAIL_TAKEN,
+  CHANGE_PASSWORD_FAIL,
+  CHANGE_PASSWORD_LOADING,
 } from 'action-types';
 
 const initialState = {
@@ -47,9 +49,27 @@ export default function (state = initialState, action) {
         error: {},
       };
     case REGISTER_FAIL:
+      return {
+        ...state,
+        loading: false,
+      };
     case AUTH_ERROR:
     case LOGIN_FAIL:
+      return {
+        ...state,
+        loading: false,
+      };
     case USER_NOT_FOUND:
+    case CHANGE_PASSWORD_FAIL:
+      return {
+        ...state,
+        loading: false,
+      };
+    case CHANGE_PASSWORD_LOADING:
+      return {
+        ...state,
+        loading: false,
+      };
     case NEW_EMAIL_TAKEN:
       return {
         ...state,
