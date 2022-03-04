@@ -6,6 +6,7 @@ import {
   SHOW_COPY_SUCCESS_MODAL,
   SHOW_INFO_BAR,
   CLOSE_INFO_BAR,
+  CHANGE_PASSWORD_LOADING,
 } from 'action-types';
 
 export const toggleSnackbarOpen = () => (dispatch) => {
@@ -22,6 +23,10 @@ export const toggleChangePasswordSnackbarOpen = () => (dispatch) => {
 
 export const toggleChangePasswordSnackbarClose = () => (dispatch) => {
   dispatch({ type: TOGGLE_CHANGE_PASSWORD_SNACKBAR_CLOSE });
+};
+
+export const toggleChangePasswordLoadingIndicator = () => (dispatch) => {
+  dispatch({ type: CHANGE_PASSWORD_LOADING });
 };
 
 export const showInfoBar = (email) => (dispatch) => {

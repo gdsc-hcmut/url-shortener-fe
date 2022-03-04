@@ -9,13 +9,14 @@ import {
   EmailAuthProvider,
   sendEmailVerification,
   sendPasswordResetEmail,
+  onAuthStateChanged,
 } from 'firebase/auth';
 
-import { CHANGE_PASSWORD_LOADING } from 'action-types';
 import { clearError, setError } from 'actions/error';
 import {
   toggleChangePasswordSnackbarOpen,
   showInfoBar,
+  toggleChangePasswordLoadingIndicator,
 } from 'actions/notification';
 import store from 'store';
 import setAuthToken from 'utils/setAuthToken';
@@ -103,28 +104,31 @@ const changeEmail = async (newEmail) => {
 
 const changePassword = async (newPassword, oldPassword) => {
   const auth = getAuth();
-  const credentials = EmailAuthProvider.credential(
-    auth.currentUser.email,
-    oldPassword,
-  );
-  return reauthenticateWithCredential(auth.currentUser, credentials)
-    .then(() => {
-      updatePassword(auth.currentUser, newPassword)
+  await onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const credentials = EmailAuthProvider.credential(
+        auth.currentUser.email,
+        oldPassword,
+      );
+      return reauthenticateWithCredential(auth.currentUser, credentials)
         .then(() => {
-          store.dispatch(clearError());
-          store.dispatch({
-            type: CHANGE_PASSWORD_LOADING,
-          });
-          store.dispatch(toggleChangePasswordSnackbarOpen());
-          console.log('password update');
+          updatePassword(auth.currentUser, newPassword)
+            .then(() => {
+              store.dispatch(clearError());
+              store.dispatch(toggleChangePasswordSnackbarOpen());
+              store.dispatch(toggleChangePasswordLoadingIndicator());
+              console.log('password update');
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         })
-        .catch((err) => {
-          console.log(err);
+        .catch((error) => {
+          store.dispatch(setError(error.code));
         });
-    })
-    .catch((error) => {
-      store.dispatch(setError(error.code));
-    });
+    }
+    return 'User not logged in';
+  });
 };
 
 const resetPassword = async (email) => {
