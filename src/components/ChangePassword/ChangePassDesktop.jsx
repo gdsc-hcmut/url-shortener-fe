@@ -65,12 +65,9 @@ export default function ChangePassDesktop() {
     console.log(auth.currentUser);
     if (handleValidation()) {
       setLoading(true);
-      console.log(loading);
       await dispatch(changePassword(newPassword, oldPassword));
-      console.log(loading);
       const reduxState = store.getState();
       setLoading(reduxState.auth.loading);
-      console.log(reduxState.error.error.signIn.password);
       if (!reduxState.error.error.signIn.password) {
         setOldPassword('');
         setNewPassword('');
