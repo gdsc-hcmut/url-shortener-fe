@@ -70,7 +70,7 @@ export default function ForgotPasswordForm() {
           <p className="text-gdscRed-300 mt-2">{errors.email.message}</p>
         )}
         {showMessage && (
-          <p className="text-gdscGreen-300 mt-2">
+          <p className="text-gdscGreen-300 mt-2 w-[376px] md:w-[420px]">
             Thanks! If we find a matching account, we&apos;ll send you an email.
             Please check your inbox.
           </p>

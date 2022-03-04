@@ -7,7 +7,7 @@ import { clearError } from 'actions/error';
 import CloseIcon from 'assets/icons/close.svg';
 
 import LoginForm from './LoginForm';
-import LoginWithGoogle from './LoginWithGoogle';
+// import LoginWithGoogle from './LoginWithGoogle';
 
 export default function LoginModal({ show, onClose }) {
   const dispatch = useDispatch();
@@ -72,7 +72,7 @@ export default function LoginModal({ show, onClose }) {
             {"Don't have an account? "}
             <p className="active:underline font-bold ml-1">Sign up</p>
           </button>
-          <LoginWithGoogle />
+          {/* <LoginWithGoogle /> */}
         </div>
       </div>
     </div>
