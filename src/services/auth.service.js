@@ -9,7 +9,6 @@ import {
   EmailAuthProvider,
   sendEmailVerification,
   sendPasswordResetEmail,
-  onAuthStateChanged,
 } from 'firebase/auth';
 
 import { clearError, setError } from 'actions/error';
@@ -104,31 +103,26 @@ const changeEmail = async (newEmail) => {
 
 const changePassword = async (newPassword, oldPassword) => {
   const auth = getAuth();
-  await onAuthStateChanged(auth, (user) => {
-    if (user) {
-      const credentials = EmailAuthProvider.credential(
-        auth.currentUser.email,
-        oldPassword,
-      );
-      return reauthenticateWithCredential(auth.currentUser, credentials)
+  const credentials = EmailAuthProvider.credential(
+    auth.currentUser.email,
+    oldPassword,
+  );
+  return reauthenticateWithCredential(auth.currentUser, credentials)
+    .then(() => {
+      updatePassword(auth.currentUser, newPassword)
         .then(() => {
-          updatePassword(auth.currentUser, newPassword)
-            .then(() => {
-              store.dispatch(clearError());
-              store.dispatch(toggleChangePasswordSnackbarOpen());
-              store.dispatch(toggleChangePasswordLoadingIndicator());
-              console.log('password update');
-            })
-            .catch((err) => {
-              console.log(err);
-            });
+          store.dispatch(clearError());
+          store.dispatch(toggleChangePasswordSnackbarOpen());
+          store.dispatch(toggleChangePasswordLoadingIndicator());
+          console.log('password update');
         })
-        .catch((error) => {
-          store.dispatch(setError(error.code));
+        .catch((err) => {
+          console.log(err);
         });
-    }
-    return 'User not logged in';
-  });
+    })
+    .catch((error) => {
+      store.dispatch(setError(error.code));
+    });
 };
 
 const resetPassword = async (email) => {

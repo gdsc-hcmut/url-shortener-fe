@@ -1,5 +1,6 @@
+import { getAuth } from 'firebase/auth';
 import React, { useState } from 'react';
-import { useSelector, useDispatch, useStore } from 'react-redux';
+import { useDispatch, useSelector, useStore } from 'react-redux';
 
 import { changePassword } from 'actions/user';
 import loadingIcon from 'assets/icons/loading.svg';
@@ -11,8 +12,9 @@ export default function ChangePassDesktop() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
-  const dispatch = useDispatch();
   const store = useStore();
+  const auth = getAuth();
+  const dispatch = useDispatch();
   const handleOldPassword = (e) => setOldPassword(e.target.value);
   const handleNewPassword = (e) => setNewPassword(e.target.value);
   const handleConfirmPassword = (e) => setConfirmPassword(e.target.value);
@@ -60,11 +62,15 @@ export default function ChangePassDesktop() {
   };
   const handleChangePassword = async (e) => {
     e.preventDefault();
+    console.log(auth.currentUser);
     if (handleValidation()) {
       setLoading(true);
+      console.log(loading);
       await dispatch(changePassword(newPassword, oldPassword));
+      console.log(loading);
       const reduxState = store.getState();
       setLoading(reduxState.auth.loading);
+      console.log(reduxState.error.error.signIn.password);
       if (!reduxState.error.error.signIn.password) {
         setOldPassword('');
         setNewPassword('');
