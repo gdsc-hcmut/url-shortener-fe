@@ -11,9 +11,12 @@ import {
   sendPasswordResetEmail,
 } from 'firebase/auth';
 
-import { CHANGE_PASSWORD_LOADING } from 'action-types';
 import { clearError, setError } from 'actions/error';
-import { showInfoBar } from 'actions/notification';
+import {
+  toggleChangePasswordSnackbarOpen,
+  showInfoBar,
+  toggleChangePasswordLoadingIndicator,
+} from 'actions/notification';
 import store from 'store';
 import setAuthToken from 'utils/setAuthToken';
 
@@ -109,9 +112,8 @@ const changePassword = async (newPassword, oldPassword) => {
       updatePassword(auth.currentUser, newPassword)
         .then(() => {
           store.dispatch(clearError());
-          store.dispatch({
-            type: CHANGE_PASSWORD_LOADING,
-          });
+          store.dispatch(toggleChangePasswordSnackbarOpen());
+          store.dispatch(toggleChangePasswordLoadingIndicator());
           console.log('password update');
         })
         .catch((err) => {

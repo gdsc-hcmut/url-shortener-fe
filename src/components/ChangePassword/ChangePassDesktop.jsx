@@ -1,5 +1,6 @@
+import { getAuth } from 'firebase/auth';
 import React, { useState } from 'react';
-import { useSelector, useDispatch, useStore } from 'react-redux';
+import { useDispatch, useSelector, useStore } from 'react-redux';
 
 import { changePassword } from 'actions/user';
 import loadingIcon from 'assets/icons/loading.svg';
@@ -9,11 +10,11 @@ export default function ChangePassDesktop() {
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [notification, setNotification] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
-  const dispatch = useDispatch();
   const store = useStore();
+  const auth = getAuth();
+  const dispatch = useDispatch();
   const handleOldPassword = (e) => setOldPassword(e.target.value);
   const handleNewPassword = (e) => setNewPassword(e.target.value);
   const handleConfirmPassword = (e) => setConfirmPassword(e.target.value);
@@ -61,6 +62,7 @@ export default function ChangePassDesktop() {
   };
   const handleChangePassword = async (e) => {
     e.preventDefault();
+    console.log(auth.currentUser);
     if (handleValidation()) {
       setLoading(true);
       await dispatch(changePassword(newPassword, oldPassword));
@@ -70,8 +72,6 @@ export default function ChangePassDesktop() {
         setOldPassword('');
         setNewPassword('');
         setConfirmPassword('');
-        setNotification(true);
-        setTimeout(() => setNotification(false), 2000);
       }
     }
   };
@@ -137,11 +137,6 @@ export default function ChangePassDesktop() {
                   alt="Loading indicator"
                 />
               </button>
-            )}
-            {notification && (
-              <p className="mt-10 text-gdscBlue-200 ml-4">
-                Change Password successful!
-              </p>
             )}
           </div>
         </form>
