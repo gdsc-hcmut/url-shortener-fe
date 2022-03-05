@@ -5,7 +5,7 @@ import React from 'react';
 import { ReactComponent as GlobeIcon } from 'assets/icons/globe_icon.svg';
 import { ReactComponent as GraphIcon } from 'assets/icons/graph_icon.svg';
 import { ReactComponent as FacebookLogo } from 'assets/icons/logo/facebook_logo.svg';
-import { ReactComponent as InstagramLogo } from 'assets/icons/logo/instagram_logo.svg';
+import { ReactComponent as MessengerLogo } from 'assets/icons/logo/messenger_logo.svg';
 
 export default function SocialMedia({ data }) {
   return (
@@ -22,11 +22,11 @@ export default function SocialMedia({ data }) {
         </div>
         <div className="flex items-center h-[52px] mt-8">
           <div className="">
-            <InstagramLogo />
+            <MessengerLogo />
           </div>
-          <span className="font-normal text-xl ml-3">Instagram</span>
+          <span className="font-normal text-xl ml-3">Messenger</span>
           <span className="font-thin text-base text-gdscGrey-700 ml-auto">
-            {data.Instagram}
+            {data.Messenger}
           </span>
         </div>
         <div className="flex items-center h-[52px] mt-8">
@@ -57,6 +57,6 @@ export default function SocialMedia({ data }) {
 SocialMedia.propTypes = {
   data: PropTypes.shape({
     Facebook: PropTypes.number.isRequired,
-    Instagram: PropTypes.number.isRequired,
+    Messenger: PropTypes.number.isRequired,
   }).isRequired,
 };

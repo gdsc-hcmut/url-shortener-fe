@@ -21,7 +21,6 @@ export default function Statistic() {
     };
     getStatistic();
   }, [option]);
-
   return (
     <div className="bg-opacity-0 max-w-full h-full overflow-scroll md:no-scrollbar md:pt-10 md:pl-[60px] py-5 px-5">
       <h1 className="text-[32px] font-medium mb-[72px]">Statistic</h1>
@@ -38,7 +37,14 @@ export default function Statistic() {
           />
         </div>
         <div>
-          <SocialMedia />
+          <SocialMedia
+            data={{
+              Facebook: statistic.socialMediaClicks.Facebook,
+              Messenger: statistic.socialMediaClicks.Messenger,
+              Others: statistic.socialMediaClicks.Others,
+              TotalClick: statistic.todayClicks,
+            }}
+          />
         </div>
       </div>
     </div>
