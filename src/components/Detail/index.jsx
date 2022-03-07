@@ -8,6 +8,7 @@ import {
   SHOW_COPY_SUCCESS_MODAL,
   SHOW_DELETE_URL_MODAL,
   SHOW_EDIT_URL_MODAL,
+  UPDATE_URL_DETAIL,
 } from 'action-types';
 import {
   toggleSuccessModalOpen,
@@ -34,17 +35,20 @@ const { REACT_APP_SHORTEN_BASE_URL } = process.env;
 
 export default function Detail({ id }) {
   const dispatch = useDispatch();
-  const [urlDetail, setUrlDetail] = useState({});
   const [isDeleted, setIsDeleted] = useState(false);
   const { DeleteUrlModal, CopySuccessModal, EditUrlModal } = useSelector(
     (state) => state.showModal,
   );
+  const { urlDetail } = useSelector((state) => state.url);
 
   useEffect(() => {
     setIsDeleted(false);
     const getUrlDetail = async () => {
       const { data } = await UrlAPI.getUrlById(id);
-      setUrlDetail(data);
+      dispatch({
+        type: UPDATE_URL_DETAIL,
+        payload: data,
+      });
     };
     getUrlDetail().catch(() => {
       setIsDeleted(true);
@@ -58,6 +62,8 @@ export default function Detail({ id }) {
       }, 3000);
     }
   }, [CopySuccessModal]);
+
+  console.log(urlDetail);
 
   if (isDeleted) {
     return (

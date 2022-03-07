@@ -11,6 +11,7 @@ import {
   SLUG_TAKEN,
   SLUG_EDIT_INVALID,
   UPDATE_URL_LISTS,
+  UPDATE_URL_DETAIL,
 } from 'action-types';
 import { toggleSnackbarOpen } from 'actions/notification';
 import UrlAPI from 'services/url.service';
@@ -124,6 +125,10 @@ const deleteUrl = (id, urlList) => async (dispatch) => {
 const editExpireTime = (id, newExpireTime) => async (dispatch) => {
   try {
     const res = await UrlAPI.editExpireTime(id, newExpireTime);
+    dispatch({
+      type: UPDATE_URL_DETAIL,
+      payload: res.data,
+    });
     dispatch({
       type: EDIT_EXPIRE_TIME,
       payload: res.data,

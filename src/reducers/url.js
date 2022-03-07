@@ -6,6 +6,7 @@ import {
   EDIT_EXPIRE_TIME,
   SLUG_EDIT_INVALID,
   UPDATE_URL_LISTS,
+  UPDATE_URL_DETAIL,
 } from 'action-types';
 
 const initialState = {
@@ -16,8 +17,8 @@ const initialState = {
   data: {},
   invalidSlug: {},
   newSlug: '',
-  newExpireTime: null,
   urlList: [],
+  urlDetail: {},
   loading: true,
 };
 
@@ -55,7 +56,6 @@ export default (state = initialState, { type, payload } = {}) => {
         data: payload,
         slugExist: false,
         invalidSlug: {},
-        newExpireTime: payload.expireTime,
       };
     case URL_ERROR:
       return {
@@ -76,6 +76,11 @@ export default (state = initialState, { type, payload } = {}) => {
       return {
         ...state,
         urlList: payload,
+      };
+    case UPDATE_URL_DETAIL:
+      return {
+        ...state,
+        urlDetail: payload,
       };
     default:
       return state;

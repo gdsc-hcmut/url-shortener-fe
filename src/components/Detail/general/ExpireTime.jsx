@@ -3,26 +3,29 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import MobileDateTimePicker from '@mui/lab/MobileDateTimePicker';
 import TextField from '@mui/material/TextField';
 import PropTypes from 'prop-types';
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import 'index.css';
 
+// import { UPDATE_URL_DETAIL } from 'action-types';
 import urlAction from 'actions/url';
 import { ReactComponent as EditExpireIcon } from 'assets/icons/edit_expire_icon.svg';
 import { ReactComponent as ExpireTimeIcon } from 'assets/icons/expire_time_icon.svg';
 
 export default function ExpireTime({ expireTime, id }) {
   const [currTime, setCurrTime] = useState(new Date(expireTime));
-  const [time, setTime] = useState(new Date(expireTime));
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
-  const { newExpireTime } = useSelector((state) => state.url);
+  // const { data } = useSelector((state) => state.url);
 
-  useEffect(() => {
-    if (newExpireTime) {
-      setTime(new Date(newExpireTime));
-    }
-  }, [newExpireTime]);
+  // useEffect(() => {
+  //   if (data) {
+  //     dispatch({
+  //       type: UPDATE_URL_DETAIL,
+  //       payload: data,
+  //     });
+  //   }
+  // }, [data]);
 
   return (
     <div className="h-[116px] md:h-[100px] 3xl:h-32 3xl:w-[504px] md:w-[504px] lg:w-[312px] w-full py-7 md:py-3 3xl:py-7 px-5 flex justify-between bg-white rounded">
@@ -31,18 +34,22 @@ export default function ExpireTime({ expireTime, id }) {
       </div>
       <div className="flex flex-col justify-between items-end">
         <span className="text-gdscRed-300 text-xl lg:text-lg 3xl:text-2xl font-normal truncate">
-          {time.getTime() < new Date().getTime() ? (
+          {new Date(expireTime).getTime() < new Date().getTime() ? (
             ' Expired'
           ) : (
             <span>
               <span className="hidden 3xl:inline">
                 {`${new Intl.DateTimeFormat('en-US', {
                   weekday: 'long',
-                }).format(time)}`}
+                }).format(new Date(expireTime))}`}
               </span>
-              <span>{` ${time.getDate()}/${time.getMonth() + 1}`}</span>
-              <span>{`/${time.getFullYear()}`}</span>
-              <span>{` ${time.toLocaleTimeString()}`}</span>
+              <span>
+                {` ${new Date(expireTime).getDate()}/${
+                  new Date(expireTime).getMonth() + 1
+                }`}
+              </span>
+              <span>{`/${new Date(expireTime).getFullYear()}`}</span>
+              <span>{` ${new Date(expireTime).toLocaleTimeString()}`}</span>
             </span>
           )}
         </span>
