@@ -30,6 +30,7 @@ export default function ResetPasswordForm() {
 
   const [searchParams] = useSearchParams();
   const oobCode = searchParams.get('oobCode');
+  const mode = searchParams.get('mode');
 
   const navigate = useNavigate();
 
@@ -46,6 +47,9 @@ export default function ResetPasswordForm() {
   });
 
   useEffect(() => {
+    if (mode === 'verifyEmail') {
+      navigate(`/verified-email?oobCode=${oobCode}`);
+    }
     if (!oobCode) {
       navigate('/');
     }

@@ -18,6 +18,7 @@ import SignInMobilePage from 'pages/SignInMobilePage';
 import SignUpMobilePage from 'pages/SignUpMobilePage';
 import StatisticPage from 'pages/StatisticPage';
 import UserProfilePage from 'pages/UserProfilePage';
+import VerifiedEmailPage from 'pages/VerifiedEmailPage';
 
 import store from './store';
 import './index.css';
@@ -46,7 +47,8 @@ export default function App() {
                 </RequireAuth>
               }
             />
-            <Route path="/reset-password" element={<ResetPasswordPage />} />
+            <Route path="/__/auth" element={<ResetPasswordPage />} />
+            <Route path="/verified-email" element={<VerifiedEmailPage />} />
             <Route
               path="/change-password"
               element={
