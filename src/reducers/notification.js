@@ -5,6 +5,7 @@ import {
   TOGGLE_CHANGE_PASSWORD_SNACKBAR_CLOSE,
   SHOW_INFO_BAR,
   CLOSE_INFO_BAR,
+  RESET_PASSWORD_SUCCESS,
 } from 'action-types';
 
 const initialState = {
@@ -12,6 +13,7 @@ const initialState = {
   showingInfoBar: false,
   showChangePasswordSnackbar: false,
   email: null,
+  resetPasswordMessage: null,
 };
 
 export default function (state = initialState, action) {
@@ -54,6 +56,12 @@ export default function (state = initialState, action) {
         ...state,
         showingInfoBar: false,
         email: null,
+      };
+    }
+    case RESET_PASSWORD_SUCCESS: {
+      return {
+        ...state,
+        resetPasswordMessage: payload,
       };
     }
     default: {

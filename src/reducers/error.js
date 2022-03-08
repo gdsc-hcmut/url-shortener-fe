@@ -4,6 +4,9 @@ import {
   WEAK_PASSWORD,
   EMAIL_ALREADY_IN_USE,
   TOO_MANY_REQUESTS,
+  EXPIRED_ACTION_CODE,
+  INVALID_ACTION_CODE,
+  USER_DISABLED,
   CLEAR_ERROR,
 } from 'action-types';
 
@@ -11,6 +14,7 @@ const initialState = {
   error: {
     signIn: { email: null, password: null },
     signUp: { email: null, password: null },
+    resetPassword: null,
   },
 };
 
@@ -76,12 +80,40 @@ export default function (state = initialState, action) {
         },
       };
 
+    case EXPIRED_ACTION_CODE:
+      return {
+        ...state,
+        error: {
+          ...state.error,
+          resetPassword: 'The action code to reset password has expired.',
+        },
+      };
+
+    case INVALID_ACTION_CODE:
+      return {
+        ...state,
+        error: {
+          ...state.error,
+          resetPassword: 'The action code to reset password is invalid.',
+        },
+      };
+
+    case USER_DISABLED:
+      return {
+        ...state,
+        error: {
+          ...state.error,
+          resetPassword: 'User has been disabled.',
+        },
+      };
+
     case CLEAR_ERROR:
       return {
         ...state,
         error: {
           signIn: { email: null, password: null },
           signUp: { email: null, password: null },
+          resetPassword: null,
         },
       };
 

@@ -7,6 +7,7 @@ import {
   SHOW_INFO_BAR,
   CLOSE_INFO_BAR,
   CHANGE_PASSWORD_LOADING,
+  RESET_PASSWORD_SUCCESS,
 } from 'action-types';
 
 export const toggleSnackbarOpen = () => (dispatch) => {
@@ -48,5 +49,12 @@ export const toggleSuccessModalClose = () => (dispatch) => {
   dispatch({
     type: SHOW_COPY_SUCCESS_MODAL,
     payload: false,
+  });
+};
+
+export const showResetPasswordSuccessMessage = () => (dispatch) => {
+  dispatch({
+    type: RESET_PASSWORD_SUCCESS,
+    payload: 'Your password has been reset successfully!',
   });
 };
