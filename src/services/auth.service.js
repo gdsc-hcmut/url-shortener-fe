@@ -9,6 +9,8 @@ import {
   EmailAuthProvider,
   sendEmailVerification,
   sendPasswordResetEmail,
+  confirmPasswordReset,
+  verifyPasswordResetCode,
 } from 'firebase/auth';
 
 import { clearError, setError } from 'actions/error';
@@ -16,6 +18,7 @@ import {
   toggleChangePasswordSnackbarOpen,
   showInfoBar,
   toggleChangePasswordLoadingIndicator,
+  showResetPasswordSuccessMessage,
 } from 'actions/notification';
 import store from 'store';
 import setAuthToken from 'utils/setAuthToken';
@@ -80,7 +83,6 @@ const logout = () => {
   });
 };
 
-// const getCurrentUser = () => JSON.parse(localStorage.getItem('user'));
 const getCurrentUser = async () => {
   if (localStorage.user) {
     setAuthToken(localStorage.user);
@@ -135,6 +137,27 @@ const resetPassword = async (email) => {
   }
 };
 
+const resetToNewPassword = async (oobCode, newPassword) => {
+  try {
+    const auth = getAuth();
+
+    await confirmPasswordReset(auth, oobCode, newPassword);
+    return store.dispatch(showResetPasswordSuccessMessage());
+  } catch (error) {
+    return store.dispatch(setError(error.code));
+  }
+};
+
+const verifyResetCode = async (oobCode) => {
+  try {
+    const auth = getAuth();
+
+    return await verifyPasswordResetCode(auth, oobCode);
+  } catch (error) {
+    return store.dispatch(setError(error.code));
+  }
+};
+
 const AuthService = {
   register,
   login,
@@ -143,6 +166,8 @@ const AuthService = {
   changeEmail,
   changePassword,
   resetPassword,
+  resetToNewPassword,
+  verifyResetCode,
 };
 
 export default AuthService;
