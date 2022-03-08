@@ -27,6 +27,7 @@ const schema = yup
 
 export default function ResetPasswordForm() {
   const [loading, setLoading] = useState(false);
+  const [counter, setCounter] = useState(5);
 
   const [searchParams] = useSearchParams();
   const oobCode = searchParams.get('oobCode');
@@ -54,6 +55,15 @@ export default function ResetPasswordForm() {
       navigate('/');
     }
   });
+
+  useEffect(() => {
+    if (counter === 0) {
+      navigate('/');
+    }
+    if (resetPasswordMessage && counter > 0) {
+      setTimeout(() => setCounter(counter - 1), 1000);
+    }
+  }, [counter, resetPasswordMessage]);
 
   useEffect(async () => {
     await AuthService.verifyResetCode(oobCode);
@@ -105,9 +115,16 @@ export default function ResetPasswordForm() {
             {(errors.confirmPassword && errors.confirmPassword.message) ||
               error.resetPassword}
           </span>
-          <span className="text-gdscGreen-300 mt-2">
-            {resetPasswordMessage}
-          </span>
+          {resetPasswordMessage && (
+            <>
+              <span className="text-gdscGreen-300 mt-2">
+                {resetPasswordMessage}
+              </span>
+              <p className="text-gdscGreen-300 mt-2">
+                {`Redirect to homepage in ${counter}...`}
+              </p>
+            </>
+          )}
         </div>
 
         {!loading ? (
