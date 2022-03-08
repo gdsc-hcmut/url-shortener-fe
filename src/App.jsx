@@ -46,14 +46,7 @@ export default function App() {
                 </RequireAuth>
               }
             />
-            <Route
-              path="/reset-password"
-              element={
-                <RequireAuth redirectTo="/">
-                  <ResetPasswordPage />
-                </RequireAuth>
-              }
-            />
+            <Route path="/reset-password" element={<ResetPasswordPage />} />
             <Route
               path="/change-password"
               element={
@@ -88,14 +81,6 @@ export default function App() {
             />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
             <Route path="/stat" element={<StatisticPage />} />
-            <Route
-              path="/my-url"
-              element={
-                <RequireAuth redirectTo="/">
-                  <MyUrlPage />
-                </RequireAuth>
-              }
-            />
             <Route path="/statistics" element={<StatisticPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>

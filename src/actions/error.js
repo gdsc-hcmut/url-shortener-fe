@@ -5,6 +5,9 @@ import {
   EMAIL_ALREADY_IN_USE,
   TOO_MANY_REQUESTS,
   CLEAR_ERROR,
+  EXPIRED_ACTION_CODE,
+  INVALID_ACTION_CODE,
+  USER_DISABLED,
 } from 'action-types';
 
 export const setError = (errCode) => (dispatch) => {
@@ -27,6 +30,18 @@ export const setError = (errCode) => (dispatch) => {
 
     case 'auth/too-many-requests':
       dispatch({ type: TOO_MANY_REQUESTS });
+      break;
+
+    case 'auth/expired-action-code':
+      dispatch({ type: EXPIRED_ACTION_CODE });
+      break;
+
+    case 'auth/invalid-action-code':
+      dispatch({ type: INVALID_ACTION_CODE });
+      break;
+
+    case 'auth/user-disabled':
+      dispatch({ type: USER_DISABLED });
       break;
 
     default:
