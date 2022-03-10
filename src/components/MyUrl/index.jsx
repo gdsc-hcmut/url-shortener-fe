@@ -22,7 +22,7 @@ import { ReactComponent as EditIcon } from 'assets/icons/edit_icon.svg';
 import DeleteModal from 'components/DeleteModal';
 import EditSlugModal from 'components/EditSludModal';
 import ModalSucess from 'components/ModalSuccess';
-import Snackbar from 'components/Snackbar';
+import DeleteLinkSnackbar from 'components/Snackbar/DeleteLinkSnackbar';
 import {
   LATEST, OLDEST, LEAST_CLICKED, MOST_CLICKED,
 } from 'constant/options';
@@ -171,7 +171,7 @@ export default function MyUrl({ id }) {
         />
       </div>
       <div className="absolute bottom-4 right-4">
-        {showSnackbar && <Snackbar />}
+        {showSnackbar && <DeleteLinkSnackbar />}
       </div>
       <h1 className="font-normal text-[32px] leading-10">My URLs</h1>
 

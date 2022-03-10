@@ -5,7 +5,7 @@ import { toggleSnackbarClose } from 'actions/notification';
 import { ReactComponent as CloseIcon } from 'assets/icons/close_icon_snackbar.svg';
 import { ReactComponent as DeleteIcon } from 'assets/icons/delete_icon_snackbar.svg';
 
-export default function Snackbar() {
+export default function DeleteLinkSnackbar() {
   const dispatch = useDispatch();
 
   const { showSnackbar } = useSelector((state) => state.notification);
