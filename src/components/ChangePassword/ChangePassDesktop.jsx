@@ -4,6 +4,8 @@ import { useDispatch, useSelector, useStore } from 'react-redux';
 
 import { changePassword } from 'actions/user';
 import loadingIcon from 'assets/icons/loading.svg';
+import visibilityIcon from 'assets/icons/visibility.svg';
+import visibilityOffIcon from 'assets/icons/visibility_off.svg';
 
 export default function ChangePassDesktop() {
   const { error } = useSelector((state) => state.error);
@@ -12,6 +14,9 @@ export default function ChangePassDesktop() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
+  const [showOldPassword, setShowOldPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const store = useStore();
   const auth = getAuth();
   const dispatch = useDispatch();
@@ -82,36 +87,93 @@ export default function ChangePassDesktop() {
         <h1 className="text-xl font-medium">Change Password</h1>
         <form className="mt-9 flex flex-col" onSubmit={handleChangePassword}>
           <p>Old Password</p>
-          <input
-            type="password"
-            value={oldPassword}
-            onChange={handleOldPassword}
-            className="mt-4 h-[60px]
-          bg-gdscGrey-100 focus:bg-white focus:border
-            focus:border-1 focus:border-gdscBlue-300 px-5 outline-none rounded"
-          />
+          <div className="flex items-center">
+            <input
+              value={oldPassword}
+              onChange={handleOldPassword}
+              className="w-full mt-4 h-[60px]
+            bg-gdscGrey-100 focus:bg-white focus:border
+              focus:border-1 focus:border-gdscBlue-300 px-5 outline-none rounded"
+              type={showOldPassword ? 'text' : 'password'}
+            />
+            {showOldPassword ? (
+              <img
+                aria-hidden
+                src={visibilityIcon}
+                className="w-7 h-7 ml-[-40px] mt-4 cursor-pointer"
+                alt="Show password Icon"
+                onClick={() => setShowOldPassword(false)}
+              />
+            ) : (
+              <img
+                aria-hidden
+                src={visibilityOffIcon}
+                className="w-7 h-7 ml-[-40px] mt-4 cursor-pointer"
+                alt="Hide password Icon"
+                onClick={() => setShowOldPassword(true)}
+              />
+            )}
+          </div>
           <span className="text-gdscRed-300 mt-2">
             {errors.oldPassword || error.signIn.password}
           </span>
           <p className="mt-4">New Password</p>
-          <input
-            type="password"
-            value={newPassword}
-            onChange={handleNewPassword}
-            className="mt-4 h-[60px]
-          bg-gdscGrey-100 focus:bg-white focus:border
-            focus:border-1 focus:border-gdscBlue-300  px-5 outline-none rounded"
-          />
+          <div className="flex items-center">
+            <input
+              value={newPassword}
+              onChange={handleNewPassword}
+              className="mt-4 w-full h-[60px]
+            bg-gdscGrey-100 focus:bg-white focus:border
+              focus:border-1 focus:border-gdscBlue-300  px-5 outline-none rounded"
+              type={showNewPassword ? 'text' : 'password'}
+            />
+            {showNewPassword ? (
+              <img
+                aria-hidden
+                src={visibilityIcon}
+                className="w-7 h-7 ml-[-40px] mt-4 cursor-pointer"
+                alt="Show password Icon"
+                onClick={() => setShowNewPassword(false)}
+              />
+            ) : (
+              <img
+                aria-hidden
+                src={visibilityOffIcon}
+                className="w-7 h-7 ml-[-40px] mt-4 cursor-pointer"
+                alt="Hide password Icon"
+                onClick={() => setShowNewPassword(true)}
+              />
+            )}
+          </div>
           <span className="text-gdscRed-300 mt-2">{errors.newPassword}</span>
           <p className="mt-4">Confirm Password</p>
-          <input
-            type="password"
-            value={confirmPassword}
-            onChange={handleConfirmPassword}
-            className="mt-4 h-[60px]
-          bg-gdscGrey-100 focus:bg-white focus:border
-            focus:border-1 focus:border-gdscBlue-300  px-5 outline-none rounded"
-          />
+          <div className="flex items-center">
+            <input
+              value={confirmPassword}
+              onChange={handleConfirmPassword}
+              className="mt-4 w-full h-[60px]
+            bg-gdscGrey-100 focus:bg-white focus:border
+              focus:border-1 focus:border-gdscBlue-300  px-5 outline-none rounded"
+              type={showConfirmPassword ? 'text' : 'password'}
+            />
+            {showConfirmPassword ? (
+              <img
+                aria-hidden
+                src={visibilityIcon}
+                className="w-7 h-7 ml-[-40px] mt-4 cursor-pointer"
+                alt="Show password Icon"
+                onClick={() => setShowConfirmPassword(false)}
+              />
+            ) : (
+              <img
+                aria-hidden
+                src={visibilityOffIcon}
+                className="w-7 h-7 ml-[-40px] mt-4 cursor-pointer"
+                alt="Hide password Icon"
+                onClick={() => setShowConfirmPassword(true)}
+              />
+            )}
+          </div>
           <span className="text-gdscRed-300 mt-2">
             {errors.confirmPassword}
           </span>
