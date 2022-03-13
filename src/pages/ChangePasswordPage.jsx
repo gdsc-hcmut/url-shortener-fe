@@ -38,7 +38,7 @@ export default function ChangePasswordPage() {
           >
             <ChangePassword />
           </motion.div>
-          <div className="absolute bottom-[720px] md:bottom-4 right-4">
+          <div className="fixed bottom-4 right-4">
             <ChangePasswordSnackbar />
           </div>
           <div className="md:hidden">
