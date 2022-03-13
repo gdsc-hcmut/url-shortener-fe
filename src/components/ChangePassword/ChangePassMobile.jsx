@@ -1,8 +1,11 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import { useSelector, useDispatch, useStore } from 'react-redux';
 
 import { changePassword } from 'actions/user';
 import loadingIcon from 'assets/icons/loading.svg';
+import visibilityIcon from 'assets/icons/visibility.svg';
+import visibilityOffIcon from 'assets/icons/visibility_off.svg';
 
 export default function ChangePasswordMobile() {
   const { error } = useSelector((state) => state.error);
@@ -11,6 +14,9 @@ export default function ChangePasswordMobile() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
+  const [showOldPassword, setShowOldPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const dispatch = useDispatch();
   const store = useStore();
   const handleOldPassword = (e) => setOldPassword(e.target.value);
@@ -80,34 +86,130 @@ export default function ChangePasswordMobile() {
       <form onSubmit={handleChangePassword}>
         <div className="flex flex-col align-end mb-5">
           <p className="pb-2">Old Password</p>
-          <input
-            value={oldPassword}
-            onChange={handleOldPassword}
-            className="w-[376px] md:w-[420px] h-[60px] bg-gdscGrey-100 focus:bg-white focus:border focus:border-1 focus:border-gdscBlue-300  px-5 outline-none rounded"
-            type="password"
-          />
+          <div className="flex items-center">
+            <input
+              id="oldpassword"
+              value={oldPassword}
+              onChange={handleOldPassword}
+              className="w-[376px] md:w-[420px] h-[60px]
+            bg-gdscGrey-100 focus:bg-white focus:border
+              focus:border-1 focus:border-gdscBlue-300 px-5 outline-none rounded"
+              type={showOldPassword ? 'text' : 'password'}
+            />
+            {showOldPassword ? (
+              <label
+                aria-hidden
+                htmlFor="oldpassword"
+                className="w-7 h-7 ml-[-40px] inline-block opacity-80 cursor-pointer"
+                onClick={() => setShowOldPassword(false)}
+              >
+                <img
+                  src={visibilityIcon}
+                  className="w-7 h-7 pointer-events-none"
+                  alt="Show password Icon"
+                />
+              </label>
+            ) : (
+              <label
+                aria-hidden
+                htmlFor="oldpassword"
+                className="w-7 h-7 ml-[-40px] inline-block opacity-80 cursor-pointer"
+                onClick={() => setShowOldPassword(true)}
+              >
+                <img
+                  src={visibilityOffIcon}
+                  className="w-7 h-7 pointer-events-none"
+                  alt="Hide password Icon"
+                />
+              </label>
+            )}
+          </div>
           <span className="text-gdscRed-300 mt-2">
             {errors.oldPassword || error.signIn.password}
           </span>
         </div>
         <div className="flex flex-col align-end mb-5">
           <p className="pb-2">New Password</p>
-          <input
-            value={newPassword}
-            onChange={handleNewPassword}
-            className="w-[376px] md:w-[420px] h-[60px] bg-gdscGrey-100 focus:bg-white focus:border focus:border-1 focus:border-gdscBlue-300  px-5 outline-none rounded"
-            type="password"
-          />
+          <div className="flex items-center">
+            <input
+              id="newpassword"
+              value={newPassword}
+              onChange={handleNewPassword}
+              className="w-[376px] md:w-[420px] h-[60px]
+            bg-gdscGrey-100 focus:bg-white focus:border
+              focus:border-1 focus:border-gdscBlue-300  px-5 outline-none rounded"
+              type={showNewPassword ? 'text' : 'password'}
+            />
+            {showNewPassword ? (
+              <label
+                aria-hidden
+                htmlFor="newpassword"
+                className="w-7 h-7 ml-[-40px] inline-block opacity-80 cursor-pointer"
+                onClick={() => setShowNewPassword(false)}
+              >
+                <img
+                  src={visibilityIcon}
+                  className="w-7 h-7 pointer-events-none"
+                  alt="Show password Icon"
+                />
+              </label>
+            ) : (
+              <label
+                aria-hidden
+                htmlFor="newpassword"
+                className="w-7 h-7 ml-[-40px] inline-block opacity-80 cursor-pointer"
+                onClick={() => setShowNewPassword(true)}
+              >
+                <img
+                  src={visibilityOffIcon}
+                  className="w-7 h-7 pointer-events-none"
+                  alt="Hide password Icon"
+                />
+              </label>
+            )}
+          </div>
           <span className="text-gdscRed-300 mt-2">{errors.newPassword}</span>
         </div>
         <div className="flex flex-col align-end mb-5">
           <p className="pb-2">Confirm Password</p>
-          <input
-            value={confirmPassword}
-            onChange={handleConfirmPassword}
-            className="w-[376px] md:w-[420px] h-[60px] bg-gdscGrey-100 focus:bg-white focus:border focus:border-1 focus:border-gdscBlue-300  px-5 outline-none rounded"
-            type="password"
-          />
+          <div className="flex items-center">
+            <input
+              id="confirmPassword"
+              value={confirmPassword}
+              onChange={handleConfirmPassword}
+              className="w-[376px] md:w-[420px] h-[60px]
+            bg-gdscGrey-100 focus:bg-white focus:border
+              focus:border-1 focus:border-gdscBlue-300  px-5 outline-none rounded"
+              type={showConfirmPassword ? 'text' : 'password'}
+            />
+            {showConfirmPassword ? (
+              <label
+                aria-hidden
+                htmlFor="confirmPassword"
+                className="w-7 h-7 ml-[-40px] inline-block opacity-80 cursor-pointer"
+                onClick={() => setShowConfirmPassword(false)}
+              >
+                <img
+                  src={visibilityIcon}
+                  className="w-7 h-7 pointer-events-none"
+                  alt="Show password Icon"
+                />
+              </label>
+            ) : (
+              <label
+                aria-hidden
+                htmlFor="confirmPassword"
+                className="w-7 h-7 ml-[-40px] inline-block opacity-80 cursor-pointer"
+                onClick={() => setShowConfirmPassword(true)}
+              >
+                <img
+                  src={visibilityOffIcon}
+                  className="w-7 h-7 pointer-events-none"
+                  alt="Show password Icon"
+                />
+              </label>
+            )}
+          </div>
           <span className="text-gdscRed-300 mt-2">
             {errors.confirmPassword}
           </span>

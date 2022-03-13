@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable operator-linebreak */
 import { yupResolver } from '@hookform/resolvers/yup';
 import React, { useState, useEffect } from 'react';
@@ -100,27 +101,38 @@ export default function LoginForm() {
         <p className="pb-2">Password</p>
         <div className="flex items-center">
           <input
+            id="password"
             className="w-[376px] md:w-[420px] h-[60px] bg-gdscGrey-100 focus:bg-white focus:border
                       focus:border-1 focus:border-gdscBlue-300  px-5 outline-none rounded"
             type={showPassword ? 'text' : 'password'}
             {...register('password')}
           />
           {showPassword ? (
-            <img
+            <label
               aria-hidden
-              src={visibilityIcon}
-              className="w-7 h-7 ml-[-40px] cursor-pointer"
-              alt="Show password Icon"
+              htmlFor="password"
+              className="w-7 h-7 ml-[-40px] inline-block opacity-80 cursor-pointer"
               onClick={() => setShowPassword(false)}
-            />
+            >
+              <img
+                src={visibilityIcon}
+                className="w-7 h-7 pointer-events-none"
+                alt="Show password Icon"
+              />
+            </label>
           ) : (
-            <img
+            <label
               aria-hidden
-              src={visibilityOffIcon}
-              className="w-7 h-7 ml-[-40px] cursor-pointer"
-              alt="Hide password Icon"
+              htmlFor="password"
+              className="w-7 h-7 ml-[-40px] inline-block opacity-80 cursor-pointer"
               onClick={() => setShowPassword(true)}
-            />
+            >
+              <img
+                src={visibilityOffIcon}
+                className="w-7 h-7 pointer-events-none"
+                alt="Hide password Icon"
+              />
+            </label>
           )}
         </div>
         <span className="text-gdscRed-300 mt-2 w-[376px] md:w-[420px]">

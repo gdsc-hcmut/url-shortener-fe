@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import { getAuth } from 'firebase/auth';
 import React, { useState } from 'react';
 import { useDispatch, useSelector, useStore } from 'react-redux';
@@ -89,6 +90,7 @@ export default function ChangePassDesktop() {
           <p>Old Password</p>
           <div className="flex items-center">
             <input
+              id="oldpassword"
               value={oldPassword}
               onChange={handleOldPassword}
               className="w-full mt-4 h-[60px]
@@ -97,21 +99,31 @@ export default function ChangePassDesktop() {
               type={showOldPassword ? 'text' : 'password'}
             />
             {showOldPassword ? (
-              <img
+              <label
                 aria-hidden
-                src={visibilityIcon}
-                className="w-7 h-7 ml-[-40px] mt-4 cursor-pointer"
-                alt="Show password Icon"
+                htmlFor="oldpassword"
+                className="w-7 h-7 ml-[-40px] mt-4 inline-block opacity-80 cursor-pointer"
                 onClick={() => setShowOldPassword(false)}
-              />
+              >
+                <img
+                  src={visibilityIcon}
+                  className="w-7 h-7 pointer-events-none"
+                  alt="Show password Icon"
+                />
+              </label>
             ) : (
-              <img
+              <label
                 aria-hidden
-                src={visibilityOffIcon}
-                className="w-7 h-7 ml-[-40px] mt-4 cursor-pointer"
-                alt="Hide password Icon"
+                htmlFor="oldpassword"
+                className="w-7 h-7 ml-[-40px] mt-4 inline-block opacity-80 cursor-pointer"
                 onClick={() => setShowOldPassword(true)}
-              />
+              >
+                <img
+                  src={visibilityOffIcon}
+                  className="w-7 h-7 pointer-events-none"
+                  alt="Hide password Icon"
+                />
+              </label>
             )}
           </div>
           <span className="text-gdscRed-300 mt-2">
@@ -120,6 +132,7 @@ export default function ChangePassDesktop() {
           <p className="mt-4">New Password</p>
           <div className="flex items-center">
             <input
+              id="newpassword"
               value={newPassword}
               onChange={handleNewPassword}
               className="mt-4 w-full h-[60px]
@@ -128,27 +141,38 @@ export default function ChangePassDesktop() {
               type={showNewPassword ? 'text' : 'password'}
             />
             {showNewPassword ? (
-              <img
+              <label
                 aria-hidden
-                src={visibilityIcon}
-                className="w-7 h-7 ml-[-40px] mt-4 cursor-pointer"
-                alt="Show password Icon"
+                htmlFor="newpassword"
+                className="w-7 h-7 ml-[-40px] mt-4 inline-block opacity-80 cursor-pointer"
                 onClick={() => setShowNewPassword(false)}
-              />
+              >
+                <img
+                  src={visibilityIcon}
+                  className="w-7 h-7 pointer-events-none"
+                  alt="Show password Icon"
+                />
+              </label>
             ) : (
-              <img
+              <label
                 aria-hidden
-                src={visibilityOffIcon}
-                className="w-7 h-7 ml-[-40px] mt-4 cursor-pointer"
-                alt="Hide password Icon"
+                htmlFor="newpassword"
+                className="w-7 h-7 ml-[-40px] mt-4 inline-block opacity-80 cursor-pointer"
                 onClick={() => setShowNewPassword(true)}
-              />
+              >
+                <img
+                  src={visibilityOffIcon}
+                  className="w-7 h-7 pointer-events-none"
+                  alt="Hide password Icon"
+                />
+              </label>
             )}
           </div>
           <span className="text-gdscRed-300 mt-2">{errors.newPassword}</span>
           <p className="mt-4">Confirm Password</p>
           <div className="flex items-center">
             <input
+              id="confirmPassword"
               value={confirmPassword}
               onChange={handleConfirmPassword}
               className="mt-4 w-full h-[60px]
@@ -157,21 +181,31 @@ export default function ChangePassDesktop() {
               type={showConfirmPassword ? 'text' : 'password'}
             />
             {showConfirmPassword ? (
-              <img
+              <label
                 aria-hidden
-                src={visibilityIcon}
-                className="w-7 h-7 ml-[-40px] mt-4 cursor-pointer"
-                alt="Show password Icon"
+                htmlFor="confirmPassword"
+                className="w-7 h-7 ml-[-40px] mt-4 inline-block opacity-80 cursor-pointer"
                 onClick={() => setShowConfirmPassword(false)}
-              />
+              >
+                <img
+                  src={visibilityIcon}
+                  className="w-7 h-7 pointer-events-none"
+                  alt="Show password Icon"
+                />
+              </label>
             ) : (
-              <img
+              <label
                 aria-hidden
-                src={visibilityOffIcon}
-                className="w-7 h-7 ml-[-40px] mt-4 cursor-pointer"
-                alt="Hide password Icon"
+                htmlFor="confirmPassword"
+                className="w-7 h-7 ml-[-40px] mt-4 inline-block opacity-80 cursor-pointer"
                 onClick={() => setShowConfirmPassword(true)}
-              />
+              >
+                <img
+                  src={visibilityOffIcon}
+                  className="w-7 h-7 pointer-events-none"
+                  alt="Show password Icon"
+                />
+              </label>
             )}
           </div>
           <span className="text-gdscRed-300 mt-2">
