@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable operator-linebreak */
 import { yupResolver } from '@hookform/resolvers/yup';
 import PropTypes from 'prop-types';
@@ -41,6 +42,7 @@ export default function SignUpForm({ isMobile }) {
   const store = useStore();
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const {
     register,
@@ -97,6 +99,7 @@ export default function SignUpForm({ isMobile }) {
         <p>Password</p>
         <div className="flex items-center">
           <input
+            id="inputPassword"
             className="mt-2 w-[376px] md:w-[420px] h-[60px]
                       focus:border focus:border-1 rounded-[8px]
                       bg-gdscGrey-100 focus:bg-white focus:outline-gdscBlue-300 p-5"
@@ -104,21 +107,31 @@ export default function SignUpForm({ isMobile }) {
             {...register('password')}
           />
           {showPassword ? (
-            <img
+            <label
               aria-hidden
-              src={visibilityIcon}
-              className="w-7 h-7 ml-[-40px] mt-2 cursor-pointer"
-              alt="Show password Icon"
+              htmlFor="inputPassword"
+              className="w-7 h-7 ml-[-40px] mt-2 inline-block opacity-80 cursor-pointer"
               onClick={() => setShowPassword(false)}
-            />
+            >
+              <img
+                src={visibilityIcon}
+                className="w-7 h-7 pointer-events-none"
+                alt="Show password Icon"
+              />
+            </label>
           ) : (
-            <img
+            <label
               aria-hidden
-              src={visibilityOffIcon}
-              className="w-7 h-7 ml-[-40px] mt-2 cursor-pointer"
-              alt="Hide password Icon"
+              htmlFor="inputPassword"
+              className="w-7 h-7 ml-[-40px] mt-2 inline-block opacity-80 cursor-pointer"
               onClick={() => setShowPassword(true)}
-            />
+            >
+              <img
+                src={visibilityOffIcon}
+                className="w-7 h-7 pointer-events-none"
+                alt="Hide password Icon"
+              />
+            </label>
           )}
         </div>
       </div>
@@ -129,28 +142,39 @@ export default function SignUpForm({ isMobile }) {
         <p>Confirm Password</p>
         <div className="flex items-center">
           <input
+            id="confirmPassword"
             className="mt-2 w-[376px] md:w-[420px] h-[60px]
             focus:border focus:border-1 rounded-[8px]
             bg-gdscGrey-100 focus:bg-white focus:outline-gdscBlue-300 p-5"
-            type={showPassword ? 'text' : 'password'}
+            type={showConfirmPassword ? 'text' : 'password'}
             {...register('confirmPassword')}
           />
-          {showPassword ? (
-            <img
+          {showConfirmPassword ? (
+            <label
               aria-hidden
-              src={visibilityIcon}
-              className="w-7 h-7 ml-[-40px] mt-2 cursor-pointer"
-              alt="Show password Icon"
-              onClick={() => setShowPassword(false)}
-            />
+              htmlFor="confirmPassword"
+              className="w-7 h-7 ml-[-40px] mt-2 inline-block opacity-80 cursor-pointer"
+              onClick={() => setShowConfirmPassword(false)}
+            >
+              <img
+                src={visibilityIcon}
+                className="w-7 h-7 pointer-events-none"
+                alt="Show password Icon"
+              />
+            </label>
           ) : (
-            <img
+            <label
               aria-hidden
-              src={visibilityOffIcon}
-              className="w-7 h-7 ml-[-40px] mt-2 cursor-pointer"
-              alt="Hide password Icon"
-              onClick={() => setShowPassword(true)}
-            />
+              htmlFor="confirmPassword"
+              className="w-7 h-7 ml-[-40px] mt-2 inline-block opacity-80 cursor-pointer"
+              onClick={() => setShowConfirmPassword(true)}
+            >
+              <img
+                src={visibilityOffIcon}
+                className="w-7 h-7 pointer-events-none"
+                alt="Hide password Icon"
+              />
+            </label>
           )}
         </div>
       </div>
