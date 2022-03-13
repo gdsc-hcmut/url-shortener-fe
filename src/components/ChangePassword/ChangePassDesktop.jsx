@@ -90,7 +90,7 @@ export default function ChangePassDesktop() {
           <p>Old Password</p>
           <div className="flex items-center">
             <input
-              id="oldpassword"
+              id="oldPassword"
               value={oldPassword}
               onChange={handleOldPassword}
               className="w-full mt-4 h-[60px]
@@ -101,7 +101,7 @@ export default function ChangePassDesktop() {
             {showOldPassword ? (
               <label
                 aria-hidden
-                htmlFor="oldpassword"
+                htmlFor="oldPassword"
                 className="w-7 h-7 ml-[-40px] mt-4 inline-block opacity-80 cursor-pointer"
                 onClick={() => setShowOldPassword(false)}
               >
@@ -114,7 +114,7 @@ export default function ChangePassDesktop() {
             ) : (
               <label
                 aria-hidden
-                htmlFor="oldpassword"
+                htmlFor="oldPassword"
                 className="w-7 h-7 ml-[-40px] mt-4 inline-block opacity-80 cursor-pointer"
                 onClick={() => setShowOldPassword(true)}
               >
@@ -132,7 +132,7 @@ export default function ChangePassDesktop() {
           <p className="mt-4">New Password</p>
           <div className="flex items-center">
             <input
-              id="newpassword"
+              id="newPassword"
               value={newPassword}
               onChange={handleNewPassword}
               className="mt-4 w-full h-[60px]
@@ -143,7 +143,7 @@ export default function ChangePassDesktop() {
             {showNewPassword ? (
               <label
                 aria-hidden
-                htmlFor="newpassword"
+                htmlFor="newPassword"
                 className="w-7 h-7 ml-[-40px] mt-4 inline-block opacity-80 cursor-pointer"
                 onClick={() => setShowNewPassword(false)}
               >
@@ -156,7 +156,7 @@ export default function ChangePassDesktop() {
             ) : (
               <label
                 aria-hidden
-                htmlFor="newpassword"
+                htmlFor="newPassword"
                 className="w-7 h-7 ml-[-40px] mt-4 inline-block opacity-80 cursor-pointer"
                 onClick={() => setShowNewPassword(true)}
               >
@@ -172,7 +172,7 @@ export default function ChangePassDesktop() {
           <p className="mt-4">Confirm Password</p>
           <div className="flex items-center">
             <input
-              id="confirmPassword"
+              id="ConfirmPassword"
               value={confirmPassword}
               onChange={handleConfirmPassword}
               className="mt-4 w-full h-[60px]
@@ -183,7 +183,7 @@ export default function ChangePassDesktop() {
             {showConfirmPassword ? (
               <label
                 aria-hidden
-                htmlFor="confirmPassword"
+                htmlFor="ConfirmPassword"
                 className="w-7 h-7 ml-[-40px] mt-4 inline-block opacity-80 cursor-pointer"
                 onClick={() => setShowConfirmPassword(false)}
               >
@@ -196,7 +196,7 @@ export default function ChangePassDesktop() {
             ) : (
               <label
                 aria-hidden
-                htmlFor="confirmPassword"
+                htmlFor="ConfirmPassword"
                 className="w-7 h-7 ml-[-40px] mt-4 inline-block opacity-80 cursor-pointer"
                 onClick={() => setShowConfirmPassword(true)}
               >
