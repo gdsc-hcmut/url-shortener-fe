@@ -62,11 +62,14 @@ export default function ModalUrl({
         <button
           type="button"
           onClick={downloadQR}
-          className="w-[180px] h-[44px] text-base bg-gdscBlue-300 hover:bg-shorten-btn-hover rounded-[8px] py-[12px] mt-[36px] text-white transition-all duration-300 ease-out"
+          className="w-[180px] h-[44px] text-base bg-gdscBlue-300 hover:bg-shorten-btn-hover rounded-[8px] py-[12px] mt-[20px] text-white transition-all duration-300 ease-out"
         >
           Download PNG
         </button>
-        <div className="flex justify-end items-center w-[315px] md:w-[352px] h-[54px]  mt-[36px] md:mt-[32px] border-[1px] border-gdscBlue-300 rounded-[8px]">
+        <p className="text-gdscBlue-300 mt-3">
+          This shortened link will expire after one month
+        </p>
+        <div className="flex justify-end items-center w-[315px] md:w-[352px] h-[54px]  mt-3 border-[1px] border-gdscBlue-300 rounded-[8px]">
           <Url shortenedUrl={shortenedUrl} />
           <div className="border-l-[1px] h-[54px] border-gdscBlue-300" />
           <CopyButton copied={copied} handleCopy={handleCopy} />
