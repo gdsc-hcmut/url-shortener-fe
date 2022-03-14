@@ -125,7 +125,9 @@ export default function Detail({ id }) {
             aria-label="Copy Button"
             className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
             onClick={() => {
-              navigator.clipboard.writeText(urlDetail.longUrl);
+              navigator.clipboard.writeText(
+                `${REACT_APP_SHORTEN_BASE_URL}/${urlDetail.slug}`,
+              );
               dispatch(toggleSuccessModalOpen());
             }}
           >
