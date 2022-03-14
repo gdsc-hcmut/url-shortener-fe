@@ -119,7 +119,7 @@ export default function UserFormMobile() {
               {newEmail}
               <button
                 type="button"
-                className="absolute right-5"
+                className="hidden absolute right-5"
                 onClick={(e) => {
                   e.stopPropagation();
                   setField({ ...field, email: true, notification: true });

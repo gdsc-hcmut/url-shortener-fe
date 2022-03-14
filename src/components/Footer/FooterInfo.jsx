@@ -45,7 +45,7 @@ export default function FooterInfo() {
             Contact
           </p>
           <p className="text-[16px] md:text-[18px] my-[5px]">
-            dsc.hcmut@gmail.com
+            contact@gdschcmut.dev
           </p>
         </div>
         <div className="flex flex-col text-gdscGrey-800 mt-[60px]">

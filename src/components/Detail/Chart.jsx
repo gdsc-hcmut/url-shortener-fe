@@ -182,7 +182,7 @@ export default function Chart({ data }) {
   return (
     <div className="md:h-[496px] h-[240px] 3xl:w-[1032px] md:w-[504px] lg:w-[640px] w-full px-5 py-5 lg:px-8 flex flex-col space-y-3 md:space-y-7  bg-white rounded">
       <div className="flex justify-between">
-        <h1 className="font-medium text-xs md:text-base">Times Clicked On</h1>
+        <h1 className="font-bold text-base md:text-xl">Times Clicked On</h1>
         <div
           aria-hidden
           className="w-[128px] h-11 text-base text-gdscGrey-700 p-2 lg:p-3 outline-none bg-[#F0F5F7] mt-3 mx-0 self-end text-left cursor-pointer rounded block md:mt-1 md:mr-3 focus:outline-none cursor-pointer"
