@@ -4,6 +4,7 @@ import {
   USER_LOADED,
   AUTH_ERROR,
   LOGIN_SUCCESS,
+  LOGIN_WITH_GOOGLE_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
   SHOW_LOG_IN_MODAL,
@@ -59,6 +60,29 @@ export const login = (email, password) => async (dispatch) => {
 
     dispatch({
       type: LOGIN_SUCCESS,
+      payload: { user, token },
+    });
+
+    dispatch({
+      type: SHOW_LOG_IN_MODAL,
+      payload: false,
+    });
+    dispatch(clearError());
+
+    dispatch(loadUser());
+  } catch (err) {
+    dispatch({
+      type: LOGIN_FAIL,
+    });
+  }
+};
+
+export const loginWithGoogle = (tokenId) => async (dispatch) => {
+  try {
+    const { user, token } = await AuthService.loginWithGoogle(tokenId);
+
+    dispatch({
+      type: LOGIN_WITH_GOOGLE_SUCCESS,
       payload: { user, token },
     });
 

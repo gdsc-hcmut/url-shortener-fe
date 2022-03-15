@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 import { logout } from 'actions/auth';
@@ -9,10 +9,15 @@ import { ReactComponent as LinkIcon } from 'assets/icons/link_icon.svg';
 import { ReactComponent as LockIcon } from 'assets/icons/lock_icon.svg';
 import { ReactComponent as LogoutIcon } from 'assets/icons/logout_icon.svg';
 import { ReactComponent as StatIcon } from 'assets/icons/stat_icon.svg';
+import GoogleLogoutButton from 'components/Modals/GoogleLogoutButton';
 
 export default function SideMenu({ toggle, page }) {
   const dispatch = useDispatch();
   const handleSignOut = () => dispatch(logout());
+  const loggedInWithGoogle = useSelector(
+    (state) => state.auth.loggedInWithGoogle,
+  );
+
   useEffect(() => {
     const sideMenu = document.querySelector('.side-menu');
     sideMenu.classList.toggle('-translate-x-full');
@@ -93,18 +98,22 @@ export default function SideMenu({ toggle, page }) {
           <LockIcon />
           <span>Change Password</span>
         </NavLink>
-        <NavLink
-          to="/"
-          onClick={handleSignOut}
-          className="logOut flex flex-row space-x-4 min-w-full md:w-[240px] items-center
+        {loggedInWithGoogle ? (
+          <GoogleLogoutButton />
+        ) : (
+          <NavLink
+            to="/"
+            onClick={handleSignOut}
+            className="logOut flex flex-row space-x-4 min-w-full md:w-[240px] items-center
             md:h-[52px] h-[58px] px-5 rounded bg-white
             hover:bg-gdscRed-300/10 cursor-pointer
             text-gdscRed-300 transition-all
             ease-out duration-300"
-        >
-          <LogoutIcon color="#DB4437" />
-          <span>Logout</span>
-        </NavLink>
+          >
+            <LogoutIcon color="#DB4437" />
+            <span>Logout</span>
+          </NavLink>
+        )}
       </div>
     </div>
   );

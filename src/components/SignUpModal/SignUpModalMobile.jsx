@@ -5,7 +5,7 @@ import transitionAnimation from 'animations';
 import Footer from 'components/Footer';
 import NavBar from 'components/Navbar';
 
-// import LoginWithGoogle from './LoginWithGoogle';
+import LoginWithGoogle from './LoginWithGoogle';
 import SignUpForm from './SignUpForm';
 
 export default function SignUpModalMobile() {
@@ -22,11 +22,11 @@ export default function SignUpModalMobile() {
       >
         <SignUpForm isMobile />
         <div className="mt-[28px] h-10 self-center flex items-center">
-          {/* <div className="w-[170px] h-px bg-gdscGrey-200 mr-1" />
+          <div className="w-[170px] h-px bg-gdscGrey-200 mr-1" />
           or
-          <div className="w-[170px] h-px bg-gdscGrey-200 ml-1" /> */}
+          <div className="w-[170px] h-px bg-gdscGrey-200 ml-1" />
         </div>
-        {/* <LoginWithGoogle /> */}
+        <LoginWithGoogle />
       </motion.div>
       <Footer />
     </div>

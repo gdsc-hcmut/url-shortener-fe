@@ -5,15 +5,20 @@ import { useDispatch } from 'react-redux';
 import { loginWithGoogle } from 'actions/auth';
 import GoogleLogo from 'assets/icons/GoogleLogo.svg';
 
-export default function LoginWithGoogle() {
+export default function GoogleButton() {
   const dispatch = useDispatch();
 
   const onSuccess = (res) => {
     dispatch(loginWithGoogle(res.tokenId));
   };
 
+  const onFailure = (res) => {
+    console.log('Login failed: res:', res);
+  };
+
   const { signIn } = useGoogleLogin({
     onSuccess,
+    onFailure,
     clientId: process.env.REACT_APP_CLIENT_ID,
     isSignedIn: true,
     accessType: 'offline',
@@ -22,13 +27,19 @@ export default function LoginWithGoogle() {
   return (
     <button
       onClick={signIn}
+      className="text-gdscGrey-700 w-[260px] h-[44px]
+            bg-white rounded border border-gdscGrey-200
+            transition-all duration-300 ease-out mb-[120px] md:mb-7 font-bold
+            hover:border-[#FCEAE9] hover:bg-[#FCEAE9]
+            flex flex-row justify-center items-center"
       type="button"
-      className="w-[260px] h-[44px] self-center
-      border rounded-[8px] border-gdscGrey-200 text-gdscGrey-700 font-bold mb-[120px] md:mb-3
-      flex justify-center items-center hover:bg-sign-in-with-google hover:border-[#FCEAE9] transition-all ease-out duration-300"
     >
-      <img className="w-4 h-4 mr-2" src={GoogleLogo} alt="Google Icon" />
-      Sign in with Google
+      <img
+        className="w-[16px] h-[16px] mr-2"
+        src={GoogleLogo}
+        alt="Google Logo"
+      />
+      <span>Sign in with Google</span>
     </button>
   );
 }

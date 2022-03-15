@@ -4,6 +4,7 @@ import {
   USER_LOADED,
   AUTH_ERROR,
   LOGIN_SUCCESS,
+  LOGIN_WITH_GOOGLE_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
   USER_NOT_FOUND,
@@ -23,6 +24,7 @@ const initialState = {
     avatar: 'user avatar',
   },
   error: {},
+  loggedInWithGoogle: null,
 };
 
 export default function (state = initialState, action) {
@@ -47,6 +49,18 @@ export default function (state = initialState, action) {
         isAuthenticated: true,
         loading: false,
         error: {},
+        loggedInWithGoogle: false,
+      };
+    case LOGIN_WITH_GOOGLE_SUCCESS:
+      return {
+        ...state,
+        ...payload,
+        user: payload.user,
+        token: payload.token,
+        isAuthenticated: true,
+        loading: false,
+        error: {},
+        loggedInWithGoogle: true,
       };
     case REGISTER_FAIL:
       return {
@@ -82,6 +96,7 @@ export default function (state = initialState, action) {
         token: null,
         isAuthenticated: false,
         loading: false,
+        loggedInWithGoogle: false,
       };
     default:
       return state;
