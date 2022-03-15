@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable operator-linebreak */
 import { yupResolver } from '@hookform/resolvers/yup';
 import React, { useState, useEffect } from 'react';
@@ -9,6 +10,8 @@ import * as yup from 'yup';
 import { SHOW_LOG_IN_MODAL, SHOW_FORGOT_PASSWORD_MODAL } from 'action-types';
 import { login } from 'actions/auth';
 import loadingIcon from 'assets/icons/loading.svg';
+import visibilityIcon from 'assets/icons/visibility.svg';
+import visibilityOffIcon from 'assets/icons/visibility_off.svg';
 
 const schema = yup
   .object({
@@ -32,6 +35,7 @@ export default function LoginForm() {
   const store = useStore();
   const [loading, setLoading] = useState(false);
   const [width, setWidth] = useState(window.innerWidth);
+  const [showPassword, setShowPassword] = useState(false);
 
   function handleWindowSizeChange() {
     setWidth(window.innerWidth);
@@ -95,12 +99,42 @@ export default function LoginForm() {
 
       <div className="flex flex-col align-end mb-7">
         <p className="pb-2">Password</p>
-        <input
-          className="w-[376px] md:w-[420px] h-[60px] bg-gdscGrey-100 focus:bg-white focus:border
+        <div className="flex items-center">
+          <input
+            id="password"
+            className="w-[376px] md:w-[420px] h-[60px] bg-gdscGrey-100 focus:bg-white focus:border
                       focus:border-1 focus:border-gdscBlue-300  px-5 outline-none rounded"
-          type="password"
-          {...register('password')}
-        />
+            type={showPassword ? 'text' : 'password'}
+            {...register('password')}
+          />
+          {showPassword ? (
+            <label
+              aria-hidden
+              htmlFor="password"
+              className="w-7 h-7 ml-[-40px] inline-block opacity-80 cursor-pointer"
+              onClick={() => setShowPassword(false)}
+            >
+              <img
+                src={visibilityIcon}
+                className="w-7 h-7 pointer-events-none"
+                alt="Show password Icon"
+              />
+            </label>
+          ) : (
+            <label
+              aria-hidden
+              htmlFor="password"
+              className="w-7 h-7 ml-[-40px] inline-block opacity-80 cursor-pointer"
+              onClick={() => setShowPassword(true)}
+            >
+              <img
+                src={visibilityOffIcon}
+                className="w-7 h-7 pointer-events-none"
+                alt="Hide password Icon"
+              />
+            </label>
+          )}
+        </div>
         <span className="text-gdscRed-300 mt-2 w-[376px] md:w-[420px]">
           {(errors.password && errors.password.message) ||
             error.signIn.password}

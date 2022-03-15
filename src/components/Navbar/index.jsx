@@ -91,12 +91,12 @@ export default function Navbar({ home }) {
                 onClick={handleShow}
                 type="button"
                 className="hidden bg-gdscBlue-200 ease-out duration-300 hover:bg-login-btn-hover bg-opacity-10
-          text-gdscBlue-300 font-normal hover:bg-opacity-10 rounded md:flex justify-end items-center
-            w-[100px] h-[36px] md:w-[184px] md:h-[52px] content-center text-base  md:my-0 ml-[30px]"
+          text-gdscBlue-300 font-normal hover:bg-opacity-10 rounded md:flex justify-end items-center p-1
+            w-[100px] h-[36px] md:w-[184px] md:h-[52px] text-base md:my-0 ml-[30px]"
               >
-                <p className="mr-10">{user && userName}</p>
+                <p className="w-full text-center">{user && userName}</p>
                 <img
-                  className="h-[44px] w-[44px] mr-1"
+                  className="h-[44px] w-[44px]"
                   src={defaultAvatar}
                   alt="avatar icon"
                 />
