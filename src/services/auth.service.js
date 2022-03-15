@@ -129,8 +129,8 @@ const changePassword = async (newPassword, oldPassword) => {
     oldPassword,
   );
   return reauthenticateWithCredential(auth.currentUser, credentials)
-    .then(() => {
-      updatePassword(auth.currentUser, newPassword)
+    .then(async () => {
+      await updatePassword(auth.currentUser, newPassword)
         .then(() => {
           store.dispatch(clearError());
           store.dispatch(toggleChangePasswordSnackbarOpen());
