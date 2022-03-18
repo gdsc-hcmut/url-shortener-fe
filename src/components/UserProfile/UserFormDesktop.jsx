@@ -9,7 +9,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import * as yup from 'yup';
 
-import { UPDATE_PROFILE_IMG, UPLOAD_IMG } from 'action-types';
+import { UPLOAD_IMG } from 'action-types';
 import { editProfile } from 'actions/user';
 import EditIcon from 'assets/icons/edit.svg';
 import storage from 'config/firebase-storage';
@@ -27,7 +27,6 @@ export default function UserFormDesktop() {
   const { user } = useSelector((state) => state.auth);
   const { uploadAva } = useSelector((state) => state.user);
   const [field, setField] = useState({
-    avatar: false,
     name: false,
     email: false,
     dob: false,
@@ -49,14 +48,6 @@ export default function UserFormDesktop() {
   const editUserProfile = async (data, e) => {
     e.preventDefault();
     const { name } = data;
-    dispatch({
-      type: UPDATE_PROFILE_IMG,
-      payload: { ...user, avatar: uploadAva },
-    });
-    dispatch({
-      type: UPLOAD_IMG,
-      payload: null,
-    });
     await dispatch(editProfile(name, newEmail, email, dateOfBirth, uploadAva));
     const reduxState = store.getState();
     if (reduxState.auth.error.email === 'Email taken') {
@@ -66,6 +57,7 @@ export default function UserFormDesktop() {
       localStorage.setItem('userName', name);
       localStorage.setItem('userEmail', newEmail);
       localStorage.setItem('userBirthday', dateOfBirth);
+      localStorage.setItem('avatar', uploadAva);
     }
   };
   useEffect(() => {
@@ -73,6 +65,7 @@ export default function UserFormDesktop() {
   }, []);
 
   const handleImageUpload = (e) => {
+    console.log('BLEEE DESKTOP');
     const file = e.target.files[0];
 
     if (file.size >= 1024 * 1024) {
@@ -103,7 +96,6 @@ export default function UserFormDesktop() {
           name: false,
           email: false,
           dob: false,
-          avatar: false,
         });
       }}
     >
@@ -126,7 +118,6 @@ export default function UserFormDesktop() {
             <img
               src={
                 uploadAva
-                || user.avatar
                 || 'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'
               }
               className="md:w-[100px] md:h-[100px] lg:w-[152px] lg:h-[152px] rounded border border-gdscGrey-200"
@@ -134,20 +125,26 @@ export default function UserFormDesktop() {
             />
             <div className="ml-8 h-full flex flex-col">
               <label
-                htmlFor="image_uploads"
+                htmlFor="image_uploads_desktop"
                 className="w-40 h-[52px] mb-7 bg-gdscBlue-200 bg-opacity-20
                 hover:bg-opacity-40 transition-all duration-300 ease-out text-gdscBlue-300 rounded cursor-pointer flex justify-center items-center"
               >
                 Upload
                 <input
                   type="file"
-                  id="image_uploads"
+                  id="image_uploads_desktop"
                   className="opacity-0 absolute -z-10"
                   accept="image/png, image/jpeg, image/jpg"
                   onChange={handleImageUpload}
                 />
               </label>
-              <p className="text-xs">{AVATAR_INFO}</p>
+              {!field.avatar && <p className="text-xs">{AVATAR_INFO}</p>}
+              {field.notification && field.avatar && (
+                <p className="text-gdscBlue-300 text-sm">
+                  Your image has been uploaded. Click Save to submit your
+                  changes
+                </p>
+              )}
             </div>
           </div>
           <div className="flex md:flex-col input-field-col:flex-row flex-wrap input-field-col:space-x-7 mt-[52px]">
@@ -173,7 +170,11 @@ export default function UserFormDesktop() {
                     className="absolute right-5"
                     onClick={(e) => {
                       e.stopPropagation();
-                      setField({ ...field, name: true, notification: true });
+                      setField({
+                        ...field,
+                        name: true,
+                        notification: true,
+                      });
                     }}
                   >
                     <img className="w-6 h-6" src={EditIcon} alt="Edit info" />
@@ -203,7 +204,11 @@ export default function UserFormDesktop() {
                     className="hidden absolute right-5"
                     onClick={(e) => {
                       e.stopPropagation();
-                      setField({ ...field, email: true, notification: true });
+                      setField({
+                        ...field,
+                        email: true,
+                        notification: true,
+                      });
                     }}
                   >
                     <img className="w-6 h-6" src={EditIcon} alt="Edit info" />
@@ -259,7 +264,11 @@ export default function UserFormDesktop() {
                 className="absolute right-5"
                 onClick={(e) => {
                   e.stopPropagation();
-                  setField({ ...field, dob: true, notification: true });
+                  setField({
+                    ...field,
+                    dob: true,
+                    notification: true,
+                  });
                   setDatePicker(true);
                 }}
               >

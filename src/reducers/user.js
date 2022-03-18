@@ -1,7 +1,7 @@
 import { UPLOAD_IMG } from 'action-types';
 
 const initialState = {
-  uploadAva: null,
+  uploadAva: localStorage.getItem('avatar'),
 };
 
 export default function (state = initialState, action) {
