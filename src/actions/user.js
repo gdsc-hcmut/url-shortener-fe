@@ -7,10 +7,16 @@ import {
 import AuthService from 'services/auth.service';
 import UserAPI from 'services/user.service';
 
-export const editProfile = (name, newEmail, email, dateOfBirth) => async (dispatch) => {
+export const editProfile = (name, newEmail, email, dateOfBirth, avatar) => async (dispatch) => {
   try {
     AuthService.changeEmail(newEmail);
-    const res = await UserAPI.editProfile(name, newEmail, email, dateOfBirth);
+    const res = await UserAPI.editProfile(
+      name,
+      newEmail,
+      email,
+      dateOfBirth,
+      avatar,
+    );
     dispatch({
       type: USER_LOADED,
       payload: {

@@ -11,6 +11,8 @@ import {
   NEW_EMAIL_TAKEN,
   CHANGE_PASSWORD_FAIL,
   CHANGE_PASSWORD_LOADING,
+  UPDATE_PROFILE_IMG,
+  UPLOAD_IMG,
 } from 'action-types';
 
 const initialState = {
@@ -21,10 +23,12 @@ const initialState = {
     name: 'user name',
     email: 'user email',
     dateOfBirth: 'user birthday',
-    avatar: 'user avatar',
+    avatar:
+      'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg',
   },
   error: {},
   loggedInWithGoogle: null,
+  uploadAva: null,
 };
 
 export default function (state = initialState, action) {
@@ -97,6 +101,16 @@ export default function (state = initialState, action) {
         isAuthenticated: false,
         loading: false,
         loggedInWithGoogle: false,
+      };
+    case UPDATE_PROFILE_IMG:
+      return {
+        ...state,
+        user: payload,
+      };
+    case UPLOAD_IMG:
+      return {
+        ...state,
+        uploadAva: payload,
       };
     default:
       return state;
