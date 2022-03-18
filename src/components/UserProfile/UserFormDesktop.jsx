@@ -3,13 +3,17 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import MobileDatePicker from '@mui/lab/MobileDatePicker';
 import TextField from '@mui/material/TextField';
+import { uploadBytes, ref, getDownloadURL } from 'firebase/storage';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import * as yup from 'yup';
 
+import { UPDATE_PROFILE_IMG, UPLOAD_IMG } from 'action-types';
 import { editProfile } from 'actions/user';
 import EditIcon from 'assets/icons/edit.svg';
+import storage from 'config/firebase-storage';
+import { AVATAR_INFO } from 'constant/notification';
 
 const schema = yup
   .object({
@@ -21,7 +25,9 @@ export default function UserFormDesktop() {
   const dispatch = useDispatch();
   const store = useStore();
   const { user } = useSelector((state) => state.auth);
+  const { uploadAva } = useSelector((state) => state.user);
   const [field, setField] = useState({
+    avatar: false,
     name: false,
     email: false,
     dob: false,
@@ -43,7 +49,15 @@ export default function UserFormDesktop() {
   const editUserProfile = async (data, e) => {
     e.preventDefault();
     const { name } = data;
-    await dispatch(editProfile(name, newEmail, email, dateOfBirth));
+    dispatch({
+      type: UPDATE_PROFILE_IMG,
+      payload: { ...user, avatar: uploadAva },
+    });
+    dispatch({
+      type: UPLOAD_IMG,
+      payload: null,
+    });
+    await dispatch(editProfile(name, newEmail, email, dateOfBirth, uploadAva));
     const reduxState = store.getState();
     if (reduxState.auth.error.email === 'Email taken') {
       setEmailError(true);
@@ -57,6 +71,26 @@ export default function UserFormDesktop() {
   useEffect(() => {
     setValue('name', localStorage.getItem('userName'));
   }, []);
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      const storageRef = ref(
+        storage,
+        `${user.email}/profilePicture/${file.name}`,
+      );
+      uploadBytes(storageRef, file).then(() => {
+        getDownloadURL(storageRef).then((url) => {
+          dispatch({
+            type: UPLOAD_IMG,
+            payload: url,
+          });
+          setField({ ...field, avatar: true, notification: true });
+        });
+      });
+    }
+  };
   return (
     <div
       aria-hidden
@@ -76,7 +110,7 @@ export default function UserFormDesktop() {
       </p>
       <div
         aria-hidden
-        className="mt-[88px] w-full bg-white rounded-[8px] pl-8 pt-10"
+        className="mt-[88px] w-full bg-white rounded-[8px] px-8 pt-10"
         onClick={() => {
           setField({ ...field, name: false });
         }}
@@ -87,22 +121,30 @@ export default function UserFormDesktop() {
         >
           <div className="flex">
             <img
-              src="https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"
+              src={
+                uploadAva
+                || user.avatar
+                || 'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'
+              }
               className="md:w-[100px] md:h-[100px] lg:w-[152px] lg:h-[152px] rounded border border-gdscGrey-200"
               alt="user avatar"
             />
-            <div className="hidden flex-col self-end ml-8">
-              <button
-                type="button"
-                className="w-[160px] h-[52px] mb-7 bg-gdscBlue-200 bg-opacity-20 overflow-hidden
-              hover:bg-opacity-40 transition-all duration-300 ease-out text-gdscBlue-300 rounded"
+            <div className="ml-8 h-full flex flex-col">
+              <label
+                htmlFor="image_uploads"
+                className="w-40 h-[52px] mb-7 bg-gdscBlue-200 bg-opacity-20
+                hover:bg-opacity-40 transition-all duration-300 ease-out text-gdscBlue-300 rounded cursor-pointer flex justify-center items-center"
               >
                 Browse
-              </button>
-              <p className="text-xs">
-                Max file size is 1MB, Minimum dimension: 330x300 And Suitable
-                files are .jpg & .png
-              </p>
+                <input
+                  type="file"
+                  id="image_uploads"
+                  className="opacity-0 absolute -z-10"
+                  accept="image/png, image/jpeg, image/jpg"
+                  onChange={handleImageUpload}
+                />
+              </label>
+              <p className="text-xs">{AVATAR_INFO}</p>
             </div>
           </div>
           <div className="flex md:flex-col input-field-col:flex-row flex-wrap input-field-col:space-x-7 mt-[52px]">
@@ -230,10 +272,10 @@ export default function UserFormDesktop() {
               onClick={(e) => {
                 e.stopPropagation();
                 setField({
-                  ...field,
                   name: false,
                   email: false,
                   dob: false,
+                  avatar: false,
                   notification: false,
                 });
               }}
