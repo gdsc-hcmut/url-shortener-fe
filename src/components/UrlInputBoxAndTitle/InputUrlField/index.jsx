@@ -63,10 +63,10 @@ export default function InputUrlField() {
     reset();
   }, []);
   if (errors.longUrlDesktop && errors.longUrlDesktop.message) {
-    setTimeout(() => clearErrors('longUrlDesktop'), 2000);
+    setTimeout(() => clearErrors('longUrlDesktop'), 3000);
   }
   if (errors.longUrlMobile && errors.longUrlMobile.message) {
-    setTimeout(() => clearErrors('longUrlMobile'), 2000);
+    setTimeout(() => clearErrors('longUrlMobile'), 3000);
   }
   return (
     <div className="flex flex-col md:flex-row space-y-5 md:space-y-0 rounded-[8px]">

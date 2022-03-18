@@ -13,9 +13,9 @@ import { ReactComponent as ReactLogo } from 'assets/image/web.svg';
 const schema = yup
   .object({
     longUrlDesktop: yup.string().url('Invalid Url!'),
-    slugDesktop: yup.string(),
+    slugDesktop: yup.string().matches(/^[-a-zA-Z0-9]*$/i, 'Invalid Slug!'),
     longUrlMobile: yup.string().url('Invalid Url!'),
-    slugMobile: yup.string(),
+    slugMobile: yup.string().matches(/^[-a-zA-Z0-9]*$/i, 'Invalid Slug!'),
   })
   .required();
 
@@ -23,7 +23,7 @@ export default function InputUrlLogIn() {
   const [disable, setDisable] = useState('');
   const [disableMobile, setDisableMobile] = useState('');
   const [loading, setLoading] = useState(false);
-  const [slugErr, setSlugErr] = useState({ invalid: false, exist: false });
+  const [slugErr, setSlugErr] = useState(false);
   const dispatch = useDispatch();
   const store = useStore();
   const {
@@ -41,16 +41,10 @@ export default function InputUrlLogIn() {
     setLoading(true);
     await dispatch(urlAction.shortenUrlWithSlug(longUrlDesktop, slugDesktop));
     const reduxState = store.getState();
-    if (reduxState.urlWithSlug.error.msg === 'Bad Request') {
+    if (reduxState.urlWithSlug.slugTaken === true) {
       setLoading(reduxState.urlWithSlug.loading);
-    } else if (reduxState.urlWithSlug.invalidSlug.msg === 'Bad Request') {
-      setLoading(reduxState.urlWithSlug.loading);
-      setSlugErr({ ...slugErr, invalid: true });
-      setTimeout(() => setSlugErr({ ...slugErr, invalid: false }), 3000);
-    } else if (reduxState.urlWithSlug.slugTaken === true) {
-      setLoading(reduxState.urlWithSlug.loading);
-      setSlugErr({ ...slugErr, exist: true });
-      setTimeout(() => setSlugErr({ ...slugErr, invalid: false }), 3000);
+      setSlugErr(true);
+      setTimeout(() => setSlugErr(false), 3000);
     } else {
       dispatch({
         type: SHOW_URL_MODAL,
@@ -65,16 +59,10 @@ export default function InputUrlLogIn() {
     setLoading(true);
     await dispatch(urlAction.shortenUrlWithSlug(longUrlMobile, slugMobile));
     const reduxState = store.getState();
-    if (reduxState.urlWithSlug.error.msg === 'Bad Request') {
+    if (reduxState.urlWithSlug.slugTaken === true) {
       setLoading(reduxState.urlWithSlug.loading);
-    } else if (reduxState.urlWithSlug.invalidSlug.msg === 'Bad Request') {
-      setLoading(reduxState.urlWithSlug.loading);
-      setSlugErr({ ...slugErr, invalid: true });
-      setTimeout(() => setSlugErr({ ...slugErr, invalid: false }), 3000);
-    } else if (reduxState.urlWithSlug.slugTaken === true) {
-      setLoading(reduxState.urlWithSlug.loading);
-      setSlugErr({ ...slugErr, exist: true });
-      setTimeout(() => setSlugErr({ ...slugErr, invalid: false }), 3000);
+      setSlugErr(true);
+      setTimeout(() => setSlugErr(false), 3000);
     } else {
       dispatch({
         type: SHOW_URL_MODAL,
@@ -87,10 +75,10 @@ export default function InputUrlLogIn() {
     reset();
   }, []);
   if (errors.longUrlDesktop && errors.longUrlDesktop.message) {
-    setTimeout(() => clearErrors('longUrlDesktop'), 2000);
+    setTimeout(() => clearErrors('longUrlDesktop'), 3000);
   }
   if (errors.longUrlMobile && errors.longUrlMobile.message) {
-    setTimeout(() => clearErrors('longUrlMobile'), 2000);
+    setTimeout(() => clearErrors('longUrlMobile'), 3000);
   }
   return (
     <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 rounded-[8px]">
@@ -126,10 +114,10 @@ export default function InputUrlLogIn() {
               className="text-base font-normal text-gdscGrey-700 h-5 w-[16.25rem] border-b-1 outline-none "
               placeholder="Input your custom slug"
             />
-            {slugErr.invalid && (
-              <p className="text-gdscRed-300">Invalid Slug!</p>
+            {errors.slugDesktop && (
+              <p className="text-gdscRed-300">{errors.slugDesktop.message}</p>
             )}
-            {slugErr.exist && (
+            {slugErr && (
               <p className="text-gdscRed-300">Slug already exists!</p>
             )}
           </div>
@@ -186,10 +174,12 @@ export default function InputUrlLogIn() {
           placeholder="Input your custom slug"
         />
       </div>
-      {slugErr.invalid && (
-        <p className="text-gdscRed-300 md:hidden">Invalid Slug!</p>
+      {errors.slugMobile && (
+        <p className="text-gdscRed-300 md:hidden">
+          {errors.slugMobile.message}
+        </p>
       )}
-      {slugErr.exist && (
+      {slugErr && (
         <p className="text-gdscRed-300 md:hidden">Slug already exists!</p>
       )}
       {!loading ? (
