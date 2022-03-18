@@ -9,7 +9,7 @@ import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch, useStore } from 'react-redux';
 import * as yup from 'yup';
 
-import { UPDATE_PROFILE_IMG, UPLOAD_IMG } from 'action-types';
+import { UPLOAD_IMG } from 'action-types';
 import { editProfile } from 'actions/user';
 import AddPhoto from 'assets/icons/add_a_photo.svg';
 import EditIcon from 'assets/icons/edit.svg';
@@ -48,14 +48,6 @@ export default function UserFormMobile() {
   const editUserProfile = async (data, e) => {
     e.preventDefault();
     const { name } = data;
-    dispatch({
-      type: UPDATE_PROFILE_IMG,
-      payload: { ...user, avatar: uploadAva },
-    });
-    dispatch({
-      type: UPLOAD_IMG,
-      payload: null,
-    });
     await dispatch(editProfile(name, newEmail, email, dateOfBirth, uploadAva));
     const reduxState = store.getState();
     if (reduxState.auth.error.email === 'Email taken') {
@@ -65,6 +57,7 @@ export default function UserFormMobile() {
       localStorage.setItem('userName', name);
       localStorage.setItem('userEmail', newEmail);
       localStorage.setItem('userBirthday', dateOfBirth);
+      localStorage.setItem('avatar', uploadAva);
     }
   };
   useEffect(() => {
@@ -72,6 +65,7 @@ export default function UserFormMobile() {
   }, []);
 
   const handleImageUpload = (e) => {
+    console.log('BLEEE MOBILE');
     const file = e.target.files[0];
 
     if (file.size >= 1024 * 1024) {
@@ -103,7 +97,6 @@ export default function UserFormMobile() {
           name: false,
           email: false,
           dob: false,
-          avatar: false,
         });
       }}
     >
@@ -114,18 +107,17 @@ export default function UserFormMobile() {
         <img
           src={
             uploadAva
-            || user.avatar
             || 'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'
           }
           className="w-[148px] h-[148px] rounded-[8px] border border-gdscGrey-200"
           alt="user avatar"
         />
         <div className="absolute top-[132px] left-[56px] w-9 h-9 rounded-[9999px] bg-gdscGrey-200 flex justify-center items-center">
-          <label htmlFor="image_uploads">
+          <label htmlFor="image_uploads_mobile">
             <img className="w-5 h-5" src={AddPhoto} alt="Add avatar icon" />
             <input
               type="file"
-              id="image_uploads"
+              id="image_uploads_mobile"
               className="opacity-0 absolute -z-10"
               accept="image/png, image/jpeg, image/jpg"
               onChange={handleImageUpload}
@@ -134,6 +126,11 @@ export default function UserFormMobile() {
         </div>
       </div>
       <div>
+        {field.notification && field.avatar && (
+          <p className="text-gdscBlue-300 text-sm mt-[52px]">
+            Your image has been uploaded. Click Save to submit your changes
+          </p>
+        )}
         <div className="flex flex-col align-end mb-6 mt-[52px]">
           <p className="pb-3">Name</p>
           {field.name ? (
