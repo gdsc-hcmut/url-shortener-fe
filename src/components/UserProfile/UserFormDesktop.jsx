@@ -1,12 +1,21 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import MobileDatePicker from '@mui/lab/MobileDatePicker';
 import TextField from '@mui/material/TextField';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector, useStore } from 'react-redux';
+import * as yup from 'yup';
 
 import { editProfile } from 'actions/user';
 import EditIcon from 'assets/icons/edit.svg';
+
+const schema = yup
+  .object({
+    name: yup.string(),
+  })
+  .required();
 
 export default function UserFormDesktop() {
   const dispatch = useDispatch();
@@ -19,17 +28,21 @@ export default function UserFormDesktop() {
     notification: false,
   });
   const [emailError, setEmailError] = useState(false);
-  const [name, setName] = useState(localStorage.getItem('userName'));
   const [datePicker, setDatePicker] = useState(false);
   const [newEmail, setNewEmail] = useState(localStorage.getItem('userEmail'));
   const [dateOfBirth, setDateOfBirth] = useState(
     new Date(localStorage.getItem('userBirthday')),
   );
-  const handleName = (e) => setName(e.target.value);
   const handleEmail = (e) => setNewEmail(e.target.value);
   const { email } = user;
-  const editUserProfile = async (e) => {
+  const {
+    register, handleSubmit, getValues, setValue,
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+  const editUserProfile = async (data, e) => {
     e.preventDefault();
+    const { name } = data;
     await dispatch(editProfile(name, newEmail, email, dateOfBirth));
     const reduxState = store.getState();
     if (reduxState.auth.error.email === 'Email taken') {
@@ -41,6 +54,9 @@ export default function UserFormDesktop() {
       localStorage.setItem('userBirthday', dateOfBirth);
     }
   };
+  useEffect(() => {
+    setValue('name', localStorage.getItem('userName'));
+  }, []);
   return (
     <div
       aria-hidden
@@ -65,7 +81,10 @@ export default function UserFormDesktop() {
           setField({ ...field, name: false });
         }}
       >
-        <form className="mt-[40px] flex flex-col" onSubmit={editUserProfile}>
+        <form
+          className="mt-[40px] flex flex-col"
+          onSubmit={handleSubmit(editUserProfile)}
+        >
           <div className="flex">
             <img
               src="https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"
@@ -95,15 +114,15 @@ export default function UserFormDesktop() {
                     className="mt-4 w-[320px] lg:w-[460px] h-[60px] bg-white border
                           border-1 border-gdscBlue-300 px-5 outline-none rounded"
                     type="text"
-                    value={name}
-                    placeholder={name}
-                    onChange={handleName}
+                    {...register('name')}
                     onClick={(e) => e.stopPropagation()}
                   />
                 </div>
               ) : (
                 <div className="relative mt-4 w-[320px] lg:w-[460px] h-[60px] flex px-5 pt-5 outline-none rounded bg-gdscGrey-100 text-input-text">
-                  {name}
+                  {getValues('name')
+                    ? getValues('name')
+                    : localStorage.getItem('userName')}
                   <button
                     type="button"
                     className="absolute right-5"

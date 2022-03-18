@@ -1,13 +1,22 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import MobileDatePicker from '@mui/lab/MobileDatePicker';
 import TextField from '@mui/material/TextField';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch, useStore } from 'react-redux';
+import * as yup from 'yup';
 
 import { editProfile } from 'actions/user';
 import AddPhoto from 'assets/icons/add_a_photo.svg';
 import EditIcon from 'assets/icons/edit.svg';
+
+const schema = yup
+  .object({
+    name: yup.string(),
+  })
+  .required();
 
 export default function UserFormMobile() {
   const dispatch = useDispatch();
@@ -20,17 +29,21 @@ export default function UserFormMobile() {
     notification: false,
   });
   const [emailError, setEmailError] = useState(false);
-  const [name, setName] = useState(localStorage.getItem('userName'));
   const [datePicker, setDatePicker] = useState(false);
   const [newEmail, setNewEmail] = useState(localStorage.getItem('userEmail'));
   const [dateOfBirth, setDateOfBirth] = useState(
     new Date(localStorage.getItem('userBirthday')),
   );
-  const handleName = (e) => setName(e.target.value);
   const handleEmail = (e) => setNewEmail(e.target.value);
   const { email } = user;
-  const editUserProfile = async (e) => {
+  const {
+    register, handleSubmit, getValues, setValue,
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+  const editUserProfile = async (data, e) => {
     e.preventDefault();
+    const { name } = data;
     await dispatch(editProfile(name, newEmail, email, dateOfBirth));
     const reduxState = store.getState();
     if (reduxState.auth.error.email === 'Email taken') {
@@ -42,11 +55,14 @@ export default function UserFormMobile() {
       localStorage.setItem('userBirthday', dateOfBirth);
     }
   };
+  useEffect(() => {
+    setValue('name', localStorage.getItem('userName'));
+  }, []);
   return (
     <form
       aria-hidden
       className="md:hidden flex flex-col justify-center items-center"
-      onSubmit={editUserProfile}
+      onSubmit={handleSubmit(editUserProfile)}
       onClick={() => {
         setField({
           ...field,
@@ -78,15 +94,15 @@ export default function UserFormMobile() {
                 className="w-[376px] md:w-[420px] h-[64px] bg-white border
                       border-1 border-gdscBlue-300 px-5 outline-none rounded"
                 type="text"
-                value={name}
-                placeholder={name}
-                onChange={handleName}
+                {...register('name')}
                 onClick={(e) => e.stopPropagation()}
               />
             </div>
           ) : (
             <div className="relative w-[376px] md:w-[420px] h-[64px] flex px-5 pt-5 outline-none rounded bg-gdscGrey-100 text-input-text">
-              {name}
+              {getValues('name')
+                ? getValues('name')
+                : localStorage.getItem('userName')}
               <button
                 type="button"
                 className="absolute right-5"
