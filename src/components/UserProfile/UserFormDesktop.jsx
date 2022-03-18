@@ -75,7 +75,9 @@ export default function UserFormDesktop() {
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
 
-    if (file) {
+    if (file.size >= 1024 * 1024) {
+      alert('Image size must be less than 1MB');
+    } else if (file) {
       const storageRef = ref(
         storage,
         `${user.email}/profilePicture/${file.name}`,
@@ -101,6 +103,7 @@ export default function UserFormDesktop() {
           name: false,
           email: false,
           dob: false,
+          avatar: false,
         });
       }}
     >
@@ -135,7 +138,7 @@ export default function UserFormDesktop() {
                 className="w-40 h-[52px] mb-7 bg-gdscBlue-200 bg-opacity-20
                 hover:bg-opacity-40 transition-all duration-300 ease-out text-gdscBlue-300 rounded cursor-pointer flex justify-center items-center"
               >
-                Browse
+                Upload
                 <input
                   type="file"
                   id="image_uploads"

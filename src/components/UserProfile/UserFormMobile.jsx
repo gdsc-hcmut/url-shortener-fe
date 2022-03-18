@@ -74,7 +74,9 @@ export default function UserFormMobile() {
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
 
-    if (file) {
+    if (file.size >= 1024 * 1024) {
+      alert('Image size must be less than 1MB');
+    } else if (file) {
       const storageRef = ref(
         storage,
         `${user.email}/profilePicture/${file.name}`,
@@ -101,6 +103,7 @@ export default function UserFormMobile() {
           name: false,
           email: false,
           dob: false,
+          avatar: false,
         });
       }}
     >
@@ -266,6 +269,7 @@ export default function UserFormMobile() {
             name: false,
             email: false,
             dob: false,
+            avatar: false,
             notification: false,
           });
         }}
