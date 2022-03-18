@@ -11,12 +11,14 @@ import { ReactComponent as ReactLogo } from 'assets/image/web.svg';
 
 const schema = yup
   .object({
-    longUrlDesktop: yup.string().url('vkkdvk').required('Url required'),
-    longUrlMobile: yup.string(),
+    longUrlDesktop: yup.string().url('Invalid Url!'),
+    longUrlMobile: yup.string().url('Invalid Url!'),
   })
   .required();
 
 export default function InputUrlField() {
+  const [disable, setDisable] = useState('');
+  const [disableMobile, setDisableMobile] = useState('');
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const store = useStore();
@@ -25,50 +27,47 @@ export default function InputUrlField() {
     handleSubmit,
     formState: { errors },
     reset,
+    clearErrors,
   } = useForm({
     resolver: yupResolver(schema),
   });
   const handleClickDesktop = async (data, e) => {
     e.preventDefault();
     const { longUrlDesktop } = data;
-    console.log(data);
     if (longUrlDesktop) {
       setLoading(true);
       await dispatch(urlAction.shortenUrl(longUrlDesktop));
       const reduxState = store.getState();
-      if (reduxState.url.error.msg === 'Bad Request') {
-        setLoading(reduxState.url.loading);
-      } else {
-        dispatch({
-          type: SHOW_URL_MODAL,
-          payload: true,
-        });
-        setLoading(reduxState.url.loading);
-      }
+      dispatch({
+        type: SHOW_URL_MODAL,
+        payload: true,
+      });
+      setLoading(reduxState.url.loading);
     }
   };
   const handleClickMobile = async (data, e) => {
     e.preventDefault();
     const { longUrlMobile } = data;
-    console.log(data);
     if (longUrlMobile) {
       setLoading(true);
       await dispatch(urlAction.shortenUrl(longUrlMobile));
       const reduxState = store.getState();
-      if (reduxState.url.error.msg === 'Bad Request') {
-        setLoading(reduxState.url.loading);
-      } else {
-        dispatch({
-          type: SHOW_URL_MODAL,
-          payload: true,
-        });
-        setLoading(reduxState.url.loading);
-      }
+      dispatch({
+        type: SHOW_URL_MODAL,
+        payload: true,
+      });
+      setLoading(reduxState.url.loading);
     }
   };
   useEffect(() => {
     reset();
   }, []);
+  if (errors.longUrlDesktop && errors.longUrlDesktop.message) {
+    setTimeout(() => clearErrors('longUrlDesktop'), 2000);
+  }
+  if (errors.longUrlMobile && errors.longUrlMobile.message) {
+    setTimeout(() => clearErrors('longUrlMobile'), 2000);
+  }
   return (
     <div className="flex flex-col md:flex-row space-y-5 md:space-y-0 rounded-[8px]">
       <form
@@ -82,6 +81,7 @@ export default function InputUrlField() {
           <div>
             <input
               {...register('longUrlDesktop')}
+              onChange={(e) => setDisable(e.target.value)}
               className="text-base font-normal text-gdscGrey-700 h-5 w-[16.25rem] border-b-1 outline-none"
               placeholder="Input the URL you want to shorten"
             />
@@ -94,7 +94,9 @@ export default function InputUrlField() {
         {!loading ? (
           <button
             type="submit"
-            className="absolute inset-y-5 right-5 hidden text-base text-white md:block w-[152px] h-[60px] bg-gdscBlue-300 rounded-[8px] hover:bg-shorten-btn-hover ease-out duration-300 "
+            className={`absolute inset-y-5 right-5 hidden text-base text-white md:block w-[152px] h-[60px] bg-gdscBlue-300 rounded-[8px] hover:bg-shorten-btn-hover ease-out duration-300 ${
+              !disable && 'cursor-not-allowed'
+            } `}
           >
             Shorten
           </button>
@@ -116,6 +118,7 @@ export default function InputUrlField() {
         <ReactLogo />
         <input
           {...register('longUrlMobile')}
+          onChange={(e) => setDisableMobile(e.target.value)}
           className="text-base font-normal text-gdscGrey-700 h-5 w-full bg-white outline-none pr-[32px]"
           placeholder="Input the URL you want to shorten"
         />
@@ -128,7 +131,9 @@ export default function InputUrlField() {
       {!loading ? (
         <button
           type="button"
-          className="text-base text-white md:hidden w-[152px] h-[60px] bg-gdscBlue-300 rounded hover:bg-shorten-btn-hover "
+          className={`text-base text-white md:hidden w-[152px] h-[60px] bg-gdscBlue-300 rounded hover:bg-shorten-btn-hover ${
+            !disableMobile && 'cursor-not-allowed'
+          } `}
           onClick={handleSubmit(handleClickMobile)}
         >
           Shorten
