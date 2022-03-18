@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useStore } from 'react-redux';
 import * as yup from 'yup';
 
-import { SHOW_URL_MODAL } from 'action-types';
+import { SHOW_GOOGLE_LOADING_ANIMATION, SHOW_URL_MODAL } from 'action-types';
 import urlAction from 'actions/url';
 import loadingIcon from 'assets/icons/loading.svg';
 import { ReactComponent as ReactLogo } from 'assets/image/web.svg';
@@ -33,11 +33,19 @@ export default function InputUrlField() {
   });
   const handleClickDesktop = async (data, e) => {
     e.preventDefault();
+    dispatch({
+      type: SHOW_GOOGLE_LOADING_ANIMATION,
+      payload: true,
+    });
     const { longUrlDesktop } = data;
     if (longUrlDesktop) {
       setLoading(true);
       await dispatch(urlAction.shortenUrl(longUrlDesktop));
       const reduxState = store.getState();
+      dispatch({
+        type: SHOW_GOOGLE_LOADING_ANIMATION,
+        payload: false,
+      });
       dispatch({
         type: SHOW_URL_MODAL,
         payload: true,
@@ -48,10 +56,18 @@ export default function InputUrlField() {
   const handleClickMobile = async (data, e) => {
     e.preventDefault();
     const { longUrlMobile } = data;
+    dispatch({
+      type: SHOW_GOOGLE_LOADING_ANIMATION,
+      payload: true,
+    });
     if (longUrlMobile) {
       setLoading(true);
       await dispatch(urlAction.shortenUrl(longUrlMobile));
       const reduxState = store.getState();
+      dispatch({
+        type: SHOW_GOOGLE_LOADING_ANIMATION,
+        payload: false,
+      });
       dispatch({
         type: SHOW_URL_MODAL,
         payload: true,

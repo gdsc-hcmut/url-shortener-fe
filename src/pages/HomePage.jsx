@@ -13,6 +13,7 @@ import { clearError } from 'actions/error';
 import transitionAnimation from 'animations';
 import Footer from 'components/Footer';
 import ForgotPassword from 'components/ForgotPassword';
+import GoogleLoadingAnimation from 'components/GoogleStyleLoading';
 import LoginModal from 'components/LoginModal';
 import ModalUrl from 'components/ModalUrl';
 import NavBar from 'components/Navbar';
@@ -21,7 +22,11 @@ import UrlInputBoxAndTitle from 'components/UrlInputBoxAndTitle';
 
 export default function HomePage() {
   const {
-    UrlModal, LogInModal, SignupModal, ForgotPasswordModal,
+    UrlModal,
+    LogInModal,
+    SignupModal,
+    ForgotPasswordModal,
+    GoogleLoading,
   } = useSelector((state) => state.showModal);
   const { isAuthenticated } = useSelector((state) => state.auth);
   const { shortenedUrl, slug } = useSelector((state) => state.url);
@@ -96,6 +101,7 @@ export default function HomePage() {
         shortenedUrl={shortenedUrl}
         slug={slug}
       />
+      <GoogleLoadingAnimation show={GoogleLoading} />
       <Footer />
     </div>
   );
