@@ -108,8 +108,8 @@ export default function Navbar({ home }) {
                   {user && userName}
                 </p>
                 <img
-                  className="h-[44px] w-[44px]"
-                  src={defaultAvatar}
+                  className="h-[44px] w-[44px] rounded-full"
+                  src={user.avatar || defaultAvatar}
                   alt="avatar icon"
                 />
               </button>

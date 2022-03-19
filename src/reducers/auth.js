@@ -21,7 +21,7 @@ const initialState = {
     name: 'user name',
     email: 'user email',
     dateOfBirth: 'user birthday',
-    avatar: 'user avatar',
+    avatar: null,
   },
   error: {},
   loggedInWithGoogle: null,
