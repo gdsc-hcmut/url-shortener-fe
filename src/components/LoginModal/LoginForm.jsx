@@ -7,12 +7,7 @@ import { useSelector, useDispatch, useStore } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as yup from 'yup';
 
-import {
-  SHOW_LOG_IN_MODAL,
-  SHOW_FORGOT_PASSWORD_MODAL,
-  SHOW_GOOGLE_LOADING_ANIMATION,
-  GOOGLE_LOADING_ANIMATION_WHITE_BACKGROUND,
-} from 'action-types';
+import { SHOW_LOG_IN_MODAL, SHOW_FORGOT_PASSWORD_MODAL } from 'action-types';
 import { login } from 'actions/auth';
 import loadingIcon from 'assets/icons/loading.svg';
 import visibilityIcon from 'assets/icons/visibility.svg';
@@ -63,24 +58,12 @@ export default function LoginForm() {
   });
 
   const onSubmit = async (data) => {
-    await dispatch({
-      type: GOOGLE_LOADING_ANIMATION_WHITE_BACKGROUND,
-      payload: true,
-    });
-    dispatch({
-      type: SHOW_GOOGLE_LOADING_ANIMATION,
-      payload: true,
-    });
     const { email, password } = data;
 
     setLoading(true);
     await dispatch(login(email, password));
     const reduxState = store.getState();
     setLoading(reduxState.auth.loading);
-    dispatch({
-      type: SHOW_GOOGLE_LOADING_ANIMATION,
-      payload: false,
-    });
   };
 
   const isMobile = width <= 768;

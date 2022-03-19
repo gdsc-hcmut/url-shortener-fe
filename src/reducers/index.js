@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux';
 
-import animation from './animation';
 import auth from './auth';
 import error from './error';
 import notification from './notification';
@@ -17,5 +16,4 @@ export default combineReducers({
   notification,
   error,
   user,
-  animation,
 });
