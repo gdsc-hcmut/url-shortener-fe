@@ -101,7 +101,7 @@ export default function HomePage() {
         shortenedUrl={shortenedUrl}
         slug={slug}
       />
-      <GoogleLoadingAnimation show={GoogleLoading} />
+      <GoogleLoadingAnimation show={GoogleLoading} background />
       <Footer />
     </div>
   );

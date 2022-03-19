@@ -3,10 +3,11 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 
+import { SHOW_GOOGLE_LOADING_ANIMATION } from 'action-types';
 import loadingIcon from 'assets/icons/loading.svg';
 import visibilityIcon from 'assets/icons/visibility.svg';
 import visibilityOffIcon from 'assets/icons/visibility_off.svg';
@@ -39,6 +40,7 @@ export default function ResetPasswordForm() {
   const mode = searchParams.get('mode');
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const { error } = useSelector((state) => state.error);
   const { resetPasswordMessage } = useSelector((state) => state.notification);
@@ -82,11 +84,19 @@ export default function ResetPasswordForm() {
   }, [resetPasswordMessage]);
 
   const onSubmit = async (data) => {
+    dispatch({
+      type: SHOW_GOOGLE_LOADING_ANIMATION,
+      payload: true,
+    });
     const { password } = data;
 
     setLoading(true);
     await AuthService.resetToNewPassword(oobCode, password);
     setLoading(false);
+    dispatch({
+      type: SHOW_GOOGLE_LOADING_ANIMATION,
+      payload: false,
+    });
   };
 
   return (
