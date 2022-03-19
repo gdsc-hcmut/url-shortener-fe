@@ -1,10 +1,12 @@
 import { motion } from 'framer-motion';
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import transitionAnimation from 'animations';
 import { ReactComponent as MenuIcon } from 'assets/icons/menu.svg';
 import ChangePassword from 'components/ChangePassword';
 import Footer from 'components/Footer';
+import GoogleLoadingAnimation from 'components/GoogleStyleLoading';
 import Navbar from 'components/Navbar';
 import SideMenu from 'components/SideMenu';
 import ChangePasswordSnackbar from 'components/Snackbar/ChangePasswordSnackBar';
@@ -12,6 +14,7 @@ import ChangePasswordSnackbar from 'components/Snackbar/ChangePasswordSnackBar';
 export default function ChangePasswordPage() {
   const [toggleMenu, setToggleMenu] = useState(false);
   // const [width, setWidth] = useState(window.innerWidth);
+  const { GoogleLoading } = useSelector((state) => state.showModal);
   const handleToggleMenu = () => {
     setToggleMenu(!toggleMenu);
   };
@@ -46,6 +49,7 @@ export default function ChangePasswordPage() {
           </div>
         </div>
       </div>
+      <GoogleLoadingAnimation show={GoogleLoading} />
     </div>
   );
 }

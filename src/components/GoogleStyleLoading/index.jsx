@@ -7,7 +7,7 @@ import googleLoading from 'assets/animation/google-loading.json';
 export default function GoogleLoadingAnimation({ show }) {
   return (
     <div
-      className={`fixed z-50 inset-0 bg-gdscGrey-200 bg-opacity-50 flex justify-center items-center ${
+      className={`fixed z-50 inset-0 bg-gdscGrey-100 bg-opacity-50 flex justify-center items-center ${
         show ? 'block' : 'hidden'
       }`}
     >

@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 
+import { SHOW_GOOGLE_LOADING_ANIMATION } from 'action-types';
 import { closeInfoBar } from 'actions/notification';
 import defaultAvatar from 'assets/icons/account_circle_blue.svg';
 import CloseIcon from 'assets/icons/close_info_bar.svg';
@@ -55,6 +56,14 @@ export default function Navbar({ home }) {
   }, []);
 
   const isMobile = width <= 768;
+  useEffect(() => {
+    if (isAuthenticated) {
+      dispatch({
+        type: SHOW_GOOGLE_LOADING_ANIMATION,
+        payload: true,
+      });
+    }
+  }, []);
   return (
     <>
       {showingInfoBar && (

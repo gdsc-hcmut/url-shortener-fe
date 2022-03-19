@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import * as yup from 'yup';
 
+import { SHOW_GOOGLE_LOADING_ANIMATION } from 'action-types';
 import { changePassword } from 'actions/user';
 import loadingIcon from 'assets/icons/loading.svg';
 import visibilityIcon from 'assets/icons/visibility.svg';
@@ -53,11 +54,19 @@ export default function ChangePassDesktop() {
   const handleChangePassword = async (data, e) => {
     e.preventDefault();
     console.log(auth.currentUser);
+    dispatch({
+      type: SHOW_GOOGLE_LOADING_ANIMATION,
+      payload: true,
+    });
     const { oldPassword, newPassword } = data;
     setLoading(true);
     await dispatch(changePassword(newPassword, oldPassword));
     const reduxState = store.getState();
     setLoading(reduxState.auth.loading);
+    dispatch({
+      type: SHOW_GOOGLE_LOADING_ANIMATION,
+      payload: false,
+    });
     console.log(!reduxState.error.error.signIn.password);
     if (!reduxState.error.error.signIn.password) {
       reset();

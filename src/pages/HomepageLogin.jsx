@@ -1,11 +1,12 @@
 import { motion } from 'framer-motion';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { SHOW_URL_MODAL } from 'action-types';
+import { SHOW_GOOGLE_LOADING_ANIMATION, SHOW_URL_MODAL } from 'action-types';
 import transitionAnimation from 'animations';
 import { ReactComponent as MenuIcon } from 'assets/icons/menu.svg';
 import Footer from 'components/Footer';
+import GoogleLoadingAnimation from 'components/GoogleStyleLoading';
 import ModalUrl from 'components/ModalUrl';
 import NavBar from 'components/Navbar';
 import SideMenu from 'components/SideMenu';
@@ -14,11 +15,17 @@ import UrlInputBoxAndTitle from 'components/UrlInputBoxAndTitle';
 export default function HomepageLogin() {
   const { shortenedUrl, slug } = useSelector((state) => state.urlWithSlug);
   const [toggleMenu, setToggleMenu] = useState(false);
-  const { UrlModal } = useSelector((state) => state.showModal);
+  const { UrlModal, GoogleLoading } = useSelector((state) => state.showModal);
   const dispatch = useDispatch();
   const handleToggleMenu = () => {
     setToggleMenu(!toggleMenu);
   };
+  useEffect(() => {
+    dispatch({
+      type: SHOW_GOOGLE_LOADING_ANIMATION,
+      payload: false,
+    });
+  }, []);
   return (
     <div
       aria-hidden="true"
@@ -66,6 +73,7 @@ export default function HomepageLogin() {
         shortenedUrl={shortenedUrl}
         slug={slug}
       />
+      <GoogleLoadingAnimation show={GoogleLoading} />
       <Footer />
     </div>
   );
