@@ -11,6 +11,7 @@ import {
   SHOW_LOG_IN_MODAL,
   SHOW_FORGOT_PASSWORD_MODAL,
   SHOW_GOOGLE_LOADING_ANIMATION,
+  GOOGLE_LOADING_ANIMATION_WHITE_BACKGROUND,
 } from 'action-types';
 import { login } from 'actions/auth';
 import loadingIcon from 'assets/icons/loading.svg';
@@ -62,6 +63,10 @@ export default function LoginForm() {
   });
 
   const onSubmit = async (data) => {
+    await dispatch({
+      type: GOOGLE_LOADING_ANIMATION_WHITE_BACKGROUND,
+      payload: true,
+    });
     dispatch({
       type: SHOW_GOOGLE_LOADING_ANIMATION,
       payload: true,

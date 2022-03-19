@@ -29,6 +29,7 @@ export default function HomePage() {
     GoogleLoading,
   } = useSelector((state) => state.showModal);
   const { isAuthenticated } = useSelector((state) => state.auth);
+  const { background } = useSelector((state) => state.animation);
   const { shortenedUrl, slug } = useSelector((state) => state.url);
   const dispatch = useDispatch();
   if (isAuthenticated) {
@@ -101,7 +102,7 @@ export default function HomePage() {
         shortenedUrl={shortenedUrl}
         slug={slug}
       />
-      <GoogleLoadingAnimation show={GoogleLoading} />
+      <GoogleLoadingAnimation show={GoogleLoading} background={background} />
       <Footer />
     </div>
   );

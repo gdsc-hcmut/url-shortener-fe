@@ -4,7 +4,11 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useStore } from 'react-redux';
 import * as yup from 'yup';
 
-import { SHOW_GOOGLE_LOADING_ANIMATION, SHOW_URL_MODAL } from 'action-types';
+import {
+  GOOGLE_LOADING_ANIMATION_OPACITY,
+  SHOW_GOOGLE_LOADING_ANIMATION,
+  SHOW_URL_MODAL,
+} from 'action-types';
 import urlAction from 'actions/url';
 import loadingIcon from 'assets/icons/loading.svg';
 import { ReactComponent as ReactLogo } from 'assets/image/web.svg';
@@ -33,6 +37,10 @@ export default function InputUrlField() {
   });
   const handleClickDesktop = async (data, e) => {
     e.preventDefault();
+    await dispatch({
+      type: GOOGLE_LOADING_ANIMATION_OPACITY,
+      payload: false,
+    });
     dispatch({
       type: SHOW_GOOGLE_LOADING_ANIMATION,
       payload: true,

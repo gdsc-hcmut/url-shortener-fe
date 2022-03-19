@@ -49,7 +49,7 @@ export default function ChangePasswordPage() {
           </div>
         </div>
       </div>
-      <GoogleLoadingAnimation show={GoogleLoading} />
+      <GoogleLoadingAnimation show={GoogleLoading} background />
     </div>
   );
 }

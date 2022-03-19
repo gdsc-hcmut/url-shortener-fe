@@ -16,7 +16,7 @@ export default function SignInMobilePage() {
       <div className="md:hidden">
         <LoginModalMobile />
       </div>
-      <GoogleLoadingAnimation show={GoogleLoading} />
+      <GoogleLoadingAnimation show={GoogleLoading} background={false} />
     </div>
   );
 }

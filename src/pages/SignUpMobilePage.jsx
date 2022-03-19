@@ -27,7 +27,7 @@ export default function SignUpMobilePage() {
     return (
       <div>
         <SignUpModalMobile />
-        <GoogleLoadingAnimation show={GoogleLoading} />
+        <GoogleLoadingAnimation show={GoogleLoading} background={false} />
       </div>
     );
   }

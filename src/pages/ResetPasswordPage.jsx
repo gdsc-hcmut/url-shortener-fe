@@ -28,7 +28,7 @@ export default function ResetPasswordPage() {
         <ResetPasswordForm />
       </div>
       <Footer />
-      <GoogleLoadingAnimation show={GoogleLoading} />
+      <GoogleLoadingAnimation show={GoogleLoading} background />
     </motion.div>
   );
 }
