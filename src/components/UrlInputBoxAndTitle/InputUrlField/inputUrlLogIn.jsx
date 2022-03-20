@@ -37,62 +37,66 @@ export default function InputUrlLogIn() {
   });
   const handleClickDesktop = async (data, e) => {
     e.preventDefault();
-    dispatch({
-      type: SHOW_GOOGLE_LOADING_ANIMATION,
-      payload: true,
-    });
     const { longUrlDesktop, slugDesktop } = data;
-    setLoading(true);
-    await dispatch(urlAction.shortenUrlWithSlug(longUrlDesktop, slugDesktop));
-    const reduxState = store.getState();
-    if (reduxState.urlWithSlug.slugTaken === true) {
+    if (longUrlDesktop) {
       dispatch({
         type: SHOW_GOOGLE_LOADING_ANIMATION,
-        payload: false,
-      });
-      setLoading(reduxState.urlWithSlug.loading);
-      setSlugErr(true);
-      setTimeout(() => setSlugErr(false), 3000);
-    } else {
-      dispatch({
-        type: SHOW_GOOGLE_LOADING_ANIMATION,
-        payload: false,
-      });
-      dispatch({
-        type: SHOW_URL_MODAL,
         payload: true,
       });
-      setLoading(reduxState.urlWithSlug.loading);
+      setLoading(true);
+      await dispatch(urlAction.shortenUrlWithSlug(longUrlDesktop, slugDesktop));
+      const reduxState = store.getState();
+      if (reduxState.urlWithSlug.slugTaken === true) {
+        dispatch({
+          type: SHOW_GOOGLE_LOADING_ANIMATION,
+          payload: false,
+        });
+        setLoading(reduxState.urlWithSlug.loading);
+        setSlugErr(true);
+        setTimeout(() => setSlugErr(false), 3000);
+      } else {
+        dispatch({
+          type: SHOW_GOOGLE_LOADING_ANIMATION,
+          payload: false,
+        });
+        dispatch({
+          type: SHOW_URL_MODAL,
+          payload: true,
+        });
+        setLoading(reduxState.urlWithSlug.loading);
+      }
     }
   };
   const handleClickMobile = async (data, e) => {
     e.preventDefault();
-    dispatch({
-      type: SHOW_GOOGLE_LOADING_ANIMATION,
-      payload: true,
-    });
     const { longUrlMobile, slugMobile } = data;
-    setLoading(true);
-    await dispatch(urlAction.shortenUrlWithSlug(longUrlMobile, slugMobile));
-    const reduxState = store.getState();
-    if (reduxState.urlWithSlug.slugTaken === true) {
+    if (longUrlMobile) {
       dispatch({
         type: SHOW_GOOGLE_LOADING_ANIMATION,
-        payload: false,
-      });
-      setLoading(reduxState.urlWithSlug.loading);
-      setSlugErr(true);
-      setTimeout(() => setSlugErr(false), 3000);
-    } else {
-      dispatch({
-        type: SHOW_GOOGLE_LOADING_ANIMATION,
-        payload: false,
-      });
-      dispatch({
-        type: SHOW_URL_MODAL,
         payload: true,
       });
-      setLoading(reduxState.urlWithSlug.loading);
+      setLoading(true);
+      await dispatch(urlAction.shortenUrlWithSlug(longUrlMobile, slugMobile));
+      const reduxState = store.getState();
+      if (reduxState.urlWithSlug.slugTaken === true) {
+        dispatch({
+          type: SHOW_GOOGLE_LOADING_ANIMATION,
+          payload: false,
+        });
+        setLoading(reduxState.urlWithSlug.loading);
+        setSlugErr(true);
+        setTimeout(() => setSlugErr(false), 3000);
+      } else {
+        dispatch({
+          type: SHOW_GOOGLE_LOADING_ANIMATION,
+          payload: false,
+        });
+        dispatch({
+          type: SHOW_URL_MODAL,
+          payload: true,
+        });
+        setLoading(reduxState.urlWithSlug.loading);
+      }
     }
   };
   useEffect(() => {

@@ -33,12 +33,12 @@ export default function InputUrlField() {
   });
   const handleClickDesktop = async (data, e) => {
     e.preventDefault();
-    dispatch({
-      type: SHOW_GOOGLE_LOADING_ANIMATION,
-      payload: true,
-    });
     const { longUrlDesktop } = data;
     if (longUrlDesktop) {
+      dispatch({
+        type: SHOW_GOOGLE_LOADING_ANIMATION,
+        payload: true,
+      });
       setLoading(true);
       await dispatch(urlAction.shortenUrl(longUrlDesktop));
       const reduxState = store.getState();
@@ -56,11 +56,11 @@ export default function InputUrlField() {
   const handleClickMobile = async (data, e) => {
     e.preventDefault();
     const { longUrlMobile } = data;
-    dispatch({
-      type: SHOW_GOOGLE_LOADING_ANIMATION,
-      payload: true,
-    });
     if (longUrlMobile) {
+      dispatch({
+        type: SHOW_GOOGLE_LOADING_ANIMATION,
+        payload: true,
+      });
       setLoading(true);
       await dispatch(urlAction.shortenUrl(longUrlMobile));
       const reduxState = store.getState();
