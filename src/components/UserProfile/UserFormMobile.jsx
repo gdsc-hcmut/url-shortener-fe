@@ -65,7 +65,6 @@ export default function UserFormMobile() {
   }, []);
 
   const handleImageUpload = (e) => {
-    console.log('BLEEE MOBILE');
     const file = e.target.files[0];
 
     if (file.size >= 1024 * 1024) {
