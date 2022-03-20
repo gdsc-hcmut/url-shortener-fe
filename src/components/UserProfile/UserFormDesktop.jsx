@@ -62,10 +62,13 @@ export default function UserFormDesktop() {
   };
   useEffect(() => {
     setValue('name', localStorage.getItem('userName'));
+    dispatch({
+      type: UPLOAD_IMG,
+      payload: '',
+    });
   }, []);
 
   const handleImageUpload = (e) => {
-    console.log('BLEEE DESKTOP');
     const file = e.target.files[0];
 
     if (file.size >= 1024 * 1024) {
@@ -118,6 +121,7 @@ export default function UserFormDesktop() {
             <img
               src={
                 uploadAva
+                || user.avatar
                 || 'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'
               }
               className="md:w-[100px] md:h-[100px] lg:w-[152px] lg:h-[152px] rounded border border-gdscGrey-200"
