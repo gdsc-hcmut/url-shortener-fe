@@ -91,12 +91,19 @@ export default function (state = initialState, action) {
       };
     case LOGOUT:
       localStorage.removeItem('user');
+      localStorage.removeItem('avatar');
       return {
         ...state,
         token: null,
         isAuthenticated: false,
         loading: false,
         loggedInWithGoogle: false,
+        user: {
+          name: 'user name',
+          email: 'user email',
+          dateOfBirth: 'user birthday',
+          avatar: null,
+        },
       };
     default:
       return state;
