@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-one-expression-per-line */
+import { truncate } from 'lodash';
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -9,6 +10,7 @@ import defaultAvatar from 'assets/icons/account_circle_blue.svg';
 import CloseIcon from 'assets/icons/close_info_bar.svg';
 import NavbarModal from 'components/Modals/NavbarModal';
 
+import NameTooltip from './NameTooltip';
 import NavbarButton from './NavbarButton';
 import NavbarHome from './NavbarHome';
 
@@ -18,9 +20,13 @@ export default function Navbar({ home }) {
   const { showingInfoBar, email } = useSelector((state) => state.notification);
 
   const [show, setShow] = useState(false);
+  const [showFullName, setShowFullName] = useState(false);
   const [width, setWidth] = useState(window.innerWidth);
   const getName = user.name.split(' ');
-  const userName = getName[getName.length - 1];
+  const userName = truncate(getName[getName.length - 1], {
+    length: 10,
+  });
+  const userNameFull = getName[getName.length - 1];
   const navigate = useNavigate();
 
   const handleShow = () => setShow(!show);
@@ -91,19 +97,28 @@ export default function Navbar({ home }) {
                 onClick={handleShow}
                 type="button"
                 className="hidden bg-gdscBlue-200 ease-out duration-300 hover:bg-login-btn-hover bg-opacity-10
-          text-gdscBlue-300 font-normal hover:bg-opacity-10 rounded md:flex justify-end items-center
-            w-[100px] h-[36px] md:w-[184px] md:h-[52px] content-center text-base  md:my-0 ml-[30px]"
+          text-gdscBlue-300 font-normal hover:bg-opacity-10 rounded md:flex justify-end items-center p-1
+            w-[100px] h-[36px] md:w-[184px] md:h-[52px] text-base md:my-0 ml-[30px]"
               >
-                <p className="mr-10">{user && userName}</p>
+                <p
+                  className="w-full text-center"
+                  onMouseEnter={() => setShowFullName(true)}
+                  onMouseLeave={() => setShowFullName(false)}
+                >
+                  {user && userName}
+                </p>
                 <img
-                  className="h-[44px] w-[44px] mr-1"
-                  src={defaultAvatar}
+                  className="h-[44px] w-[44px] rounded-full"
+                  src={user.avatar || defaultAvatar}
                   alt="avatar icon"
                 />
               </button>
             )}
           </div>
           <NavbarModal show={show} onClose={hideModal} />
+          {showFullName && userNameFull.length > 10 && (
+            <NameTooltip userNameFull={userNameFull} />
+          )}
         </div>
       </nav>
     </>

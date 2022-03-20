@@ -49,6 +49,12 @@ const register = async (email, password) => {
     store.dispatch(showInfoBar(email));
     return res.data;
   } catch (error) {
+    if (
+      error.response
+      && error.response.data.errors.message === 'Email has been taken'
+    ) {
+      store.dispatch(setError('auth/email-already-in-use'));
+    }
     return store.dispatch(setError(error.code));
   }
 };
@@ -72,6 +78,19 @@ const login = async (email, password) => {
     .catch((error) => {
       store.dispatch(setError(error.code));
     });
+};
+
+const loginWithGoogle = async (tokenId) => {
+  try {
+    const res = await api.post('/auth/signin-with-google', { tokenId });
+
+    if (res.data.token) {
+      TokenService.setUser(res.data.token);
+    }
+    return res.data;
+  } catch (error) {
+    return store.dispatch(setError(error.code));
+  }
 };
 
 const logout = () => {
@@ -110,8 +129,8 @@ const changePassword = async (newPassword, oldPassword) => {
     oldPassword,
   );
   return reauthenticateWithCredential(auth.currentUser, credentials)
-    .then(() => {
-      updatePassword(auth.currentUser, newPassword)
+    .then(async () => {
+      await updatePassword(auth.currentUser, newPassword)
         .then(() => {
           store.dispatch(clearError());
           store.dispatch(toggleChangePasswordSnackbarOpen());
@@ -168,6 +187,7 @@ const AuthService = {
   resetPassword,
   resetToNewPassword,
   verifyResetCode,
+  loginWithGoogle,
 };
 
 export default AuthService;

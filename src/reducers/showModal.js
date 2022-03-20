@@ -6,6 +6,7 @@ import {
   SHOW_FORGOT_PASSWORD_MODAL,
   SHOW_COPY_SUCCESS_MODAL,
   SHOW_EDIT_URL_MODAL,
+  SHOW_GOOGLE_LOADING_ANIMATION,
 } from 'action-types';
 
 const defaultSetUp = {
@@ -13,6 +14,7 @@ const defaultSetUp = {
   LogInModal: false,
   SignupModal: false,
   ForgotPasswordModal: false,
+  GoogleLoading: false,
 };
 // eslint-disable-next-line default-param-last
 export default (state = defaultSetUp, { type, payload }) => {
@@ -51,6 +53,11 @@ export default (state = defaultSetUp, { type, payload }) => {
       return {
         ...state,
         EditUrlModal: payload,
+      };
+    case SHOW_GOOGLE_LOADING_ANIMATION:
+      return {
+        ...state,
+        GoogleLoading: payload,
       };
     default:
       return state;

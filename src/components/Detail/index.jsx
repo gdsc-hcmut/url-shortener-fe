@@ -8,6 +8,7 @@ import {
   SHOW_COPY_SUCCESS_MODAL,
   SHOW_DELETE_URL_MODAL,
   SHOW_EDIT_URL_MODAL,
+  UPDATE_URL_DETAIL,
 } from 'action-types';
 import {
   toggleSuccessModalOpen,
@@ -27,6 +28,7 @@ import CreatedOn from './general/CreatedOn';
 import ExpireTime from './general/ExpireTime';
 import TodayClick from './general/TodayClick';
 import TotalClick from './general/TotalClick';
+import LongUrlModal from './LongUrlModal';
 import QR from './QR';
 import SocialMedia from './SocialMedia';
 
@@ -34,17 +36,21 @@ const { REACT_APP_SHORTEN_BASE_URL } = process.env;
 
 export default function Detail({ id }) {
   const dispatch = useDispatch();
-  const [urlDetail, setUrlDetail] = useState({});
   const [isDeleted, setIsDeleted] = useState(false);
+  const [showLongUrl, setshowLongUrl] = useState(false);
   const { DeleteUrlModal, CopySuccessModal, EditUrlModal } = useSelector(
     (state) => state.showModal,
   );
+  const { urlDetail } = useSelector((state) => state.url);
 
   useEffect(() => {
     setIsDeleted(false);
     const getUrlDetail = async () => {
       const { data } = await UrlAPI.getUrlById(id);
-      setUrlDetail(data);
+      dispatch({
+        type: UPDATE_URL_DETAIL,
+        payload: data,
+      });
     };
     getUrlDetail().catch(() => {
       setIsDeleted(true);
@@ -79,6 +85,11 @@ export default function Detail({ id }) {
   return (
     <div className="bg-opacity-0 max-w-full h-full overflow-scroll md:no-scrollbar md:p-0 py-5 pr-5 relative">
       <div className="modal absolute z-50">
+        <LongUrlModal
+          text={urlDetail.longUrl}
+          onClose={() => setshowLongUrl(false)}
+          show={showLongUrl}
+        />
         <EditSlugModal
           slug={urlDetail.slug}
           onClose={() => dispatch({
@@ -125,7 +136,9 @@ export default function Detail({ id }) {
             aria-label="Copy Button"
             className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
             onClick={() => {
-              navigator.clipboard.writeText(urlDetail.longUrl);
+              navigator.clipboard.writeText(
+                `${REACT_APP_SHORTEN_BASE_URL}/${urlDetail.slug}`,
+              );
               dispatch(toggleSuccessModalOpen());
             }}
           >
@@ -157,15 +170,15 @@ export default function Detail({ id }) {
           </button>
         </div>
       </div>
-      <div className="mb-[60px] flex">
-        <a
-          href={urlDetail.longUrl}
-          className="inline font-normal w-[216px] h-8 leading-8 text-xl mr-8 overflow-x-auto truncate"
-          target="_blank"
-          rel="noopener noreferrer"
+      <div className="mb-[60px] flex font-normal ">
+        <div
+          aria-hidden
+          id="longUrl"
+          className="inline font-normal w-full md:w-[504px] lg:w-[640px] leading-8  truncate cursor-pointer text-gdscGrey-700 hover:text-black transition-all duration-300"
+          onClick={() => setshowLongUrl(true)}
         >
           {urlDetail.longUrl}
-        </a>
+        </div>
       </div>
       <div className="flex flex-col ">
         <div className="inline-flex flex-wrap gap-6 mb-6 md:gap-4 md:mb-4 3xl:gap-6 3xl:mb-6 ">

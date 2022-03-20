@@ -10,7 +10,8 @@ import { ReactComponent as InstagramLogo } from 'assets/icons/logo/instagram_log
 export default function SocialMedia({ data }) {
   return (
     <div className="md:h-[480px] md:w-[504px] lg:w-[312px] 3xl:w-[504px] w-full px-5 pt-8 pb-12 mb-6 md:mb-4 3xl:mb-6 mx-0 lg:mr-4 3xl:mr-6 bg-white rounded">
-      <input className="w-full h-10 mb-12 bg-[#F0F5F7] focus:bg-white border-[1px] border-[#F0F5F7] focus:border-gdscBlue-300 px-5 outline-none rounded text-base font-light" />
+      <input className="hidden w-full h-10 mb-12 bg-[#F0F5F7] focus:bg-white border-[1px] border-[#F0F5F7] focus:border-gdscBlue-300 px-5 outline-none rounded text-base font-light" />
+      <h1 className="w-full h-10 mb-12 text-xl text-center">Social Media</h1>
       <div className=" h-full flex flex-col">
         <div className="flex items-center h-[52px] ">
           <FacebookLogo />

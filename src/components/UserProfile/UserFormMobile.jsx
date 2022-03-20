@@ -1,18 +1,31 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import MobileDatePicker from '@mui/lab/MobileDatePicker';
 import TextField from '@mui/material/TextField';
-import React, { useState } from 'react';
+import { uploadBytes, ref, getDownloadURL } from 'firebase/storage';
+import React, { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch, useStore } from 'react-redux';
+import * as yup from 'yup';
 
+import { UPLOAD_IMG } from 'action-types';
 import { editProfile } from 'actions/user';
 import AddPhoto from 'assets/icons/add_a_photo.svg';
 import EditIcon from 'assets/icons/edit.svg';
+import storage from 'config/firebase-storage';
+
+const schema = yup
+  .object({
+    name: yup.string(),
+  })
+  .required();
 
 export default function UserFormMobile() {
   const dispatch = useDispatch();
   const store = useStore();
   const { user } = useSelector((state) => state.auth);
+  const { uploadAva } = useSelector((state) => state.user);
   const [field, setField] = useState({
     name: false,
     email: false,
@@ -20,18 +33,22 @@ export default function UserFormMobile() {
     notification: false,
   });
   const [emailError, setEmailError] = useState(false);
-  const [name, setName] = useState(localStorage.getItem('userName'));
   const [datePicker, setDatePicker] = useState(false);
   const [newEmail, setNewEmail] = useState(localStorage.getItem('userEmail'));
   const [dateOfBirth, setDateOfBirth] = useState(
     new Date(localStorage.getItem('userBirthday')),
   );
-  const handleName = (e) => setName(e.target.value);
   const handleEmail = (e) => setNewEmail(e.target.value);
   const { email } = user;
-  const editUserProfile = async (e) => {
+  const {
+    register, handleSubmit, getValues, setValue,
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+  const editUserProfile = async (data, e) => {
     e.preventDefault();
-    await dispatch(editProfile(name, newEmail, email, dateOfBirth));
+    const { name } = data;
+    await dispatch(editProfile(name, newEmail, email, dateOfBirth, uploadAva));
     const reduxState = store.getState();
     if (reduxState.auth.error.email === 'Email taken') {
       setEmailError(true);
@@ -40,13 +57,40 @@ export default function UserFormMobile() {
       localStorage.setItem('userName', name);
       localStorage.setItem('userEmail', newEmail);
       localStorage.setItem('userBirthday', dateOfBirth);
+      localStorage.setItem('avatar', uploadAva);
+    }
+  };
+  useEffect(() => {
+    setValue('name', localStorage.getItem('userName'));
+  }, []);
+
+  const handleImageUpload = (e) => {
+    console.log('BLEEE MOBILE');
+    const file = e.target.files[0];
+
+    if (file.size >= 1024 * 1024) {
+      alert('Image size must be less than 1MB');
+    } else if (file) {
+      const storageRef = ref(
+        storage,
+        `${user.email}/profilePicture/${file.name}`,
+      );
+      uploadBytes(storageRef, file).then(() => {
+        getDownloadURL(storageRef).then((url) => {
+          dispatch({
+            type: UPLOAD_IMG,
+            payload: url,
+          });
+          setField({ ...field, avatar: true, notification: true });
+        });
+      });
     }
   };
   return (
     <form
       aria-hidden
       className="md:hidden flex flex-col justify-center items-center"
-      onSubmit={editUserProfile}
+      onSubmit={handleSubmit(editUserProfile)}
       onClick={() => {
         setField({
           ...field,
@@ -61,15 +105,32 @@ export default function UserFormMobile() {
       </div>
       <div className="relative w-[148px] h-[148px] bg-gdscGrey-200 rounded-[8px] mt-8">
         <img
-          src="https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"
+          src={
+            uploadAva
+            || 'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'
+          }
           className="w-[148px] h-[148px] rounded-[8px] border border-gdscGrey-200"
           alt="user avatar"
         />
         <div className="absolute top-[132px] left-[56px] w-9 h-9 rounded-[9999px] bg-gdscGrey-200 flex justify-center items-center">
-          <img className="w-5 h-5" src={AddPhoto} alt="Add avatar icon" />
+          <label htmlFor="image_uploads_mobile">
+            <img className="w-5 h-5" src={AddPhoto} alt="Add avatar icon" />
+            <input
+              type="file"
+              id="image_uploads_mobile"
+              className="opacity-0 absolute -z-10"
+              accept="image/png, image/jpeg, image/jpg"
+              onChange={handleImageUpload}
+            />
+          </label>
         </div>
       </div>
       <div>
+        {field.notification && field.avatar && (
+          <p className="text-gdscBlue-300 text-sm mt-[52px]">
+            Your image has been uploaded. Click Save to submit your changes
+          </p>
+        )}
         <div className="flex flex-col align-end mb-6 mt-[52px]">
           <p className="pb-3">Name</p>
           {field.name ? (
@@ -78,15 +139,15 @@ export default function UserFormMobile() {
                 className="w-[376px] md:w-[420px] h-[64px] bg-white border
                       border-1 border-gdscBlue-300 px-5 outline-none rounded"
                 type="text"
-                value={name}
-                placeholder={name}
-                onChange={handleName}
+                {...register('name')}
                 onClick={(e) => e.stopPropagation()}
               />
             </div>
           ) : (
             <div className="relative w-[376px] md:w-[420px] h-[64px] flex px-5 pt-5 outline-none rounded bg-gdscGrey-100 text-input-text">
-              {name}
+              {getValues('name')
+                ? getValues('name')
+                : localStorage.getItem('userName')}
               <button
                 type="button"
                 className="absolute right-5"
@@ -119,7 +180,7 @@ export default function UserFormMobile() {
               {newEmail}
               <button
                 type="button"
-                className="absolute right-5"
+                className="hidden absolute right-5"
                 onClick={(e) => {
                   e.stopPropagation();
                   setField({ ...field, email: true, notification: true });
@@ -205,6 +266,7 @@ export default function UserFormMobile() {
             name: false,
             email: false,
             dob: false,
+            avatar: false,
             notification: false,
           });
         }}

@@ -45,16 +45,37 @@ export default function FooterInfo() {
             Contact
           </p>
           <p className="text-[16px] md:text-[18px] my-[5px]">
-            dsc.hcmut@gmail.com
+            contact@gdschcmut.dev
           </p>
         </div>
         <div className="flex flex-col text-gdscGrey-800 mt-[60px]">
           <p className="mb-[5px] mt-[-5px] text-[18px] md:text-[24px] font-bold ">
             Follow
           </p>
-          <p className="social-media">Facebook</p>
-          <p className="social-media">Youtube</p>
-          <p className="social-media">Linkedin</p>
+          <a
+            className="social-media"
+            href="https://www.facebook.com/dsc.hcmut"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Facebook
+          </a>
+          <a
+            className="social-media"
+            href="https://discord.gg/VMEkx5xCZg"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Discord
+          </a>
+          <a
+            className="social-media"
+            href="https://www.linkedin.com/company/developer-student-clubs-hcmut/mycompany/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Linkedin
+          </a>
         </div>
       </div>
     </div>

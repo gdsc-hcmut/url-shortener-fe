@@ -29,9 +29,29 @@ export default function FooterInfoMobile() {
           </div>
           <div className="flex flex-col text-base text-gdscGrey-800 mt-[44px]">
             <p className="mb-[24px] font-bold">Follow</p>
-            <p className="mb-[12px]">Facebook</p>
-            <p className="mb-[12px]">Youtube</p>
-            <p>Linkedin</p>
+            <a
+              className="mb-[12px]"
+              href="https://www.facebook.com/dsc.hcmut"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Facebook
+            </a>
+            <a
+              className="mb-[12px]"
+              href="https://discord.gg/VMEkx5xCZg"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Discord
+            </a>
+            <a
+              href="https://www.linkedin.com/company/developer-student-clubs-hcmut/mycompany/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Linkedin
+            </a>
           </div>
           <form className="w-[302px] flex flex-col mt-[40px]" action="">
             <p className=" w-[302px] text-gdscBlue-300 text-base font-bold relative">

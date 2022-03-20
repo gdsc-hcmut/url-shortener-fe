@@ -6,6 +6,7 @@ import notification from './notification';
 import showModal from './showModal';
 import url from './url';
 import urlWithSlug from './urlWithSlug';
+import user from './user';
 
 export default combineReducers({
   url,
@@ -14,4 +15,5 @@ export default combineReducers({
   urlWithSlug,
   notification,
   error,
+  user,
 });

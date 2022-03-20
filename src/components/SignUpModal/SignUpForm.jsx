@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable operator-linebreak */
 import { yupResolver } from '@hookform/resolvers/yup';
 import PropTypes from 'prop-types';
@@ -10,6 +11,8 @@ import * as yup from 'yup';
 import { SHOW_LOG_IN_MODAL, SHOW_SIGN_UP_MODAL } from 'action-types';
 import { signup } from 'actions/auth';
 import loadingIcon from 'assets/icons/loading.svg';
+import visibilityIcon from 'assets/icons/visibility.svg';
+import visibilityOffIcon from 'assets/icons/visibility_off.svg';
 
 const schema = yup
   .object({
@@ -38,6 +41,8 @@ export default function SignUpForm({ isMobile }) {
   const dispatch = useDispatch();
   const store = useStore();
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const {
     register,
@@ -92,26 +97,86 @@ export default function SignUpForm({ isMobile }) {
       </span>
       <div className="mt-7 px-0 md:px-10">
         <p>Password</p>
-        <input
-          type="password"
-          {...register('password')}
-          className="mt-2 w-[376px] md:w-[420px] h-[60px]
-          focus:border focus:border-1 rounded-[8px]
-          bg-gdscGrey-100 focus:bg-white focus:outline-gdscBlue-300 p-5"
-        />
+        <div className="flex items-center">
+          <input
+            id="inputPassword"
+            className="mt-2 w-[376px] md:w-[420px] h-[60px]
+                      focus:border focus:border-1 rounded-[8px]
+                      bg-gdscGrey-100 focus:bg-white focus:outline-gdscBlue-300 p-5"
+            type={showPassword ? 'text' : 'password'}
+            {...register('password')}
+          />
+          {showPassword ? (
+            <label
+              aria-hidden
+              htmlFor="inputPassword"
+              className="w-7 h-7 ml-[-40px] mt-2 inline-block opacity-80 cursor-pointer"
+              onClick={() => setShowPassword(false)}
+            >
+              <img
+                src={visibilityIcon}
+                className="w-7 h-7 pointer-events-none"
+                alt="Show password Icon"
+              />
+            </label>
+          ) : (
+            <label
+              aria-hidden
+              htmlFor="inputPassword"
+              className="w-7 h-7 ml-[-40px] mt-2 inline-block opacity-80 cursor-pointer"
+              onClick={() => setShowPassword(true)}
+            >
+              <img
+                src={visibilityOffIcon}
+                className="w-7 h-7 pointer-events-none"
+                alt="Hide password Icon"
+              />
+            </label>
+          )}
+        </div>
       </div>
       <span className="text-gdscRed-300 mt-2 md:px-10">
         {(errors.password && errors.password.message) || error.signUp.password}
       </span>
       <div className="mt-7 px-0 md:px-10">
         <p>Confirm Password</p>
-        <input
-          type="password"
-          {...register('confirmPassword')}
-          className="mt-2 w-[376px] md:w-[420px] h-[60px]
-          focus:border focus:border-1 rounded-[8px]
-          bg-gdscGrey-100 focus:bg-white focus:outline-gdscBlue-300 p-5"
-        />
+        <div className="flex items-center">
+          <input
+            id="confirmPassword"
+            className="mt-2 w-[376px] md:w-[420px] h-[60px]
+            focus:border focus:border-1 rounded-[8px]
+            bg-gdscGrey-100 focus:bg-white focus:outline-gdscBlue-300 p-5"
+            type={showConfirmPassword ? 'text' : 'password'}
+            {...register('confirmPassword')}
+          />
+          {showConfirmPassword ? (
+            <label
+              aria-hidden
+              htmlFor="confirmPassword"
+              className="w-7 h-7 ml-[-40px] mt-2 inline-block opacity-80 cursor-pointer"
+              onClick={() => setShowConfirmPassword(false)}
+            >
+              <img
+                src={visibilityIcon}
+                className="w-7 h-7 pointer-events-none"
+                alt="Show password Icon"
+              />
+            </label>
+          ) : (
+            <label
+              aria-hidden
+              htmlFor="confirmPassword"
+              className="w-7 h-7 ml-[-40px] mt-2 inline-block opacity-80 cursor-pointer"
+              onClick={() => setShowConfirmPassword(true)}
+            >
+              <img
+                src={visibilityOffIcon}
+                className="w-7 h-7 pointer-events-none"
+                alt="Hide password Icon"
+              />
+            </label>
+          )}
+        </div>
       </div>
       <span className="text-gdscRed-300 mt-2 md:px-10">
         {(errors.confirmPassword && errors.confirmPassword.message) ||
