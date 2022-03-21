@@ -3,9 +3,10 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import {
+  CHANGE_SORT_OPTION,
   SHOW_COPY_SUCCESS_MODAL,
   SHOW_DELETE_URL_MODAL,
   SHOW_EDIT_URL_MODAL,
@@ -28,8 +29,9 @@ import {
 } from 'constant/options';
 import UrlAPI from 'services/url.service';
 
+const { REACT_APP_SHORTEN_BASE_URL } = process.env;
+
 export default function MyUrl({ id }) {
-  const [option, setOption] = useState(LATEST);
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
@@ -39,11 +41,12 @@ export default function MyUrl({ id }) {
   const [currId, setCurrId] = useState('');
   const [stopSending, setStopSending] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { DeleteUrlModal, CopySuccessModal, EditUrlModal } = useSelector(
     (state) => state.showModal,
   );
   const { showSnackbar } = useSelector((state) => state.notification);
-  const { urlList } = useSelector((state) => state.url);
+  const { urlList, option } = useSelector((state) => state.url);
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
@@ -54,14 +57,14 @@ export default function MyUrl({ id }) {
 
   const handleScroll = (e) => {
     const { scrollTop, clientHeight, scrollHeight } = e.currentTarget;
-    if (!stopSending && scrollHeight - scrollTop - clientHeight < 1) {
+    if (!stopSending && scrollHeight - scrollTop - clientHeight < 3) {
       setPage(page + 1);
     }
   };
 
-  const getUrlList = async () => {
+  const getUrlList = async (p) => {
     setLoading(true);
-    const { data: newUrlLists } = await UrlAPI.getUrlList(page, option);
+    const { data: newUrlLists } = await UrlAPI.getUrlList(p, option);
     if (newUrlLists.length > 0) {
       const combinedList = _.uniqBy([...urlList, ...newUrlLists], 'id');
       dispatch({
@@ -76,30 +79,23 @@ export default function MyUrl({ id }) {
 
   useEffect(async () => {
     setStopSending(false);
-    dispatch({
-      type: UPDATE_URL_LISTS,
-      payload: [],
-    });
-    if (page === 1) {
-      setLoading(true);
-      const { data: newUrlLists } = await UrlAPI.getUrlList(1, option);
-      if (newUrlLists.length > 0) {
-        dispatch({
-          type: UPDATE_URL_LISTS,
-          payload: newUrlLists,
-        });
-      } else {
-        setStopSending(true);
-      }
-      setLoading(false);
+    setLoading(true);
+    const { data: newUrlLists } = await UrlAPI.getUrlList(1, option);
+    if (newUrlLists.length > 0) {
+      dispatch({
+        type: UPDATE_URL_LISTS,
+        payload: newUrlLists,
+      });
     } else {
-      setPage(1);
+      setStopSending(true);
     }
+    setLoading(false);
+    setPage(1);
   }, [option]);
 
   useEffect(() => {
     const mobileScrollDiv = document.querySelector('#MyUrlPage');
-    getUrlList().catch(() => setLoading(false));
+    getUrlList(page).catch(() => setLoading(false));
     if (mobileScrollDiv.getAttribute('scroll') !== true) {
       mobileScrollDiv.addEventListener('scroll', handleScroll, {
         passive: true,
@@ -202,7 +198,10 @@ export default function MyUrl({ id }) {
                 key={el}
                 className="block"
                 onClick={() => {
-                  setOption(el);
+                  dispatch({
+                    type: CHANGE_SORT_OPTION,
+                    payload: el,
+                  });
                   setIsOpen(false);
                 }}
               >
@@ -224,19 +223,20 @@ export default function MyUrl({ id }) {
       >
         {(search ? searchList : urlList).map((url) => (
           <li
+            aria-hidden
             key={url.slug}
-            className={`w-full h-[100px] flex flex-col space-y-2 justify-center rounded font-normal xl:w-[284px] 3xl:w-[376px] ${
+            className={`w-full h-[100px] flex flex-col space-y-2 justify-center rounded font-normal xl:w-[284px] 3xl:w-[376px] cursor-pointer ${
               url.id === id
                 ? 'bg-[#F1F6FE] border-2 border-gdscBlue-300 p-[18px]'
                 : 'bg-white px-5'
             } `}
+            onClick={() => {
+              navigate(`/urls/${url.id}`);
+            }}
           >
-            <Link
-              to={`/urls/${url.id}`}
-              className="text-xl h-6 font-medium w-64 overflow-x-hidden truncate "
-            >
+            <div className="text-xl h-6 font-medium w-64 overflow-x-hidden truncate ">
               <span>{url.longUrl}</span>
-            </Link>
+            </div>
             <span className="flex justify-between">
               <span className="text-base text-gdscGrey-700 w-32 truncate  ">
                 {url.slug}
@@ -246,7 +246,13 @@ export default function MyUrl({ id }) {
                   type="button"
                   aria-label="Copy Button"
                   className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
-                  onClick={() => dispatch(toggleSuccessModalOpen(url.slug))}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigator.clipboard.writeText(
+                      `${REACT_APP_SHORTEN_BASE_URL}/${url.slug}`,
+                    );
+                    dispatch(toggleSuccessModalOpen());
+                  }}
                 >
                   <CopyIcon />
                 </button>
@@ -254,7 +260,8 @@ export default function MyUrl({ id }) {
                   type="button"
                   aria-label="Edit Button"
                   className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.stopPropagation();
                     setCurrSlug(url.slug);
                     dispatch({
                       type: SHOW_EDIT_URL_MODAL,
@@ -268,7 +275,8 @@ export default function MyUrl({ id }) {
                   type="button"
                   aria-label="Delete Button"
                   className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.stopPropagation();
                     setCurrId(url.id);
                     dispatch({
                       type: SHOW_DELETE_URL_MODAL,
