@@ -14,6 +14,7 @@ import {
   UPDATE_URL_DETAIL,
 } from 'action-types';
 import { toggleSnackbarOpen } from 'actions/notification';
+import domain from 'db.json';
 import UrlAPI from 'services/url.service';
 
 const shortenUrl = (longUrl) => async (dispatch) => {
@@ -35,13 +36,27 @@ const shortenUrl = (longUrl) => async (dispatch) => {
   }
 };
 
-const shortenUrlWithSlug = (longUrl, slug) => async (dispatch) => {
+const shortenUrlWithSlug = (longUrl, slug, user) => async (dispatch) => {
   try {
     const res = await UrlAPI.shortenUrlWithSlug(longUrl, slug);
+    let shortenedUrl;
+    switch (user.organization) {
+      case 'organization':
+        shortenedUrl = `${domain.Test.brandedLink}/${res.data.slug}`;
+        break;
+      case 'organization1':
+        shortenedUrl = `${domain.Test1.brandedLink}/${res.data.slug}`;
+        break;
+      case 'organization2':
+        shortenedUrl = `${domain.Test2.brandedLink}/${res.data.slug}`;
+        break;
+      default:
+        shortenedUrl = res.data.shortUrl;
+    }
     dispatch({
       type: SHORTEN_URL_WITH_SLUG,
       payload: {
-        shortUrl: res.data.shortUrl,
+        shortUrl: shortenedUrl,
         slug: res.data.slug,
       },
     });

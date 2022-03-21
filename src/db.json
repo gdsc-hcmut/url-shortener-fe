@@ -1,0 +1,14 @@
+{
+    "Test" : {
+        "name": "organization",
+        "brandedLink": "http://organization"
+    },
+    "Test1" : {
+        "name": "organization1",
+        "brandedLink": "http://organization1"
+    },
+    "Test2" : {
+        "name": "organization2",
+        "brandedLink": "http://organization2"
+    }
+}
