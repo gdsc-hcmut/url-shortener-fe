@@ -21,6 +21,7 @@ export const loadUser = () => async (dispatch) => {
     localStorage.setItem('userName', data.name);
     localStorage.setItem('userEmail', data.email);
     localStorage.setItem('userBirthday', data.dateOfBirth);
+    localStorage.setItem('organization', data.organization);
     dispatch({
       type: USER_LOADED,
       payload: data,
