@@ -6,7 +6,7 @@ import { ReactComponent as GraphIcon } from 'assets/icons/graph_icon.svg';
 import { ReactComponent as FacebookLogo } from 'assets/icons/logo/facebook_logo.svg';
 import { ReactComponent as MessengerLogo } from 'assets/icons/logo/messenger_logo.svg';
 
-export default function SocialMedia({ data }) {
+export default function SocialMedia({ data, total }) {
   return (
     <div className="md:h-[480px] md:w-[504px] lg:w-[312px] 3xl:w-[504px] w-full px-5 pt-8 pb-12 mb-6 md:mb-4 3xl:mb-6 mx-0 lg:mr-4 3xl:mr-6 bg-white rounded">
       <input className="w-full h-10 mb-12 bg-[#F0F5F7] focus:bg-white border-[1px] border-[#F0F5F7] focus:border-gdscBlue-300 px-5 outline-none rounded text-base font-light" />
@@ -42,7 +42,7 @@ export default function SocialMedia({ data }) {
           </div>
           <span className="font-normal text-xl ml-3">Total</span>
           <span className="font-thin text-base text-gdscGrey-700 ml-auto">
-            {data.TotalClick}
+            {total}
           </span>
         </div>
       </div>
@@ -57,6 +57,7 @@ SocialMedia.propTypes = {
     Others: PropTypes.number,
     TotalClick: PropTypes.number,
   }),
+  total: PropTypes.number,
 };
 SocialMedia.defaultProps = {
   data: {
@@ -65,4 +66,5 @@ SocialMedia.defaultProps = {
     Others: 0,
     TotalClick: 0,
   },
+  total: 0,
 };

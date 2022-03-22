@@ -38,12 +38,8 @@ export default function Statistic() {
         </div>
         <div>
           <SocialMedia
-            data={{
-              Facebook: statistic.socialMediaClicks.Facebook,
-              Messenger: statistic.socialMediaClicks.Messenger,
-              Others: statistic.socialMediaClicks.Others,
-              TotalClick: statistic.todayClicks,
-            }}
+            data={statistic.socialMediaClicks}
+            total={statistic.totalClicks}
           />
         </div>
       </div>

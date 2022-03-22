@@ -35,7 +35,7 @@ export default function SocialMedia({ data }) {
           </div>
           <span className="font-normal text-xl ml-3">Other Social Media</span>
           <span className="font-thin text-base text-gdscGrey-700 ml-auto">
-            {Object.values(_.omit(data, ['Facebook', 'Instagram'])).reduce(
+            {Object.values(_.omit(data, ['Facebook', 'Messenger'])).reduce(
               (sum, el) => sum + el,
             )}
           </span>
