@@ -231,7 +231,7 @@ export default function MyUrl({ id }) {
                 : 'bg-white px-5'
             } `}
             onClick={() => {
-              navigate(`/urls/${url.id}`);
+              navigate(`/urls/${url.slug}`, { state: { id: url.id } });
             }}
           >
             <div className="text-xl h-6 font-medium w-64 overflow-x-hidden truncate ">
