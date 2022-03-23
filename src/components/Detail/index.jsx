@@ -211,8 +211,8 @@ export default function Detail({ id }) {
               Instagram: urlDetail.totalClicks.filter(
                 (click) => click.origin === 'Instagram',
               ).length,
-              Zalo: urlDetail.totalClicks.filter(
-                (click) => click.origin === 'Zalo',
+              Twitter: urlDetail.totalClicks.filter(
+                (click) => click.origin === 'Twitter',
               ).length,
               Others: urlDetail.totalClicks.filter(
                 (click) => !PLATFORMS.includes(click.origin),
