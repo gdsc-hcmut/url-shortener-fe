@@ -10,7 +10,6 @@ import { ReactComponent as MessengerLogo } from 'assets/icons/logo/messenger_log
 import { ReactComponent as TwitterLogo } from 'assets/icons/logo/twitter_logo.svg';
 
 export default function SocialMedia({ data }) {
-  console.log(data);
   return (
     <div className="md:h-[480px] md:w-[504px] lg:w-[312px] 3xl:w-[504px] w-full px-5 pt-8 pb-12 mb-6 md:mb-4 3xl:mb-6 mx-0 lg:mr-4 3xl:mr-6 bg-white rounded overflow-auto no-scrollbar">
       <input className="hidden w-full h-10 mb-12 bg-[#F0F5F7] focus:bg-white border-[1px] border-[#F0F5F7] focus:border-gdscBlue-300 px-5 outline-none rounded text-base font-light" />

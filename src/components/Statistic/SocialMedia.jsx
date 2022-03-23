@@ -12,7 +12,7 @@ export default function SocialMedia({ data, total }) {
   return (
     <div className="md:h-[480px] md:w-[504px] lg:w-[312px] 3xl:w-[504px] w-full px-5 pt-8 pb-12 mb-6 md:mb-4 3xl:mb-6 mx-0 lg:mr-4 3xl:mr-6 bg-white rounded overflow-auto no-scrollbar">
       <input className="w-full h-10 mb-12 bg-[#F0F5F7] focus:bg-white border-[1px] border-[#F0F5F7] focus:border-gdscBlue-300 px-5 outline-none rounded text-base font-light" />
-      <div className=" h-full flex flex-col">
+      <div className=" h-full flex flex-col mb-[48px]">
         <div className="flex items-center h-[52px] ">
           <FacebookLogo />
           <span className="font-normal text-xl ml-3">Facebook</span>

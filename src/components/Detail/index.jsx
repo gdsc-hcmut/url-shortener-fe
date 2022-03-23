@@ -122,13 +122,24 @@ export default function Detail({ id }) {
           className="font-normal w-fit h-9 leading-9 text-[32px] mb-4 break-words cursor-pointer overflow-y-hidden "
           onClick={() => {
             navigator.clipboard.writeText(
-              `${REACT_APP_SHORTEN_BASE_URL}/${urlDetail.slug}`,
+              urlDetail.shortenedUrl
+                ? urlDetail.shortenedUrl
+                : `${REACT_APP_SHORTEN_BASE_URL}/${urlDetail.slug}`,
             );
             dispatch(toggleSuccessModalOpen());
           }}
         >
-          <span className="hidden sm:inline">{`${REACT_APP_SHORTEN_BASE_URL}/`}</span>
-          {urlDetail.slug}
+          {urlDetail.shortenedUrl ? (
+            <p>
+              <span className="hidden sm:inline">{urlDetail.shortenedUrl}</span>
+              <span className="inline sm:hidden">{urlDetail.slug}</span>
+            </p>
+          ) : (
+            <p>
+              <span className="hidden sm:inline">{`${REACT_APP_SHORTEN_BASE_URL}/`}</span>
+              {urlDetail.slug}
+            </p>
+          )}
         </h1>
         <div className="ml-2 flex space-x-2">
           <button
@@ -137,7 +148,9 @@ export default function Detail({ id }) {
             className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
             onClick={() => {
               navigator.clipboard.writeText(
-                `${REACT_APP_SHORTEN_BASE_URL}/${urlDetail.slug}`,
+                urlDetail.shortenedUrl
+                  ? urlDetail.shortenedUrl
+                  : `${REACT_APP_SHORTEN_BASE_URL}/${urlDetail.slug}`,
               );
               dispatch(toggleSuccessModalOpen());
             }}
@@ -219,7 +232,14 @@ export default function Detail({ id }) {
               ).length,
             }}
           />
-          <QR shortenedUrl={urlDetail.shortUrl} slug={urlDetail.slug} />
+          <QR
+            shortenedUrl={
+              urlDetail.shortenedUrl
+                ? urlDetail.shortenedUrl
+                : urlDetail.shortUrl
+            }
+            slug={urlDetail.slug}
+          />
         </div>
         <Chart data={urlDetail.totalClicks} />
       </div>

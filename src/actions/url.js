@@ -14,7 +14,6 @@ import {
   UPDATE_URL_DETAIL,
 } from 'action-types';
 import { toggleSnackbarOpen } from 'actions/notification';
-import domain from 'db.json';
 import UrlAPI from 'services/url.service';
 
 const shortenUrl = (longUrl) => async (dispatch) => {
@@ -36,27 +35,14 @@ const shortenUrl = (longUrl) => async (dispatch) => {
   }
 };
 
-const shortenUrlWithSlug = (longUrl, slug, user) => async (dispatch) => {
+const shortenUrlWithSlug = (longUrl, slug) => async (dispatch) => {
   try {
-    const res = await UrlAPI.shortenUrlWithSlug(longUrl, slug);
-    let shortenedUrl;
-    switch (user.organization) {
-      case 'organization':
-        shortenedUrl = `${domain.Test.brandedLink}/${res.data.slug}`;
-        break;
-      case 'organization1':
-        shortenedUrl = `${domain.Test1.brandedLink}/${res.data.slug}`;
-        break;
-      case 'organization2':
-        shortenedUrl = `${domain.Test2.brandedLink}/${res.data.slug}`;
-        break;
-      default:
-        shortenedUrl = res.data.shortUrl;
-    }
+    const email = localStorage.getItem('userEmail');
+    const res = await UrlAPI.shortenUrlWithSlug(longUrl, slug, email);
     dispatch({
       type: SHORTEN_URL_WITH_SLUG,
       payload: {
-        shortUrl: shortenedUrl,
+        shortUrl: res.data.shortenedUrl,
         slug: res.data.slug,
       },
     });
@@ -81,7 +67,8 @@ const shortenUrlWithSlug = (longUrl, slug, user) => async (dispatch) => {
 };
 const editSlug = (slug, newSlug, urlList) => async (dispatch) => {
   try {
-    const res = await UrlAPI.editSlug(slug, newSlug);
+    const email = localStorage.getItem('userEmail');
+    const res = await UrlAPI.editSlug(slug, newSlug, email);
     dispatch({
       type: EDIT_SLUG,
       payload: res.data,
@@ -139,6 +126,7 @@ const deleteUrl = (id, urlList) => async (dispatch) => {
 };
 const editExpireTime = (id, newExpireTime) => async (dispatch) => {
   try {
+    console.log('aaa');
     const res = await UrlAPI.editExpireTime(id, newExpireTime);
     dispatch({
       type: UPDATE_URL_DETAIL,
