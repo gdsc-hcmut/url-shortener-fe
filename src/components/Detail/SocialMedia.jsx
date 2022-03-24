@@ -6,8 +6,10 @@ import { ReactComponent as GlobeIcon } from 'assets/icons/globe_icon.svg';
 import { ReactComponent as GraphIcon } from 'assets/icons/graph_icon.svg';
 import { ReactComponent as FacebookLogo } from 'assets/icons/logo/facebook_logo.svg';
 import { ReactComponent as InstagramLogo } from 'assets/icons/logo/instagram_logo.svg';
+import { ReactComponent as LinkedinLogo } from 'assets/icons/logo/linkedin_logo.svg';
 import { ReactComponent as MessengerLogo } from 'assets/icons/logo/messenger_logo.svg';
 import { ReactComponent as TwitterLogo } from 'assets/icons/logo/twitter_logo.svg';
+import { ReactComponent as YoutubeLogo } from 'assets/icons/logo/youtube_logo.svg';
 
 function SwitchCase(logo) {
   const { props } = logo;
@@ -20,6 +22,10 @@ function SwitchCase(logo) {
       return <InstagramLogo />;
     case 'Twitter':
       return <TwitterLogo />;
+    case 'Linkedin':
+      return <LinkedinLogo />;
+    case 'Youtube':
+      return <YoutubeLogo />;
     case 'Total':
       return (
         <div className="w-[52px] h-[52px] flex justify-center items-center  bg-gdscGreen-100 bg-opacity-50 rounded-full">
@@ -28,7 +34,7 @@ function SwitchCase(logo) {
       );
     default:
       return (
-        <div className="w-[52px] h-[52px] flex justify-center items-center bg-gdscGrey-400 rounded-full">
+        <div className="w-[52px] h-[52px] flex justify-center items-center bg-gdscGrey-200 rounded-full">
           <GlobeIcon />
         </div>
       );
@@ -40,6 +46,8 @@ export default function SocialMedia({ data }) {
     'Messenger',
     'Instagram',
     'Twitter',
+    'Linkedin',
+    'Youtube',
     'Others',
     'Total',
   ];
@@ -105,5 +113,7 @@ SocialMedia.propTypes = {
     Messenger: PropTypes.number.isRequired,
     Instagram: PropTypes.number.isRequired,
     Twitter: PropTypes.number.isRequired,
+    Linkedin: PropTypes.number.isRequired,
+    Youtube: PropTypes.number.isRequired,
   }).isRequired,
 };

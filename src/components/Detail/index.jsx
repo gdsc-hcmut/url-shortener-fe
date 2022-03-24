@@ -227,6 +227,12 @@ export default function Detail({ id }) {
               Twitter: urlDetail.totalClicks.filter(
                 (click) => click.origin === 'Twitter',
               ).length,
+              Linkedin: urlDetail.totalClicks.filter(
+                (click) => click.origin === 'Linkedin',
+              ).length,
+              Youtube: urlDetail.totalClicks.filter(
+                (click) => click.origin === 'Youtube',
+              ).length,
               Others: urlDetail.totalClicks.filter(
                 (click) => !PLATFORMS.includes(click.origin),
               ).length,
