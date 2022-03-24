@@ -86,7 +86,7 @@ export default function ChangePasswordMobile() {
             <input
               id="oldpassword"
               {...register('oldPassword')}
-              className="w-[376px] md:w-[420px] h-[60px]
+              className="w-[300px] sm:w-[376px] md:w-[420px] h-[60px]
             bg-gdscGrey-100 focus:bg-white focus:border
               focus:border-1 focus:border-gdscBlue-300 px-5 outline-none rounded"
               type={showOldPassword ? 'text' : 'password'}
@@ -130,7 +130,7 @@ export default function ChangePasswordMobile() {
             <input
               id="newpassword"
               {...register('newPassword')}
-              className="w-[376px] md:w-[420px] h-[60px]
+              className="w-[300px] sm:w-[376px] md:w-[420px] h-[60px]
             bg-gdscGrey-100 focus:bg-white focus:border
               focus:border-1 focus:border-gdscBlue-300  px-5 outline-none rounded"
               type={showNewPassword ? 'text' : 'password'}
@@ -173,7 +173,7 @@ export default function ChangePasswordMobile() {
             <input
               id="confirmPassword"
               {...register('confirmPassword')}
-              className="w-[376px] md:w-[420px] h-[60px]
+              className="w-[300px] sm:w-[376px] md:w-[420px] h-[60px]
             bg-gdscGrey-100 focus:bg-white focus:border
               focus:border-1 focus:border-gdscBlue-300  px-5 outline-none rounded"
               type={showConfirmPassword ? 'text' : 'password'}
@@ -212,12 +212,12 @@ export default function ChangePasswordMobile() {
         </div>
         {!loading ? (
           <button
-            className="font-normal text-white w-[376px] md:w-[420px] h-[60px]
+            className="font-normal text-white w-[300px] sm:w-[376px] md:w-[420px] h-[60px]
                   bg-gdscBlue-300 rounded hover:bg-shorten-btn-hover
                   transition-all duration-300 ease-out md:mb-7"
             type="submit"
           >
-            Change
+            Update
           </button>
         ) : (
           <button

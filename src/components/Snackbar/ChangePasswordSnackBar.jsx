@@ -34,7 +34,7 @@ export default function ChangePasswordSnackbar() {
 
   return (
     showChangePasswordSnackbar && (
-      <div className="animate-fadeinout relative w-[376px] h-[92px] p-5 flex bg-white rounded items-center shadow-md border-t z-50">
+      <div className="animate-fadeinout relative w-[320px] sm:w-[376px] h-[92px] p-5 flex bg-white rounded items-center shadow-md border-t z-50">
         <img
           className="h-[52px] w-[52px]"
           src={SuccessIcon}

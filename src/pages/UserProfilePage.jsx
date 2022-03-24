@@ -13,6 +13,7 @@ export default function UserProfilePage() {
   const handleToggleMenu = () => {
     setToggleMenu(!toggleMenu);
   };
+
   return (
     <div className="max-h-[100vh] detail-page flex flex-col">
       <button
@@ -23,7 +24,7 @@ export default function UserProfilePage() {
         <MenuIcon className="w-10 h-10" />
       </button>
       <Navbar home={false} />
-      <div className="flex md:overflow-x-scroll md:overflow-hidden h-full">
+      <div className="flex overflow-y-scroll md:overflow-y-hidden overflow-hidden h-full">
         <SideMenu toggle={toggleMenu} page="my-profile" />
         <div className="bg-white md:bg-gdscGrey-100 mt-[48px] md:mt-0 h-full w-full md:h-6 md:min-h-screen flex-1 md:overflow-y-scroll">
           <motion.div

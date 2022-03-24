@@ -87,7 +87,7 @@ export default function SignUpForm({ isMobile }) {
         <p>Email</p>
         <input
           {...register('email')}
-          className="mt-2 w-[376px] md:w-[420px] h-[60px]
+          className="mt-2 w-[300px] sm:w-[376px] md:w-[420px] h-[60px]
           focus:border focus:border-1 rounded-[8px]
           bg-gdscGrey-100 focus:bg-white focus:outline-gdscBlue-300 p-5"
         />
@@ -100,7 +100,7 @@ export default function SignUpForm({ isMobile }) {
         <div className="flex items-center">
           <input
             id="inputPassword"
-            className="mt-2 w-[376px] md:w-[420px] h-[60px]
+            className="mt-2 w-[300px] sm:w-[376px] md:w-[420px] h-[60px]
                       focus:border focus:border-1 rounded-[8px]
                       bg-gdscGrey-100 focus:bg-white focus:outline-gdscBlue-300 p-5"
             type={showPassword ? 'text' : 'password'}
@@ -143,7 +143,7 @@ export default function SignUpForm({ isMobile }) {
         <div className="flex items-center">
           <input
             id="confirmPassword"
-            className="mt-2 w-[376px] md:w-[420px] h-[60px]
+            className="mt-2 w-[300px] sm:w-[376px] md:w-[420px] h-[60px]
             focus:border focus:border-1 rounded-[8px]
             bg-gdscGrey-100 focus:bg-white focus:outline-gdscBlue-300 p-5"
             type={showConfirmPassword ? 'text' : 'password'}
@@ -184,7 +184,7 @@ export default function SignUpForm({ isMobile }) {
       </span>
       {!loading ? (
         <button
-          className="w-[376px] md:w-[420px] h-[60px] bg-gdscBlue-300 mt-7 self-center
+          className="w-[300px] sm:w-[376px] md:w-[420px] h-[60px] bg-gdscBlue-300 mt-7 self-center
           rounded-[8px] text-white hover:bg-shorten-btn-hover transition-all ease-out duration-300"
           type="submit"
         >
@@ -193,7 +193,7 @@ export default function SignUpForm({ isMobile }) {
       ) : (
         <button
           type="button"
-          className="w-[376px] md:w-[420px] h-[60px] bg-gdscBlue-300 mt-7 self-center
+          className="w-[300px] sm:w-[376px] md:w-[420px] h-[60px] bg-gdscBlue-300 mt-7 self-center
           rounded-[8px] text-white hover:bg-shorten-btn-hover transition-all ease-out duration-300"
           disabled
         >
