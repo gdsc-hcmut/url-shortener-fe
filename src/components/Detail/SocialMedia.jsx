@@ -97,6 +97,8 @@ export default function SocialMedia({ data }) {
                     'Messenger',
                     'Instagram',
                     'Twitter',
+                    'Linkedin',
+                    'Youtube',
                   ]),
                 ).reduce((sum, element) => sum + element)}
             </span>
