@@ -7,7 +7,7 @@ import { clearError } from 'actions/error';
 import CloseIcon from 'assets/icons/close.svg';
 
 import LoginForm from './LoginForm';
-// import LoginWithGoogle from './LoginWithGoogle';
+import LoginWithGoogle from './LoginWithGoogle';
 
 export default function LoginModal({ show, onClose }) {
   const dispatch = useDispatch();
@@ -49,7 +49,7 @@ export default function LoginModal({ show, onClose }) {
     >
       <div
         aria-hidden="true"
-        className="relative w-[500px] h-[560px] flex items-center border bg-white rounded px-[40px] py-[32px]"
+        className="relative w-[500px] h-[660px] flex items-center border bg-white rounded px-[40px] py-[32px]"
       >
         <button
           aria-hidden="true"
@@ -76,7 +76,7 @@ export default function LoginModal({ show, onClose }) {
             {"Don't have an account? "}
             <span className="active:underline font-bold ml-1">Sign up</span>
           </button>
-          {/* <LoginWithGoogle /> */}
+          <LoginWithGoogle />
         </div>
       </div>
     </div>

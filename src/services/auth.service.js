@@ -1,3 +1,4 @@
+/* eslint-disable operator-linebreak */
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -50,8 +51,8 @@ const register = async (email, password) => {
     return res.data;
   } catch (error) {
     if (
-      error.response
-      && error.response.data.errors.message === 'Email has been taken'
+      error.response &&
+      error.response.data.errors.message === 'Email has been taken'
     ) {
       store.dispatch(setError('auth/email-already-in-use'));
     }
@@ -123,6 +124,24 @@ const changeEmail = async (newEmail) => {
 };
 
 const changePassword = async (newPassword, oldPassword) => {
+  const { passwordCreated, email } = store.getState().auth.user;
+
+  if (!passwordCreated) {
+    try {
+      api.patch('/auth/change-password', { newPassword }).then((res) => {
+        store.dispatch(clearError());
+        store.dispatch(toggleChangePasswordSnackbarOpen());
+        store.dispatch(toggleChangePasswordLoadingIndicator());
+        console.log('password update');
+        return res.data;
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  await login(email, oldPassword);
+
   const auth = getAuth();
   const credentials = EmailAuthProvider.credential(
     auth.currentUser.email,
