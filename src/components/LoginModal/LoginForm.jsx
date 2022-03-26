@@ -100,7 +100,7 @@ export default function LoginForm() {
         />
       </div>
       <span className="text-gdscRed-300 mt-2 md:px-10">
-        {(errors.email && errors.email.message) || error.signUp.email}
+        {(errors.email && errors.email.message) || error.signIn.email}
       </span>
 
       <div className="mt-7 px-0 md:px-10">

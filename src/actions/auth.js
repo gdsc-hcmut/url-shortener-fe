@@ -21,7 +21,7 @@ export const loadUser = () => async (dispatch) => {
     localStorage.setItem('userName', data.name);
     localStorage.setItem('userEmail', data.email);
     localStorage.setItem('userBirthday', data.dateOfBirth);
-    localStorage.setItem('organization', data.organization);
+    localStorage.setItem('organization', data.organization || 'None');
     dispatch({
       type: USER_LOADED,
       payload: data,
@@ -103,6 +103,7 @@ export const loginWithGoogle = (tokenId) => async (dispatch) => {
 
 export const logout = () => (dispatch) => {
   AuthService.logout();
+  dispatch(clearError());
   dispatch({
     type: UPDATE_URL_LISTS,
     payload: [],
