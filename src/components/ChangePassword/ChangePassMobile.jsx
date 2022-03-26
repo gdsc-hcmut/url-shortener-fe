@@ -221,7 +221,7 @@ export default function ChangePasswordMobile() {
           </button>
         ) : (
           <button
-            className="font-normal text-white w-[376px] md:w-[420px] h-[60px]
+            className="font-normal text-white w-[300px] sm:w-[376px] md:w-[420px] h-[60px]
                   bg-gdscBlue-300 rounded hover:bg-shorten-btn-hover
                   transition-all duration-300 ease-out md:mb-7"
             type="submit"
