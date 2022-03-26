@@ -40,11 +40,9 @@ export default function ExpireTime({ expireTime, id }) {
                   new Date(expireTime).getMonth() + 1
                 }`}
               </span>
-              <span>{`/${new Date(expireTime).getFullYear()}`}</span>
+              <span>{`/${new Date(expireTime).getFullYear()} `}</span>
               <span className="hidden extra-sm:inline-block">
-                {` ${new Date(
-                  expireTime,
-                ).toLocaleTimeString()}`}
+                {` ${new Date(expireTime).toLocaleTimeString()}`}
               </span>
             </span>
           )}
