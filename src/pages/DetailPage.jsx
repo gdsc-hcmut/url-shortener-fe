@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import React from 'react';
-import { useParams } from 'react-router';
+import { useLocation } from 'react-router';
 import { NavLink } from 'react-router-dom';
 
 import transitionAnimation from 'animations';
@@ -11,7 +11,8 @@ import Navbar from 'components/Navbar';
 import SideMenu from 'components/SideMenu';
 
 export default function Homepage() {
-  const { id } = useParams();
+  const { state } = useLocation();
+  const { id } = state;
 
   return (
     <div className="max-h-[100vh] detail-page flex flex-col">
