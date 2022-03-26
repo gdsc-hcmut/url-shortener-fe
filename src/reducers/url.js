@@ -7,7 +7,9 @@ import {
   SLUG_EDIT_INVALID,
   UPDATE_URL_LISTS,
   UPDATE_URL_DETAIL,
+  CHANGE_SORT_OPTION,
 } from 'action-types';
+import { LATEST } from 'constant/options';
 
 const initialState = {
   shortenedUrl: 'loading...',
@@ -20,6 +22,7 @@ const initialState = {
   urlList: [],
   urlDetail: {},
   loading: true,
+  option: LATEST,
 };
 
 export default (state = initialState, { type, payload } = {}) => {
@@ -81,6 +84,11 @@ export default (state = initialState, { type, payload } = {}) => {
       return {
         ...state,
         urlDetail: payload,
+      };
+    case CHANGE_SORT_OPTION:
+      return {
+        ...state,
+        option: payload,
       };
     default:
       return state;

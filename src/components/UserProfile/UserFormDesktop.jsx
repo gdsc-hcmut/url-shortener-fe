@@ -224,62 +224,72 @@ export default function UserFormDesktop() {
               )}
             </div>
           </div>
-          <p className="mt-6">Birthday</p>
-          {field.dob ? (
-            <div
-              aria-hidden
-              className="mt-4 h-[60px] w-[460px] px-5 pt-4 bg-white border
-              border-1 border-gdscBlue-300 outline-none rounded"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <MobileDatePicker
-                  value={dateOfBirth}
-                  allowSameDateSelection
+          <div className="flex md:flex-col input-field-col:flex-row flex-wrap input-field-col:space-x-7 mt-6">
+            <div className="flex flex-col">
+              <p>Birthday</p>
+              {field.dob ? (
+                <div
+                  aria-hidden
+                  className="mt-4 h-[60px] w-[460px] px-5 pt-4 bg-white border
+                border-1 border-gdscBlue-300 outline-none rounded"
                   onClick={(e) => e.stopPropagation()}
-                  onChange={(newTime) => {
-                    setDateOfBirth(newTime);
-                  }}
-                  onAccept={() => setDatePicker(false)}
-                  open={datePicker}
-                  minDate={new Date('1900-01-01T00:00')}
-                  inputFormat="yyyy/MM/dd"
-                  mask="___/__/__ __:__ _M"
-                  renderInput={(params) => (
-                    <TextField
-                      id="standard-basic"
-                      variant="standard"
-                      {...params}
-                      InputProps={{ disableUnderline: true }}
+                >
+                  <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <MobileDatePicker
+                      value={dateOfBirth}
+                      allowSameDateSelection
+                      onClick={(e) => e.stopPropagation()}
+                      onChange={(newTime) => {
+                        setDateOfBirth(newTime);
+                      }}
+                      onAccept={() => setDatePicker(false)}
+                      open={datePicker}
+                      minDate={new Date('1900-01-01T00:00')}
+                      inputFormat="yyyy/MM/dd"
+                      mask="___/__/__ __:__ _M"
+                      renderInput={(params) => (
+                        <TextField
+                          id="standard-basic"
+                          variant="standard"
+                          {...params}
+                          InputProps={{ disableUnderline: true }}
+                        />
+                      )}
                     />
-                  )}
-                />
-              </LocalizationProvider>
+                  </LocalizationProvider>
+                </div>
+              ) : (
+                <div className="relative mt-4 w-[320px] lg:w-[460px] h-[60px] flex px-5 pt-5 outline-none rounded bg-gdscGrey-100 text-input-text">
+                  {dateOfBirth.getFullYear()}
+                  /
+                  {dateOfBirth.getMonth() + 1}
+                  /
+                  {dateOfBirth.getDate()}
+                  <button
+                    type="button"
+                    className="absolute right-5"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setField({
+                        ...field,
+                        dob: true,
+                        notification: true,
+                      });
+                      setDatePicker(true);
+                    }}
+                  >
+                    <img className="w-6 h-6" src={EditIcon} alt="Edit info" />
+                  </button>
+                </div>
+              )}
             </div>
-          ) : (
-            <div className="relative mt-4 w-[320px] lg:w-[460px] h-[60px] flex px-5 pt-5 outline-none rounded bg-gdscGrey-100 text-input-text">
-              {dateOfBirth.getFullYear()}
-              /
-              {dateOfBirth.getMonth() + 1}
-              /
-              {dateOfBirth.getDate()}
-              <button
-                type="button"
-                className="absolute right-5"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setField({
-                    ...field,
-                    dob: true,
-                    notification: true,
-                  });
-                  setDatePicker(true);
-                }}
-              >
-                <img className="w-6 h-6" src={EditIcon} alt="Edit info" />
-              </button>
+            <div className="flex flex-col">
+              <p className="md:mt-6 input-field-col:mt-0">Organization</p>
+              <div className="relative mt-4 w-[320px] lg:w-[460px] h-[60px] flex px-5 pt-5 outline-none rounded bg-gdscGrey-100 text-input-text">
+                {localStorage.getItem('organization')}
+              </div>
             </div>
-          )}
+          </div>
           <div className="flex">
             <button
               type="submit"

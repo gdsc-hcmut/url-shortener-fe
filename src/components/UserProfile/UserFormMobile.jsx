@@ -193,7 +193,7 @@ export default function UserFormMobile() {
             <p className="text-gdscRed-300">Email has been taken</p>
           )}
         </div>
-        <div className="flex flex-col align-end mb-8">
+        <div className="flex flex-col align-end mb-6">
           <p className="pb-3">Birthday</p>
           {field.dob ? (
             <div
@@ -246,6 +246,12 @@ export default function UserFormMobile() {
               </button>
             </div>
           )}
+        </div>
+        <div className="flex flex-col align-end mb-8">
+          <p className="pb-3">Organization</p>
+          <div className="relative w-[376px] md:w-[420px] h-[64px] flex px-5 pt-5 outline-none rounded bg-gdscGrey-100 text-input-text">
+            {localStorage.getItem('organization')}
+          </div>
         </div>
       </div>
       {field.notification && (

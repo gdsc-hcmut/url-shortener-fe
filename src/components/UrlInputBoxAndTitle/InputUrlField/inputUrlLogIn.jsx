@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch, useStore } from 'react-redux';
+import { useDispatch, useStore, useSelector } from 'react-redux';
 import * as yup from 'yup';
 
 import { SHOW_GOOGLE_LOADING_ANIMATION, SHOW_URL_MODAL } from 'action-types';
@@ -24,6 +24,7 @@ export default function InputUrlLogIn() {
   const [disableMobile, setDisableMobile] = useState('');
   const [loading, setLoading] = useState(false);
   const [slugErr, setSlugErr] = useState(false);
+  const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const store = useStore();
   const {
@@ -44,7 +45,9 @@ export default function InputUrlLogIn() {
         payload: true,
       });
       setLoading(true);
-      await dispatch(urlAction.shortenUrlWithSlug(longUrlDesktop, slugDesktop));
+      await dispatch(
+        urlAction.shortenUrlWithSlug(longUrlDesktop, slugDesktop, user),
+      );
       const reduxState = store.getState();
       if (reduxState.urlWithSlug.slugTaken === true) {
         dispatch({
@@ -76,7 +79,9 @@ export default function InputUrlLogIn() {
         payload: true,
       });
       setLoading(true);
-      await dispatch(urlAction.shortenUrlWithSlug(longUrlMobile, slugMobile));
+      await dispatch(
+        urlAction.shortenUrlWithSlug(longUrlMobile, slugMobile, user),
+      );
       const reduxState = store.getState();
       if (reduxState.urlWithSlug.slugTaken === true) {
         dispatch({
