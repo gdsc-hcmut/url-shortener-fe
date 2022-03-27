@@ -27,9 +27,6 @@ export default function ExpireTime({ expireTime, id }) {
             ' Expired'
           ) : (
             <span>
-              <span className="inline extra-sm:hidden">
-                <EditExpireIcon />
-              </span>
               <span className="hidden 3xl:inline">
                 {`${new Intl.DateTimeFormat('en-US', {
                   weekday: 'long',
@@ -41,17 +38,15 @@ export default function ExpireTime({ expireTime, id }) {
                 }`}
               </span>
               <span>{`/${new Date(expireTime).getFullYear()} `}</span>
-              <span className="hidden extra-sm:inline-block">
-                {` ${new Date(expireTime).toLocaleTimeString()}`}
-              </span>
+              <span>{` ${new Date(expireTime).toLocaleTimeString()}`}</span>
             </span>
           )}
         </span>
-        <span className="inline-flex font-normal text-base justify-center items-center">
+        <span className="inline-flex font-normal text-sm justify-center items-center">
           <span>Expire Time</span>
           <span
             aria-hidden
-            className="ml-4 lg:ml-1 3xl:ml-4 w-[100px] lg:w-[84px] 3xl:w-[100px] h-7 rounded-[60px] hidden extra-sm:flex justify-center items-center px-7 lg:px-5 3xl:px-7 bg-[#DA4436] bg-opacity-10 active:bg-opacity-20 hover:cursor-pointer"
+            className="ml-4 lg:ml-1 3xl:ml-4 w-[75px] extra-sm:w-[100px] lg:w-[84px] 3xl:w-[100px] h-7 rounded-[60px] flex justify-center items-center px-3 extra-sm:px-7 lg:px-5 3xl:px-7 bg-[#DA4436] bg-opacity-10 active:bg-opacity-20 hover:cursor-pointer"
             onClick={() => setOpen(true)}
           >
             <span className="inline-flex w-full justify-between items-center">
