@@ -24,6 +24,7 @@ import DeleteModal from 'components/DeleteModal';
 import EditSlugModal from 'components/EditSludModal';
 import ModalSucess from 'components/ModalSuccess';
 import DeleteLinkSnackbar from 'components/Snackbar/DeleteLinkSnackbar';
+import domain from 'constant/domain';
 import {
   LATEST, OLDEST, LEAST_CLICKED, MOST_CLICKED,
 } from 'constant/options';
@@ -47,6 +48,8 @@ export default function MyUrl({ id }) {
   );
   const { showSnackbar } = useSelector((state) => state.notification);
   const { urlList, option } = useSelector((state) => state.url);
+  let urlDomain;
+  const organization = localStorage.getItem('organization');
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
@@ -248,9 +251,15 @@ export default function MyUrl({ id }) {
                   className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
                   onClick={(e) => {
                     e.stopPropagation();
-                    navigator.clipboard.writeText(
-                      `${REACT_APP_SHORTEN_BASE_URL}/${url.slug}`,
-                    );
+                    if (organization === 'None') {
+                      urlDomain = REACT_APP_SHORTEN_BASE_URL;
+                    } else {
+                      const domainArr = domain.filter(
+                        (el) => el.name === organization,
+                      );
+                      urlDomain = domainArr[0].domain;
+                    }
+                    navigator.clipboard.writeText(`${urlDomain}/${url.slug}`);
                     dispatch(toggleSuccessModalOpen());
                   }}
                 >

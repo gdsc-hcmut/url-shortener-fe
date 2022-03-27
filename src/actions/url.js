@@ -14,12 +14,12 @@ import {
   UPDATE_URL_DETAIL,
 } from 'action-types';
 import { toggleSnackbarOpen } from 'actions/notification';
+import domain from 'constant/domain';
 import UrlAPI from 'services/url.service';
 
 const shortenUrl = (longUrl) => async (dispatch) => {
   try {
     const res = await UrlAPI.shortenUrl(longUrl);
-
     dispatch({
       type: SHORTEN_URL,
       payload: {
@@ -37,12 +37,19 @@ const shortenUrl = (longUrl) => async (dispatch) => {
 
 const shortenUrlWithSlug = (longUrl, slug) => async (dispatch) => {
   try {
-    const email = localStorage.getItem('userEmail');
-    const res = await UrlAPI.shortenUrlWithSlug(longUrl, slug, email);
+    const organization = localStorage.getItem('organization');
+    const res = await UrlAPI.shortenUrlWithSlug(longUrl, slug);
+    let shortUrl;
+    if (organization === 'None') {
+      shortUrl = res.data.shortUrl;
+    } else {
+      const urlDomain = domain.filter((el) => el.name === organization);
+      shortUrl = `${urlDomain[0].domain}/${res.data.slug}`;
+    }
     dispatch({
       type: SHORTEN_URL_WITH_SLUG,
       payload: {
-        shortUrl: res.data.shortenedUrl,
+        shortUrl,
         slug: res.data.slug,
       },
     });
@@ -67,11 +74,21 @@ const shortenUrlWithSlug = (longUrl, slug) => async (dispatch) => {
 };
 const editSlug = (slug, newSlug, urlList) => async (dispatch) => {
   try {
-    const email = localStorage.getItem('userEmail');
-    const res = await UrlAPI.editSlug(slug, newSlug, email);
+    const organization = localStorage.getItem('organization');
+    const res = await UrlAPI.editSlug(slug, newSlug);
+    let shortUrl;
+    if (organization === 'None') {
+      shortUrl = res.data.shortUrl;
+    } else {
+      const urlDomain = domain.filter((el) => el.name === organization);
+      shortUrl = `${urlDomain[0].domain}/${res.data.slug}`;
+    }
     dispatch({
       type: EDIT_SLUG,
-      payload: res.data,
+      payload: {
+        shortUrl,
+        slug: res.data.slug,
+      },
     });
     dispatch({
       type: UPDATE_URL_LISTS,
@@ -126,7 +143,6 @@ const deleteUrl = (id, urlList) => async (dispatch) => {
 };
 const editExpireTime = (id, newExpireTime) => async (dispatch) => {
   try {
-    console.log('aaa');
     const res = await UrlAPI.editExpireTime(id, newExpireTime);
     dispatch({
       type: UPDATE_URL_DETAIL,
