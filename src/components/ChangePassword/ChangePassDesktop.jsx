@@ -43,7 +43,9 @@ export default function ChangePassDesktop() {
   const store = useStore();
   const auth = getAuth();
   const dispatch = useDispatch();
-
+  const [notification, setNotification] = useState(
+    store.getState().auth.user.passwordCreated,
+  );
   const {
     register,
     handleSubmit,
@@ -64,6 +66,7 @@ export default function ChangePassDesktop() {
     await dispatch(changePassword(newPassword, oldPassword));
     const reduxState = store.getState();
     setLoading(reduxState.auth.loading);
+    setNotification(true);
     dispatch({
       type: SHOW_GOOGLE_LOADING_ANIMATION,
       payload: false,
@@ -79,6 +82,15 @@ export default function ChangePassDesktop() {
   return (
     <div className="hidden md:block ml-[60px] mr-[60px] mt-10">
       <h1 className="text-[32px] font-medium">Change Password</h1>
+      {!notification && (
+        <p className="text-gdscBlue-300 font-bold">
+          Since you sign up as a user via your Google account, you can input
+          freely in the old password field (but must has least 6 characters) the
+          first time you attempt to change the password. When click on update,
+          the content of the new password field will officially become your
+          account&#39;s password
+        </p>
+      )}
       <div className="mt-[88px] w-full bg-white rounded-[8px] px-8 pt-10">
         <h1 className="text-xl font-medium">Change Password</h1>
         <form
