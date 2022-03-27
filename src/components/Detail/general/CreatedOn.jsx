@@ -18,7 +18,10 @@ export default function CreatedOn({ createOn }) {
             }).format(time)}`}
           </span>
           <span>{` ${time.getDate()}/${time.getMonth() + 1}`}</span>
-          <span>{`/${time.getFullYear()}`}</span>
+          <span>
+            {`/${time.getFullYear()}`}
+            {' '}
+          </span>
           <span className="hidden extra-sm:inline-block">{` ${time.toLocaleTimeString()}`}</span>
         </span>
         <span className="w-fit font-normal text-base">Created on</span>

@@ -54,14 +54,14 @@ export default function ChangePassDesktop() {
   });
   const handleChangePassword = async (data, e) => {
     e.preventDefault();
+    setLoading(!loading);
     console.log(auth.currentUser);
     dispatch({
       type: SHOW_GOOGLE_LOADING_ANIMATION,
       payload: true,
     });
     const { oldPassword, newPassword } = data;
-    setLoading(true);
-    dispatch(changePassword(newPassword, oldPassword));
+    await dispatch(changePassword(newPassword, oldPassword));
     const reduxState = store.getState();
     setLoading(reduxState.auth.loading);
     dispatch({
