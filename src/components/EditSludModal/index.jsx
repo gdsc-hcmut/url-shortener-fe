@@ -54,7 +54,7 @@ export default function EditSlugModal({ show, onClose, slug }) {
     >
       <div
         aria-hidden="true"
-        className="relative w-[376px] h-[304px] flex items-center border bg-white rounded px-5 py-[32px]"
+        className="relative w-[376px] h-[304px] flex items-center border bg-white rounded mx-5 px-5 py-[32px]"
       >
         <button
           aria-hidden="true"

@@ -33,7 +33,7 @@ export default function DeleteLinkSnackbar() {
 
   return (
     showSnackbar && (
-      <div className="animate-fadeinout relative w-[376px] h-[92px] p-5 flex bg-white rounded items-center shadow-md border-t z-50">
+      <div className="animate-fadeinout relative w-[300px] sm:w-[376px] h-[92px] p-5 flex bg-white rounded items-center shadow-md border-t z-50">
         <DeleteIcon />
         <div className="ml-[18px]">
           <p className="text-base font-semibold leading-5">LINK DELETED</p>

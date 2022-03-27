@@ -45,7 +45,7 @@ export default function DeleteModal({
     >
       <div
         aria-hidden="true"
-        className="w-[376px] h-[376px] md:w-[412px] px-[58px] py-8 flex flex-col items-center border bg-white rounded"
+        className="w-[320px] sm:w-[376px] h-[376px] md:w-[412px] px-[20px] sm:px-[58px] py-8 flex flex-col items-center border bg-white rounded"
         onClick={(e) => e.stopPropagation()}
       >
         <div>

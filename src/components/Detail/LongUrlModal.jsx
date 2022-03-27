@@ -23,7 +23,7 @@ export default function LongUrlModal({ show, text, onClose }) {
     >
       <div
         aria-hidden
-        className="relative w-[500px] h-[304px] flex items-center border bg-white rounded px-5 py-[32px]"
+        className="relative md:w-[500px] h-[304px] flex items-center border bg-white rounded mx-5 px-5 py-[32px]"
       >
         <button
           aria-hidden
@@ -42,7 +42,7 @@ export default function LongUrlModal({ show, text, onClose }) {
         >
           <h1 className="text-2ßxl font-medium mb-8">Original Url</h1>
           <div className="relative mb-5">
-            <div className="w-[460px] h-[176px] bg-white border-[1px] border-gdscGrey-200 hover:border-gdscBlue-300 rounded shadow-[0_6px_15px_rgba(64,79,104,0.05)] outline-none p-5 break-words transition duration-300 font-normal text-base overflow-y-scroll">
+            <div className="w-full h-[176px] bg-white border-[1px] border-gdscGrey-200 hover:border-gdscBlue-300 rounded shadow-[0_6px_15px_rgba(64,79,104,0.05)] outline-none p-5 break-words transition duration-300 font-normal text-base overflow-y-scroll">
               {text}
             </div>
           </div>

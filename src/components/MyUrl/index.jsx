@@ -234,7 +234,7 @@ export default function MyUrl({ id }) {
               navigate(`/urls/${url.slug}`, { state: { id: url.id } });
             }}
           >
-            <div className="text-xl h-6 font-medium w-64 overflow-x-hidden truncate ">
+            <div className="text-xl h-6 font-medium w-54 sm:w-64 overflow-x-hidden truncate ">
               <span>{url.longUrl}</span>
             </div>
             <span className="flex justify-between">

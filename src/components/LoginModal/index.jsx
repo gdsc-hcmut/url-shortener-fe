@@ -66,11 +66,15 @@ export default function LoginModal({ show, onClose }) {
           className="w-full h-full flex flex-col items-center"
           onClick={(e) => e.stopPropagation()}
         >
-          <h1 className="text-2xl font-bold mb-7">Login</h1>
+          <h1 className="text-2xl font-bold">Login</h1>
           <LoginForm />
-          <button type="button" onClick={switchToSignUp} className="mb-7 flex">
+          <button
+            type="button"
+            onClick={switchToSignUp}
+            className="mt-7 self-center text-base"
+          >
             {"Don't have an account? "}
-            <p className="active:underline font-bold ml-1">Sign up</p>
+            <span className="active:underline font-bold ml-1">Sign up</span>
           </button>
           {/* <LoginWithGoogle /> */}
         </div>

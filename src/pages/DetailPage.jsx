@@ -15,7 +15,7 @@ export default function Homepage() {
   const { id } = state;
 
   return (
-    <div className="max-h-[100vh] detail-page flex flex-col">
+    <div className="max-h-[100vh] detail-page flex flex-col bg-gdscGrey-100">
       <NavLink to="/urls" className="absolute md:hidden right-5 top-3 z-50">
         <div className="w-10 h-10 flex justify-center items-center">
           <BackIcon />
