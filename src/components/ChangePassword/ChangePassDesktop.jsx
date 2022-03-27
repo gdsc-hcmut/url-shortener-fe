@@ -1,3 +1,4 @@
+/* eslint-disable operator-linebreak */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { yupResolver } from '@hookform/resolvers/yup';
 import { getAuth } from 'firebase/auth';
@@ -60,7 +61,7 @@ export default function ChangePassDesktop() {
     });
     const { oldPassword, newPassword } = data;
     setLoading(true);
-    await dispatch(changePassword(newPassword, oldPassword));
+    dispatch(changePassword(newPassword, oldPassword));
     const reduxState = store.getState();
     setLoading(reduxState.auth.loading);
     dispatch({
@@ -123,8 +124,8 @@ export default function ChangePassDesktop() {
             )}
           </div>
           <span className="text-gdscRed-300 mt-2">
-            {(errors.oldPassword && errors.oldPassword.message)
-              || error.signIn.password}
+            {(errors.oldPassword && errors.oldPassword.message) ||
+              error.signIn.password}
           </span>
           <p className="mt-4">New Password</p>
           <div className="flex items-center">
