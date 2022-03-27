@@ -121,11 +121,14 @@ export default function Detail({ id }) {
           aria-hidden
           className="font-normal w-fit h-9 leading-9 text-[32px] mb-4 break-words cursor-pointer overflow-y-hidden "
           onClick={() => {
-            navigator.clipboard.writeText(
-              urlDetail.shortenedUrl
-                ? urlDetail.shortenedUrl
-                : `${REACT_APP_SHORTEN_BASE_URL}/${urlDetail.slug}`,
-            );
+            navigator.clipboard
+              .writeText(
+                urlDetail.shortenedUrl
+                  ? urlDetail.shortenedUrl
+                  : `${REACT_APP_SHORTEN_BASE_URL}/${urlDetail.slug}`,
+              )
+              .then(() => console.log('Copied'))
+              .catch(() => console.log('Copy fail'));
             dispatch(toggleSuccessModalOpen());
           }}
         >
