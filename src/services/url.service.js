@@ -2,8 +2,8 @@ import api from './api';
 
 const UrlAPI = {
   shortenUrl: (longUrl) => api.post('/urls', { longUrl }),
-  shortenUrlWithSlug: (longUrl, slug, email) => api.post('/urls/auth', { longUrl, slug, email }),
-  editSlug: (slug, newSlug, email) => api.patch('/urls/edit-slug', { slug, newSlug, email }),
+  shortenUrlWithSlug: (longUrl, slug) => api.post('/urls/auth', { longUrl, slug }),
+  editSlug: (slug, newSlug) => api.patch('/urls/edit-slug', { slug, newSlug }),
   getUrlList: (page, sortOption) => api.get(`/urls?page=${page}&sortOption=${sortOption}`),
   searchUrl: (q) => api.get(`/urls/search?q=${q}`),
   getUrlById: (id) => api.get(`/urls/${id}`),

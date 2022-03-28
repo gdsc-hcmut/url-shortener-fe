@@ -21,6 +21,7 @@ import DeleteModal from 'components/DeleteModal';
 import EditSlugModal from 'components/EditSludModal';
 import ModalSucess from 'components/ModalSuccess';
 import { PLATFORMS } from 'constant/common';
+import domain from 'constant/domain';
 import UrlAPI from 'services/url.service';
 
 import Chart from './Chart';
@@ -32,8 +33,6 @@ import LongUrlModal from './LongUrlModal';
 import QR from './QR';
 import SocialMedia from './SocialMedia';
 
-const { REACT_APP_SHORTEN_BASE_URL } = process.env;
-
 export default function Detail({ id }) {
   const dispatch = useDispatch();
   const [isDeleted, setIsDeleted] = useState(false);
@@ -41,15 +40,23 @@ export default function Detail({ id }) {
   const { DeleteUrlModal, CopySuccessModal, EditUrlModal } = useSelector(
     (state) => state.showModal,
   );
-  const { urlDetail } = useSelector((state) => state.url);
+  const { urlDetail, shortenedUrl } = useSelector((state) => state.url);
 
   useEffect(() => {
     setIsDeleted(false);
     const getUrlDetail = async () => {
       const { data } = await UrlAPI.getUrlById(id);
+      const organization = localStorage.getItem('organization');
+      let shortUrl;
+      if (organization === 'None') {
+        shortUrl = data.shortUrl;
+      } else {
+        const urlDomain = domain.filter((el) => el.name === organization);
+        shortUrl = `${urlDomain[0].domain}/${data.slug}`;
+      }
       dispatch({
         type: UPDATE_URL_DETAIL,
-        payload: data,
+        payload: { data, shortUrl },
       });
     };
     getUrlDetail().catch(() => {
@@ -122,27 +129,16 @@ export default function Detail({ id }) {
           className="font-normal w-fit h-9 leading-9 text-[32px] mb-4 break-words cursor-pointer overflow-y-hidden "
           onClick={() => {
             navigator.clipboard
-              .writeText(
-                urlDetail.shortenedUrl
-                  ? urlDetail.shortenedUrl
-                  : `${REACT_APP_SHORTEN_BASE_URL}/${urlDetail.slug}`,
-              )
+              .writeText(shortenedUrl)
               .then(() => console.log('Copied'))
               .catch(() => console.log('Copy fail'));
             dispatch(toggleSuccessModalOpen());
           }}
         >
-          {urlDetail.shortenedUrl ? (
-            <p>
-              <span className="hidden sm:inline">{urlDetail.shortenedUrl}</span>
-              <span className="inline sm:hidden">{urlDetail.slug}</span>
-            </p>
-          ) : (
-            <p>
-              <span className="hidden sm:inline">{`${REACT_APP_SHORTEN_BASE_URL}/`}</span>
-              {urlDetail.slug}
-            </p>
-          )}
+          <p>
+            <span className="hidden sm:inline">{shortenedUrl}</span>
+            <span className="inline sm:hidden">{urlDetail.slug}</span>
+          </p>
         </h1>
         <div className="ml-2 flex space-x-2">
           <button
@@ -150,11 +146,7 @@ export default function Detail({ id }) {
             aria-label="Copy Button"
             className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
             onClick={() => {
-              navigator.clipboard.writeText(
-                urlDetail.shortenedUrl
-                  ? urlDetail.shortenedUrl
-                  : `${REACT_APP_SHORTEN_BASE_URL}/${urlDetail.slug}`,
-              );
+              navigator.clipboard.writeText(shortenedUrl);
               dispatch(toggleSuccessModalOpen());
             }}
           >
@@ -241,14 +233,7 @@ export default function Detail({ id }) {
               ).length,
             }}
           />
-          <QR
-            shortenedUrl={
-              urlDetail.shortenedUrl
-                ? urlDetail.shortenedUrl
-                : urlDetail.shortUrl
-            }
-            slug={urlDetail.slug}
-          />
+          <QR shortenedUrl={shortenedUrl} slug={urlDetail.slug} />
         </div>
         <Chart data={urlDetail.totalClicks} />
       </div>

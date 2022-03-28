@@ -75,7 +75,7 @@ export default function SocialMedia({ data, total }) {
       />
       <div className="flex flex-col mb-2">
         {(search ? searchList : socialMediaArray).map((el) => (el === 'Total' ? (
-          <div className="flex items-center h-[52px] mt-8">
+          <div className="flex items-center h-[52px] mt-8" key={el}>
             <SwitchCase props={el} />
             <span className="font-normal text-xl ml-3">Total</span>
             <span className="font-thin text-base text-gdscGrey-700 ml-auto">
@@ -83,7 +83,7 @@ export default function SocialMedia({ data, total }) {
             </span>
           </div>
         ) : (
-          <div className="flex items-center h-[52px] mt-8">
+          <div className="flex items-center h-[52px] mt-8" key={el}>
             <SwitchCase props={el} />
             <span className="font-normal text-xl ml-3">{el}</span>
             <span className="font-thin text-base text-gdscGrey-700 ml-auto">

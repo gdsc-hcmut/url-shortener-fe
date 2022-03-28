@@ -83,7 +83,8 @@ export default (state = initialState, { type, payload } = {}) => {
     case UPDATE_URL_DETAIL:
       return {
         ...state,
-        urlDetail: payload,
+        urlDetail: payload.data,
+        shortenedUrl: payload.shortUrl,
       };
     case CHANGE_SORT_OPTION:
       return {
