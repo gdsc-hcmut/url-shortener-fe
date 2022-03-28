@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion';
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Navigate } from 'react-router';
 
 import { SHOW_URL_MODAL } from 'action-types';
+import { logout } from 'actions/auth';
 import transitionAnimation from 'animations';
 import { ReactComponent as MenuIcon } from 'assets/icons/menu.svg';
 import Footer from 'components/Footer';
@@ -14,6 +16,7 @@ import UrlInputBoxAndTitle from 'components/UrlInputBoxAndTitle';
 
 export default function HomepageLogin() {
   const { shortenedUrl, slug } = useSelector((state) => state.urlWithSlug);
+  const { user } = useSelector((state) => state.auth);
   const [toggleMenu, setToggleMenu] = useState(false);
   const [animation, setAnimation] = useState(true);
   const { UrlModal, GoogleLoading } = useSelector((state) => state.showModal);
@@ -21,12 +24,18 @@ export default function HomepageLogin() {
   const handleToggleMenu = () => {
     setToggleMenu(!toggleMenu);
   };
-  useEffect(() => {
+  useEffect(async () => {
+    if (!user) {
+      await dispatch(logout());
+    }
     const timer1 = setTimeout(() => setAnimation(false), 1000);
     return () => {
       clearTimeout(timer1);
     };
   }, []);
+  if (!user) {
+    return <Navigate to="/" />;
+  }
   return (
     <div
       aria-hidden="true"

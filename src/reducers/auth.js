@@ -92,6 +92,7 @@ export default function (state = initialState, action) {
     case LOGOUT:
       localStorage.removeItem('user');
       localStorage.removeItem('avatar');
+      localStorage.removeItem('organization');
       return {
         ...state,
         token: null,
