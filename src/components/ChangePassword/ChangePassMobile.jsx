@@ -42,7 +42,9 @@ export default function ChangePasswordMobile() {
   const auth = getAuth();
   const dispatch = useDispatch();
   const store = useStore();
-
+  const [notification, setNotification] = useState(
+    store.getState().auth.user.passwordCreated,
+  );
   const {
     register,
     handleSubmit,
@@ -63,6 +65,7 @@ export default function ChangePasswordMobile() {
     await dispatch(changePassword(newPassword, oldPassword));
     const reduxState = store.getState();
     setLoading(reduxState.auth.loading);
+    setNotification(true);
     dispatch({
       type: SHOW_GOOGLE_LOADING_ANIMATION,
       payload: false,
@@ -234,6 +237,15 @@ export default function ChangePasswordMobile() {
           </button>
         )}
       </form>
+      {!notification && (
+        <p className="text-gdscBlue-300 px-[60px] mt-4 font-bold">
+          Since you sign up as a user via your Google account, you can input
+          freely in the old password field (but must has least 6 characters) the
+          first time you attempt to change the password. When click on update,
+          the content of the new password field will officially become your
+          account&#39;s password.
+        </p>
+      )}
     </div>
   );
 }

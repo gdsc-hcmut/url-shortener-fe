@@ -41,6 +41,12 @@ export const editProfile = (name, newEmail, email, dateOfBirth, avatar) => async
 export const changePassword = (newPassword, oldPassword) => async (dispatch) => {
   try {
     await AuthService.changePassword(newPassword, oldPassword);
+    const data = await AuthService.getCurrentUser();
+    dispatch({
+      type: USER_LOADED,
+      payload: data,
+    });
+    console.log(data);
   } catch (err) {
     dispatch({
       type: CHANGE_PASSWORD_FAIL,
