@@ -1,10 +1,8 @@
 import { motion } from 'framer-motion';
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, Navigate } from 'react-router';
+import React from 'react';
+import { useLocation } from 'react-router';
 import { NavLink } from 'react-router-dom';
 
-import { logout } from 'actions/auth';
 import transitionAnimation from 'animations';
 import { ReactComponent as BackIcon } from 'assets/icons/BackIcon.svg';
 import Detail from 'components/Detail';
@@ -15,16 +13,7 @@ import SideMenu from 'components/SideMenu';
 export default function Homepage() {
   const { state } = useLocation();
   const { id } = state;
-  const { user } = useSelector((states) => states.auth);
-  const dispatch = useDispatch();
-  useEffect(async () => {
-    if (!user) {
-      await dispatch(logout());
-    }
-  }, []);
-  if (!user) {
-    return <Navigate to="/" />;
-  }
+
   return (
     <div className="max-h-[100vh] detail-page flex flex-col bg-gdscGrey-100">
       <NavLink to="/urls" className="absolute md:hidden right-5 top-3 z-50">

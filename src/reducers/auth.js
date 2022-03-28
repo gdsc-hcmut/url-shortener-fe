@@ -68,6 +68,22 @@ export default function (state = initialState, action) {
         loading: false,
       };
     case AUTH_ERROR:
+      localStorage.removeItem('user');
+      localStorage.removeItem('avatar');
+      localStorage.removeItem('organization');
+      return {
+        ...state,
+        token: null,
+        isAuthenticated: false,
+        loading: false,
+        loggedInWithGoogle: false,
+        user: {
+          name: 'user name',
+          email: 'user email',
+          dateOfBirth: 'user birthday',
+          avatar: null,
+        },
+      };
     case LOGIN_FAIL:
       return {
         ...state,

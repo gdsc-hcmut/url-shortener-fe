@@ -83,7 +83,14 @@ export default function App() {
             />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
             <Route path="/stat" element={<StatisticPage />} />
-            <Route path="/statistics" element={<StatisticPage />} />
+            <Route
+              path="/statistics"
+              element={
+                <RequireAuth redirectTo="/">
+                  <StatisticPage />
+                </RequireAuth>
+              }
+            />
             <Route path="/error/not-found" element={<NotFoundPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>

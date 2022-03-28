@@ -1,9 +1,7 @@
 import { motion } from 'framer-motion';
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Navigate } from 'react-router';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 
-import { logout } from 'actions/auth';
 import transitionAnimation from 'animations';
 import { ReactComponent as MenuIcon } from 'assets/icons/menu.svg';
 import ChangePassword from 'components/ChangePassword';
@@ -17,19 +15,10 @@ export default function ChangePasswordPage() {
   const [toggleMenu, setToggleMenu] = useState(false);
   // const [width, setWidth] = useState(window.innerWidth);
   const { GoogleLoading } = useSelector((state) => state.showModal);
-  const { user } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
   const handleToggleMenu = () => {
     setToggleMenu(!toggleMenu);
   };
-  useEffect(async () => {
-    if (!user) {
-      await dispatch(logout());
-    }
-  }, []);
-  if (!user) {
-    return <Navigate to="/" />;
-  }
+
   return (
     <div aria-hidden="true" className="max-h-[100vh] detail-page flex flex-col">
       <button

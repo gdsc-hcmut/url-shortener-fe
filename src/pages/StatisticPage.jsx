@@ -1,9 +1,6 @@
 import { motion } from 'framer-motion';
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Navigate } from 'react-router';
+import React, { useState } from 'react';
 
-import { logout } from 'actions/auth';
 import transitionAnimation from 'animations';
 import { ReactComponent as MenuIcon } from 'assets/icons/menu.svg';
 import Footer from 'components/Footer';
@@ -16,16 +13,7 @@ export default function StatisticPage() {
   const handleToggleMenu = () => {
     setToggleMenu(!toggleMenu);
   };
-  const { user } = useSelector((states) => states.auth);
-  const dispatch = useDispatch();
-  useEffect(async () => {
-    if (!user) {
-      await dispatch(logout());
-    }
-  }, []);
-  if (!user) {
-    return <Navigate to="/" />;
-  }
+
   return (
     <div aria-hidden="true" className="max-h-[100vh] detail-page flex flex-col">
       <button
