@@ -27,6 +27,11 @@ export const loadUser = () => async (dispatch) => {
       payload: data,
     });
   } catch (err) {
+    dispatch(clearError());
+    await dispatch({
+      type: UPDATE_URL_LISTS,
+      payload: [],
+    });
     dispatch({
       type: AUTH_ERROR,
     });
