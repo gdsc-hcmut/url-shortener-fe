@@ -38,7 +38,7 @@ const shortenUrl = (longUrl) => async (dispatch) => {
 const shortenUrlWithSlug = (longUrl, slug) => async (dispatch) => {
   try {
     const organization = localStorage.getItem('organization');
-    const res = await UrlAPI.shortenUrlWithSlug(longUrl, slug);
+    const res = await UrlAPI.shortenUrlWithSlug(longUrl, slug, organization);
     let shortUrl;
     if (organization === 'None') {
       shortUrl = res.data.shortUrl;
