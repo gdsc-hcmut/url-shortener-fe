@@ -6,8 +6,8 @@ import { SHOW_LOG_IN_MODAL, SHOW_SIGN_UP_MODAL } from 'action-types';
 import { clearError } from 'actions/error';
 import BackIcon from 'assets/icons/BackIcon.svg';
 import CloseIcon from 'assets/icons/close.svg';
+import GoogleLoginButton from 'components/Modals/GoogleLoginButton';
 
-import LoginWithGoogle from './LoginWithGoogle';
 import SignUpForm from './SignUpForm';
 
 export default function SignUpDesktop({ show, onClose }) {
@@ -72,7 +72,9 @@ export default function SignUpDesktop({ show, onClose }) {
           or
           <div className="w-[170px] h-px bg-gdscGrey-200 ml-1" />
         </div>
-        <LoginWithGoogle />
+        <div className="self-center">
+          <GoogleLoginButton />
+        </div>
       </div>
     </div>
   );

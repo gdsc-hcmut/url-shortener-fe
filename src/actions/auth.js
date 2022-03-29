@@ -96,6 +96,10 @@ export const loginWithGoogle = (tokenId) => async (dispatch) => {
       type: SHOW_LOG_IN_MODAL,
       payload: false,
     });
+    dispatch({
+      type: SHOW_SIGN_UP_MODAL,
+      payload: false,
+    });
     dispatch(clearError());
 
     dispatch(loadUser());
