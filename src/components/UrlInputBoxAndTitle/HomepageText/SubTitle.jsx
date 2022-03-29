@@ -36,7 +36,7 @@ export default function SubTitle({ loggedIn }) {
         <Link to="/sign-up">
           <button
             type="button"
-            className="md:m-0 w-[92px] h-6 b-[50px] bg-get-started-btn rounded-[60px] flex justify-center items-center hover:bg-get-started-btn-hover  ease-out duration-300"
+            className="md:m-0 w-[92px] h-6 b-[50px] bg-get-started-btn-hover rounded-[60px] flex justify-center items-center hover:bg-gdscBlue-100  ease-out duration-300"
           >
             <div className="opacity-100 text-xs font-normal text-gdscBlue-300 flex justify-center items-center">
               Get started

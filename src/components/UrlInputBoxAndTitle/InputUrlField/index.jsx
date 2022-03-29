@@ -147,7 +147,7 @@ export default function InputUrlField() {
       {!loading ? (
         <button
           type="button"
-          className={`text-base text-white md:hidden w-[152px] h-[60px] bg-gdscBlue-300 rounded hover:bg-shorten-btn-hover ${
+          className={`text-base text-white md:hidden w-[152px] h-[60px] bg-gdscBlue-300 rounded hover:bg-shorten-btn-hover transition-all duration-300 ease-out ${
             !disableMobile && 'cursor-not-allowed'
           } `}
           onClick={handleSubmit(handleClickMobile)}

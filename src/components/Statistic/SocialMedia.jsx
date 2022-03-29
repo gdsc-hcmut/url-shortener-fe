@@ -56,15 +56,14 @@ export default function SocialMedia({ data, total }) {
     setSearch(e.target.value);
   };
   useEffect(() => {
-    // eslint-disable-next-line max-len
-    const filterArray = socialMediaArray.filter((el) => el.toLowerCase().includes(search.toLowerCase()));
+    const filterArray = socialMediaArray.filter(
+      (el) => el.toLowerCase().includes(search.toLowerCase()),
+    );
     setSearchList(filterArray);
   }, [search]);
   return (
     <div
-      className="md:h-[480px] md:w-[504px] lg:w-[312px] 3xl:w-[504px] w-full
-    px-5 pt-8 pb-12 mb-6 md:mb-4 3xl:mb-6 mx-0 lg:mr-4 3xl:mr-6
-    bg-white rounded overflow-auto no-scrollbar"
+      className="w-full xl:w-[868px] 3xl:w-[504px] px-5 pt-8 pb-12 mb-6 md:mb-4 3xl:mb-6 mx-0 lg:mr-4 3xl:mr-6 bg-white rounded overflow-auto no-scrollbar"
     >
       <input
         placeholder="Search"
