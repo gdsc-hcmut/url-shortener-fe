@@ -14,7 +14,7 @@ import {
   UPDATE_URL_DETAIL,
 } from 'action-types';
 import { toggleSnackbarOpen } from 'actions/notification';
-import domain from 'constant/domain';
+import domains from 'constant/domain';
 import UrlAPI from 'services/url.service';
 
 const shortenUrl = (longUrl) => async (dispatch) => {
@@ -43,8 +43,11 @@ const shortenUrlWithSlug = (longUrl, slug) => async (dispatch) => {
     if (organization === 'None') {
       shortUrl = res.data.shortUrl;
     } else {
-      const urlDomain = domain.filter((el) => el.name === organization);
-      shortUrl = `${urlDomain[0].domain}/${res.data.slug}`;
+      const domainKey = Object.keys(domains).filter(
+        (key) => domains[key].name === organization,
+      );
+      const urlDomain = domains[domainKey[0]].domain;
+      shortUrl = `${urlDomain}/${res.data.slug}`;
     }
     dispatch({
       type: SHORTEN_URL_WITH_SLUG,
@@ -80,8 +83,11 @@ const editSlug = (slug, newSlug, urlList) => async (dispatch) => {
     if (organization === 'None') {
       shortUrl = res.data.shortUrl;
     } else {
-      const urlDomain = domain.filter((el) => el.name === organization);
-      shortUrl = `${urlDomain[0].domain}/${res.data.slug}`;
+      const domainKey = Object.keys(domains).filter(
+        (key) => domains[key].name === organization,
+      );
+      const urlDomain = domains[domainKey[0]].domain;
+      shortUrl = `${urlDomain}/${res.data.slug}`;
     }
     dispatch({
       type: EDIT_SLUG,
