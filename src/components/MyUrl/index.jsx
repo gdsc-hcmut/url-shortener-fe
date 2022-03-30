@@ -49,6 +49,8 @@ export default function MyUrl({ id }) {
   const { showSnackbar } = useSelector((state) => state.notification);
   const { urlList, option } = useSelector((state) => state.url);
   let urlDomain;
+  // eslint-disable-next-line no-unused-vars
+  const getPreUrlListState = urlList;
   const organization = localStorage.getItem('organization');
   const handleSearch = (e) => {
     setSearch(e.target.value);

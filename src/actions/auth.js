@@ -27,6 +27,11 @@ export const loadUser = () => async (dispatch) => {
       payload: data,
     });
   } catch (err) {
+    dispatch(clearError());
+    await dispatch({
+      type: UPDATE_URL_LISTS,
+      payload: [],
+    });
     dispatch({
       type: AUTH_ERROR,
     });
@@ -89,6 +94,10 @@ export const loginWithGoogle = (tokenId) => async (dispatch) => {
 
     dispatch({
       type: SHOW_LOG_IN_MODAL,
+      payload: false,
+    });
+    dispatch({
+      type: SHOW_SIGN_UP_MODAL,
       payload: false,
     });
     dispatch(clearError());

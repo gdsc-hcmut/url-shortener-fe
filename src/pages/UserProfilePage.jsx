@@ -1,9 +1,6 @@
 import { motion } from 'framer-motion';
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Navigate } from 'react-router';
+import React, { useState } from 'react';
 
-import { logout } from 'actions/auth';
 import transitionAnimation from 'animations';
 import { ReactComponent as MenuIcon } from 'assets/icons/menu.svg';
 import Footer from 'components/Footer';
@@ -13,19 +10,10 @@ import UserProfile from 'components/UserProfile';
 
 export default function UserProfilePage() {
   const [toggleMenu, setToggleMenu] = useState(false);
-  const { user } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
   const handleToggleMenu = () => {
     setToggleMenu(!toggleMenu);
   };
-  useEffect(async () => {
-    if (!user) {
-      await dispatch(logout());
-    }
-  }, []);
-  if (!user) {
-    return <Navigate to="/" />;
-  }
+
   return (
     <div className="max-h-[100vh] detail-page flex flex-col">
       <button

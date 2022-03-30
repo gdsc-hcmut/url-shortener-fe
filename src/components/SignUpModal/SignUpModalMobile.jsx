@@ -3,9 +3,9 @@ import React from 'react';
 
 import transitionAnimation from 'animations';
 import Footer from 'components/Footer';
+import GoogleLoginButton from 'components/Modals/GoogleLoginButton';
 import NavBar from 'components/Navbar';
 
-import LoginWithGoogle from './LoginWithGoogle';
 import SignUpForm from './SignUpForm';
 
 export default function SignUpModalMobile() {
@@ -26,7 +26,7 @@ export default function SignUpModalMobile() {
           or
           <div className="w-[170px] h-px bg-gdscGrey-200 ml-1" />
         </div>
-        <LoginWithGoogle />
+        <GoogleLoginButton />
       </motion.div>
       <Footer />
     </div>

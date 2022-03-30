@@ -1,6 +1,6 @@
 import React from 'react';
 
-import GoogleLoginButton from './GoogleLoginButton';
+import GoogleLoginButton from 'components/Modals/GoogleLoginButton';
 
 export default function LoginWithGoogle() {
   return (
