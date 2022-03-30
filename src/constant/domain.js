@@ -1,19 +1,15 @@
 const domains = {
-  org: {
-    name: 'organization',
-    domain: 'http://localhost:5001',
+  ctct: {
+    name: 'Chúng ta cùng tiến',
+    domain: 'https://url.chungtacungtien.com',
   },
-  org1: {
-    name: 'organization1',
-    domain: 'localhost:5000',
+  fptudsc: {
+    name: 'Developer Student Community - FPT University HCMC',
+    domain: 'https://url.fptudsc.org',
   },
-  org2: {
-    name: 'organization2',
-    domain: 'http://localhost:5001',
-  },
-  org3: {
-    name: 'organization2',
-    domain: 'http://localhost:5002',
+  gdscuit: {
+    name: 'GDSC UIT',
+    domain: 'https://url.gdsc-uit.org',
   },
 };
 export default domains;
