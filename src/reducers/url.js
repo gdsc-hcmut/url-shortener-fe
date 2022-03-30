@@ -81,9 +81,10 @@ export default (state = initialState, { type, payload } = {}) => {
         urlList: payload,
       };
     case UPDATE_URL_DETAIL:
+      console.log('payload', payload);
       return {
         ...state,
-        urlDetail: payload.data,
+        urlDetail: payload,
         shortenedUrl: payload.shortUrl,
       };
     case CHANGE_SORT_OPTION:
