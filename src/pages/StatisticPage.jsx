@@ -13,6 +13,7 @@ export default function StatisticPage() {
   const handleToggleMenu = () => {
     setToggleMenu(!toggleMenu);
   };
+
   return (
     <div aria-hidden="true" className="max-h-[100vh] detail-page flex flex-col">
       <button
@@ -25,7 +26,7 @@ export default function StatisticPage() {
       <Navbar home={false} />
       <div className="flex md:overflow-x-scroll md:overflow-hidden h-full">
         <SideMenu toggle={toggleMenu} page="stat" />
-        <div className="bg-gdscGrey-100 md:mt-0 h-full w-full md:h-6 md:min-h-screen flex-1 md:overflow-y-scroll">
+        <div className="bg-gdscGrey-100 md:mt-0 w-full h-full md:h-auto flex-1 md:overflow-y-scroll">
           <motion.div
             className="w-full h-full text-2xl "
             initial="out"

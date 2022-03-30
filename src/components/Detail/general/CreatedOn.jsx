@@ -11,15 +11,18 @@ export default function CreatedOn({ createOn }) {
         <CreatedOnIcon />
       </div>
       <div className="flex flex-col justify-between items-end">
-        <span className="text-gdscBlue-300 text-xl lg:text-lg 3xl:text-2xl font-normal truncate">
+        <span className="text-gdscBlue-300 text-base extra-sm:text-xl lg:text-lg 3xl:text-2xl font-normal truncate">
           <span className="hidden 3xl:inline">
             {`${new Intl.DateTimeFormat('en-US', {
               weekday: 'long',
             }).format(time)}`}
           </span>
           <span>{` ${time.getDate()}/${time.getMonth() + 1}`}</span>
-          <span>{`/${time.getFullYear()}`}</span>
-          <span>{` ${time.toLocaleTimeString()}`}</span>
+          <span>
+            {`/${time.getFullYear()}`}
+            {' '}
+          </span>
+          <span className="hidden extra-sm:inline-block">{` ${time.toLocaleTimeString()}`}</span>
         </span>
         <span className="w-fit font-normal text-base">Created on</span>
       </div>

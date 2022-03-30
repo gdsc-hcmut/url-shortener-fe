@@ -185,14 +185,14 @@ export default function Chart({ data }) {
         <h1 className="font-bold text-base md:text-xl">Times Clicked On</h1>
         <div
           aria-hidden
-          className="w-[128px] h-11 text-base text-gdscGrey-700 p-2 lg:p-3 outline-none bg-[#F0F5F7] mt-3 mx-0 self-end text-left cursor-pointer rounded block md:mt-1 md:mr-3 focus:outline-none cursor-pointer"
+          className="w-[128px] h-11 text-base text-gdscGrey-700 p-2 lg:p-3 outline-none bg-[#F0F5F7] mt-3 mx-0 self-end text-left cursor-pointer rounded block md:mt-1 md:mr-3 focus:outline-none"
           aria-haspopup="listbox"
           aria-expanded="true"
           aria-labelledby="listbox-label"
           onClick={handleClick}
         >
           <span className="flex items-center justify-between">
-            <span className="truncate">{option}</span>
+            <span className="truncate leading-11">{option}</span>
             <span className="">
               <ArrowDown />
             </span>

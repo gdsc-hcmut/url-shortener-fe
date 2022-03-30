@@ -22,11 +22,19 @@ export default function Navbar({ home }) {
   const [show, setShow] = useState(false);
   const [showFullName, setShowFullName] = useState(false);
   const [width, setWidth] = useState(window.innerWidth);
-  const getName = user.name.split(' ');
-  const userName = truncate(getName[getName.length - 1], {
-    length: 10,
-  });
-  const userNameFull = getName[getName.length - 1];
+  let getName;
+  let userName;
+  let userNameFull;
+  if (user) {
+    getName = user.name.split(' ');
+    userName = truncate(getName[getName.length - 1], {
+      length: 10,
+    });
+    userNameFull = getName[getName.length - 1];
+  } else {
+    userName = 'User';
+    userNameFull = 'User';
+  }
   const navigate = useNavigate();
 
   const handleShow = () => setShow(!show);
@@ -105,7 +113,7 @@ export default function Navbar({ home }) {
                   onMouseEnter={() => setShowFullName(true)}
                   onMouseLeave={() => setShowFullName(false)}
                 >
-                  {user && userName}
+                  {userName}
                 </p>
                 <img
                   className="h-[44px] w-[44px] rounded-full"

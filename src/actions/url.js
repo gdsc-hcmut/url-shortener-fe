@@ -14,12 +14,12 @@ import {
   UPDATE_URL_DETAIL,
 } from 'action-types';
 import { toggleSnackbarOpen } from 'actions/notification';
+import domains from 'constant/domain';
 import UrlAPI from 'services/url.service';
 
 const shortenUrl = (longUrl) => async (dispatch) => {
   try {
     const res = await UrlAPI.shortenUrl(longUrl);
-
     dispatch({
       type: SHORTEN_URL,
       payload: {
@@ -37,11 +37,22 @@ const shortenUrl = (longUrl) => async (dispatch) => {
 
 const shortenUrlWithSlug = (longUrl, slug) => async (dispatch) => {
   try {
-    const res = await UrlAPI.shortenUrlWithSlug(longUrl, slug);
+    const organization = localStorage.getItem('organization');
+    const res = await UrlAPI.shortenUrlWithSlug(longUrl, slug, organization);
+    let shortUrl;
+    if (organization === 'None') {
+      shortUrl = res.data.shortUrl;
+    } else {
+      const domainKey = Object.keys(domains).filter(
+        (key) => key === organization,
+      );
+      const urlDomain = domains[domainKey[0]].domain;
+      shortUrl = `${urlDomain}/${res.data.slug}`;
+    }
     dispatch({
       type: SHORTEN_URL_WITH_SLUG,
       payload: {
-        shortUrl: res.data.shortUrl,
+        shortUrl,
         slug: res.data.slug,
       },
     });
@@ -66,10 +77,24 @@ const shortenUrlWithSlug = (longUrl, slug) => async (dispatch) => {
 };
 const editSlug = (slug, newSlug, urlList) => async (dispatch) => {
   try {
+    const organization = localStorage.getItem('organization');
     const res = await UrlAPI.editSlug(slug, newSlug);
+    let shortUrl;
+    if (organization === 'None') {
+      shortUrl = res.data.shortUrl;
+    } else {
+      const domainKey = Object.keys(domains).filter(
+        (key) => key === organization,
+      );
+      const urlDomain = domains[domainKey[0]].domain;
+      shortUrl = `${urlDomain}/${res.data.slug}`;
+    }
     dispatch({
       type: EDIT_SLUG,
-      payload: res.data,
+      payload: {
+        shortUrl,
+        slug: res.data.slug,
+      },
     });
     dispatch({
       type: UPDATE_URL_LISTS,

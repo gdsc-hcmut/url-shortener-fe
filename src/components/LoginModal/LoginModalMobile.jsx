@@ -7,7 +7,7 @@ import Footer from 'components/Footer';
 import NavBar from 'components/Navbar';
 
 import LoginForm from './LoginForm';
-// import LoginWithGoogle from './LoginWithGoogle';
+import LoginWithGoogle from './LoginWithGoogle';
 
 export default function LoginModalMobile() {
   return (
@@ -21,17 +21,17 @@ export default function LoginModalMobile() {
         variants={transitionAnimation.bodyTransition}
         transition={transitionAnimation.transitionDuration}
       >
-        <h1 className="text-2xl font-bold mb-7 self-center">Login</h1>
+        <h1 className="text-2xl font-bold self-center">Login</h1>
         <LoginForm />
         <Link to="/sign-up">
-          <p className="mb-7">
+          <p className="mt-7 text-base mb-7">
             {"Don't have an account? "}
             <button type="button" className="active:underline font-bold">
               Sign up
             </button>
           </p>
         </Link>
-        {/* <LoginWithGoogle /> */}
+        <LoginWithGoogle />
       </motion.div>
       <Footer />
     </div>

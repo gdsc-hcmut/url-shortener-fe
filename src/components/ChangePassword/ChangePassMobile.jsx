@@ -42,7 +42,9 @@ export default function ChangePasswordMobile() {
   const auth = getAuth();
   const dispatch = useDispatch();
   const store = useStore();
-
+  const [notification, setNotification] = useState(
+    store.getState().auth.user.passwordCreated,
+  );
   const {
     register,
     handleSubmit,
@@ -63,6 +65,7 @@ export default function ChangePasswordMobile() {
     await dispatch(changePassword(newPassword, oldPassword));
     const reduxState = store.getState();
     setLoading(reduxState.auth.loading);
+    setNotification(true);
     dispatch({
       type: SHOW_GOOGLE_LOADING_ANIMATION,
       payload: false,
@@ -86,7 +89,7 @@ export default function ChangePasswordMobile() {
             <input
               id="oldpassword"
               {...register('oldPassword')}
-              className="w-[376px] md:w-[420px] h-[60px]
+              className="w-[300px] sm:w-[376px] md:w-[420px] h-[60px]
             bg-gdscGrey-100 focus:bg-white focus:border
               focus:border-1 focus:border-gdscBlue-300 px-5 outline-none rounded"
               type={showOldPassword ? 'text' : 'password'}
@@ -130,7 +133,7 @@ export default function ChangePasswordMobile() {
             <input
               id="newpassword"
               {...register('newPassword')}
-              className="w-[376px] md:w-[420px] h-[60px]
+              className="w-[300px] sm:w-[376px] md:w-[420px] h-[60px]
             bg-gdscGrey-100 focus:bg-white focus:border
               focus:border-1 focus:border-gdscBlue-300  px-5 outline-none rounded"
               type={showNewPassword ? 'text' : 'password'}
@@ -173,7 +176,7 @@ export default function ChangePasswordMobile() {
             <input
               id="confirmPassword"
               {...register('confirmPassword')}
-              className="w-[376px] md:w-[420px] h-[60px]
+              className="w-[300px] sm:w-[376px] md:w-[420px] h-[60px]
             bg-gdscGrey-100 focus:bg-white focus:border
               focus:border-1 focus:border-gdscBlue-300  px-5 outline-none rounded"
               type={showConfirmPassword ? 'text' : 'password'}
@@ -212,16 +215,16 @@ export default function ChangePasswordMobile() {
         </div>
         {!loading ? (
           <button
-            className="font-normal text-white w-[376px] md:w-[420px] h-[60px]
+            className="font-normal text-white w-[300px] sm:w-[376px] md:w-[420px] h-[60px]
                   bg-gdscBlue-300 rounded hover:bg-shorten-btn-hover
                   transition-all duration-300 ease-out md:mb-7"
             type="submit"
           >
-            Change
+            Update
           </button>
         ) : (
           <button
-            className="font-normal text-white w-[376px] md:w-[420px] h-[60px]
+            className="font-normal text-white w-[300px] sm:w-[376px] md:w-[420px] h-[60px]
                   bg-gdscBlue-300 rounded hover:bg-shorten-btn-hover
                   transition-all duration-300 ease-out md:mb-7"
             type="submit"
@@ -234,6 +237,15 @@ export default function ChangePasswordMobile() {
           </button>
         )}
       </form>
+      {!notification && (
+        <p className="text-gdscBlue-300 px-[60px] mt-4 font-bold">
+          Since you sign up as a user via your Google account, you can input
+          freely in the old password field (but must has least 6 characters) the
+          first time you attempt to change the password. When click on update,
+          the content of the new password field will officially become your
+          account&#39;s password.
+        </p>
+      )}
     </div>
   );
 }

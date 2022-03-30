@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { loginWithGoogle } from 'actions/auth';
 import GoogleLogo from 'assets/icons/GoogleLogo.svg';
 
-export default function GoogleButton() {
+export default function GoogleLoginButton() {
   const dispatch = useDispatch();
 
   const onSuccess = (res) => {
@@ -20,7 +20,7 @@ export default function GoogleButton() {
     onSuccess,
     onFailure,
     clientId: process.env.REACT_APP_CLIENT_ID,
-    isSignedIn: true,
+    isSignedIn: false,
     accessType: 'offline',
   });
 

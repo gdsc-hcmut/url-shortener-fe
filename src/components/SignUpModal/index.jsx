@@ -6,8 +6,8 @@ import { SHOW_LOG_IN_MODAL, SHOW_SIGN_UP_MODAL } from 'action-types';
 import { clearError } from 'actions/error';
 import BackIcon from 'assets/icons/BackIcon.svg';
 import CloseIcon from 'assets/icons/close.svg';
+import GoogleLoginButton from 'components/Modals/GoogleLoginButton';
 
-// import LoginWithGoogle from './LoginWithGoogle';
 import SignUpForm from './SignUpForm';
 
 export default function SignUpDesktop({ show, onClose }) {
@@ -46,7 +46,7 @@ export default function SignUpDesktop({ show, onClose }) {
     >
       <div
         aria-hidden="true"
-        className="w-[500px] h-[640px] flex flex-col border bg-white rounded overflow-y-scroll no-scrollbar"
+        className="w-[500px] h-[692px] flex flex-col border bg-white rounded  no-scrollbar"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="mt-3 px-3 flex gap-x-[396px]">
@@ -67,12 +67,14 @@ export default function SignUpDesktop({ show, onClose }) {
           </button>
         </div>
         <SignUpForm isMobile={false} />
-        {/* <div className="mt-[16px] h-10 self-center flex items-center">
+        <div className="mt-[16px] h-10 self-center flex items-center">
           <div className="w-[170px] h-px bg-gdscGrey-200 mr-1" />
           or
           <div className="w-[170px] h-px bg-gdscGrey-200 ml-1" />
         </div>
-         <LoginWithGoogle /> */}
+        <div className="self-center">
+          <GoogleLoginButton />
+        </div>
       </div>
     </div>
   );

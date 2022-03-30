@@ -12,9 +12,11 @@ export default function MyUrlPage() {
   const handleToggleMenu = () => {
     setToggleMenu(!toggleMenu);
   };
-
   return (
-    <div aria-hidden="true" className="max-h-[100vh] detail-page flex flex-col">
+    <div
+      aria-hidden="true"
+      className="max-h-[100vh] detail-page flex flex-col bg-gdscGrey-100"
+    >
       <button
         type="button"
         className="absolute md:hidden right-5 top-3 z-50"

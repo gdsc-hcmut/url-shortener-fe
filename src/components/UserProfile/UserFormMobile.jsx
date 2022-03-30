@@ -100,12 +100,15 @@ export default function UserFormMobile() {
       }}
     >
       <div className="flex justify-items-start w-[376px]">
-        <h1 className="text-[32px] font-medium">My Profile</h1>
+        <h1 className="text-[32px] font-medium ml-[38px] sm:ml-0">
+          My Profile
+        </h1>
       </div>
       <div className="relative w-[148px] h-[148px] bg-gdscGrey-200 rounded-[8px] mt-8">
         <img
           src={
             uploadAva
+            || user.avatar
             || 'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'
           }
           className="w-[148px] h-[148px] rounded-[8px] border border-gdscGrey-200"
@@ -126,7 +129,7 @@ export default function UserFormMobile() {
       </div>
       <div>
         {field.notification && field.avatar && (
-          <p className="text-gdscBlue-300 text-sm mt-[52px]">
+          <p className="w-[300px] sm:w-[376px] md:w-[420px] text-gdscBlue-300 text-sm mt-[52px]">
             Your image has been uploaded. Click Save to submit your changes
           </p>
         )}
@@ -135,7 +138,7 @@ export default function UserFormMobile() {
           {field.name ? (
             <div>
               <input
-                className="w-[376px] md:w-[420px] h-[64px] bg-white border
+                className="w-[300px] sm:w-[376px] md:w-[420px] h-[64px] bg-white border
                       border-1 border-gdscBlue-300 px-5 outline-none rounded"
                 type="text"
                 {...register('name')}
@@ -143,7 +146,7 @@ export default function UserFormMobile() {
               />
             </div>
           ) : (
-            <div className="relative w-[376px] md:w-[420px] h-[64px] flex px-5 pt-5 outline-none rounded bg-gdscGrey-100 text-input-text">
+            <div className="relative w-[300px] sm:w-[376px] md:w-[420px] h-[64px] flex px-5 pt-5 outline-none rounded bg-gdscGrey-100 text-input-text">
               {getValues('name')
                 ? getValues('name')
                 : localStorage.getItem('userName')}
@@ -165,7 +168,7 @@ export default function UserFormMobile() {
           {field.email ? (
             <div className="flex">
               <input
-                className="w-[376px] md:w-[420px] h-[64px] bg-white border
+                className="w-[300px] sm:w-[376px] md:w-[420px] h-[64px] bg-white border
                         border-1 border-gdscBlue-300 px-5 outline-none rounded"
                 type="email"
                 placeholder={newEmail}
@@ -175,7 +178,7 @@ export default function UserFormMobile() {
               />
             </div>
           ) : (
-            <div className="relative w-[376px] md:w-[420px] h-[64px] flex px-5 pt-5 outline-none rounded bg-gdscGrey-100 text-input-text">
+            <div className="relative w-[300px] sm:w-[376px] md:w-[420px] h-[64px] flex px-5 pt-5 outline-none rounded bg-gdscGrey-100 text-input-text">
               {newEmail}
               <button
                 type="button"
@@ -193,12 +196,12 @@ export default function UserFormMobile() {
             <p className="text-gdscRed-300">Email has been taken</p>
           )}
         </div>
-        <div className="flex flex-col align-end mb-8">
+        <div className="flex flex-col align-end mb-6">
           <p className="pb-3">Birthday</p>
           {field.dob ? (
             <div
               aria-hidden
-              className="h-[60px] w-[376px] px-5 pt-4 bg-white border
+              className="h-[60px] w-[300px] sm:w-[376px] px-5 pt-4 bg-white border
               border-1 border-gdscBlue-300 outline-none rounded"
               onClick={(e) => e.stopPropagation()}
             >
@@ -227,7 +230,7 @@ export default function UserFormMobile() {
               </LocalizationProvider>
             </div>
           ) : (
-            <div className="relative w-[376px] md:w-[420px] h-[64px] flex px-5 pt-5 outline-none rounded bg-gdscGrey-100 text-input-text">
+            <div className="relative w-[300px] sm:w-[376px] md:w-[420px] h-[64px] flex px-5 pt-5 outline-none rounded bg-gdscGrey-100 text-input-text">
               {dateOfBirth.getFullYear()}
               /
               {dateOfBirth.getMonth() + 1}
@@ -246,6 +249,12 @@ export default function UserFormMobile() {
               </button>
             </div>
           )}
+        </div>
+        <div className="flex flex-col align-end mb-8">
+          <p className="pb-3">Organization</p>
+          <div className="relative w-[300px] sm:w-[376px] md:w-[420px] h-[64px] flex px-5 pt-5 outline-none rounded bg-gdscGrey-100 text-input-text">
+            {localStorage.getItem('organization')}
+          </div>
         </div>
       </div>
       {field.notification && (

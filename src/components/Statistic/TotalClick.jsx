@@ -5,7 +5,7 @@ import { ReactComponent as TotalClickIcon } from 'assets/icons/total_click_icon.
 
 export default function TotalClick({ totalClick }) {
   return (
-    <div className="h-[116px] md:h-[128px] lg:w-[426px] w-full py-7 md:py-3 3xl:py-7 px-5 flex justify-between bg-white rounded">
+    <div className="grow xl:grow-0 h-[116px] md:h-[128px] lg:w-[426px] w-full py-7 md:py-3 3xl:py-7 px-5 flex justify-between bg-white rounded">
       <div className="h-[72px] w-[72px] bg-opacity-10 bg-gdscGreen-300 rounded flex justify-center items-center ">
         <TotalClickIcon />
       </div>

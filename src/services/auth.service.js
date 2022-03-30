@@ -1,3 +1,4 @@
+/* eslint-disable operator-linebreak */
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -13,6 +14,7 @@ import {
   verifyPasswordResetCode,
 } from 'firebase/auth';
 
+import { USER_LOADED } from 'action-types';
 import { clearError, setError } from 'actions/error';
 import {
   toggleChangePasswordSnackbarOpen,
@@ -50,8 +52,8 @@ const register = async (email, password) => {
     return res.data;
   } catch (error) {
     if (
-      error.response
-      && error.response.data.errors.message === 'Email has been taken'
+      error.response &&
+      error.response.data.errors.message === 'Email has been taken'
     ) {
       store.dispatch(setError('auth/email-already-in-use'));
     }
@@ -61,7 +63,7 @@ const register = async (email, password) => {
 
 const login = async (email, password) => {
   const auth = getAuth();
-
+  const { passwordCreated } = store.getState().auth.user;
   return signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const firebaseToken = userCredential.user.accessToken;
@@ -76,7 +78,8 @@ const login = async (email, password) => {
       return res.data;
     })
     .catch((error) => {
-      store.dispatch(setError(error.code));
+      if (passwordCreated) store.dispatch(setError(error.code));
+      else console.log(error.code);
     });
 };
 
@@ -123,6 +126,28 @@ const changeEmail = async (newEmail) => {
 };
 
 const changePassword = async (newPassword, oldPassword) => {
+  const data = await getCurrentUser();
+  store.dispatch({
+    type: USER_LOADED,
+    payload: data,
+  });
+  const { passwordCreated, email } = store.getState().auth.user;
+  if (!passwordCreated) {
+    try {
+      api.patch('/auth/change-password', { newPassword }).then((res) => {
+        store.dispatch(clearError());
+        store.dispatch(toggleChangePasswordSnackbarOpen());
+        store.dispatch(toggleChangePasswordLoadingIndicator());
+        console.log('password update');
+        return res.data;
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  await login(email, oldPassword);
+
   const auth = getAuth();
   const credentials = EmailAuthProvider.credential(
     auth.currentUser.email,
@@ -142,7 +167,8 @@ const changePassword = async (newPassword, oldPassword) => {
         });
     })
     .catch((error) => {
-      store.dispatch(setError(error.code));
+      if (passwordCreated) store.dispatch(setError(error.code));
+      else console.log(error.code);
     });
 };
 

@@ -84,26 +84,32 @@ export default function LoginForm() {
   }, [LogInModal]);
 
   return (
-    <form className="mx-5" onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-      <div className="flex flex-col align-end mb-7">
-        <p className="pb-2">Email</p>
+    <form
+      className="flex flex-col justify-center"
+      onSubmit={handleSubmit(onSubmit)}
+      autoComplete="off"
+    >
+      <div className="mt-7 px-0 md:px-10">
+        <p>Email</p>
         <input
-          className="w-[376px] md:w-[420px] h-[60px] bg-gdscGrey-100 focus:bg-white focus:border
-                      focus:border-1 focus:border-gdscBlue-300  px-5 outline-none rounded"
           {...register('email')}
+          className="mt-2 w-[300px] sm:w-[376px] md:w-[420px] h-[60px]
+          focus:border focus:border-1 rounded-[8px]
+          bg-gdscGrey-100 focus:bg-white focus:outline-gdscBlue-300 p-5 "
         />
-        <span className="text-gdscRed-300 mt-2 w-[376px] md:w-[420px]">
-          {(errors.email && errors.email.message) || error.signIn.email}
-        </span>
       </div>
+      <span className="text-gdscRed-300 mt-2 md:px-10">
+        {(errors.email && errors.email.message) || error.signIn.email}
+      </span>
 
-      <div className="flex flex-col align-end mb-7">
-        <p className="pb-2">Password</p>
+      <div className="mt-7 px-0 md:px-10">
+        <p className="mb-2">Password</p>
         <div className="flex items-center">
           <input
             id="password"
-            className="w-[376px] md:w-[420px] h-[60px] bg-gdscGrey-100 focus:bg-white focus:border
-                      focus:border-1 focus:border-gdscBlue-300  px-5 outline-none rounded"
+            className="w-[300px] sm:w-[376px] md:w-[420px] h-[60px]
+            focus:border focus:border-1 rounded-[8px]
+            bg-gdscGrey-100 focus:bg-white focus:outline-gdscBlue-300 py-5 pl-5 pr-12"
             type={showPassword ? 'text' : 'password'}
             {...register('password')}
           />
@@ -111,7 +117,7 @@ export default function LoginForm() {
             <label
               aria-hidden
               htmlFor="password"
-              className="w-7 h-7 ml-[-40px] inline-block opacity-80 cursor-pointer"
+              className="w-7 h-7 ml-[-40px] opacity-80 cursor-pointer"
               onClick={() => setShowPassword(false)}
             >
               <img
@@ -142,11 +148,11 @@ export default function LoginForm() {
       </div>
 
       {isMobile ? (
-        <div className="mb-10 md:mb-7 text-right">
+        <div className="mb-10 md:mb-7 mt-7 text-base px-0 md:px-10 text-right">
           <Link to="/forgot-password">Forgot your password?</Link>
         </div>
       ) : (
-        <div className="mb-10 md:mb-7 text-right">
+        <div className="mb-10 md:mb-7 mt-7 text-base px-0 md:px-10 text-right">
           <button type="button" onClick={showForgotPassword}>
             Forgot your password?
           </button>
@@ -154,9 +160,7 @@ export default function LoginForm() {
       )}
       {!loading ? (
         <button
-          className="font-normal text-white w-[376px] md:w-full h-[60px]
-          bg-gdscBlue-300 rounded hover:bg-shorten-btn-hover
-          transition-all duration-300 ease-out mb-7"
+          className="w-[300px] sm:w-[376px] md:w-[420px] h-[60px] bg-gdscBlue-300 self-center rounded-[8px] text-white hover:bg-shorten-btn-hover transition-all ease-out duration-300"
           type="submit"
         >
           Log In
@@ -164,9 +168,7 @@ export default function LoginForm() {
       ) : (
         <button
           type="button"
-          className="font-normal text-white w-[376px] md:w-full h-[60px]
-          bg-gdscBlue-300 rounded hover:bg-shorten-btn-hover
-          transition-all duration-300 ease-out mb-7"
+          className="w-[300px] sm:w-[376px] md:w-[420px] h-[60px] bg-gdscBlue-300 self-center rounded-[8px] text-white hover:bg-shorten-btn-hover transition-all ease-out duration-300"
           disabled
         >
           <img

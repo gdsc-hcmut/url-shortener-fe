@@ -3,9 +3,9 @@ import React from 'react';
 
 import transitionAnimation from 'animations';
 import Footer from 'components/Footer';
+import GoogleLoginButton from 'components/Modals/GoogleLoginButton';
 import NavBar from 'components/Navbar';
 
-// import LoginWithGoogle from './LoginWithGoogle';
 import SignUpForm from './SignUpForm';
 
 export default function SignUpModalMobile() {
@@ -13,7 +13,7 @@ export default function SignUpModalMobile() {
     <div>
       <NavBar home={false} />
       <motion.div
-        className="flex flex-col justify-center items-center mt-[112px] px-5 mb-7"
+        className="flex flex-col justify-center items-center mt-[112px] px-5"
         initial="out"
         animate="in"
         exit="out"
@@ -21,12 +21,12 @@ export default function SignUpModalMobile() {
         transition={transitionAnimation.transitionDuration}
       >
         <SignUpForm isMobile />
-        {/* <div className="mt-[28px] h-10 self-center flex items-center">
+        <div className="mt-[28px] h-10 self-center flex items-center">
           <div className="w-[170px] h-px bg-gdscGrey-200 mr-1" />
           or
           <div className="w-[170px] h-px bg-gdscGrey-200 ml-1" />
         </div>
-        <LoginWithGoogle /> */}
+        <GoogleLoginButton />
       </motion.div>
       <Footer />
     </div>

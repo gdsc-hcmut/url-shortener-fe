@@ -21,6 +21,7 @@ import DeleteModal from 'components/DeleteModal';
 import EditSlugModal from 'components/EditSludModal';
 import ModalSucess from 'components/ModalSuccess';
 import { PLATFORMS } from 'constant/common';
+import domains from 'constant/domain';
 import UrlAPI from 'services/url.service';
 
 import Chart from './Chart';
@@ -31,8 +32,6 @@ import TotalClick from './general/TotalClick';
 import LongUrlModal from './LongUrlModal';
 import QR from './QR';
 import SocialMedia from './SocialMedia';
-
-const { REACT_APP_SHORTEN_BASE_URL } = process.env;
 
 export default function Detail({ id }) {
   const dispatch = useDispatch();
@@ -47,15 +46,27 @@ export default function Detail({ id }) {
     setIsDeleted(false);
     const getUrlDetail = async () => {
       const { data } = await UrlAPI.getUrlById(id);
+      const organization = localStorage.getItem('organization');
+      let shortUrl;
+      if (organization === 'None') {
+        shortUrl = data.shortUrl;
+      } else {
+        const domainKey = Object.keys(domains).filter(
+          (key) => key === organization,
+        );
+        const urlDomain = domains[domainKey[0]].domain;
+        shortUrl = `${urlDomain}/${data.slug}`;
+      }
       dispatch({
         type: UPDATE_URL_DETAIL,
-        payload: data,
+        payload: { ...data, shortUrl },
       });
     };
     getUrlDetail().catch(() => {
       setIsDeleted(true);
     });
   }, [id, EditUrlModal, DeleteUrlModal]);
+  console.log('urlDetail', urlDetail);
 
   useEffect(() => {
     if (CopySuccessModal) {
@@ -121,14 +132,14 @@ export default function Detail({ id }) {
           aria-hidden
           className="font-normal w-fit h-9 leading-9 text-[32px] mb-4 break-words cursor-pointer overflow-y-hidden "
           onClick={() => {
-            navigator.clipboard.writeText(
-              `${REACT_APP_SHORTEN_BASE_URL}/${urlDetail.slug}`,
-            );
+            navigator.clipboard.writeText(urlDetail.shortUrl);
             dispatch(toggleSuccessModalOpen());
           }}
         >
-          <span className="hidden sm:inline">{`${REACT_APP_SHORTEN_BASE_URL}/`}</span>
-          {urlDetail.slug}
+          <p>
+            <span className="hidden sm:inline">{urlDetail.shortUrl}</span>
+            <span className="inline sm:hidden">{urlDetail.slug}</span>
+          </p>
         </h1>
         <div className="ml-2 flex space-x-2">
           <button
@@ -136,9 +147,7 @@ export default function Detail({ id }) {
             aria-label="Copy Button"
             className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
             onClick={() => {
-              navigator.clipboard.writeText(
-                `${REACT_APP_SHORTEN_BASE_URL}/${urlDetail.slug}`,
-              );
+              navigator.clipboard.writeText(urlDetail.shortUrl);
               dispatch(toggleSuccessModalOpen());
             }}
           >
@@ -211,8 +220,14 @@ export default function Detail({ id }) {
               Instagram: urlDetail.totalClicks.filter(
                 (click) => click.origin === 'Instagram',
               ).length,
-              Zalo: urlDetail.totalClicks.filter(
-                (click) => click.origin === 'Zalo',
+              Twitter: urlDetail.totalClicks.filter(
+                (click) => click.origin === 'Twitter',
+              ).length,
+              Linkedin: urlDetail.totalClicks.filter(
+                (click) => click.origin === 'Linkedin',
+              ).length,
+              Youtube: urlDetail.totalClicks.filter(
+                (click) => click.origin === 'Youtube',
               ).length,
               Others: urlDetail.totalClicks.filter(
                 (click) => !PLATFORMS.includes(click.origin),

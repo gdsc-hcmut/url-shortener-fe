@@ -12,7 +12,10 @@ export default function ModalUrl({
   const [copied, setCopied] = useState(false);
   const handleCopy = () => {
     setCopied(true);
-    navigator.clipboard.writeText(shortenedUrl);
+    navigator.clipboard
+      .writeText(shortenedUrl)
+      .then(() => console.log('Copied'))
+      .catch(() => console.log('Copy fail'));
     setTimeout(() => setCopied(false), 1000);
   };
 

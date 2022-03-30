@@ -18,6 +18,7 @@ export default function ChangePasswordPage() {
   const handleToggleMenu = () => {
     setToggleMenu(!toggleMenu);
   };
+
   return (
     <div aria-hidden="true" className="max-h-[100vh] detail-page flex flex-col">
       <button

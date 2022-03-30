@@ -7,7 +7,7 @@ import { clearError } from 'actions/error';
 import CloseIcon from 'assets/icons/close.svg';
 
 import LoginForm from './LoginForm';
-// import LoginWithGoogle from './LoginWithGoogle';
+import LoginWithGoogle from './LoginWithGoogle';
 
 export default function LoginModal({ show, onClose }) {
   const dispatch = useDispatch();
@@ -49,7 +49,7 @@ export default function LoginModal({ show, onClose }) {
     >
       <div
         aria-hidden="true"
-        className="relative w-[500px] h-[560px] flex items-center border bg-white rounded px-[40px] py-[32px]"
+        className="relative w-[500px] h-[660px] flex items-center border bg-white rounded px-[40px] py-[32px]"
       >
         <button
           aria-hidden="true"
@@ -66,13 +66,17 @@ export default function LoginModal({ show, onClose }) {
           className="w-full h-full flex flex-col items-center"
           onClick={(e) => e.stopPropagation()}
         >
-          <h1 className="text-2xl font-bold mb-7">Login</h1>
+          <h1 className="text-2xl font-bold">Login</h1>
           <LoginForm />
-          <button type="button" onClick={switchToSignUp} className="mb-7 flex">
+          <button
+            type="button"
+            onClick={switchToSignUp}
+            className="mt-7 self-center text-base"
+          >
             {"Don't have an account? "}
-            <p className="active:underline font-bold ml-1">Sign up</p>
+            <span className="active:underline font-bold ml-1">Sign up</span>
           </button>
-          {/* <LoginWithGoogle /> */}
+          <LoginWithGoogle />
         </div>
       </div>
     </div>
