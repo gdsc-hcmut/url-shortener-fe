@@ -21,7 +21,7 @@ import DeleteModal from 'components/DeleteModal';
 import EditSlugModal from 'components/EditSludModal';
 import ModalSucess from 'components/ModalSuccess';
 import { PLATFORMS } from 'constant/common';
-import domain from 'constant/domain';
+import domains from 'constant/domain';
 import UrlAPI from 'services/url.service';
 
 import Chart from './Chart';
@@ -51,8 +51,11 @@ export default function Detail({ id }) {
       if (organization === 'None') {
         shortUrl = data.shortUrl;
       } else {
-        const urlDomain = domain.filter((el) => el.name === organization);
-        shortUrl = `${urlDomain[0].domain}/${data.slug}`;
+        const domainKey = Object.keys(domains).filter(
+          (key) => domains[key].name === organization,
+        );
+        const urlDomain = domains[domainKey[0]].domain;
+        shortUrl = `${urlDomain}/${data.slug}`;
       }
       dispatch({
         type: UPDATE_URL_DETAIL,

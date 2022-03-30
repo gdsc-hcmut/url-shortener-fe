@@ -24,7 +24,7 @@ import DeleteModal from 'components/DeleteModal';
 import EditSlugModal from 'components/EditSludModal';
 import ModalSucess from 'components/ModalSuccess';
 import DeleteLinkSnackbar from 'components/Snackbar/DeleteLinkSnackbar';
-import domain from 'constant/domain';
+import domains from 'constant/domain';
 import {
   LATEST, OLDEST, LEAST_CLICKED, MOST_CLICKED,
 } from 'constant/options';
@@ -256,10 +256,10 @@ export default function MyUrl({ id }) {
                     if (organization === 'None') {
                       urlDomain = REACT_APP_SHORTEN_BASE_URL;
                     } else {
-                      const domainArr = domain.filter(
-                        (el) => el.name === organization,
+                      const domainKey = Object.keys(domains).filter(
+                        (key) => domains[key].name === organization,
                       );
-                      urlDomain = domainArr[0].domain;
+                      urlDomain = domains[domainKey[0]].domain;
                     }
                     navigator.clipboard.writeText(`${urlDomain}/${url.slug}`);
                     dispatch(toggleSuccessModalOpen());
