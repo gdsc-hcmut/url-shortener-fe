@@ -95,8 +95,7 @@ export default function LoginForm() {
           {...register('email')}
           className="mt-2 w-[300px] sm:w-[376px] md:w-[420px] h-[60px]
           focus:border focus:border-1 rounded-[8px]
-          bg-gdscGrey-100 focus:bg-white focus:outline-gdscBlue-300 p-5"
-          type="email"
+          bg-gdscGrey-100 focus:bg-white focus:outline-gdscBlue-300 p-5 "
         />
       </div>
       <span className="text-gdscRed-300 mt-2 md:px-10">
@@ -104,13 +103,13 @@ export default function LoginForm() {
       </span>
 
       <div className="mt-7 px-0 md:px-10">
-        <p>Password</p>
+        <p className="mb-2">Password</p>
         <div className="flex items-center">
           <input
             id="password"
-            className="mt-2 w-[300px] sm:w-[376px] md:w-[420px] h-[60px]
+            className="w-[300px] sm:w-[376px] md:w-[420px] h-[60px]
             focus:border focus:border-1 rounded-[8px]
-            bg-gdscGrey-100 focus:bg-white focus:outline-gdscBlue-300 p-5"
+            bg-gdscGrey-100 focus:bg-white focus:outline-gdscBlue-300 py-5 pl-5 pr-12"
             type={showPassword ? 'text' : 'password'}
             {...register('password')}
           />
@@ -118,7 +117,7 @@ export default function LoginForm() {
             <label
               aria-hidden
               htmlFor="password"
-              className="w-7 h-7 ml-[-40px] inline-block opacity-80 cursor-pointer"
+              className="w-7 h-7 ml-[-40px] opacity-80 cursor-pointer"
               onClick={() => setShowPassword(false)}
             >
               <img

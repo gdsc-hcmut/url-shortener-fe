@@ -15,7 +15,7 @@ export default function MyUrlPage() {
   return (
     <div
       aria-hidden="true"
-      className="max-h-[100vh] detail-page flex flex-col bg-gdscGrey-100"
+      className="min-h-screen detail-page flex flex-col bg-gdscGrey-100"
     >
       <button
         type="button"
