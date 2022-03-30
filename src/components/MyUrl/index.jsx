@@ -257,7 +257,7 @@ export default function MyUrl({ id }) {
                       urlDomain = REACT_APP_SHORTEN_BASE_URL;
                     } else {
                       const domainKey = Object.keys(domains).filter(
-                        (key) => domains[key].name === organization,
+                        (key) => key === organization,
                       );
                       urlDomain = domains[domainKey[0]].domain;
                     }

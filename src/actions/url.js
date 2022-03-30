@@ -44,7 +44,7 @@ const shortenUrlWithSlug = (longUrl, slug) => async (dispatch) => {
       shortUrl = res.data.shortUrl;
     } else {
       const domainKey = Object.keys(domains).filter(
-        (key) => domains[key].name === organization,
+        (key) => key === organization,
       );
       const urlDomain = domains[domainKey[0]].domain;
       shortUrl = `${urlDomain}/${res.data.slug}`;
@@ -84,7 +84,7 @@ const editSlug = (slug, newSlug, urlList) => async (dispatch) => {
       shortUrl = res.data.shortUrl;
     } else {
       const domainKey = Object.keys(domains).filter(
-        (key) => domains[key].name === organization,
+        (key) => key === organization,
       );
       const urlDomain = domains[domainKey[0]].domain;
       shortUrl = `${urlDomain}/${res.data.slug}`;
