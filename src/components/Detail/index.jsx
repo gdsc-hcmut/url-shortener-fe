@@ -52,7 +52,7 @@ export default function Detail({ id }) {
         shortUrl = data.shortUrl;
       } else {
         const domainKey = Object.keys(domains).filter(
-          (key) => domains[key].name === organization,
+          (key) => key === organization,
         );
         const urlDomain = domains[domainKey[0]].domain;
         shortUrl = `${urlDomain}/${data.slug}`;
