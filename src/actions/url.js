@@ -75,10 +75,10 @@ const shortenUrlWithSlug = (longUrl, slug) => async (dispatch) => {
     }
   }
 };
-const editSlug = (slug, newSlug, urlList) => async (dispatch) => {
+const editSlug = (id, newSlug) => async (dispatch) => {
   try {
     const organization = localStorage.getItem('organization');
-    const res = await UrlAPI.editSlug(slug, newSlug);
+    const res = await UrlAPI.editSlug(id, newSlug);
     let shortUrl;
     if (organization === 'None') {
       shortUrl = res.data.shortUrl;
@@ -89,22 +89,16 @@ const editSlug = (slug, newSlug, urlList) => async (dispatch) => {
       const urlDomain = domains[domainKey[0]].domain;
       shortUrl = `${urlDomain}/${res.data.slug}`;
     }
+    console.log('res data');
+    console.log(res.data);
     dispatch({
       type: EDIT_SLUG,
       payload: {
+        ...res.data,
         shortUrl,
-        slug: res.data.slug,
       },
     });
-    dispatch({
-      type: UPDATE_URL_LISTS,
-      payload: urlList.map((url) => {
-        if (url.slug === slug) {
-          return { ...url, slug: newSlug };
-        }
-        return url;
-      }),
-    });
+    console.log('edit done');
     dispatch({
       type: SHOW_EDIT_URL_MODAL,
       payload: false,

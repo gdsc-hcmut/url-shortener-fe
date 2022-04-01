@@ -6,7 +6,9 @@ import urlAction from 'actions/url';
 import CloseIcon from 'assets/icons/close.svg';
 import EditIcon from 'assets/icons/edit.svg';
 
-export default function EditSlugModal({ show, onClose, slug }) {
+export default function EditSlugModal({
+  id, show, onClose, slug,
+}) {
   const [value, setValue] = useState('');
   const [slugErr, setSlugErr] = useState({ invalid: false, exist: false });
   const dispatch = useDispatch();
@@ -33,7 +35,7 @@ export default function EditSlugModal({ show, onClose, slug }) {
     if (show && slug) setValue(slug);
   }, [show]);
   const editSlug = async () => {
-    await dispatch(urlAction.editSlug(slug, value, urlList));
+    await dispatch(urlAction.editSlug(id, value, urlList));
     const reduxState = store.getState();
     if (reduxState.url.invalidSlug.msg === 'Bad Request') {
       setSlugErr({ ...slugErr, invalid: true });
@@ -108,6 +110,7 @@ EditSlugModal.propTypes = {
   show: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
   slug: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 EditSlugModal.defaultProps = {

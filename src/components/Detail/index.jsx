@@ -66,7 +66,6 @@ export default function Detail({ id }) {
       setIsDeleted(true);
     });
   }, [id, EditUrlModal, DeleteUrlModal]);
-  console.log('urlDetail', urlDetail);
 
   useEffect(() => {
     if (CopySuccessModal) {
@@ -102,6 +101,7 @@ export default function Detail({ id }) {
           show={showLongUrl}
         />
         <EditSlugModal
+          id={urlDetail.id}
           slug={urlDetail.slug}
           onClose={() => dispatch({
             type: SHOW_EDIT_URL_MODAL,
@@ -153,19 +153,21 @@ export default function Detail({ id }) {
           >
             <CopyIcon />
           </button>
-          <button
-            type="button"
-            aria-label="Edit Button"
-            className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
-            onClick={() => {
-              dispatch({
-                type: SHOW_EDIT_URL_MODAL,
-                payload: true,
-              });
-            }}
-          >
-            <EditIcon />
-          </button>
+          {urlDetail.expireTime && (
+            <button
+              type="button"
+              aria-label="Edit Button"
+              className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
+              onClick={() => {
+                dispatch({
+                  type: SHOW_EDIT_URL_MODAL,
+                  payload: true,
+                });
+              }}
+            >
+              <EditIcon />
+            </button>
+          )}
           <button
             type="button"
             aria-label="Delete Button"

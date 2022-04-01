@@ -146,6 +146,7 @@ export default function MyUrl({ id }) {
     >
       <div className="modal absolute z-50">
         <EditSlugModal
+          id={currId}
           slug={currSlug}
           onClose={() => dispatch({
             type: SHOW_EDIT_URL_MODAL,
@@ -231,10 +232,16 @@ export default function MyUrl({ id }) {
             aria-hidden
             key={url.slug}
             className={`w-full h-[100px] flex flex-col space-y-2 justify-center rounded font-normal xl:w-[284px] 3xl:w-[376px] cursor-pointer ${
-              url.id === id
+              url.expireTime
+              && (url.id === id
                 ? 'bg-[#F1F6FE] border-2 border-gdscBlue-300 p-[18px]'
-                : 'bg-white px-5'
-            } `}
+                : 'bg-white px-5')
+            } ${
+              !url.expireTime
+              && (url.id === id
+                ? 'bg-gdscGrey-300 border-2 border-gdscGrey-700 p-[18px]'
+                : 'bg-gdscGrey-300 px-5')
+            }`}
             onClick={() => {
               navigate(`/urls/${url.slug}`, { state: { id: url.id } });
             }}
@@ -245,6 +252,7 @@ export default function MyUrl({ id }) {
             <span className="flex justify-between">
               <span className="text-base text-gdscGrey-700 w-32 truncate  ">
                 {url.slug}
+                {!url.expireTime && ' (Expired)'}
               </span>
               <div className="flex space-x-2 xl:hidden">
                 <button
@@ -267,21 +275,24 @@ export default function MyUrl({ id }) {
                 >
                   <CopyIcon />
                 </button>
-                <button
-                  type="button"
-                  aria-label="Edit Button"
-                  className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setCurrSlug(url.slug);
-                    dispatch({
-                      type: SHOW_EDIT_URL_MODAL,
-                      payload: true,
-                    });
-                  }}
-                >
-                  <EditIcon />
-                </button>
+                {url.expireTime && (
+                  <button
+                    type="button"
+                    aria-label="Edit Button"
+                    className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setCurrSlug(url.slug);
+                      setCurrId(url.id);
+                      dispatch({
+                        type: SHOW_EDIT_URL_MODAL,
+                        payload: true,
+                      });
+                    }}
+                  >
+                    <EditIcon />
+                  </button>
+                )}
                 <button
                   type="button"
                   aria-label="Delete Button"

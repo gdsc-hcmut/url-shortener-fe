@@ -23,9 +23,7 @@ export default function ExpireTime({ expireTime, id }) {
       </div>
       <div className="flex flex-col justify-between items-end">
         <span className="text-gdscRed-300 text-base extra-sm:text-xl lg:text-lg 3xl:text-2xl font-normal truncate">
-          {new Date(expireTime).getTime() < new Date().getTime() ? (
-            ' Expired'
-          ) : (
+          {expireTime ? (
             <span>
               <span className="hidden 3xl:inline">
                 {`${new Intl.DateTimeFormat('en-US', {
@@ -40,6 +38,8 @@ export default function ExpireTime({ expireTime, id }) {
               <span>{`/${new Date(expireTime).getFullYear()} `}</span>
               <span>{` ${new Date(expireTime).toLocaleTimeString()}`}</span>
             </span>
+          ) : (
+            ' Expired'
           )}
         </span>
         <span className="inline-flex font-normal text-sm justify-center items-center">
@@ -68,7 +68,10 @@ export default function ExpireTime({ expireTime, id }) {
               dispatch(urlAction.editExpireTime(id, currTime.toString(0)));
               setOpen(false);
             }}
-            onClose={() => setOpen(false)}
+            onClose={() => {
+              setCurrTime(new Date(expireTime));
+              setOpen(false);
+            }}
             open={open}
             minDate={new Date('2018-01-01T00:00')}
             inputFormat="yyyy/MM/dd hh:mm a"
@@ -84,6 +87,9 @@ export default function ExpireTime({ expireTime, id }) {
 }
 
 ExpireTime.propTypes = {
-  expireTime: PropTypes.string.isRequired,
+  expireTime: PropTypes.string,
   id: PropTypes.string.isRequired,
+};
+ExpireTime.defaultProps = {
+  expireTime: null,
 };

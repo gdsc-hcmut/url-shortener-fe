@@ -16,9 +16,7 @@ const initialState = {
   slug: 'loading...',
   slugExist: false,
   error: {},
-  data: {},
   invalidSlug: {},
-  newSlug: '',
   urlList: [],
   urlDetail: {},
   loading: true,
@@ -41,7 +39,12 @@ export default (state = initialState, { type, payload } = {}) => {
       return {
         ...state,
         shortenedUrl: payload.shortUrl,
-        newSlug: payload.slug,
+        urlList: state.urlList.map((url) => {
+          if (url.id === payload.id) {
+            return payload;
+          }
+          return url;
+        }),
         slugExist: false,
         error: {},
         invalidSlug: {},
@@ -56,7 +59,12 @@ export default (state = initialState, { type, payload } = {}) => {
     case EDIT_EXPIRE_TIME:
       return {
         ...state,
-        data: payload,
+        urlList: state.urlList.map((url) => {
+          if (url.id === payload.id) {
+            return payload;
+          }
+          return url;
+        }),
         slugExist: false,
         invalidSlug: {},
       };
@@ -81,7 +89,6 @@ export default (state = initialState, { type, payload } = {}) => {
         urlList: payload,
       };
     case UPDATE_URL_DETAIL:
-      console.log('payload', payload);
       return {
         ...state,
         urlDetail: payload,

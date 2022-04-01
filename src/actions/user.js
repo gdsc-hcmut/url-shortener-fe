@@ -46,7 +46,6 @@ export const changePassword = (newPassword, oldPassword) => async (dispatch) => 
       type: USER_LOADED,
       payload: data,
     });
-    console.log(data);
   } catch (err) {
     dispatch({
       type: CHANGE_PASSWORD_FAIL,
