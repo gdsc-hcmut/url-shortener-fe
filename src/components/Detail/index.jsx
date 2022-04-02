@@ -153,7 +153,7 @@ export default function Detail({ id }) {
           >
             <CopyIcon />
           </button>
-          {urlDetail.expireTime && (
+          {urlDetail.expireTime && new Date(urlDetail.expireTime) > Date.now() && (
             <button
               type="button"
               aria-label="Edit Button"
@@ -191,9 +191,23 @@ export default function Detail({ id }) {
           {urlDetail.longUrl}
         </div>
       </div>
+      {(!urlDetail.expireTime
+        || new Date(urlDetail.expireTime) <= Date.now())
+        && !urlDetail.expired && (
+          <p className="text-gdscBlue-300 font-bold text-base mt-[-54px] mb-[40px]">
+            This shortened URL has expired but its slug has not been taken. If
+            you want to continue using this link, you can extend the expiration
+            time. However, if this URL&#39;s slug is used for another link, this
+            shortened URL will be disabled permanently
+          </p>
+      )}
       <div className="flex flex-col ">
         <div className="inline-flex flex-wrap gap-6 mb-6 md:gap-4 md:mb-4 3xl:gap-6 3xl:mb-6 ">
-          <ExpireTime expireTime={urlDetail.expireTime} id={id} />
+          <ExpireTime
+            expireTime={urlDetail.expireTime}
+            id={id}
+            expired={urlDetail.expired}
+          />
           <CreatedOn createOn={urlDetail.createdAt} />
           <TodayClick
             todayClick={

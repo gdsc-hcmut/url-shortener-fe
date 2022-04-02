@@ -86,6 +86,7 @@ export default function MyUrl({ id }) {
     setStopSending(false);
     setLoading(true);
     const { data: newUrlLists } = await UrlAPI.getUrlList(1, option);
+
     if (newUrlLists.length > 0) {
       dispatch({
         type: UPDATE_URL_LISTS,
@@ -230,14 +231,14 @@ export default function MyUrl({ id }) {
         {(search ? searchList : urlList).map((url) => (
           <li
             aria-hidden
-            key={url.slug}
+            key={url.id}
             className={`w-full h-[100px] flex flex-col space-y-2 justify-center rounded font-normal xl:w-[284px] 3xl:w-[376px] cursor-pointer ${
               url.expireTime
               && (url.id === id
                 ? 'bg-[#F1F6FE] border-2 border-gdscBlue-300 p-[18px]'
                 : 'bg-white px-5')
             } ${
-              !url.expireTime
+              (!url.expireTime || new Date(url.expireTime) <= Date.now())
               && (url.id === id
                 ? 'bg-gdscGrey-300 border-2 border-gdscGrey-700 p-[18px]'
                 : 'bg-gdscGrey-300 px-5')
@@ -250,9 +251,14 @@ export default function MyUrl({ id }) {
               <span>{url.longUrl}</span>
             </div>
             <span className="flex justify-between">
-              <span className="text-base text-gdscGrey-700 w-32 truncate  ">
+              <span className="text-base text-gdscGrey-700 w-32 truncate">
                 {url.slug}
-                {!url.expireTime && ' (Expired)'}
+                {(!url.expireTime || new Date(url.expireTime) <= Date.now())
+                  && !url.expired
+                  && ' (Expired)'}
+                <span className="text-gdscRed-300">
+                  {url.expired && ' Expired'}
+                </span>
               </span>
               <div className="flex space-x-2 xl:hidden">
                 <button
@@ -275,7 +281,7 @@ export default function MyUrl({ id }) {
                 >
                   <CopyIcon />
                 </button>
-                {url.expireTime && (
+                {url.expireTime && new Date(url.expireTime) > Date.now() && (
                   <button
                     type="button"
                     aria-label="Edit Button"
