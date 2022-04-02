@@ -198,7 +198,7 @@ export default function Detail({ id }) {
             This shortened URL has expired but its slug has not been taken. If
             you want to continue using this link, you can extend the expiration
             time. However, if this URL&#39;s slug is used for another link, this
-            shortened URL will be disabled permanently
+            shortened URL will be disabled permanently.
           </p>
       )}
       <div className="flex flex-col ">

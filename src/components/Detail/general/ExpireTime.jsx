@@ -12,7 +12,9 @@ import { ReactComponent as EditExpireIcon } from 'assets/icons/edit_expire_icon.
 import { ReactComponent as ExpireTimeIcon } from 'assets/icons/expire_time_icon.svg';
 
 export default function ExpireTime({ expireTime, id, expired }) {
-  const [currTime, setCurrTime] = useState(new Date(expireTime));
+  const [currTime, setCurrTime] = useState(
+    (expireTime && new Date(expireTime)) || new Date(),
+  );
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
 
@@ -63,17 +65,34 @@ export default function ExpireTime({ expireTime, id, expired }) {
           <MobileDateTimePicker
             value={currTime}
             allowSameDateSelection
+            onClick={(e) => e.stopPropagation()}
             onChange={(curr) => {
               setCurrTime(curr);
             }}
-            onAccept={() => {
-              dispatch(urlAction.editExpireTime(id, currTime.toString(0)));
-              setOpen(false);
-            }}
-            onClose={() => {
-              setCurrTime(new Date(expireTime));
-              setOpen(false);
-            }}
+            okText={(
+              <span
+                aria-hidden
+                id="ok-button"
+                onClick={() => {
+                  console.log('ok');
+                  dispatch(urlAction.editExpireTime(id, currTime.toString(0)));
+                }}
+              >
+                Ok
+              </span>
+            )}
+            cancelText={(
+              <span
+                aria-hidden
+                id="cancel-button"
+                onClick={() => {
+                  setCurrTime(new Date(expireTime));
+                }}
+              >
+                Cancel
+              </span>
+            )}
+            onClose={() => setOpen(false)}
             open={open}
             minDate={new Date('2018-01-01T00:00')}
             inputFormat="yyyy/MM/dd hh:mm a"

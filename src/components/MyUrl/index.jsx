@@ -253,8 +253,10 @@ export default function MyUrl({ id }) {
             <span className="flex justify-between">
               <span className="text-base text-gdscGrey-700 w-32 truncate">
                 {url.slug}
-                {(!url.expireTime || new Date(url.expireTime) <= Date.now())
-                  && ' (Expired)'}
+                {(!url.expireTime
+                  || new Date(url.expireTime) <= Date.now()) && (
+                  <span className="text-gdscRed-300">{' Expired'}</span>
+                )}
               </span>
               <div className="flex space-x-2 xl:hidden">
                 <button
