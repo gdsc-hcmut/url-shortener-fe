@@ -254,11 +254,7 @@ export default function MyUrl({ id }) {
               <span className="text-base text-gdscGrey-700 w-32 truncate">
                 {url.slug}
                 {(!url.expireTime || new Date(url.expireTime) <= Date.now())
-                  && !url.expired
                   && ' (Expired)'}
-                <span className="text-gdscRed-300">
-                  {url.expired && ' Expired'}
-                </span>
               </span>
               <div className="flex space-x-2 xl:hidden">
                 <button
