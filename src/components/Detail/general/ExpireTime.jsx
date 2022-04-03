@@ -74,25 +74,16 @@ export default function ExpireTime({ expireTime, id, expired }) {
                 aria-hidden
                 id="ok-button"
                 onClick={() => {
-                  console.log('ok');
                   dispatch(urlAction.editExpireTime(id, currTime.toString(0)));
                 }}
               >
                 Ok
               </span>
             )}
-            cancelText={(
-              <span
-                aria-hidden
-                id="cancel-button"
-                onClick={() => {
-                  setCurrTime(new Date(expireTime));
-                }}
-              >
-                Cancel
-              </span>
-            )}
-            onClose={() => setOpen(false)}
+            onClose={() => {
+              setCurrTime(new Date(expireTime));
+              setOpen(false);
+            }}
             open={open}
             minDate={new Date('2018-01-01T00:00')}
             inputFormat="yyyy/MM/dd hh:mm a"

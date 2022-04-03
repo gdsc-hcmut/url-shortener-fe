@@ -50,6 +50,10 @@ const shortenUrlWithSlug = (longUrl, slug) => async (dispatch) => {
       shortUrl = `${urlDomain}/${res.data.slug}`;
     }
     dispatch({
+      type: UPDATE_URL_LISTS,
+      payload: [],
+    });
+    dispatch({
       type: SHORTEN_URL_WITH_SLUG,
       payload: {
         shortUrl,
@@ -89,8 +93,6 @@ const editSlug = (id, newSlug) => async (dispatch) => {
       const urlDomain = domains[domainKey[0]].domain;
       shortUrl = `${urlDomain}/${res.data.slug}`;
     }
-    console.log('res data');
-    console.log(res.data);
     dispatch({
       type: EDIT_SLUG,
       payload: {
@@ -98,7 +100,6 @@ const editSlug = (id, newSlug) => async (dispatch) => {
         shortUrl,
       },
     });
-    console.log('edit done');
     dispatch({
       type: SHOW_EDIT_URL_MODAL,
       payload: false,
