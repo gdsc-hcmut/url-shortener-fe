@@ -25,7 +25,7 @@ export default function MainTitle({ loggedIn }) {
     <p className="text-[32px] font-bold md:text-[52px]">
       Shorten your link with
       <br />
-      GDSC - HCMUT
+      GDSC URL SHORTENER
     </p>
   );
 }

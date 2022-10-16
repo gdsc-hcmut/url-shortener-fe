@@ -81,7 +81,7 @@ export default function Navbar({ home }) {
           </button>
         </div>
       )}
-      <nav className="shadow-md max-w-full h-fit w-full flex px-[20px] py-[20px] md:px-[60px] md:py-[30px] bg-white z-40">
+      <nav className="shadow-md max-w-full h-fit w-full flex px-[20px] py-[20px] md:px-[60px] md:py-[18px] bg-white z-40">
         <div className="flex h-full w-full justify-between align-center">
           <NavbarHome />
           <div className="flex space-x-8">

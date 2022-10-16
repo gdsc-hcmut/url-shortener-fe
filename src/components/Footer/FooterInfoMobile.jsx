@@ -1,22 +1,26 @@
 import React from 'react';
 
 import Arrow from 'assets/icons/arrow.svg';
-import Logo from 'assets/image/logo.svg';
+import FessiorLogo from 'assets/icons/logo/Fessior-15.png';
+import GDSCLogo from 'assets/icons/logo/GDSC_Logo.png';
 
 export default function FooterInfoMobile() {
   return (
     <div className="md:hidden h-fit w-full bg-white">
-      <div
-        className="h-auto w-full
-                      px-[20px] flex justify-between
-                      flex-col "
-      >
+      <div className="h-auto w-full px-[20px] mx-auto flex justify-between flex-col ">
         <div className="h-auto flex flex-col justify-between pt-[48px]">
-          <img
-            src={Logo}
-            style={{ height: 50, width: 407.05 }}
-            alt="GDSC logo"
-          />
+          <div className="flex items-center justify">
+            <img
+              className="h-[50px] mr-[12px]"
+              src={FessiorLogo}
+              alt="Fessior logo"
+            />
+            <img
+              className="h-[50px] mr-[12px]"
+              src={GDSCLogo}
+              alt="GDSC logo"
+            />
+          </div>
           <div
             className="flex flex-col text-base text-gdscGrey-800
                         mt-7"
@@ -24,14 +28,14 @@ export default function FooterInfoMobile() {
             <p className="font-bold">
               Contact
               <br />
-              dsc.hcmut@gmail.com
+              contact@gdschcmut.dev
             </p>
           </div>
           <div className="flex flex-col text-base text-gdscGrey-800 mt-[44px]">
             <p className="mb-[24px] font-bold">Follow</p>
             <a
               className="mb-[12px]"
-              href="https://www.facebook.com/dsc.hcmut"
+              href="https://www.facebook.com/dscxhcmut"
               target="_blank"
               rel="noreferrer"
             >
