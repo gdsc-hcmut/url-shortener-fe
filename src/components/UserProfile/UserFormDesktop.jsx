@@ -13,6 +13,7 @@ import { UPLOAD_IMG } from 'action-types';
 import { editProfile } from 'actions/user';
 import EditIcon from 'assets/icons/edit.svg';
 import storage from 'config/firebase-storage';
+import domains from 'constant/domain';
 import { AVATAR_INFO } from 'constant/notification';
 
 const schema = yup
@@ -286,7 +287,9 @@ export default function UserFormDesktop() {
             <div className="flex flex-col">
               <p className="md:mt-6 input-field-col:mt-0">Organization</p>
               <div className="relative mt-4 w-[320px] lg:w-[460px] h-[60px] flex px-5 pt-5 outline-none rounded bg-gdscGrey-100 text-input-text">
-                {localStorage.getItem('organization')}
+                {localStorage.getItem('organization') === 'None'
+                  ? 'None'
+                  : domains[localStorage.getItem('organization')]}
               </div>
             </div>
           </div>
