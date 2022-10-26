@@ -289,7 +289,7 @@ export default function UserFormDesktop() {
               <div className="relative mt-4 w-[320px] lg:w-[460px] h-[60px] flex px-5 pt-5 outline-none rounded bg-gdscGrey-100 text-input-text">
                 {localStorage.getItem('organization') === 'None'
                   ? 'None'
-                  : domains[localStorage.getItem('organization')]}
+                  : domains[localStorage.getItem('organization')].name}
               </div>
             </div>
           </div>
