@@ -8,8 +8,8 @@ const domains = {
     domain: 'https://url.fptudsc.org',
   },
   gdscuit: {
-    name: 'GDSC UIT',
-    domain: 'https://url.gdsc-uit.org',
+    name: 'Google Developer Student Club - UIT',
+    domain: 'https://uit.gdsc.app',
   },
 };
 export default domains;
