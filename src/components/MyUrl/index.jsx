@@ -51,7 +51,6 @@ export default function MyUrl({ id }) {
   let urlDomain;
   // eslint-disable-next-line no-unused-vars
   const getPreUrlListState = urlList;
-  const organization = localStorage.getItem('organization');
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
@@ -253,11 +252,11 @@ export default function MyUrl({ id }) {
                   className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
                   onClick={(e) => {
                     e.stopPropagation();
-                    if (organization === 'None') {
+                    if (!url.organization || url.organization === 'None') {
                       urlDomain = REACT_APP_SHORTEN_BASE_URL;
                     } else {
                       const domainKey = Object.keys(domains).filter(
-                        (key) => key === organization,
+                        (key) => key === url.organization,
                       );
                       urlDomain = domains[domainKey[0]].domain;
                     }

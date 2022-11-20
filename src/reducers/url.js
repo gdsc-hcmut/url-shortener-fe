@@ -81,7 +81,6 @@ export default (state = initialState, { type, payload } = {}) => {
         urlList: payload,
       };
     case UPDATE_URL_DETAIL:
-      console.log('payload', payload);
       return {
         ...state,
         urlDetail: payload,

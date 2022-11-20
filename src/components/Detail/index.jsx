@@ -46,7 +46,7 @@ export default function Detail({ id }) {
     setIsDeleted(false);
     const getUrlDetail = async () => {
       const { data } = await UrlAPI.getUrlById(id);
-      const organization = localStorage.getItem('organization');
+      const { organization } = data;
       let shortUrl;
       if (organization === 'None') {
         shortUrl = data.shortUrl;
