@@ -15,5 +15,9 @@ const domains = {
     name: 'Google Developer Student Club - HCMUT',
     domain: 'https://hcmut.gdsc.app',
   },
+  oispmarketing: {
+    name: 'OISP Marketing',
+    domain: 'http://bkoisp.info/',
+  },
 };
 export default domains;
