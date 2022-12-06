@@ -17,7 +17,7 @@ const domains = {
   },
   oispmarketing: {
     name: 'OISP Marketing',
-    domain: 'http://bkoisp.info/',
+    domain: 'https://bkoisp.info',
   },
 };
 export default domains;
