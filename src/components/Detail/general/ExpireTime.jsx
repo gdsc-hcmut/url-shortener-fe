@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import 'index.css';
 
 import urlAction from 'actions/url';
-import { ReactComponent as EditExpireIcon } from 'assets/icons/edit_expire_icon.svg';
+// import { ReactComponent as EditExpireIcon } from 'assets/icons/edit_expire_icon.svg';
 import { ReactComponent as ExpireTimeIcon } from 'assets/icons/expire_time_icon.svg';
 
 export default function ExpireTime({ expireTime, id }) {
@@ -23,37 +23,41 @@ export default function ExpireTime({ expireTime, id }) {
       </div>
       <div className="flex flex-col justify-between items-end">
         <span className="text-gdscRed-300 text-base extra-sm:text-xl lg:text-lg 3xl:text-2xl font-normal truncate">
-          {new Date(expireTime).getTime() < new Date().getTime() ? (
+          {/* {new Date(expireTime).getTime() < new Date().getTime() ? (
             ' Expired'
-          ) : (
-            <span>
-              <span className="hidden 3xl:inline">
-                {`${new Intl.DateTimeFormat('en-US', {
-                  weekday: 'long',
-                }).format(new Date(expireTime))}`}
-              </span>
-              <span>
-                {` ${new Date(expireTime).getDate()}/${
-                  new Date(expireTime).getMonth() + 1
-                }`}
-              </span>
-              <span>{`/${new Date(expireTime).getFullYear()} `}</span>
-              <span>{` ${new Date(expireTime).toLocaleTimeString()}`}</span>
+          ) : ( */}
+          <span>
+            {/* <span className="hidden 3xl:inline">
+              {`${new Intl.DateTimeFormat('en-US', {
+                weekday: 'long',
+              }).format(new Date(expireTime))}`}
             </span>
-          )}
+            <span>
+              {` ${new Date(expireTime).getDate()}/${
+                new Date(expireTime).getMonth() + 1
+              }`}
+            </span>
+            <span>{`/${new Date(expireTime).getFullYear()} `}</span>
+            <span>{` ${new Date(expireTime).toLocaleTimeString()}`}</span> */}
+            Unlimited
+          </span>
+          {/* )} */}
         </span>
         <span className="inline-flex font-normal text-sm justify-center items-center">
           <span>Expire Time</span>
-          <span
+          {/* <span
             aria-hidden
-            className="ml-4 lg:ml-1 3xl:ml-4 w-[75px] extra-sm:w-[100px] lg:w-[84px] 3xl:w-[100px] h-7 rounded-[60px] flex justify-center items-center px-3 extra-sm:px-7 lg:px-5 3xl:px-7 bg-[#DA4436] bg-opacity-10 active:bg-opacity-20 hover:cursor-pointer"
+            className="ml-4 lg:ml-1 3xl:ml-4 w-[75px] extra-sm:w-[100px] lg:w-[84px]
+            3xl:w-[100px] h-7 rounded-[60px] flex justify-center items-center px-3
+            extra-sm:px-7 lg:px-5 3xl:px-7 bg-[#DA4436] bg-opacity-10
+            active:bg-opacity-20 hover:cursor-pointer"
             onClick={() => setOpen(true)}
           >
             <span className="inline-flex w-full justify-between items-center">
               <span className="text-base text-gdscRed-300">Edit</span>
               <EditExpireIcon />
             </span>
-          </span>
+          </span> */}
         </span>
       </div>
       <div className="hidden">
