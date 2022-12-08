@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch, useStore } from 'react-redux';
+import { useDispatch, useSelector, useStore } from 'react-redux';
 import * as yup from 'yup';
 
 import { SHOW_GOOGLE_LOADING_ANIMATION, SHOW_URL_MODAL } from 'action-types';
@@ -23,8 +23,8 @@ export default function InputUrlLogIn() {
   const [disable, setDisable] = useState('');
   const [disableMobile, setDisableMobile] = useState('');
   const [loading, setLoading] = useState(false);
-  const [slugErr, setSlugErr] = useState(false);
   const dispatch = useDispatch();
+  const { error: urlError } = useSelector((state) => state.urlWithSlug);
   const store = useStore();
   const {
     register,
@@ -44,24 +44,25 @@ export default function InputUrlLogIn() {
         payload: true,
       });
       setLoading(true);
-      await dispatch(urlAction.shortenUrlWithSlug(longUrlDesktop, slugDesktop));
-      const reduxState = store.getState();
-      if (reduxState.urlWithSlug.slugTaken === true) {
+      try {
+        await dispatch(urlAction.shortenUrlWithSlug(longUrlDesktop, slugDesktop));
+        const reduxState = store.getState();
+
         dispatch({
           type: SHOW_GOOGLE_LOADING_ANIMATION,
           payload: false,
         });
-        setLoading(reduxState.urlWithSlug.loading);
-        setSlugErr(true);
-        setTimeout(() => setSlugErr(false), 3000);
-      } else {
-        dispatch({
-          type: SHOW_GOOGLE_LOADING_ANIMATION,
-          payload: false,
-        });
+
         dispatch({
           type: SHOW_URL_MODAL,
           payload: true,
+        });
+        setLoading(reduxState.urlWithSlug.loading);
+      } catch (err) {
+        const reduxState = store.getState();
+        dispatch({
+          type: SHOW_GOOGLE_LOADING_ANIMATION,
+          payload: false,
         });
         setLoading(reduxState.urlWithSlug.loading);
       }
@@ -76,24 +77,25 @@ export default function InputUrlLogIn() {
         payload: true,
       });
       setLoading(true);
-      await dispatch(urlAction.shortenUrlWithSlug(longUrlMobile, slugMobile));
-      const reduxState = store.getState();
-      if (reduxState.urlWithSlug.slugTaken === true) {
+      try {
+        await dispatch(urlAction.shortenUrlWithSlug(longUrlMobile, slugMobile));
+        const reduxState = store.getState();
+
         dispatch({
           type: SHOW_GOOGLE_LOADING_ANIMATION,
           payload: false,
         });
-        setLoading(reduxState.urlWithSlug.loading);
-        setSlugErr(true);
-        setTimeout(() => setSlugErr(false), 3000);
-      } else {
-        dispatch({
-          type: SHOW_GOOGLE_LOADING_ANIMATION,
-          payload: false,
-        });
+
         dispatch({
           type: SHOW_URL_MODAL,
           payload: true,
+        });
+        setLoading(reduxState.urlWithSlug.loading);
+      } catch (err) {
+        const reduxState = store.getState();
+        dispatch({
+          type: SHOW_GOOGLE_LOADING_ANIMATION,
+          payload: false,
         });
         setLoading(reduxState.urlWithSlug.loading);
       }
@@ -145,8 +147,9 @@ export default function InputUrlLogIn() {
             {errors.slugDesktop && (
               <p className="text-gdscRed-300">{errors.slugDesktop.message}</p>
             )}
-            {slugErr && (
-              <p className="text-gdscRed-300">Slug already exists!</p>
+            {urlError !== {}
+            && (
+              <p className="text-gdscRed-300">{urlError.message}</p>
             )}
           </div>
         </div>
@@ -207,9 +210,12 @@ export default function InputUrlLogIn() {
           {errors.slugMobile.message}
         </p>
       )}
-      {slugErr && (
-        <p className="text-gdscRed-300 md:hidden">Slug already exists!</p>
-      )}
+      {urlError !== {}
+        && (
+        <p className="text-gdscRed-300 md:hidden">
+          {urlError.message}
+        </p>
+        )}
       {!loading ? (
         <button
           type="button"

@@ -30,8 +30,9 @@ const shortenUrl = (longUrl) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: URL_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: err.response.data.errors,
     });
+    throw err.response.data.errors;
   }
 };
 
@@ -60,19 +61,20 @@ const shortenUrlWithSlug = (longUrl, slug) => async (dispatch) => {
     if (err.response.data.errors.message === 'Invalid slug') {
       dispatch({
         type: INVALID_SLUG,
-        payload: { msg: err.response.statusText, status: err.response.status },
+        payload: err.response.data.errors,
       });
     } else if (err.response.data.errors.message === 'Slug already exists') {
       dispatch({
         type: SLUG_TAKEN,
-        payload: { msg: err.response.statusText, status: err.response.status },
+        payload: err.response.data.errors,
       });
     } else {
       dispatch({
         type: URL_ERROR,
-        payload: { msg: err.response.statusText, status: err.response.status },
+        payload: err.response.data.errors,
       });
     }
+    throw err.response.data.errors;
   }
 };
 const editSlug = (slug, newSlug, urlList) => async (dispatch) => {

@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch, useStore } from 'react-redux';
+import { useDispatch, useSelector, useStore } from 'react-redux';
 import * as yup from 'yup';
 
 import { SHOW_GOOGLE_LOADING_ANIMATION, SHOW_URL_MODAL } from 'action-types';
@@ -20,6 +20,8 @@ export default function InputUrlField() {
   const [disable, setDisable] = useState('');
   const [disableMobile, setDisableMobile] = useState('');
   const [loading, setLoading] = useState(false);
+  const { error: urlError } = useSelector((state) => state.url);
+
   const dispatch = useDispatch();
   const store = useStore();
   const {
@@ -40,17 +42,26 @@ export default function InputUrlField() {
         payload: true,
       });
       setLoading(true);
-      await dispatch(urlAction.shortenUrl(longUrlDesktop));
-      const reduxState = store.getState();
-      dispatch({
-        type: SHOW_GOOGLE_LOADING_ANIMATION,
-        payload: false,
-      });
-      dispatch({
-        type: SHOW_URL_MODAL,
-        payload: true,
-      });
-      setLoading(reduxState.url.loading);
+      try {
+        await dispatch(urlAction.shortenUrl(longUrlDesktop));
+        const reduxState = store.getState();
+        dispatch({
+          type: SHOW_GOOGLE_LOADING_ANIMATION,
+          payload: false,
+        });
+        dispatch({
+          type: SHOW_URL_MODAL,
+          payload: true,
+        });
+        setLoading(reduxState.url.loading);
+      } catch (err) {
+        const reduxState = store.getState();
+        dispatch({
+          type: SHOW_GOOGLE_LOADING_ANIMATION,
+          payload: false,
+        });
+        setLoading(reduxState.url.loading);
+      }
     }
   };
   const handleClickMobile = async (data, e) => {
@@ -62,17 +73,26 @@ export default function InputUrlField() {
         payload: true,
       });
       setLoading(true);
-      await dispatch(urlAction.shortenUrl(longUrlMobile));
-      const reduxState = store.getState();
-      dispatch({
-        type: SHOW_GOOGLE_LOADING_ANIMATION,
-        payload: false,
-      });
-      dispatch({
-        type: SHOW_URL_MODAL,
-        payload: true,
-      });
-      setLoading(reduxState.url.loading);
+      try {
+        await dispatch(urlAction.shortenUrl(longUrlMobile));
+        const reduxState = store.getState();
+        dispatch({
+          type: SHOW_GOOGLE_LOADING_ANIMATION,
+          payload: false,
+        });
+        dispatch({
+          type: SHOW_URL_MODAL,
+          payload: true,
+        });
+        setLoading(reduxState.url.loading);
+      } catch (err) {
+        const reduxState = store.getState();
+        dispatch({
+          type: SHOW_GOOGLE_LOADING_ANIMATION,
+          payload: false,
+        });
+        setLoading(reduxState.url.loading);
+      }
     }
   };
   useEffect(() => {
@@ -101,9 +121,11 @@ export default function InputUrlField() {
               className="text-base font-normal text-gdscGrey-700 h-5 w-[16.25rem] border-b-1 outline-none"
               placeholder="Input the URL you want to shorten"
             />
-            <p className="text-gdscRed-300">
-              {errors.longUrlDesktop && errors.longUrlDesktop.message}
-            </p>
+            {urlError && (
+              <p className="text-gdscRed-300">
+                {urlError.message}
+              </p>
+            )}
           </div>
         </div>
         <ReactLogo className="absolute top-12 left-[292px]" />
@@ -142,6 +164,11 @@ export default function InputUrlField() {
       {errors.longUrlMobile && (
         <p className="text-gdscRed-300 md:hidden">
           {errors.longUrlMobile.message}
+        </p>
+      )}
+      {urlError && (
+        <p className="text-gdscRed-300 md:hidden">
+          {urlError.message}
         </p>
       )}
       {!loading ? (

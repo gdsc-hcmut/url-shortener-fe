@@ -37,7 +37,7 @@ export default (state = initialState, { type, payload } = {}) => {
     case INVALID_SLUG:
       return {
         ...state,
-        error: {},
+        error: payload,
         invalidSlug: payload,
         slugTaken: false,
         loading: false,
@@ -45,7 +45,7 @@ export default (state = initialState, { type, payload } = {}) => {
     case SLUG_TAKEN:
       return {
         ...state,
-        error: {},
+        error: payload,
         invalidSlug: {},
         slugTaken: true,
         loading: false,
