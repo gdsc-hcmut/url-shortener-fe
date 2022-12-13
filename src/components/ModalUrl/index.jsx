@@ -69,9 +69,7 @@ export default function ModalUrl({
         >
           Download PNG
         </button>
-        <p className="text-gdscBlue-300 mt-3">
-          This shortened link will expire after one month
-        </p>
+        <p className="text-gdscBlue-300 mt-3" />
         <div className="flex justify-end items-center w-[315px] md:w-[352px] h-[54px]  mt-3 border-[1px] border-gdscBlue-300 rounded-[8px]">
           <Url shortenedUrl={shortenedUrl} />
           <div className="border-l-[1px] h-[54px] border-gdscBlue-300" />
