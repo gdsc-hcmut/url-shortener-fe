@@ -2,13 +2,13 @@ import { getAnalytics } from 'firebase/analytics';
 import { initializeApp } from 'firebase/app';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyAtEmHhdbIDe5u91yCeYl3rqmsFm9n6VkA',
-  authDomain: 'url-shortener-production.firebaseapp.com',
-  projectId: 'url-shortener-production',
-  storageBucket: 'url-shortener-production.appspot.com',
-  messagingSenderId: '441677540122',
-  appId: '1:441677540122:web:c77a756155c498c0bc9aa3',
-  measurementId: 'G-EPB91F8BWG',
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
 
 const app = initializeApp(firebaseConfig);
