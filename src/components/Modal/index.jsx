@@ -10,7 +10,7 @@ export default function Modal({ children, show, onClose }) {
   return (
     <div
       aria-hidden="true"
-      className={`fixed z-50 flex inset-0 bg-black bg-opacity-50 justify-center items-center opacity-0 transition-all duration-300 ease-out pointer-events-none ${
+      className={`fixed z-[99999] flex inset-0 bg-black bg-opacity-50 justify-center items-center opacity-0 transition-all duration-300 ease-out pointer-events-none ${
         show ? 'opacity-100 pointer-events-auto' : ''
       }`}
       onClick={onClose}
