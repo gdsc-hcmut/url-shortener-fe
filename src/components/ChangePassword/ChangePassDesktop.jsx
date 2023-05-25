@@ -1,7 +1,6 @@
 /* eslint-disable operator-linebreak */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { yupResolver } from '@hookform/resolvers/yup';
-import { getAuth } from 'firebase/auth';
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector, useStore } from 'react-redux';
@@ -41,7 +40,6 @@ export default function ChangePassDesktop() {
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const store = useStore();
-  const auth = getAuth();
   const dispatch = useDispatch();
   const [notification, setNotification] = useState(
     store.getState().auth.user.passwordCreated,
@@ -57,7 +55,6 @@ export default function ChangePassDesktop() {
   const handleChangePassword = async (data, e) => {
     e.preventDefault();
     setLoading(!loading);
-    console.log(auth.currentUser);
     dispatch({
       type: SHOW_GOOGLE_LOADING_ANIMATION,
       payload: true,
@@ -71,7 +68,6 @@ export default function ChangePassDesktop() {
       type: SHOW_GOOGLE_LOADING_ANIMATION,
       payload: false,
     });
-    console.log(!reduxState.error.error.signIn.password);
     if (!reduxState.error.error.signIn.password) {
       reset();
     }

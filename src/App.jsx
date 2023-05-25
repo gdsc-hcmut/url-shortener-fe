@@ -1,10 +1,13 @@
 /* eslint-disable react/jsx-wrap-multilines */
 import { AnimatePresence } from 'framer-motion';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { loadUser } from 'actions/auth';
+import { ReactComponent as CloseIcon } from 'assets/icons/close.svg';
+import Banner from 'assets/image/banner.png';
+import Modal from 'components/Modal';
 import RequireAuth from 'components/RequireAuth';
 import ChangePasswordPage from 'pages/ChangePasswordPage';
 import DetailPage from 'pages/DetailPage';
@@ -29,12 +32,45 @@ if (localStorage.user) {
 }
 
 export default function App() {
+  const [showBanner, setShowBanner] = useState(false);
+
+  const onBannerClose = () => setShowBanner(false);
+
   useEffect(() => store.dispatch(loadUser()), []);
+
+  useEffect(() => {
+    const bannerDisabledTime = JSON.parse(
+      localStorage.getItem('banner_disabled_time') || null,
+    );
+    const currentTime = Date.now();
+    if (
+      bannerDisabledTime === null
+      || currentTime - bannerDisabledTime > 1000 * 60 * 60
+    ) {
+      setShowBanner(true);
+      localStorage.setItem('banner_disabled_time', JSON.stringify(Date.now()));
+    }
+  }, []);
 
   return (
     <Provider store={store}>
       <BrowserRouter>
         <AnimatePresence exitBeforeEnter>
+          <Modal show={showBanner} onClose={onBannerClose}>
+            <div className="relative">
+              <button
+                aria-hidden="true"
+                type="button"
+                className="absolute
+                    flex flex-col justify-center items-center transition-all duration-300 ease-out
+                    -right-8 -top-8 rounded"
+                onClick={onBannerClose}
+              >
+                <CloseIcon className="w-8 h-8 fill-white" fill="white" />
+              </button>
+              <img src={Banner} alt="Banner" />
+            </div>
+          </Modal>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/sign-in" element={<SignInMobilePage />} />
