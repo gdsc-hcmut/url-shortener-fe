@@ -66,7 +66,6 @@ export default function Detail({ id }) {
       setIsDeleted(true);
     });
   }, [id, EditUrlModal, DeleteUrlModal]);
-  console.log('urlDetail', urlDetail);
 
   useEffect(() => {
     if (CopySuccessModal) {
