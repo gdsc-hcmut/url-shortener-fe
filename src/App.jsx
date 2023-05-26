@@ -34,7 +34,10 @@ if (localStorage.user) {
 export default function App() {
   const [showBanner, setShowBanner] = useState(false);
 
-  const onBannerClose = () => setShowBanner(false);
+  const handleBannerClose = () => {
+    localStorage.setItem('banner_disabled_time', JSON.stringify(Date.now()));
+    setShowBanner(false);
+  };
 
   useEffect(() => store.dispatch(loadUser()), []);
 
@@ -45,10 +48,9 @@ export default function App() {
     const currentTime = Date.now();
     if (
       bannerDisabledTime === null
-      || currentTime - bannerDisabledTime > 1000 * 60 * 60
+      || currentTime - bannerDisabledTime > 1000 * 60 * 30
     ) {
       setShowBanner(true);
-      localStorage.setItem('banner_disabled_time', JSON.stringify(Date.now()));
     }
   }, []);
 
@@ -56,7 +58,7 @@ export default function App() {
     <Provider store={store}>
       <BrowserRouter>
         <AnimatePresence exitBeforeEnter>
-          <Modal show={showBanner} onClose={onBannerClose}>
+          <Modal show={showBanner}>
             <div className="relative">
               <button
                 aria-hidden="true"
@@ -64,11 +66,17 @@ export default function App() {
                 className="absolute
                     flex flex-col justify-center items-center transition-all duration-300 ease-out
                     -right-8 -top-8 rounded"
-                onClick={onBannerClose}
+                onClick={handleBannerClose}
               >
-                <CloseIcon className="w-8 h-8 fill-white" fill="white" />
+                <CloseIcon className="w-6 h-6 fill-white" fill="white" />
               </button>
-              <img src={Banner} alt="Banner" />
+              <a
+                href="https://gdsc.app"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img src={Banner} alt="Banner" />
+              </a>
             </div>
           </Modal>
           <Routes>
