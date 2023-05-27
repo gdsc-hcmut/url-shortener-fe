@@ -68,9 +68,7 @@ export default function (state = initialState, action) {
         loading: false,
       };
     case AUTH_ERROR:
-      localStorage.removeItem('user');
-      localStorage.removeItem('avatar');
-      localStorage.removeItem('organization');
+      localStorage.clear();
       return {
         ...state,
         token: null,
@@ -106,9 +104,7 @@ export default function (state = initialState, action) {
         error: { email: 'Email taken' },
       };
     case LOGOUT:
-      localStorage.removeItem('user');
-      localStorage.removeItem('avatar');
-      localStorage.removeItem('organization');
+      localStorage.clear();
       return {
         ...state,
         token: null,
