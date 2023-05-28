@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "url-shortener-production"
+    "default": "url-shortener-production",
+    "dev": "gdsc-url-shortener"
   }
 }

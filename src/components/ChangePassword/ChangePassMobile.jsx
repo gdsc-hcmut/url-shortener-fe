@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { yupResolver } from '@hookform/resolvers/yup';
-import { getAuth } from 'firebase/auth';
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch, useStore } from 'react-redux';
@@ -39,7 +38,6 @@ export default function ChangePasswordMobile() {
   const [showOldPassword, setShowOldPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const auth = getAuth();
   const dispatch = useDispatch();
   const store = useStore();
   const [notification, setNotification] = useState(
@@ -55,7 +53,6 @@ export default function ChangePasswordMobile() {
   });
   const handleChangePassword = async (data, e) => {
     e.preventDefault();
-    console.log(auth.currentUser);
     dispatch({
       type: SHOW_GOOGLE_LOADING_ANIMATION,
       payload: true,

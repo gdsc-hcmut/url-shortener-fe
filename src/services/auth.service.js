@@ -79,7 +79,6 @@ const login = async (email, password) => {
     })
     .catch((error) => {
       if (passwordCreated) store.dispatch(setError(error.code));
-      else console.log(error.code);
     });
 };
 

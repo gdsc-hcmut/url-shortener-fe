@@ -12,8 +12,8 @@ export default function GoogleLoginButton() {
     dispatch(loginWithGoogle(res.tokenId));
   };
 
-  const onFailure = (res) => {
-    console.log('Login failed: res:', res);
+  const onFailure = () => {
+    /* TODO */
   };
 
   const { signIn } = useGoogleLogin({
