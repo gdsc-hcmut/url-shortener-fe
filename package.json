@@ -64,6 +64,8 @@
     ]
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.6.5",
+    "@commitlint/config-conventional": "^17.6.5",
     "autoprefixer": "^10.4.1",
     "env-cmd": "^10.1.0",
     "eslint": "^8.6.0",
@@ -74,7 +76,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
-    "husky": "^7.0.4",
+    "husky": "^8.0.3",
     "lint-staged": "^12.1.7",
     "postcss": "^8.4.5",
     "prettier": "^2.5.1",
