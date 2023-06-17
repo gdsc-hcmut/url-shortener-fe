@@ -10,7 +10,7 @@ import defaultAvatar from 'assets/icons/account_circle_blue.svg';
 import CloseIcon from 'assets/icons/close_info_bar.svg';
 import NavbarModal from 'components/Modals/NavbarModal';
 
-import NameTooltip from './NameTooltip';
+import NameTooltip from './NameTooltip.tsx';
 import NavbarButton from './NavbarButton';
 import NavbarHome from './NavbarHome';
 

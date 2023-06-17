@@ -1,7 +1,12 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 
-export default function NameTooltip({ userNameFull }) {
+type NameTooltipProps = {
+  userNameFull: string;
+};
+
+export default function NameTooltip(props: NameTooltipProps) {
+  const { userNameFull } = props;
+
   return (
     <div className="fixed top-[72px] right-[132px]">
       <div className="fixed w-4 h-4 bg-gdscBlue-300 rotate-45 top-[68px] right-[152px]" />
@@ -11,6 +16,3 @@ export default function NameTooltip({ userNameFull }) {
     </div>
   );
 }
-NameTooltip.propTypes = {
-  userNameFull: PropTypes.string.isRequired,
-};
