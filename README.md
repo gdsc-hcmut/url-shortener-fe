@@ -8,23 +8,29 @@ This is the frontend repository of GDSC URL Shortener project.
 
 For development, you will need
 
-- `Node.js`.
+- `Node.js`
 
 ## Install
 
-    $ npm install
+    yarn
+    yarn add @emotion/react
+    yarn add @emotion/styled
 
-## Running the project locally
+## Run the project locally
 
-    $ npm start
+    yarn start
+
+## Run the project in dev environment
+
+    yarn start:dev
 
 ## Simple build for production
 
-    $ npm run build
+    yarn build
 
 # If husky doesn't run, please add the following command and try again
 
 ```
-$ chmod ug+x .husky/*
-$ chmod ug+x .git/hooks/*
+chmod ug+x .husky/*
+chmod ug+x .git/hooks/*
 ```
