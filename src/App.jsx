@@ -44,7 +44,7 @@ export default function App() {
   };
 
   useEffect(() => store.dispatch(loadUser()), []);
-
+  // hihi
   useEffect(() => {
     const bannerDisabledTime = JSON.parse(
       localStorage.getItem('last_login') || null,
