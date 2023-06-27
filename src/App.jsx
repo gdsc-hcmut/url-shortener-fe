@@ -20,6 +20,7 @@ import ResetPasswordPage from 'pages/ResetPasswordPage';
 import SignInMobilePage from 'pages/SignInMobilePage';
 import SignUpMobilePage from 'pages/SignUpMobilePage';
 import StatisticPage from 'pages/StatisticPage';
+import UrlFilterPage from 'pages/URLFilterPage';
 import UserProfilePage from 'pages/UserProfilePage';
 import VerifiedEmailPage from 'pages/VerifiedEmailPage';
 
@@ -139,6 +140,7 @@ export default function App() {
             }
           />
           <Route path="/error/not-found" element={<NotFoundPage />} />
+          <Route path="/url-filter" element={<UrlFilterPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </AnimatePresence>
