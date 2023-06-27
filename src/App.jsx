@@ -20,6 +20,7 @@ import ResetPasswordPage from 'pages/ResetPasswordPage';
 import SignInMobilePage from 'pages/SignInMobilePage';
 import SignUpMobilePage from 'pages/SignUpMobilePage';
 import StatisticPage from 'pages/StatisticPage';
+import UrlBlacklistPage from 'pages/UrlBlacklistPage';
 import UserProfilePage from 'pages/UserProfilePage';
 import VerifiedEmailPage from 'pages/VerifiedEmailPage';
 
@@ -51,8 +52,9 @@ export default function App() {
     );
     const currentTime = Date.now();
     if (
-      bannerDisabledTime === null
-      || currentTime - bannerDisabledTime > 1000 * 60 * 30
+      // eslint-disable-next-line operator-linebreak
+      bannerDisabledTime === null ||
+      currentTime - bannerDisabledTime > 1000 * 60 * 30
     ) {
       setShowBanner(true);
     }
@@ -136,6 +138,14 @@ export default function App() {
               <RequireAuth redirectTo="/">
                 <StatisticPage />
               </RequireAuth>
+            }
+          />
+          <Route
+            path="/urlblacklist"
+            element={
+              // <RequireAuth redirectTo="/">
+              <UrlBlacklistPage />
+              // </RequireAuth>
             }
           />
           <Route path="/error/not-found" element={<NotFoundPage />} />
