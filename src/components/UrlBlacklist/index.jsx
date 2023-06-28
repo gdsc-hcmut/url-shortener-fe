@@ -1,15 +1,30 @@
 import React, { useEffect, useState } from 'react';
-
 import './style.css';
+// import { useDispatch, useSelector } from 'react-redux';
+
+// import { SHOW_DELETE_URL_MODAL } from 'action-types';
 import TrashIcon from 'assets/icons/delete_icon_red.svg';
+// import DeleteModal from 'components/DeleteModal';
 
 import AddingIcon from '../../assets/icons/add_user.svg';
+import LeftArrowIcon from '../../assets/icons/arrow_backward.svg';
+import RightArrowIcon from '../../assets/icons/arrow_forward.svg';
 
 export default function Urlblacklist() {
   const [search, setSearch] = useState('');
   const [listuser, setListuser] = useState([]);
   const [addlink, setAddlink] = useState('');
+  const [dateInput, setDateInput] = useState('');
   const [datesearch, setDatesearch] = useState('');
+  // const dispatch = useDispatch();
+  const [pageCount] = useState([1, 2, 3, 4]);
+  // const DeleteUrlModal = useSelector(
+  //   (state) => state.showModal,
+  // );
+
+  // useEffect(() => {
+  //   setPageCount(Math.ceil(search % 10));
+  // }, [search]);
 
   useEffect(() => {
     const list = [
@@ -92,14 +107,6 @@ export default function Urlblacklist() {
     setListuser(list);
   }, []);
 
-  const handleDelete = (item) => {
-    // Call API to delete user in blacklist here.
-    // setLoading(true);
-    const newList = listuser.filter((it) => it.link !== item.link);
-    setListuser(newList);
-    // setLoading(false);
-  };
-
   const handleAdding = () => {
     try {
       if (addlink.length <= 0) throw Error('Please Enter the link');
@@ -114,7 +121,7 @@ export default function Urlblacklist() {
           current.getMinutes(),
         )} 
           - ${clearFormat(current.getDate())}/${clearFormat(
-  current.getMonth(),
+  current.getMonth() + 1,
 )}/${clearFormat(current.getFullYear())}`,
         addedby: 'Tran Quoc Hieu',
       };
@@ -124,39 +131,62 @@ export default function Urlblacklist() {
       setAddlink('');
     } catch (error) {
       console.log(error);
+      setAddlink('');
     }
   };
 
   const handleDatesearch = (e) => {
-    if (e.length <= 0) {
-      setDatesearch('nothing');
-      return;
+    setDateInput(e.target.value);
+    // console.log(dateInput);
+    if (e.target.value === '') setDatesearch('');
+    else {
+      const formatsearch = e.target.value.split('-');
+      const formatdate = `${formatsearch[2]}/${formatsearch[1]}/${formatsearch[0]}`;
+      setDatesearch(formatdate);
     }
-    const formatsearch = e.target.value.split('-');
-    const formatdate = `${formatsearch[2]}/${formatsearch[1]}/${formatsearch[0]}`;
-    setDatesearch(formatdate);
+  };
+
+  const checkSearch = (el) => el.link.includes(search) && el.addedat.includes(datesearch);
+
+  const handleDelete = (item) => {
+    // dispatch({
+    //   type: SHOW_DELETE_URL_MODAL,
+    //   payload: true,
+    // });
+    const newList = listuser.filter((it) => it.link !== item.link);
+    setListuser(newList);
   };
 
   return (
-    <div className="inside text-base overflow-scroll display-none">
-      {console.log(datesearch)}
+    <div className="no-scrollbar text-base overflow-scroll display-none">
+      {/* <div className="modal absolute z-50">
+        <DeleteModal
+          // id={currId}
+          text="The shortened link and all relevant data will be removed."
+          onClose={() => dispatch({
+            type: SHOW_DELETE_URL_MODAL,
+            payload: false,
+          })}
+          show={DeleteUrlModal}
+        />
+      </div> */}
       <div className="rounded-[8px]">
         <h1 className="font-medium text-[32px] mb-[28px]">Url Blacklist</h1>
         <div className="flex h-[60px] mb-[20px]">
           <input
-            className="p-[20px] w-[500px] mr-[20px] rounded-[8px] border-[1px] border-solid border-blue-500"
+            className="p-[20px] w-[500px] mr-[20px] rounded-[8px] outline-none border-gdscGrey-300 border-[1px] border-solid focus:border-gdscBlue-300 focus:border-[1px] focus:border-solid"
             placeholder="Search URL..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
           <input
-            className="p-[20px] w-[200px] mr-[20px] rounded-[8px] border-[1px] border-solid border-blue-500"
+            className="p-[20px] w-[200px] mr-[20px] rounded-[8px] outline-none border-gdscGrey-300 border-[1px] border-solid focus:border-gdscBlue-300 focus:border-[1px] focus:border-solid"
             type="date"
-            placeholder="All"
+            value={dateInput}
             onChange={(e) => handleDatesearch(e)}
           />
           <input
-            className="p-[20px] w-[500px] mr-[20px] rounded-[8px] border-[1px] border-solid border-blue-500"
+            className="p-[20px] w-[500px] mr-[20px] rounded-[8px] outline-none border-gdscGrey-300 border-[1px] border-solid focus:border-gdscBlue-300 focus:border-[1px] focus:border-solid"
             placeholder="Add URL..."
             value={addlink}
             onChange={(e) => setAddlink(e.target.value)}
@@ -170,13 +200,13 @@ export default function Urlblacklist() {
           </button>
         </div>
       </div>
-      <div className="text-base text-gray-700 mb-[16px]">
+      <div className="text-base text-gdscGrey-700 mb-[16px]">
         Total results:
         {' '}
-        {listuser.filter((el) => el.link.includes(search)).length}
+        {listuser.filter((el) => checkSearch(el)).length}
       </div>
       <table>
-        <thead className="flex h-[60px] w-fit text-xl mb-[16px] items-center bg-white text-blue-500 border-b border-gray-500 rounded-t-[8px]">
+        <thead className="flex h-[60px] w-fit text-xl mb-[16px] items-center bg-white text-gdscBlue-300 border-b border-gdscGrey-500 rounded-t-[8px]">
           <th className="w-[664px]">
             <span>LONG LINK</span>
           </th>
@@ -192,9 +222,12 @@ export default function Urlblacklist() {
         </thead>
         <tbody>
           {listuser
-            .filter((el) => el.link.includes(search))
+            .filter((el) => checkSearch(el))
             .map((item) => (
-              <tr className="mb-[16px] flex-row text-xl m-0 h-[60px] rounded-[8px] bg-white block">
+              <tr
+                className="mb-[16px] flex-row text-xl m-0 h-[60px] rounded-[8px] bg-white block"
+                key={item.link}
+              >
                 <th className="w-[664px] max-w-[664px] p-[20px] text-left whitespace-nowrap overflow-hidden text-ellipsis font-normal">
                   {item.link}
                 </th>
@@ -207,13 +240,13 @@ export default function Urlblacklist() {
                 <th className="w-[190px] font-normal items-center">
                   <button
                     type="button"
-                    className="bg-red-100 p-[8px] rounded-[8px]"
+                    className="bg-gdscRed-100 p-[8px] rounded-[8px] cursor-pointer"
                     onClick={() => handleDelete(item)}
                   >
                     <img
                       src={TrashIcon}
                       alt="Delete"
-                      className="w-[24px] h-[24px] mr-auto ml-auto cursor-pointer"
+                      className="w-[24px] h-[24px] mr-auto ml-auto"
                     />
                   </button>
                 </th>
@@ -221,6 +254,21 @@ export default function Urlblacklist() {
             ))}
         </tbody>
       </table>
+      <div className="flex items-center justify-center font-normal">
+        <button type="button">
+          <img src={LeftArrowIcon} alt="Previous" />
+        </button>
+        <ul className="inline-block">
+          {pageCount.map((item) => (
+            <li className="inline-block mx-[16px] cursor-pointer pt-[8px] text-center text-[20px] w-[36px] h-[36px] rounded-full hover:bg-gdscBlue-100">
+              {item}
+            </li>
+          ))}
+        </ul>
+        <button type="button">
+          <img src={RightArrowIcon} alt="Next" />
+        </button>
+      </div>
     </div>
   );
 }
