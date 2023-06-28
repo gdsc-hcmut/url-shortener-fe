@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import './style.css';
 // import { useDispatch, useSelector } from 'react-redux';
 
 // import { SHOW_DELETE_URL_MODAL } from 'action-types';
@@ -21,10 +20,6 @@ export default function Urlblacklist() {
   // const DeleteUrlModal = useSelector(
   //   (state) => state.showModal,
   // );
-
-  // useEffect(() => {
-  //   setPageCount(Math.ceil(search % 10));
-  // }, [search]);
 
   useEffect(() => {
     const list = [
