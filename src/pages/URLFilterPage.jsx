@@ -40,7 +40,7 @@ export default function UrlFilterPage() {
             {Object.keys(getUrl).length === 0 ? (
               <UrlFilter setGetUrl={setGetUrl} />
             ) : (
-              <UserInformation />
+              <UserInformation getUrl={getUrl} setGetUrl={setGetUrl} />
             )}
           </motion.div>
           <div className="md:hidden">

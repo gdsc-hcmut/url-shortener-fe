@@ -1,13 +1,15 @@
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 
-import AddToBlackList from 'assets/icons/add_to_blacklist.svg';
+import AddToBlackListIcon from 'assets/icons/add_to_blacklist.svg';
 import GraphIcon from 'assets/icons/graph_icon.svg';
-import LeftArrow from 'assets/icons/left_arrow.svg';
-import LimitDomain from 'assets/icons/limit_domain_icon.svg';
-import MoreInfo from 'assets/icons/more-info.svg';
-import Rightarrow from 'assets/icons/right_arrow.svg';
+import LeftArrowIcon from 'assets/icons/left_arrow.svg';
+import LimitDomainIcon from 'assets/icons/limit_domain_icon.svg';
+import MoreInfoIcon from 'assets/icons/more-info.svg';
+import RightArrowIcon from 'assets/icons/right_arrow.svg';
+// import SearchIcon from 'assets/icons/search.svg';
 
-export default function UrlFilter() {
+export default function UrlFilter({ setGetUrl }) {
   const [search, setSearch] = useState('');
   const [modeAllUrl, setModeAllUrl] = useState(true);
   const [urls, setUrls] = useState([
@@ -47,10 +49,9 @@ export default function UrlFilter() {
     setAddLink('');
     setAddOrg('');
     setMaxPage(Math.ceil(urls.length / limit));
-    console.log('MaxPage >>> ', maxPage);
   };
 
-  const DeleteUrl = (url) => {
+  const deleteUrl = (url) => {
     const listUser = urls.filter((e) => e.id !== url.id);
     setUrls(listUser);
   };
@@ -60,7 +61,7 @@ export default function UrlFilter() {
       <h1 className="text-3xl font-medium mb-5">URL Filters</h1>
       <div className="flex flex-row items-center mb-8">
         <input
-          className="h-16 w-[400px] text-base flex items-center justify-between pl-5 pr-5 mr-6 border bg-white border-blue-500 text-gray-500 rounded-lg"
+          className="h-[60px] w-[376px] text-base flex items-center justify-between px-[20px] mr-[26px] outline-none border bg-white border-gdscGrey-300 text-gdscGrey-700 rounded-[8px] focus:border-gdscBlue-300"
           value={search}
           type="text"
           placeholder="Search URL..."
@@ -68,21 +69,21 @@ export default function UrlFilter() {
         />
         <input
           type="date"
-          className="h-16 w-48 text-base flex items-center justify-between pl-5 pr-5 mr-6 rounded-lg border bg-white border-blue-500 text-gray-500"
+          className="h-[60px] w-[200px] text-base flex items-center justify-between px-[20px] mr-[26px] outline-none rounded-[8px] border bg-white border-gdscGrey-300 focus:border-gdscBlue-300"
           placeholder="dd/mm/yyyy"
         />
-        <div className="h-16 w-48 text-base flex items-center justify-between pl-5 pr-5 rounded-lg border bg-white border-blue-500">
+        <div className="h-[60px] w-[272px] text-base flex items-center justify-between px-[20px] rounded-[8px] border bg-white border-gdscGrey-300 text-gdscGrey-700">
           <p>More than: None</p>
         </div>
       </div>
-      <div className="flex flex-row justify-between w-[1400px] text-xl">
+      <div className="w-[1436px] flex flex-row justify-between text-[20px]">
         <div className="flex flex-row items-center -mb-px">
           <button
             type="button"
             className={
               !modeAllUrl
-                ? 'w-40 h-12 flex items-center justify-center cursor-pointer'
-                : 'w-40 h-12 flex items-center justify-center cursor-pointer border-x border-t border-gray-400 bg-white text-blue-500 rounded-e-lg'
+                ? 'w-[176px] h-[52px] flex items-center justify-center cursor-pointer text-gdscGrey-700'
+                : 'w-[176px] h-[52px] flex items-center justify-center cursor-pointer border-x border-t border-gdscGrey-500 bg-white text-gdscBlue-300 rounded-t-[8px]'
             }
             onClick={() => setModeAllUrl(true)}
           >
@@ -92,105 +93,111 @@ export default function UrlFilter() {
             type="button"
             className={
               modeAllUrl
-                ? 'w-40 h-12 flex items-center justify-center cursor-pointer'
-                : 'w-40 h-12 flex items-center justify-center cursor-pointer border-x border-t border-gray-400 bg-white text-blue-500 rounded-e-lg'
+                ? 'w-[176px] h-[52px] flex items-center justify-center cursor-pointer text-gdscGrey-700'
+                : 'w-[176px] h-[52px] flex items-center justify-center cursor-pointer border-x border-t border-gdscGrey-500 bg-white text-gdscBlue-300 rounded-t-[8px]'
             }
             onClick={() => setModeAllUrl(false)}
           >
             SUSPECTED
           </button>
         </div>
-        <div className="h-12 flex flex-row items-center justify-left text-gray-500">
+        <div className="h-12 flex flex-row items-center justify-left text-gdscGrey-700">
           <div className="mr-1">Total:</div>
           <div className="mr-1">{urls.length}</div>
           <div>results</div>
         </div>
       </div>
-      <div className="h-240 w-[1400px] bg-white border border-gray-400">
-        <div className="h-16 flex items-center flex-row bg-gray-100 text-xl border-b border-gray-500 mb-2 rounded-lg">
-          <div className="flex items-center justify-center w-[100px] border-r border-gray-500">
+      <div className="h-auto w-[1436px] bg-white border border-gdscGrey-500">
+        <div className="h-16 flex items-center flex-row bg-[#F9F9F9] text-xl border-b border-gray-500 mb-2">
+          <div className="flex items-center justify-center w-[98px] border-r text-gdscBlue-300 border-gdscGrey-400">
             <p>TREND</p>
           </div>
-          <div className="flex items-center justify-center w-[560px] border-r border-gray-500">
+          <div className="flex items-center justify-center w-[536px] border-r text-gdscBlue-300 border-gdscGrey-400">
             <p>LONG LINK</p>
           </div>
-          <div className="flex items-center justify-center w-[180px] border-r border-gray-500">
+          <div className="flex items-center justify-center w-[208px] border-r text-gdscBlue-300 border-gdscGrey-400">
             <p>ORGANIZATION</p>
           </div>
-          <div className="flex items-center justify-center w-[180px] border-r border-gray-500">
+          <div className="flex items-center justify-center w-[182px] border-r text-gdscBlue-300 border-gdscGrey-400">
             <p>CREATED AT</p>
           </div>
-          <div className="flex items-center justify-center w-[180px] border-r border-gray-500">
+          <div className="flex items-center justify-center w-[192px] border-r text-gdscBlue-300 border-gdscGrey-400">
             <p>TOTAL CLICKS</p>
           </div>
-          <div className="flex items-center justify-center w-[200px]">
+          <div className="flex items-center justify-center w-[148px] border-r text-gdscBlue-300 border-gdscGrey-400">
             <p>ACTIONS</p>
           </div>
         </div>
         <div className="flex aligns-center flex-col px-[8px]">
           {urls.map((url) => (
-            <div className=" h-14 w-full flex aligns-center flex-row border border-gray-100 mb-2 rounded-lg text-base">
-              <div className="flex items-center justify-center w-[92px]">
+            <div
+              className=" h-14 w-full flex aligns-center flex-row border border-gray-100 mb-2 rounded-[8px] text-base hover:bg-gdscBlue-50 hover:text-gdscBlue-300"
+              key={url.id}
+            >
+              <div className="flex items-center justify-center w-[90px]">
                 <img
                   src={GraphIcon}
-                  fill="#0f9d58"
-                  className="w-7 h-7 mr-2"
+                  className="w-7 h-7 mr-2 fill-gdscGreen-300"
                   alt="graph icon increase"
                 />
-                <p className="text-green-700">2</p>
+                <p className="text-gdscGreen-300">2</p>
               </div>
-              <div className="h-14 w-[520px] max-w-[520px] flex items-center text-left mr-[40px] truncate">
+              <div className="relative h-14 w-[500px] flex items-center text-left mr-[36px] truncate">
                 {url.link}
               </div>
-              <p className="inline-flex items-center text-left w-[160px] mr-[20px] truncate">
+              <p className="inline-flex items-center justify-left w-[168px] mr-[40px] truncate">
                 {url.org}
               </p>
-              <div className="inline-flex items-center justify-center w-[180px]">
+              <div className="inline-flex items-center justify-center w-[162px] mr-[20px] truncate">
                 {url.date}
               </div>
-              <div className="flex items-center justify-center w-[180px]">
+              <div className="flex items-center justify-center w-[172px] mr-[20px] truncate">
                 {url.totalClicks}
               </div>
-              <div className="flex items-center justify-center flex-row w-[192px]">
+              <div className="flex items-center justify-center flex-row w-[148px]">
                 <button
                   type="button"
-                  className="w-7 h-7 flex items-center justify-center cursor-pointer mr-4 bg-gray-300 rounded-md"
+                  className="relative w-[24px] h-[24px] flex items-center justify-center cursor-pointer mr-4 bg-[#D5E1F5] rounded-[8px] overflow-hidden hover:overflow-visible"
                 >
                   <img
-                    src={AddToBlackList}
+                    src={AddToBlackListIcon}
                     alt="add-to-blacklist"
-                    className="w-5 h-5"
-                    fill="#4285F4"
+                    className="w-[16px] h-[12px] fill-gdscBlue-300"
                     opacity="0.87"
                   />
+                  <span className="inline-block absolute w-[120px] h-auto bg-black text-white text-center text-[12px] py-[2px] z-2 bottom-[150%] border border-gdscGrey-500 rounded-[8px]">
+                    Add to blacklist
+                  </span>
                 </button>
                 <button
                   type="button"
-                  onClick={() => DeleteUrl(url)}
-                  className="w-7 h-7 flex items-center justify-center cursor-pointer mr-4 bg-gray-300 rounded-md"
+                  onClick={() => deleteUrl(url)}
+                  className="relative w-[24px] h-[24px] flex items-center justify-center cursor-pointer mr-4 bg-[#D5E1F5] rounded-[8px] overflow-hidden hover:overflow-visible"
                 >
                   <img
-                    src={LimitDomain}
+                    src={LimitDomainIcon}
                     alt="limit-domain"
-                    className="w-5 h-5"
-                    fill="#4285F4"
+                    className="w-[14px] h-[14px] fill-gdscBlue-300"
                     opacity="0.87"
                   />
+                  <span className="inline-block absolute w-[120px] h-auto bg-black text-white text-center text-[12px] py-[2px] z-2 bottom-[150%] border border-gdscGrey-500 rounded-[8px]">
+                    Limit domain
+                  </span>
                 </button>
                 <button
                   type="button"
-                  onClick={() => {
-                    console.log(url);
-                  }}
-                  className="w-7 h-7 flex items-center justify-center cursor-pointer bg-gray-300 rounded-md"
+                  onClick={() => setGetUrl(url.link)}
+                  className="relative w-[24px] h-[24px] flex items-center justify-center cursor-pointer bg-[#D5E1F5] rounded-[8px] overflow-hidden hover:overflow-visible"
                 >
                   <img
-                    src={MoreInfo}
+                    src={MoreInfoIcon}
                     alt="more-information"
-                    className="w-5 h-5"
-                    fill="#4285F4"
+                    className="w-[4px] h-[12px] fill-gdscBlue-300"
                     opacity="0.87"
                   />
+                  <span className="inline-block absolute w-[120px] h-auto bg-black text-white text-center text-[12px] py-[2px] z-2 bottom-[150%] border border-gdscGrey-500 rounded-[8px]">
+                    More information
+                  </span>
                 </button>
               </div>
             </div>
@@ -198,21 +205,20 @@ export default function UrlFilter() {
           <div className="h-12 flex flex-row items-center justify-center p-2 my-2">
             <button
               type="button"
-              className="flex flex-row justify-center items-center p-1 mr-[18px] text-base text-black cursor-pointer"
+              className="flex flex-row justify-center items-center p-1 mr-[18px] text-base cursor-pointer"
               disabled={page <= 1}
               onClick={() => setPage(page - 1)}
             >
               <img
-                src={LeftArrow}
-                className="h-5 w-5"
-                opacity="0.87"
+                src={LeftArrowIcon}
+                className="h-5 w-5 fill-gdscBlue-300 opacity-80"
                 alt="left-arrow"
               />
             </button>
             <div
               className={
                 page === maxPage
-                  ? 'w-10 h-10 flex items-center justify-center text-base text-blue-500 bg-blue-100 rounded-full mr-[18px]'
+                  ? 'w-10 h-10 flex items-center justify-center text-base text-blue-500 bg-blue-100 rounded-full mr-[18px] cursor-pointer'
                   : 'w-10 h-10 flex items-center justify-center text-base text-gray-500 bg-transparent mr-[18px]'
               }
             >
@@ -225,7 +231,7 @@ export default function UrlFilter() {
               onClick={() => setPage(page + 1)}
             >
               <img
-                src={Rightarrow}
+                src={RightArrowIcon}
                 className="h-5 w-5"
                 opacity="0.87"
                 alt="right-arrow"
@@ -260,3 +266,11 @@ export default function UrlFilter() {
     </div>
   );
 }
+
+UrlFilter.propTypes = {
+  setGetUrl: PropTypes.func,
+};
+
+UrlFilter.defaultProps = {
+  setGetUrl: () => {},
+};
