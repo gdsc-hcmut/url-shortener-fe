@@ -141,7 +141,7 @@ export default function App() {
             }
           />
           <Route
-            path="/urlblacklist"
+            path="/url-blacklist"
             element={
               // <RequireAuth redirectTo="/">
               <UrlBlacklistPage />

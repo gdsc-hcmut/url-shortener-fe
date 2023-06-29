@@ -10,15 +10,14 @@ import AddingIcon from '../../assets/icons/add_user.svg';
 import LeftArrowIcon from '../../assets/icons/arrow_backward.svg';
 import RightArrowIcon from '../../assets/icons/arrow_forward.svg';
 
-export default function Urlblacklist() {
-  const [search, setSearch] = useState('');
-  const [listuser, setListuser] = useState([]);
-  const [addlink, setAddlink] = useState('');
+export default function UrlBlacklist() {
+  const [searchText, setSearchText] = useState('');
+  const [listUser, setListUser] = useState([]);
+  const [addingLink, setAddingLink] = useState('');
   const [dateInput, setDateInput] = useState('');
-  const [datesearch, setDatesearch] = useState('');
+  const [dateSearch, setDateSearch] = useState('');
   const [deleteUrl, setDeleteUrl] = useState({});
   const [deleteMode, setDeleteMode] = useState(false);
-  // const dispatch = useDispatch();
   const [pageCount] = useState([1, 2, 3, 4]);
 
   useEffect(() => {
@@ -99,50 +98,52 @@ export default function Urlblacklist() {
         addedby: 'Tran Quoc Hieu',
       },
     ];
-    setListuser(list);
+    setListUser(list);
   }, []);
+
+  const formatDateTime = (time) => {
+    const clearFormat = (num) => (num > 9 ? `${num}` : `0${num}`);
+    return `${clearFormat(time.getHours())}:${clearFormat(time.getMinutes())} 
+      - ${clearFormat(time.getDate())}/${clearFormat(
+  time.getMonth() + 1,
+)}/${clearFormat(time.getFullYear())}`;
+  };
 
   const handleAdding = () => {
     try {
-      if (addlink.length <= 0) throw Error('Please Enter the link');
-      listuser.forEach((el) => {
-        if (el.link === addlink) throw Error(`This link has been added at ${el.addedat}`);
+      if (addingLink.length <= 0) throw Error('Please Enter the link');
+      listUser.forEach((el) => {
+        if (el.link === addingLink) throw Error(`This link has been added at ${el.addedat}`);
       });
       const current = new Date();
-      const clearFormat = (num) => (num > 9 ? `${num}` : `0${num}`);
       const newUser = {
-        link: addlink,
-        addedat: `${clearFormat(current.getHours())}:${clearFormat(
-          current.getMinutes(),
-        )} 
-          - ${clearFormat(current.getDate())}/${clearFormat(
-  current.getMonth() + 1,
-)}/${clearFormat(current.getFullYear())}`,
+        link: addingLink,
+        addedat: formatDateTime(current),
         addedby: 'Tran Quoc Hieu',
       };
-      setListuser((ls) => [...ls, newUser]);
-      setAddlink('');
+      setListUser((ls) => [...ls, newUser]);
+      setAddingLink('');
     } catch (error) {
       console.log(error);
-      setAddlink('');
+      setAddingLink('');
     }
   };
 
   const handleDatesearch = (e) => {
     setDateInput(e.target.value);
-    if (e.target.value === '') setDatesearch('');
+    if (e.target.value === '') setDateSearch('');
     else {
-      const formatsearch = e.target.value.split('-');
-      const formatdate = `${formatsearch[2]}/${formatsearch[1]}/${formatsearch[0]}`;
-      setDatesearch(formatdate);
+      const formatingSearch = e.target.value.split('-');
+      const formatingDate = `${formatingSearch[2]}/${formatingSearch[1]}/${formatingSearch[0]}`;
+      setDateSearch(formatingDate);
     }
   };
 
-  const checkSearch = (el) => el.link.includes(search) && el.addedat.includes(datesearch);
+  const checkSearch = (el) => el.link.includes(searchText) && el.addedat.includes(dateSearch);
 
   const handleDelete = (item) => {
-    const newList = listuser.filter((it) => it.link !== item.link);
-    setListuser(newList);
+    const newList = listUser.filter((it) => it.link !== item.link);
+    setListUser(newList);
     setDeleteMode(false);
   };
 
@@ -152,30 +153,31 @@ export default function Urlblacklist() {
         deleteMode ? 'overflow-hidden' : 'overflow-scroll'
       }`}
     >
-      {console.log(deleteUrl, deleteMode)}
-      <div
-        aria-hidden="true"
-        className={`fixed z-20 inset-0 bg-black bg-opacity-50 flex justify-center items-center opacity-0 transition-all duration-300 ease-out pointer-events-none ${
-          deleteMode ? 'opacity-100 pointer-events-auto' : ''
-        }`}
-      >
+      <div className="modal absolute z-50">
         <div
           aria-hidden="true"
-          className="w-[320px] sm:w-[376px] h-[376px] md:w-[412px] px-[20px] sm:px-[58px] py-8 flex flex-col items-center border bg-white rounded"
-          onClick={(e) => e.stopPropagation()}
+          className={`fixed z-20 inset-0 bg-black bg-opacity-50 flex justify-center items-center opacity-0 transition-all duration-300 ease-out pointer-events-none ${
+            deleteMode ? 'opacity-100 pointer-events-auto' : ''
+          }`}
         >
-          <div>
-            <DeleteIcon />
-          </div>
-          <span className="text-2xl font-normal text-gdscRed-300 mt-7">
-            ARE YOU SURE?
-          </span>
-          <span className="text-base text-gdscGrey-800 text-center mt-7 md:mt-9">
-            Deleting link
-          </span>
-          <div className="w-[260px] mt-3 flex justify-between">
-            <Button text="Cancel" onClick={() => setDeleteMode(false)} />
-            <Button text="Delete" onClick={() => handleDelete(deleteUrl)} />
+          <div
+            aria-hidden="true"
+            className="w-[320px] sm:w-[376px] h-[376px] md:w-[412px] px-[20px] sm:px-[58px] py-8 flex flex-col items-center border bg-white rounded"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div>
+              <DeleteIcon />
+            </div>
+            <span className="text-2xl font-normal text-gdscRed-300 mt-7">
+              ARE YOU SURE?
+            </span>
+            <span className="text-base text-gdscGrey-800 text-center mt-7 md:mt-9">
+              Deleting link
+            </span>
+            <div className="w-[260px] mt-3 flex justify-between">
+              <Button text="Cancel" onClick={() => setDeleteMode(false)} />
+              <Button text="Delete" onClick={() => handleDelete(deleteUrl)} />
+            </div>
           </div>
         </div>
       </div>
@@ -185,8 +187,8 @@ export default function Urlblacklist() {
           <input
             className="p-[20px] w-[500px] mr-[20px] rounded-[8px] outline-none border-gdscGrey-300 border-[1px] border-solid focus:border-gdscBlue-300 focus:border-[1px] focus:border-solid"
             placeholder="Search URL..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
           />
           <input
             className="p-[20px] w-[200px] mr-[20px] rounded-[8px] outline-none border-gdscGrey-300 border-[1px] border-solid focus:border-gdscBlue-300 focus:border-[1px] focus:border-solid"
@@ -197,8 +199,8 @@ export default function Urlblacklist() {
           <input
             className="p-[20px] w-[500px] mr-[20px] rounded-[8px] outline-none border-gdscGrey-300 border-[1px] border-solid focus:border-gdscBlue-300 focus:border-[1px] focus:border-solid"
             placeholder="Add URL..."
-            value={addlink}
-            onChange={(e) => setAddlink(e.target.value)}
+            value={addingLink}
+            onChange={(e) => setAddingLink(e.target.value)}
           />
           <button type="button" onClick={() => handleAdding()}>
             <img
@@ -212,7 +214,7 @@ export default function Urlblacklist() {
       <div className="text-base text-gdscGrey-700 mb-[16px]">
         Total results:
         {' '}
-        {listuser.filter((el) => checkSearch(el)).length}
+        {listUser.filter((el) => checkSearch(el)).length}
       </div>
       <table>
         <thead className="flex h-[60px] w-fit text-xl mb-[16px] items-center bg-white text-gdscBlue-300 border-b border-gdscGrey-500 rounded-t-[8px]">
@@ -230,7 +232,7 @@ export default function Urlblacklist() {
           </th>
         </thead>
         <tbody>
-          {listuser
+          {listUser
             .filter((el) => checkSearch(el))
             .map((item) => (
               <tr
