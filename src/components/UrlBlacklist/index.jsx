@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 
 // import { SHOW_DELETE_URL_MODAL } from 'action-types';
+import { ReactComponent as DeleteIcon } from 'assets/icons/delete_icon_modal.svg';
 import TrashIcon from 'assets/icons/delete_icon_red.svg';
-// import DeleteModal from 'components/DeleteModal';
+import Button from 'components/DeleteModal/Button';
 
 import AddingIcon from '../../assets/icons/add_user.svg';
 import LeftArrowIcon from '../../assets/icons/arrow_backward.svg';
@@ -15,11 +16,10 @@ export default function Urlblacklist() {
   const [addlink, setAddlink] = useState('');
   const [dateInput, setDateInput] = useState('');
   const [datesearch, setDatesearch] = useState('');
+  const [deleteUrl, setDeleteUrl] = useState({});
+  const [deleteMode, setDeleteMode] = useState(false);
   // const dispatch = useDispatch();
   const [pageCount] = useState([1, 2, 3, 4]);
-  // const DeleteUrlModal = useSelector(
-  //   (state) => state.showModal,
-  // );
 
   useEffect(() => {
     const list = [
@@ -120,8 +120,6 @@ export default function Urlblacklist() {
 )}/${clearFormat(current.getFullYear())}`,
         addedby: 'Tran Quoc Hieu',
       };
-      // console.log(newUser);
-      // console.log(listuser[0]);
       setListuser((ls) => [...ls, newUser]);
       setAddlink('');
     } catch (error) {
@@ -132,7 +130,6 @@ export default function Urlblacklist() {
 
   const handleDatesearch = (e) => {
     setDateInput(e.target.value);
-    // console.log(dateInput);
     if (e.target.value === '') setDatesearch('');
     else {
       const formatsearch = e.target.value.split('-');
@@ -144,27 +141,44 @@ export default function Urlblacklist() {
   const checkSearch = (el) => el.link.includes(search) && el.addedat.includes(datesearch);
 
   const handleDelete = (item) => {
-    // dispatch({
-    //   type: SHOW_DELETE_URL_MODAL,
-    //   payload: true,
-    // });
     const newList = listuser.filter((it) => it.link !== item.link);
     setListuser(newList);
+    setDeleteMode(false);
   };
 
   return (
-    <div className="no-scrollbar text-base overflow-scroll display-none">
-      {/* <div className="modal absolute z-50">
-        <DeleteModal
-          // id={currId}
-          text="The shortened link and all relevant data will be removed."
-          onClose={() => dispatch({
-            type: SHOW_DELETE_URL_MODAL,
-            payload: false,
-          })}
-          show={DeleteUrlModal}
-        />
-      </div> */}
+    <div
+      className={`no-scrollbar text-base display-none ${
+        deleteMode ? 'overflow-hidden' : 'overflow-scroll'
+      }`}
+    >
+      {console.log(deleteUrl, deleteMode)}
+      <div
+        aria-hidden="true"
+        className={`fixed z-20 inset-0 bg-black bg-opacity-50 flex justify-center items-center opacity-0 transition-all duration-300 ease-out pointer-events-none ${
+          deleteMode ? 'opacity-100 pointer-events-auto' : ''
+        }`}
+      >
+        <div
+          aria-hidden="true"
+          className="w-[320px] sm:w-[376px] h-[376px] md:w-[412px] px-[20px] sm:px-[58px] py-8 flex flex-col items-center border bg-white rounded"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div>
+            <DeleteIcon />
+          </div>
+          <span className="text-2xl font-normal text-gdscRed-300 mt-7">
+            ARE YOU SURE?
+          </span>
+          <span className="text-base text-gdscGrey-800 text-center mt-7 md:mt-9">
+            Deleting link
+          </span>
+          <div className="w-[260px] mt-3 flex justify-between">
+            <Button text="Cancel" onClick={() => setDeleteMode(false)} />
+            <Button text="Delete" onClick={() => handleDelete(deleteUrl)} />
+          </div>
+        </div>
+      </div>
       <div className="rounded-[8px]">
         <h1 className="font-medium text-[32px] mb-[28px]">Url Blacklist</h1>
         <div className="flex h-[60px] mb-[20px]">
@@ -236,7 +250,12 @@ export default function Urlblacklist() {
                   <button
                     type="button"
                     className="bg-gdscRed-100 p-[8px] rounded-[8px] cursor-pointer"
-                    onClick={() => handleDelete(item)}
+                    // onClick={() => handleDelete(item)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setDeleteUrl(item);
+                      setDeleteMode(true);
+                    }}
                   >
                     <img
                       src={TrashIcon}
