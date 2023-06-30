@@ -11,6 +11,7 @@ import Modal from 'components/Modal';
 import RequireAuth from 'components/RequireAuth';
 import ChangePasswordPage from 'pages/ChangePasswordPage';
 import DetailPage from 'pages/DetailPage';
+import DomainBlacklistPage from 'pages/DomainBlacklistPage';
 import ForgotPasswordPage from 'pages/ForgotPasswordPage';
 import HomePage from 'pages/HomePage';
 import HomepageLogin from 'pages/HomepageLogin';
@@ -148,6 +149,7 @@ export default function App() {
               // </RequireAuth>
             }
           />
+          <Route path="/domain-blacklist" element={<DomainBlacklistPage />} />
           <Route path="/error/not-found" element={<NotFoundPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
