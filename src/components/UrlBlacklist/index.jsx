@@ -16,112 +16,110 @@ export default function UrlBlacklist() {
   const [addingLink, setAddingLink] = useState('');
   const [dateInput, setDateInput] = useState('');
   const [dateSearch, setDateSearch] = useState('');
-  const [deleteUrl, setDeleteUrl] = useState({});
-  const [deleteMode, setDeleteMode] = useState(false);
-  const [pageCount] = useState([1, 2, 3, 4]);
+  const [deletingUrl, setDeletingUrl] = useState({});
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [pageArray] = useState([1, 2, 3, 4]);
 
   useEffect(() => {
     const list = [
       {
         link: 'https://longlinkaaaaaaaaaaaa.COM/d213gd621y3hgdh1',
-        addedat: '20:30 - 17/06/2023',
-        addedby: 'Tran Quoc Hieu',
+        addedAt: 'Friday 30/06/2023 9:06:06 AM',
+        addedBy: 'Tran Quoc Hieu',
       },
       {
         link: 'https://longlinkaaaaaaaaaaaa.COM/d213gd621y3hgdh2',
-        addedat: '20:30 - 17/06/2023',
-        addedby: 'Tran Quoc Hieu',
+        addedAt: 'Friday 30/06/2023 9:06:06 AM',
+        addedBy: 'Tran Quoc Hieu',
       },
       {
         link: 'https://longlinkaaaaaaaaaaaa.COM/d213gd621y3hgdh3',
-        addedat: '20:30 - 17/06/2023',
-        addedby: 'Tran Quoc Hieu',
+        addedAt: 'Friday 30/06/2023 9:06:06 AM',
+        addedBy: 'Tran Quoc Hieu',
       },
       {
         link: 'https://longlinkaaaaaaaaaaaa.COM/d213gd621y3hgdh4',
-        addedat: '20:30 - 17/06/2023',
-        addedby: 'Tran Quoc Hieu',
+        addedAt: 'Friday 30/06/2023 9:06:06 AM',
+        addedBy: 'Tran Quoc Hieu',
       },
       {
         link: 'https://longlinkaaaaaaaaaaaa.COM/d213gd621y3hgdh5',
-        addedat: '20:30 - 17/06/2023',
-        addedby: 'Tran Quoc Hieu',
+        addedAt: 'Friday 30/06/2023 9:06:06 AM',
+        addedBy: 'Tran Quoc Hieu',
       },
       {
         link: 'https://longlinkaaaaaaaaaaaa.COM/d213gd621y3hgdh6',
-        addedat: '20:30 - 17/06/2023',
-        addedby: 'Tran Quoc Hieu',
+        addedAt: 'Friday 30/06/2023 9:06:06 AM',
+        addedBy: 'Tran Quoc Hieu',
       },
       {
         link: 'https://longlinkaaaaaaaaaaaa.COM/d213gd621y3hgdh7',
-        addedat: '20:30 - 17/06/2023',
-        addedby: 'Tran Quoc Hieu',
+        addedAt: 'Friday 30/06/2023 9:06:06 AM',
+        addedBy: 'Tran Quoc Hieu',
       },
       {
         link: 'https://longlinkaaaaaaaaaaaa.COM/d213gd621y3hgdh8',
-        addedat: '20:30 - 17/06/2023',
-        addedby: 'Tran Quoc Hieu',
+        addedAt: 'Friday 30/06/2023 9:06:06 AM',
+        addedBy: 'Tran Quoc Hieu',
       },
       {
         link: 'https://longlinkaaaaaaaaaaaa.COM/d213gd621y3hgdh9',
-        addedat: '20:30 - 17/06/2023',
-        addedby: 'Tran Quoc Hieu',
+        addedAt: 'Friday 30/06/2023 9:06:06 AM',
+        addedBy: 'Tran Quoc Hieu',
       },
       {
         link: 'https://longlinkaaaaaaaaaaaa.COM/d213gd621y3hgdhA',
-        addedat: '20:30 - 17/06/2023',
-        addedby: 'Tran Quoc Hieu',
+        addedAt: 'Friday 30/06/2023 9:06:06 AM',
+        addedBy: 'Tran Quoc Hieu',
       },
       {
         link: 'https://longlinkaaaaaaaaaaaa.COM/d213gd621y3hgdhB',
-        addedat: '20:30 - 17/06/2023',
-        addedby: 'Tran Quoc Hieu',
+        addedAt: 'Friday 30/06/2023 9:06:06 AM',
+        addedBy: 'Tran Quoc Hieu',
       },
       {
         link: 'https://longlinkaaaaaaaaaaaa.COM/d213gd621y3hgdhC',
-        addedat: '20:30 - 17/06/2023',
-        addedby: 'Tran Quoc Hieu',
+        addedAt: 'Friday 30/06/2023 9:06:06 AM',
+        addedBy: 'Tran Quoc Hieu',
       },
       {
         link: 'https://longlinkaaaaaaaaaaaa.COM/d213gd621y3hgdhD',
-        addedat: '20:30 - 17/06/2023',
-        addedby: 'Tran Quoc Hieu',
+        addedAt: 'Friday 30/06/2023 9:06:06 AM',
+        addedBy: 'Tran Quoc Hieu',
       },
       {
         link: 'https://longlinkaaaaaaaaaaaa.COM/d213gd621y3hgdhE',
-        addedat: '20:30 - 17/06/2023',
-        addedby: 'Tran Quoc Hieu',
+        addedAt: 'Friday 30/06/2023 9:06:06 AM',
+        addedBy: 'Tran Quoc Hieu',
       },
       {
         link: 'https://longlinkaaaaaaaaaaaa.COM/d213gd621y3hgdhF',
-        addedat: '20:30 - 17/06/2023',
-        addedby: 'Tran Quoc Hieu',
+        addedAt: 'Friday 30/06/2023 9:06:06 AM',
+        addedBy: 'Tran Quoc Hieu',
       },
     ];
     setListUser(list);
   }, []);
 
-  const formatDateTime = (time) => {
-    const clearFormat = (num) => (num > 9 ? `${num}` : `0${num}`);
-    return `${clearFormat(time.getHours())}:${clearFormat(time.getMinutes())} 
-      - ${clearFormat(time.getDate())}/${clearFormat(
-  time.getMonth() + 1,
-)}/${clearFormat(time.getFullYear())}`;
-  };
+  const formatDateTime = (time) => `${new Intl.DateTimeFormat('en-US', {
+    weekday: 'long',
+  }).format(time)} ${time.getDate()}/${
+    time.getMonth() < 9 ? `0${time.getMonth() + 1}` : time.getMonth()
+  }/${time.getFullYear()} ${time.toLocaleTimeString()}`;
 
-  const handleAdding = () => {
+  const handleAdd = () => {
     try {
       if (addingLink.length <= 0) throw Error('Please Enter the link');
-      listUser.forEach((el) => {
-        if (el.link === addingLink) throw Error(`This link has been added at ${el.addedat}`);
+      listUser.forEach((item) => {
+        if (item.link === addingLink) throw Error(`This link has been added at ${item.addedAt}`);
       });
       const current = new Date();
-      const newUser = {
+      const newUrl = {
         link: addingLink,
-        addedat: formatDateTime(current),
-        addedby: 'Tran Quoc Hieu',
+        addedAt: formatDateTime(current),
+        addedBy: 'Tran Quoc Hieu',
       };
-      setListUser((ls) => [...ls, newUser]);
+      setListUser((list) => [...list, newUrl]);
       setAddingLink('');
     } catch (error) {
       console.log(error);
@@ -129,7 +127,7 @@ export default function UrlBlacklist() {
     }
   };
 
-  const handleDatesearch = (e) => {
+  const handleDateSearch = (e) => {
     setDateInput(e.target.value);
     if (e.target.value === '') setDateSearch('');
     else {
@@ -139,25 +137,82 @@ export default function UrlBlacklist() {
     }
   };
 
-  const checkSearch = (el) => el.link.includes(searchText) && el.addedat.includes(dateSearch);
+  const checkSearch = (item) => item.link.includes(searchText) && item.addedAt.includes(dateSearch);
 
   const handleDelete = (item) => {
     const newList = listUser.filter((it) => it.link !== item.link);
     setListUser(newList);
-    setDeleteMode(false);
+    setIsDeleting(false);
   };
+
+  const tableList = () => (
+    <table>
+      <thead className="flex h-[60px] w-fit text-xl mb-[16px] items-center bg-white text-gdscBlue-300 border-b border-gdscGrey-500 rounded-t-[8px]">
+        <th className="w-[664px]">
+          <span>LONG LINK</span>
+        </th>
+        <th className="w-[300px]">
+          <span>ADDED AT</span>
+        </th>
+        <th className="w-[300px]">
+          <span>ADDED BY</span>
+        </th>
+        <th className="w-[190px]">
+          <span>ACTIONS</span>
+        </th>
+      </thead>
+      <tbody>
+        {listUser
+          .filter((el) => checkSearch(el))
+          .map((item) => (
+            <tr
+              className="mb-[16px] flex-row text-xl m-0 h-[60px] rounded-[8px] bg-white block"
+              key={item.link}
+            >
+              <th className="w-[664px] max-w-[664px] pl-[20px] py-[16px] text-left whitespace-nowrap overflow-hidden text-ellipsis font-normal">
+                {item.link}
+              </th>
+              <th className="w-[300px] text-center items-center whitespace-nowrap overflow-hidden text-ellipsis font-normal">
+                {item.addedAt}
+              </th>
+              <th className="w-[300px] text-center items-center whitespace-nowrap overflow-hidden text-ellipsis font-normal">
+                {item.addedBy}
+              </th>
+              <th className="w-[190px] font-normal items-center">
+                <button
+                  type="button"
+                  className="bg-gdscRed-100 p-[8px] rounded-[8px] cursor-pointer"
+                  // onClick={() => handleDelete(item)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setDeletingUrl(item);
+                    setIsDeleting(true);
+                  }}
+                >
+                  <img
+                    src={TrashIcon}
+                    alt="Delete"
+                    className="w-[24px] h-[24px] mr-auto ml-auto"
+                  />
+                </button>
+              </th>
+            </tr>
+          ))}
+      </tbody>
+    </table>
+  );
 
   return (
     <div
       className={`no-scrollbar text-base display-none ${
-        deleteMode ? 'overflow-hidden' : 'overflow-scroll'
+        isDeleting ? 'overflow-hidden' : 'overflow-scroll'
       }`}
     >
       <div className="modal absolute z-50">
         <div
           aria-hidden="true"
           className={`fixed z-20 inset-0 bg-black bg-opacity-50 flex justify-center items-center opacity-0 transition-all duration-300 ease-out pointer-events-none ${
-            deleteMode ? 'opacity-100 pointer-events-auto' : ''
+            isDeleting ? 'opacity-100 pointer-events-auto' : ''
           }`}
         >
           <div
@@ -172,11 +227,11 @@ export default function UrlBlacklist() {
               ARE YOU SURE?
             </span>
             <span className="text-base text-gdscGrey-800 text-center mt-7 md:mt-9">
-              Deleting link
+              The link will be removed from URL Blacklist
             </span>
             <div className="w-[260px] mt-3 flex justify-between">
-              <Button text="Cancel" onClick={() => setDeleteMode(false)} />
-              <Button text="Delete" onClick={() => handleDelete(deleteUrl)} />
+              <Button text="Cancel" onClick={() => setIsDeleting(false)} />
+              <Button text="Delete" onClick={() => handleDelete(deletingUrl)} />
             </div>
           </div>
         </div>
@@ -194,7 +249,7 @@ export default function UrlBlacklist() {
             className="p-[20px] w-[200px] mr-[20px] rounded-[8px] outline-none border-gdscGrey-300 border-[1px] border-solid focus:border-gdscBlue-300 focus:border-[1px] focus:border-solid"
             type="date"
             value={dateInput}
-            onChange={(e) => handleDatesearch(e)}
+            onChange={(e) => handleDateSearch(e)}
           />
           <input
             className="p-[20px] w-[500px] mr-[20px] rounded-[8px] outline-none border-gdscGrey-300 border-[1px] border-solid focus:border-gdscBlue-300 focus:border-[1px] focus:border-solid"
@@ -202,7 +257,7 @@ export default function UrlBlacklist() {
             value={addingLink}
             onChange={(e) => setAddingLink(e.target.value)}
           />
-          <button type="button" onClick={() => handleAdding()}>
+          <button type="button" onClick={() => handleAdd()}>
             <img
               src={AddingIcon}
               alt="adding"
@@ -216,66 +271,13 @@ export default function UrlBlacklist() {
         {' '}
         {listUser.filter((el) => checkSearch(el)).length}
       </div>
-      <table>
-        <thead className="flex h-[60px] w-fit text-xl mb-[16px] items-center bg-white text-gdscBlue-300 border-b border-gdscGrey-500 rounded-t-[8px]">
-          <th className="w-[664px]">
-            <span>LONG LINK</span>
-          </th>
-          <th className="w-[300px]">
-            <span>ADDED AT</span>
-          </th>
-          <th className="w-[300px]">
-            <span>ADDED BY</span>
-          </th>
-          <th className="w-[190px]">
-            <span>ACTIONS</span>
-          </th>
-        </thead>
-        <tbody>
-          {listUser
-            .filter((el) => checkSearch(el))
-            .map((item) => (
-              <tr
-                className="mb-[16px] flex-row text-xl m-0 h-[60px] rounded-[8px] bg-white block"
-                key={item.link}
-              >
-                <th className="w-[664px] max-w-[664px] p-[20px] text-left whitespace-nowrap overflow-hidden text-ellipsis font-normal">
-                  {item.link}
-                </th>
-                <th className="w-[300px] text-center items-center whitespace-nowrap overflow-hidden text-ellipsis font-normal">
-                  {item.addedat}
-                </th>
-                <th className="w-[300px] text-center items-center whitespace-nowrap overflow-hidden text-ellipsis font-normal">
-                  {item.addedby}
-                </th>
-                <th className="w-[190px] font-normal items-center">
-                  <button
-                    type="button"
-                    className="bg-gdscRed-100 p-[8px] rounded-[8px] cursor-pointer"
-                    // onClick={() => handleDelete(item)}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setDeleteUrl(item);
-                      setDeleteMode(true);
-                    }}
-                  >
-                    <img
-                      src={TrashIcon}
-                      alt="Delete"
-                      className="w-[24px] h-[24px] mr-auto ml-auto"
-                    />
-                  </button>
-                </th>
-              </tr>
-            ))}
-        </tbody>
-      </table>
+      {tableList()}
       <div className="flex items-center justify-center font-normal">
         <button type="button">
           <img src={LeftArrowIcon} alt="Previous" />
         </button>
         <ul className="inline-block">
-          {pageCount.map((item) => (
+          {pageArray.map((item) => (
             <li className="inline-block mx-[16px] cursor-pointer pt-[8px] text-center text-[20px] w-[36px] h-[36px] rounded-full hover:bg-gdscBlue-100">
               {item}
             </li>
