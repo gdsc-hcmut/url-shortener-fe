@@ -1,10 +1,28 @@
 import React, { useEffect, useState } from 'react';
 
 import Blacklist from 'components/Blacklist';
+import DeleteLinkSnackbar from 'components/SnackbarV2/DeleteLinkSnackbar';
 
 export default function UrlBlacklist() {
   const [listUrl, setListUser] = useState([]);
   const [pageArray] = useState([1, 2, 3, 4]);
+  const [showDeleteSnackbar, setShowDeleteSnackbar] = useState(false);
+
+  let TIMER;
+  const handleTimeout = () => {
+    TIMER = setTimeout(() => {
+      setShowDeleteSnackbar(false);
+    }, 3000);
+  };
+
+  useEffect(() => {
+    if (showDeleteSnackbar) {
+      handleTimeout();
+    }
+    return () => {
+      clearTimeout(TIMER);
+    };
+  }, [showDeleteSnackbar, TIMER]);
 
   useEffect(() => {
     const list = [
@@ -89,8 +107,10 @@ export default function UrlBlacklist() {
 
   const formatDateTime = (time) => `${new Intl.DateTimeFormat('en-US', {
     weekday: 'long',
-  }).format(time)} ${time.getDate()}/${
-    time.getMonth() < 9 ? `0${time.getMonth() + 1}` : time.getMonth()
+  }).format(time)} ${
+    time.getDate() < 9 ? `0${time.getDate()}` : time.getDate()
+  }/${
+    time.getMonth() < 9 ? `0${time.getMonth() + 1}` : `${time.getMonth() + 1}`
   }/${time.getFullYear()} ${time.toLocaleTimeString()}`;
 
   const handleAdd = (addingURL) => {
@@ -117,12 +137,17 @@ export default function UrlBlacklist() {
   };
 
   return (
-    <Blacklist
-      title="Url Blacklist"
-      listUser={listUrl}
-      handleAdd={handleAdd}
-      handleDelete={handleDelete}
-      pageList={pageArray}
-    />
+    <div>
+      <Blacklist
+        title="Url Blacklist"
+        listUser={listUrl}
+        handleAdd={handleAdd}
+        handleDelete={handleDelete}
+        pageList={pageArray}
+      />
+      {showDeleteSnackbar && (
+        <DeleteLinkSnackbar setShowSnackbar={setShowDeleteSnackbar} />
+      )}
+    </div>
   );
 }

@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 
-import { ReactComponent as DeleteIcon } from 'assets/icons/delete_icon_modal.svg';
 import TrashIcon from 'assets/icons/delete_icon_red.svg';
-import Button from 'components/DeleteModal/Button';
+import DeleteModal from 'components/DeleteModalV2';
+// import AddLinkSnackbar from 'components/SnackbarV2/AddLinkSnackbar';
 
 import AddingIcon from '../../assets/icons/add_user.svg';
 import LeftArrowIcon from '../../assets/icons/arrow_backward.svg';
@@ -22,6 +22,8 @@ export default function Blacklist({
   const [addingLink, setAddingLink] = useState('');
   const [deletingUrl, setDeletingUrl] = useState({});
   const [isDeleting, setIsDeleting] = useState(false);
+  // const [showAddingSnackbar, setShowAddingSnackbar] = useState(false);
+  // const [addingText, setAddingText] = useState('');
 
   const handleDateSearch = (e) => {
     setDateInput(e.target.value);
@@ -97,43 +99,13 @@ export default function Blacklist({
         isDeleting ? 'overflow-hidden' : 'overflow-scroll'
       }`}
     >
-      <div className="modal absolute z-50">
-        <div
-          aria-hidden="true"
-          className={`fixed z-20 inset-0 bg-black bg-opacity-50 flex justify-center items-center opacity-0 transition-all duration-300 ease-out pointer-events-none ${
-            isDeleting ? 'opacity-100 pointer-events-auto' : ''
-          }`}
-        >
-          <div
-            aria-hidden="true"
-            className="w-[320px] sm:w-[376px] h-[376px] md:w-[412px] px-[20px] sm:px-[58px] py-8 flex flex-col items-center border bg-white rounded"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <DeleteIcon />
-            <span className="text-2xl font-normal text-gdscRed-300 mt-7">
-              ARE YOU SURE?
-            </span>
-            <span className="text-base text-gdscGrey-800 text-center mt-7 md:mt-9">
-              The
-              {' '}
-              {title === 'Domain Blacklist' ? 'Domain' : 'Url'}
-              {' '}
-              will be
-              removed from Blacklist
-            </span>
-            <div className="w-[260px] mt-3 flex justify-between">
-              <Button text="Cancel" onClick={() => setIsDeleting(false)} />
-              <Button
-                text="Delete"
-                onClick={() => {
-                  handleDelete(deletingUrl);
-                  setIsDeleting(false);
-                }}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
+      <DeleteModal
+        title={title}
+        handleDelete={handleDelete}
+        deletingUrl={deletingUrl}
+        show={isDeleting}
+        setShow={setIsDeleting}
+      />
       <div className="rounded-[8px]">
         <h1 className="font-medium text-[32px] mb-[28px]">{title}</h1>
         <div className="flex h-[60px] mb-[20px]">
@@ -197,7 +169,13 @@ export default function Blacklist({
 
 Blacklist.propTypes = {
   title: PropTypes.string.isRequired,
-  listUser: PropTypes.arrayOf(PropTypes.array),
+  listUser: PropTypes.arrayOf(
+    PropTypes.shape({
+      link: PropTypes.string.isRequired,
+      addedAt: PropTypes.string.isRequired,
+      addedBy: PropTypes.string.isRequired,
+    }),
+  ),
   handleAdd: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired,
   pageList: PropTypes.arrayOf(PropTypes.number).isRequired,
