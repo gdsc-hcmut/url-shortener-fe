@@ -3,18 +3,17 @@ import React from 'react';
 
 import { ReactComponent as CloseIcon } from 'assets/icons/close_icon_snackbar.svg';
 import { ReactComponent as SuccessIcon } from 'assets/icons/success_icon.svg';
-import { ReactComponent as WarningIcon } from 'assets/icons/warning_icon.svg';
 
-export default function AddLinkSnackbar({ setShowSnackbar, text }) {
+export default function SuccessSnackbar({ setShowSnackbar, text }) {
   return (
     <div className="absolute bottom-4 right-4">
       <div className="animate-fadeinout relative w-[300px] sm:w-[376px] h-[92px] p-5 flex bg-white rounded items-center shadow-md border-t z-50">
-        {text === 'SUCCESS' ? <SuccessIcon /> : <WarningIcon />}
+        <SuccessIcon className="w-[48px] h-[48px]" />
         <div className="ml-[18px]">
           <p className="text-base font-semibold leading-5">
-            {text === 'SUCCESS'
-              ? 'LINK ADDED SUCCESSFULLY'
-              : 'LINK ADDED UNSUCCESSFUL'}
+            {text}
+            {' '}
+            SUCCESSFULLY
           </p>
         </div>
         <button
@@ -30,11 +29,11 @@ export default function AddLinkSnackbar({ setShowSnackbar, text }) {
   );
 }
 
-AddLinkSnackbar.propTypes = {
+SuccessSnackbar.propTypes = {
   setShowSnackbar: PropTypes.func.isRequired,
   text: PropTypes.string,
 };
 
-AddLinkSnackbar.defaultProps = {
+SuccessSnackbar.defaultProps = {
   text: '',
 };

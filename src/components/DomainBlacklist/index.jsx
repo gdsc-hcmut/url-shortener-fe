@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 
 import Blacklist from 'components/Blacklist';
-import AddLinkSnackbar from 'components/SnackbarV2/AddLinkSnackbar';
 import DeleteLinkSnackbar from 'components/SnackbarV2/DeleteLinkSnackbar';
+import SuccessSnackbar from 'components/SnackbarV2/SuccessSnackbar';
+import WarnSnackbar from 'components/SnackbarV2/WarnSnackbar';
 
 export default function DomainBlacklist() {
-  const [listDomain, setListDomain] = useState([]);
-  const [pageArray] = useState([1, 2, 3, 4]);
+  const [domainList, setDomainList] = useState([]);
   const [showDeleteSnackbar, setShowDeleteSnackbar] = useState(false);
   const [showAddSnackbar, setShowAddSnackbar] = useState(false);
   const [addStatus, setAddStatus] = useState('');
+  const [domainSearch, setDomainSearch] = useState('');
+  const [dateSearch, setDateSearch] = useState('');
 
   let TIMER_DELETE;
   let TIMER_ADD;
@@ -121,7 +123,7 @@ export default function DomainBlacklist() {
         addedBy: 'Tran Quoc Hieu',
       },
     ];
-    setListDomain(list);
+    setDomainList(list);
   }, []);
 
   const formatDateTime = (time) => `${new Intl.DateTimeFormat('en-US', {
@@ -132,51 +134,59 @@ export default function DomainBlacklist() {
     time.getMonth() < 9 ? `0${time.getMonth() + 1}` : `${time.getMonth() + 1}`
   }/${time.getFullYear()} ${time.toLocaleTimeString()}`;
 
-  const handleAdd = (addingDomain) => {
+  const onAdd = (domain) => {
     try {
-      if (addingDomain.length <= 0) throw Error('EMPTY_INPUT');
-      listDomain.forEach((item) => {
-        if (item.link === addingDomain) throw Error(`This link has been added at ${item.addedAt}`);
+      const addingDomain = domain.trim();
+      if (addingDomain.length <= 0) throw Error('EMPTY LINK');
+      domainList.forEach((item) => {
+        if (item.link === addingDomain) throw Error('LINK EXISTED');
       });
-      const current = new Date();
-      const newUrl = {
+      const currentTime = new Date();
+      const newDomain = {
         link: addingDomain,
-        addedAt: formatDateTime(current),
+        addedAt: formatDateTime(currentTime),
         addedBy: 'Tran Quoc Hieu',
       };
-      setListDomain((list) => [...list, newUrl]);
+      setDomainList((list) => [...list, newDomain]);
       setAddStatus('SUCCESS');
       setShowAddSnackbar(true);
     } catch (error) {
-      setAddStatus('ERROR');
+      setAddStatus(error.message);
       setShowAddSnackbar(true);
     }
   };
 
-  const handleDelete = (removedItem) => {
-    const newList = listDomain.filter((item) => item.link !== removedItem.link);
-    setListDomain(newList);
+  const onDelete = (removedItem) => {
+    const newList = domainList.filter((item) => item.link !== removedItem.link);
+    setDomainList(newList);
     setShowDeleteSnackbar(true);
   };
+
+  const checkSearch = (it) => it.link.includes(domainSearch) && it.addedAt.includes(dateSearch);
 
   return (
     <div className="no-scrollbar overflow-scroll">
       <Blacklist
         title="Domain Blacklist"
-        listUser={listDomain}
-        handleAdd={handleAdd}
-        handleDelete={handleDelete}
-        pageList={pageArray}
+        linkList={domainList.filter((item) => checkSearch(item))}
+        onAdd={onAdd}
+        onDelete={onDelete}
+        linkSearch={domainSearch}
+        setLinkSearch={setDomainSearch}
+        setDateSearch={setDateSearch}
       />
       {showDeleteSnackbar && (
         <DeleteLinkSnackbar setShowSnackbar={setShowDeleteSnackbar} />
       )}
-      {showAddSnackbar && (
-        <AddLinkSnackbar
-          setShowSnackbar={setShowAddSnackbar}
-          text={addStatus}
-        />
-      )}
+      {showAddSnackbar
+        && (addStatus === 'SUCCESS' ? (
+          <SuccessSnackbar
+            setShowSnackbar={setShowAddSnackbar}
+            text="DOMAIN ADDED"
+          />
+        ) : (
+          <WarnSnackbar setShowSnackbar={setShowAddSnackbar} text={addStatus} />
+        ))}
     </div>
   );
 }
