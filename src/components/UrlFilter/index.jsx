@@ -77,7 +77,7 @@ export default function UrlFilter() {
           className="h-[60px] w-[200px] text-base flex items-center justify-between px-[20px] mr-[26px] outline-none rounded-[8px] border bg-white border-gdscGrey-300 focus:border-gdscBlue-300"
           placeholder="dd/mm/yyyy"
         />
-        <div className="h-[60px] w-[272px] border border-gdscGrey-300 focus-within:border-gdscBlue-300 text-[16px] text-gdscGrey-800 rounded-[8px]">
+        <div className="h-[60px] w-[272px] bg-white border border-gdscGrey-300 focus-within:border-gdscBlue-300 text-[16px] text-gdscGrey-800 rounded-[8px]">
           <ListBox listOption={['All', 'More than 1000', 'More than 2000']} />
         </div>
       </div>
