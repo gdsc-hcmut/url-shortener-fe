@@ -180,10 +180,7 @@ export default function UrlBlacklist() {
       )}
       {showAddSnackbar
         && (addStatus === 'SUCCESS' ? (
-          <SuccessSnackbar
-            setShowSnackbar={setShowAddSnackbar}
-            text="URL ADDED"
-          />
+          <SuccessSnackbar setShowSnackbar={setShowAddSnackbar} text="ADDED" />
         ) : (
           <WarnSnackbar setShowSnackbar={setShowAddSnackbar} text={addStatus} />
         ))}

@@ -8,7 +8,7 @@ import Button from './Button';
 
 export default function DeleteModal({
   title,
-  handleDelete,
+  onDelete,
   deletingUrl,
   show,
   setShow,
@@ -43,7 +43,7 @@ export default function DeleteModal({
             <Button
               text="Delete"
               onClick={() => {
-                handleDelete(deletingUrl);
+                onDelete(deletingUrl);
                 setShow(false);
               }}
             />
@@ -56,7 +56,7 @@ export default function DeleteModal({
 
 DeleteModal.propTypes = {
   title: PropTypes.string.isRequired,
-  handleDelete: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
   deletingUrl: PropTypes.shape({
     link: PropTypes.string.isRequired,
     addedAt: PropTypes.string.isRequired,

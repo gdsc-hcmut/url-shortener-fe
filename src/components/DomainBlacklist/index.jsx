@@ -180,10 +180,7 @@ export default function DomainBlacklist() {
       )}
       {showAddSnackbar
         && (addStatus === 'SUCCESS' ? (
-          <SuccessSnackbar
-            setShowSnackbar={setShowAddSnackbar}
-            text="DOMAIN ADDED"
-          />
+          <SuccessSnackbar setShowSnackbar={setShowAddSnackbar} text="ADDED" />
         ) : (
           <WarnSnackbar setShowSnackbar={setShowAddSnackbar} text={addStatus} />
         ))}
