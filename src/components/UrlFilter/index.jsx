@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
 
-import ArrowDownIcon from 'assets/icons/arrow_down.svg';
 import LeftArrowIcon from 'assets/icons/left_arrow.svg';
 import RightArrowIcon from 'assets/icons/right_arrow.svg';
 import SearchIcon from 'assets/icons/search.svg';
+import ListBox from 'components/ListBox';
 
-import UrlShow from './UrlShow';
+import UrlRow from './UrlRow';
 // import SearchIcon from 'assets/icons/search.svg';
 
 export default function UrlFilter() {
-  const [search, setSearch] = useState('');
-  const [searchMode, setSearchMode] = useState('All');
-  const [searchHidden, setSearchHidden] = useState(true);
+  const [searchKeyword, setSearchKeyword] = useState('');
   const [modeAllUrl, setModeAllUrl] = useState(true);
   const [urls, setUrls] = useState([
     {
@@ -54,11 +52,6 @@ export default function UrlFilter() {
     setUrls(listUser);
   };
 
-  const changeSearchMode = (mode) => {
-    setSearchHidden(true);
-    setSearchMode(mode);
-  };
-
   return (
     <div className="relative pl-16 pt-8 overflow-y-scroll no-scrollbar-desktop">
       <h1 className="text-3xl font-medium mb-5">URL Filters</h1>
@@ -66,16 +59,16 @@ export default function UrlFilter() {
         <div className="h-[60px] w-[376px] text-base flex items-center justify-between pl-[20px] pr-[0px] mr-[26px] outline-none border bg-white border-gdscGrey-300 text-gdscGrey-700 rounded-[8px] focus-within:border-gdscBlue-300">
           <input
             className="outline-none bg-transparent"
-            value={search}
+            value={searchKeyword}
             type="text"
             placeholder="Search URL..."
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => setSearchKeyword(e.target.value)}
           />
           <div className="h-[60px] w-[60px] flex items-center justify-center cursor-pointer">
             <img
               src={SearchIcon}
               className="h-[18px] w-[18px]"
-              alt="search-icon"
+              alt="search icon"
             />
           </div>
         </div>
@@ -84,29 +77,9 @@ export default function UrlFilter() {
           className="h-[60px] w-[200px] text-base flex items-center justify-between px-[20px] mr-[26px] outline-none rounded-[8px] border bg-white border-gdscGrey-300 focus:border-gdscBlue-300"
           placeholder="dd/mm/yyyy"
         />
-        <button
-          type="button"
-          className={`h-[60px] w-[272px] relative text-[16px] text-gdscGrey-800 flex flex-row items-center justify-between px-[20px] rounded-[8px] border bg-white border-gdscGrey-300 focus-within:border-gdscBlue-300 ${
-            searchHidden ? 'overflow-hidden' : 'overflow-visible'
-          }`}
-          onClick={() => setSearchHidden(!searchHidden)}
-        >
-          <div>{searchMode}</div>
-          <img src={ArrowDownIcon} alt="arrow-down-icon" />
-          <div className="w-[272px] absolute bg-white flex flex-col text-center pt-[10px] z-2 left-0 top-[110%] rounded-[8px]">
-            {['All', 'More than 1000', 'More than 2000']
-              .filter((mode) => mode !== searchMode)
-              .map((mode) => (
-                <button
-                  type="button"
-                  className="flex items-center text-left pl-[20px] mb-[10px]"
-                  onClick={() => changeSearchMode(mode)}
-                >
-                  {mode}
-                </button>
-              ))}
-          </div>
-        </button>
+        <div className="h-[60px] w-[272px] border border-gdscGrey-300 focus-within:border-gdscBlue-300 text-[16px] text-gdscGrey-800 rounded-[8px]">
+          <ListBox listOption={['All', 'More than 1000', 'More than 2000']} />
+        </div>
       </div>
       <div className="w-[1436px] flex flex-row justify-between text-[20px]">
         <div className="flex flex-row items-center -mb-px">
@@ -162,7 +135,7 @@ export default function UrlFilter() {
         </div>
         <div className="flex aligns-center flex-col px-[8px]">
           {urls.map((url) => (
-            <UrlShow url={url} deleteUrl={deleteUrl} />
+            <UrlRow url={url} deleteUrl={deleteUrl} />
           ))}
           <div className="h-12 flex flex-row items-center justify-center p-2 my-2">
             <button
@@ -174,7 +147,7 @@ export default function UrlFilter() {
               <img
                 src={LeftArrowIcon}
                 className="h-5 w-5 fill-gdscBlue-300 opacity-80"
-                alt="left-arrow"
+                alt="left arrow icon"
               />
             </button>
             <button
@@ -242,7 +215,7 @@ export default function UrlFilter() {
                 src={RightArrowIcon}
                 className="h-5 w-5"
                 opacity="0.87"
-                alt="right-arrow"
+                alt="right arrow icon"
               />
             </button>
           </div>

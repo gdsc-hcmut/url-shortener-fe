@@ -15,6 +15,7 @@ import ForgotPasswordPage from 'pages/ForgotPasswordPage';
 import HomePage from 'pages/HomePage';
 import HomepageLogin from 'pages/HomepageLogin';
 import MyUrlPage from 'pages/MyUrlPage';
+import UrlV2Page from 'pages/MyUrlV2Page';
 import NotFoundPage from 'pages/NotFoundPage';
 import ResetPasswordPage from 'pages/ResetPasswordPage';
 import SignInMobilePage from 'pages/SignInMobilePage';
@@ -142,7 +143,8 @@ export default function App() {
           />
           <Route path="/error/not-found" element={<NotFoundPage />} />
           <Route path="/url-filter" element={<URLFilterPage />} />
-          <Route path="/url-filter/:id" element={<URLInformationPage />} />
+          <Route path="/users/:id" element={<URLInformationPage />} />
+          <Route path="/url-v2" element={<UrlV2Page />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </AnimatePresence>

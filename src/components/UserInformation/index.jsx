@@ -2,114 +2,46 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useNavigate } from 'react-router';
 
-import AccountCircle from 'assets/icons/account_circle_white.svg';
-import CloseIcon from 'assets/icons/close_icon_snackbar.svg';
+import AccountCircleIcon from 'assets/icons/account_circle_white.svg';
+import BackIcon from 'assets/icons/keyboard_arrow_left.svg';
 
 export default function UserInformation({ name }) {
   const navigate = useNavigate();
 
   return (
-    <div className="relative w-[1510px] h-[auto] ml-[28px] mt-[28px] p-[36px] bg-transparent">
+    <div className="relative w-[1510px] h-[auto] ml-[60px] mt-[36px]">
       <button
         type="button"
         onClick={() => navigate('/url-filter')}
-        className="absolute w-[40px] h-[40px] top-[20px] right-[20px] flex items-center justify-center bg-blue-200 rounded-[8px] cursor-pointer"
+        className="absolute top-0 left-0 w-[96px] h-[40px] flex items-center justify-between bg-[#D5E1F5] rounded-[8px] pl-[4px] pr-[20px] cursor-pointer"
       >
-        <img src={CloseIcon} className="w-[24px] h-[24px]" alt="close-icon" />
+        <img
+          src={BackIcon}
+          className="w-[24px] h-[24px] mr-[4px]"
+          alt="close-icon"
+        />
+        <span className="text-gdscBlue-300 text-[16px] font-normal">BACK</span>
       </button>
-      <div className="w-full h-[152px] flex items-center flex-row">
-        <div className="w-[152px] h-[152px] flex items-center justify-center mr-[47px] flex-row bg-gdscGrey-700 opacity-80 rounded-[8px]">
+      <div className="w-auto h-[120px] mt-[80px] flex items-center flex-row">
+        <div className="w-[120px] h-[120px] flex items-center justify-center mr-[40px] flex-row bg-gdscGrey-700 opacity-80 rounded-[8px]">
           <img
-            src={AccountCircle}
-            className="w-[146px] h-[146px] fill-white opacity-80"
-            alt="account_circle"
+            src={AccountCircleIcon}
+            className="w-[112px] h-[112px] fill-white opacity-80"
+            alt="account circle icon"
           />
         </div>
-        <div className="h-full flex flex-row items-end text-[16px]">
-          <div className="w-[240px] h-auto flex flex-col text-left font-normal mr-[48px]">
-            <div className="text-black mb-[16px]">Name</div>
-            <div className="w-full h-[60px] flex items-center px-[20px] bg-gdscGrey-300 border-0 rounded-[8px] text-gdscGrey-700 font-normal truncate">
-              {name}
-            </div>
-          </div>
-          <div className="w-[340px] h-auto flex flex-col text-left font-normal mr-[48px]">
-            <div className="text-black mb-[16px]">Email Address</div>
-            <div className="w-full h-[60px] flex items-center px-[20px] bg-gdscGrey-300 border-0 rounded-[8px] text-gdscGrey-700 font-normal truncate">
-              anguyenvan@gmail.com
-            </div>
-          </div>
-          <div className="w-[180px] h-auto flex flex-col text-left font-normal mr-[48px]">
-            <div className="text-black mb-[16px]">Birthday</div>
-            <div className="w-full h-[60px] flex items-center px-[20px] bg-gdscGrey-300 border-0 rounded-[8px] text-gdscGrey-700 font-normal truncate">
-              12/04/2016
-            </div>
-          </div>
-          <div className="w-[340px] h-auto flex flex-col text-left font-normal">
-            <div className="text-black mb-[16px]">Organization</div>
-            <div className="w-full h-[60px] flex items-center px-[20px] bg-gdscGrey-300 border-0 rounded-[8px] text-gdscGrey-700 font-normal truncate">
-              GDSC
-            </div>
-          </div>
+        <div className="h-full flex flex-col items-start">
+          <span className="text-[36px] font-medium mb-[16px] text-black">
+            {name}
+          </span>
+          <span className="text-[20px] font-normal mb-[10px] text-gdscGrey-800">
+            GDSC
+          </span>
+          <span className="text-[20px] font-normal text-gdscGrey-800">
+            fugaatklol@gmail.com
+          </span>
         </div>
       </div>
-      {/* <div className="flex text-center text-[32px] font-medium mt-[40px]">
-        {urlChoosing.link}
-      </div>
-      <div className="flex flex-row mt-[20px]">
-        <div className="w-[394px] h-[1302px] flex flex-col overflow-y-scroll mr-[16px] mt-[20px]">
-          {urlList.map((url) => (
-            <button
-              type="button"
-              onClick={() => setUrlChoosing(url)}
-              className={
-                urlChoosing.id === url.id
-                  ? 'w-[376px] h-[100px] flex flex-col items-left justify-center pl-[20px] py-[20px]
-              mb-[20px] bg-gdscBlue-50 border text-gdscBlue-300 border-gdscBlue-300 rounded-[8px]'
-              :
-'w-[376px] h-[100px] flex flex-col items-left pl-[20px] py-[20px] mb-[20px] bg-gdscGrey-100 border-0
- rounded-[8px] hover:bg-gdscBlue-50 hover:border hover:border-gdscBlue-300 hover:text-gdscBlue-300'
-              }
-            >
-              <div className="inline-block text-[20px] text-black font-medium">
-                {url.link}
-              </div>
-              <div className="inline-block text-[16px] text-gdscGrey-700 font-normal">
-                {url.shortLink}
-              </div>
-            </button>
-          ))}
-        </div>
-        <div className="w-[1036px] flex flex-col bg-transparent pt-[20px]">
-          <div className="h-auto w-full flex flex-row pr-[20px]">
-            <div className="inline-block w-auto h-auto mr-[20px]">
-              <ExpireTime expireTime="test 2" />
-            </div>
-            <div className="inline-block w-auto h-auto mr-[20px]">
-              <CreatedOn createOn="Test 1" />
-            </div>
-            <div className="inline-block w-auto h-auto mr-[20px]">
-              <TodayClick todayClick={56} />
-            </div>
-          </div>
-          <div className="h-auto w-full flex items-start mt-[20px]">
-            <TotalClick totalClick={95} />
-          </div>
-          <button
-            type="button"
-            className="p-2"
-            onClick={() => setUrlList([
-              ...urlList,
-              {
-                link: 'link1',
-                shortLink: 'text1',
-                id: `x1x2x3${urlList.length}`,
-              },
-            ])}
-          >
-            Adding
-          </button>
-        </div>
-      </div> */}
     </div>
   );
 }

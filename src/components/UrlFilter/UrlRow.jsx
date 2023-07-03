@@ -7,19 +7,19 @@ import GraphIcon from 'assets/icons/graph_icon.svg';
 import LimitDomainIcon from 'assets/icons/limit_domain_icon.svg';
 import MoreInfoIcon from 'assets/icons/more-info.svg';
 
-export default function UrlShow({ url, deleteUrl }) {
+export default function UrlRow({ url, deleteUrl }) {
   const navigate = useNavigate();
 
   return (
     <div
-      className=" h-14 w-full flex aligns-center flex-row border border-gray-100 mb-2 rounded-[8px] text-base hover:bg-gdscBlue-50 hover:text-gdscBlue-300"
+      className=" h-14 w-full flex aligns-center flex-row border-0 mb-2 rounded-[8px] text-base hover:bg-gdscBlue-50 hover:text-gdscBlue-300"
       key={url.id}
     >
       <div className="flex items-center justify-center w-[90px]">
         <img
           src={GraphIcon}
           className="w-7 h-7 mr-2 fill-gdscGreen-300"
-          alt="graph icon increase"
+          alt="graph increase icon"
         />
         <p className="text-gdscGreen-300">2</p>
       </div>
@@ -38,11 +38,11 @@ export default function UrlShow({ url, deleteUrl }) {
       <div className="flex items-center justify-center flex-row w-[148px]">
         <button
           type="button"
-          className="relative w-[24px] h-[24px] flex items-center justify-center cursor-pointer mr-4 bg-[#D5E1F5] rounded-[8px] overflow-hidden hover:overflow-visible"
+          className="relative w-[24px] h-[24px] flex items-center justify-center cursor-pointer mr-4 bg-[#D5E1F5] rounded-[8px] overflow-hidden hover:overflow-visible hover:bg-gdscBlue-100"
         >
           <img
             src={AddToBlackListIcon}
-            alt="add-to-blacklist"
+            alt="add to blacklist icon"
             className="w-[16px] h-[12px] fill-gdscBlue-300"
             opacity="0.87"
           />
@@ -53,11 +53,11 @@ export default function UrlShow({ url, deleteUrl }) {
         <button
           type="button"
           onClick={() => deleteUrl(url)}
-          className="relative w-[24px] h-[24px] flex items-center justify-center cursor-pointer mr-4 bg-[#D5E1F5] rounded-[8px] overflow-hidden hover:overflow-visible"
+          className="relative w-[24px] h-[24px] flex items-center justify-center cursor-pointer mr-4 bg-[#D5E1F5] rounded-[8px] overflow-hidden hover:overflow-visible hover:bg-gdscBlue-100"
         >
           <img
             src={LimitDomainIcon}
-            alt="limit-domain"
+            alt="limit domain icon"
             className="w-[14px] h-[14px] fill-gdscBlue-300"
             opacity="0.87"
           />
@@ -68,15 +68,15 @@ export default function UrlShow({ url, deleteUrl }) {
         <button
           type="button"
           onClick={() => {
-            navigate(`/url-filter/${url.id}`, {
+            navigate(`/users/${url.id}`, {
               state: { id: url.id, name: url.link },
             });
           }}
-          className="relative w-[24px] h-[24px] flex items-center justify-center cursor-pointer bg-[#D5E1F5] rounded-[8px] overflow-hidden hover:overflow-visible"
+          className="relative w-[24px] h-[24px] flex items-center justify-center cursor-pointer bg-[#D5E1F5] rounded-[8px] overflow-hidden hover:overflow-visible hover:bg-gdscBlue-100"
         >
           <img
             src={MoreInfoIcon}
-            alt="more-information"
+            alt="more information icon"
             className="w-[4px] h-[12px] fill-gdscBlue-300"
             opacity="0.87"
           />
@@ -89,7 +89,7 @@ export default function UrlShow({ url, deleteUrl }) {
   );
 }
 
-UrlShow.propTypes = {
-  url: PropTypes.objectOf(Object.PropTypes).isRequired,
+UrlRow.propTypes = {
+  url: PropTypes.objectOf(PropTypes.string, PropTypes.number).isRequired,
   deleteUrl: PropTypes.func.isRequired,
 };
