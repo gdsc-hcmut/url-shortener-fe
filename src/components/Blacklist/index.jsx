@@ -16,7 +16,6 @@ export default function Blacklist({
   setLinkSearch,
   setDateSearch,
 }) {
-  // const [textInput, setTextInput] = useState('');
   const [dateInput, setDateInput] = useState('');
   const [addingLink, setAddingLink] = useState('');
   const [deletingUrl, setDeletingUrl] = useState({});
@@ -45,16 +44,16 @@ export default function Blacklist({
   const table = () => (
     <table>
       <thead className="flex h-[60px] w-fit text-xl mb-[16px] items-center bg-white text-gdscBlue-300 border-b border-gdscGrey-500 rounded-t-[8px]">
-        <th className="w-[664px]">
+        <th className="3xl:w-[664px] 3xl:max-w-[664px] w-[600px] max-w-[600px]">
           <span>{title === 'Domain Blacklist' ? 'DOMAIN' : 'LONG LINK'}</span>
         </th>
-        <th className="w-[300px]">
+        <th className="3xl:w-[340px] 3xl:max-w-[340px] w-[220px] max-w-[220px]">
           <span>ADDED AT</span>
         </th>
-        <th className="w-[300px]">
+        <th className="3xl:w-[300px] 3xl:max-w-[300px] w-[200px] max-w-[200px]">
           <span>ADDED BY</span>
         </th>
-        <th className="w-[190px]">
+        <th className="w-[160px] max-w-[160px]">
           <span>ACTIONS</span>
         </th>
       </thead>
@@ -64,16 +63,16 @@ export default function Blacklist({
             className="mb-[16px] flex-row text-xl m-0 h-[60px] rounded-[8px] bg-white block"
             key={item.link}
           >
-            <th className="w-[664px] max-w-[664px] pl-[20px] py-[16px] text-left whitespace-nowrap overflow-hidden text-ellipsis font-normal">
+            <th className="3xl:w-[664px] 3xl:max-w-[664px] w-[600px] max-w-[600px] pl-[20px] py-[16px] text-left truncate font-normal">
               {item.link}
             </th>
-            <th className="w-[300px] text-center items-center whitespace-nowrap overflow-hidden text-ellipsis font-normal">
+            <th className="3xl:w-[340px] 3xl:max-w-[340px] w-[220px] max-w-[220px] text-center items-center truncate font-normal">
               {item.addedAt}
             </th>
-            <th className="w-[300px] text-center items-center whitespace-nowrap overflow-hidden text-ellipsis font-normal">
+            <th className="3xl:w-[300px] 3xl:max-w-[300px] w-[200px] max-w-[200px] text-center items-center truncate font-normal">
               {item.addedBy}
             </th>
-            <th className="w-[190px] font-normal items-center">
+            <th className="w-[160px] max-w-[160px] font-normal items-center">
               <button
                 type="button"
                 className="bg-gdscRed-100 p-[8px] rounded-[8px] cursor-pointer"
@@ -113,7 +112,7 @@ export default function Blacklist({
         <h1 className="font-medium text-[32px] mb-[28px]">{title}</h1>
         <div className="flex h-[60px] mb-[20px]">
           <input
-            className="p-[20px] w-[500px] mr-[20px] rounded-[8px] outline-none border-gdscGrey-300 border-[1px] border-solid focus:border-gdscBlue-300 focus:border-[1px] focus:border-solid"
+            className="p-[20px] 3xl:w-[500px] w-[400px] mr-[20px] rounded-[8px] outline-none border-gdscGrey-300 border-[1px] border-solid focus:border-gdscBlue-300 focus:border-[1px] focus:border-solid"
             placeholder="Search URL..."
             value={linkSearch}
             onChange={(e) => {
@@ -127,7 +126,7 @@ export default function Blacklist({
             onChange={(e) => handleDateSearch(e)}
           />
           <input
-            className="p-[20px] w-[500px] mr-[20px] rounded-[8px] outline-none border-gdscGrey-300 border-[1px] border-solid focus:border-gdscBlue-300 focus:border-[1px] focus:border-solid"
+            className="p-[20px] 3xl:w-[500px] w-[400px] mr-[20px] rounded-[8px] outline-none border-gdscGrey-300 border-[1px] border-solid focus:border-gdscBlue-300 focus:border-[1px] focus:border-solid"
             placeholder="Add URL..."
             value={addingLink}
             onChange={(e) => setAddingLink(e.target.value)}
@@ -148,9 +147,7 @@ export default function Blacklist({
         </div>
       </div>
       <div className="text-base text-gdscGrey-700 mb-[16px]">
-        Total results:
-        {' '}
-        {linkList.length}
+        {`Total results: ${linkList.length}`}
       </div>
       {table()}
       <div className="flex items-center justify-center font-normal">

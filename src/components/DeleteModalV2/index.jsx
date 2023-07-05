@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import { ReactComponent as DeleteIcon } from 'assets/icons/delete_icon_modal.svg';
-// import DeleteLinkSnackbar from 'components/SnackbarV2/DeleteLinkSnackbar';
 
 import Button from './Button';
 
@@ -31,12 +30,9 @@ export default function DeleteModal({
             ARE YOU SURE?
           </span>
           <span className="text-base text-gdscGrey-800 text-center mt-7 md:mt-9">
-            The
-            {' '}
-            {title === 'Domain Blacklist' ? 'Domain' : 'Url'}
-            {' '}
-            will be
-            removed from Blacklist
+            {`The ${
+              title === 'Domain Blacklist' ? 'domain' : 'url'
+            } will be removed from blacklist`}
           </span>
           <div className="w-[260px] mt-3 flex justify-between">
             <Button text="Cancel" onClick={() => setShow(false)} />
@@ -62,7 +58,6 @@ DeleteModal.propTypes = {
     addedAt: PropTypes.string.isRequired,
     addedBy: PropTypes.string.isRequired,
   }).isRequired,
-  // setShowSnackbar: PropTypes.func.isRequired,
   show: PropTypes.bool.isRequired,
   setShow: PropTypes.func.isRequired,
 };
