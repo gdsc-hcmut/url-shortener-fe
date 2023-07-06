@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import AddingIcon from 'assets/icons/add_user.svg';
 import LeftArrowIcon from 'assets/icons/arrow_backward.svg';
 import RightArrowIcon from 'assets/icons/arrow_forward.svg';
-import TrashIcon from 'assets/icons/delete_icon_red.svg';
+import { ReactComponent as DeleteIcon } from 'assets/icons/delete_icon_red.svg';
 import DeleteModal from 'components/DeleteModalV2';
 
 export default function Blacklist({
@@ -38,6 +38,13 @@ export default function Blacklist({
       const formatingSearch = e.target.value.split('-');
       const formatingDate = `${formatingSearch[2]}/${formatingSearch[1]}/${formatingSearch[0]}`;
       setDateSearch(formatingDate);
+    }
+  };
+
+  const handleEnterKey = (e) => {
+    if (e.key === 'Enter') {
+      onAdd(addingLink);
+      setAddingLink('');
     }
   };
 
@@ -75,18 +82,14 @@ export default function Blacklist({
             <th className="w-[160px] max-w-[160px] font-normal items-center">
               <button
                 type="button"
-                className="bg-gdscRed-100 p-[8px] rounded-[8px] cursor-pointer"
+                className="p-[8px] cursor-pointer"
                 onClick={(e) => {
                   e.stopPropagation();
                   setDeletingUrl(item);
                   setIsDeleting(true);
                 }}
               >
-                <img
-                  src={TrashIcon}
-                  alt="Delete"
-                  className="w-[24px] h-[24px] mr-auto ml-auto"
-                />
+                <DeleteIcon />
               </button>
             </th>
           </tr>
@@ -130,6 +133,7 @@ export default function Blacklist({
             placeholder="Add URL..."
             value={addingLink}
             onChange={(e) => setAddingLink(e.target.value)}
+            onKeyDown={(e) => handleEnterKey(e)}
           />
           <button
             type="button"
@@ -138,11 +142,7 @@ export default function Blacklist({
               setAddingLink('');
             }}
           >
-            <img
-              src={AddingIcon}
-              alt="Adding"
-              className="cursor-pointer w-[36px] h-[36px]"
-            />
+            <img src={AddingIcon} alt="Adding" className="cursor-pointer" />
           </button>
         </div>
       </div>

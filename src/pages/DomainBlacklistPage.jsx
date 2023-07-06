@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion';
 import React, { useState } from 'react';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import transitionAnimation from 'animations';
 import { ReactComponent as MenuIcon } from 'assets/icons/menu.svg';
@@ -37,6 +39,7 @@ export default function DomainBlacklistPage() {
         >
           <DomainBlacklist />
         </motion.div>
+        <ToastContainer />
       </div>
     </div>
   );

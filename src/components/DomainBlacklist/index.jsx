@@ -1,50 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 import Blacklist from 'components/Blacklist';
-import DeleteLinkSnackbar from 'components/SnackbarV2/DeleteLinkSnackbar';
-import SuccessSnackbar from 'components/SnackbarV2/SuccessSnackbar';
-import WarnSnackbar from 'components/SnackbarV2/WarnSnackbar';
 import formatDateTime from 'utils/formatDateTime';
 
 export default function DomainBlacklist() {
   const [domainList, setDomainList] = useState([]);
-  const [showDeleteSnackbar, setShowDeleteSnackbar] = useState(false);
-  const [showAddSnackbar, setShowAddSnackbar] = useState(false);
-  const [addStatus, setAddStatus] = useState('');
   const [domainSearch, setDomainSearch] = useState('');
   const [dateSearch, setDateSearch] = useState('');
-
-  let TIMER_DELETE;
-  let TIMER_ADD;
-  const handleDeleteTimeout = () => {
-    TIMER_DELETE = setTimeout(() => {
-      setShowDeleteSnackbar(false);
-    }, 3000);
-  };
-
-  useEffect(() => {
-    if (showDeleteSnackbar) {
-      handleDeleteTimeout();
-    }
-    return () => {
-      clearTimeout(TIMER_DELETE);
-    };
-  }, [showDeleteSnackbar, TIMER_DELETE]);
-
-  const handleAddTimeout = () => {
-    TIMER_ADD = setTimeout(() => {
-      setShowAddSnackbar(false);
-    }, 3000);
-  };
-
-  useEffect(() => {
-    if (showAddSnackbar) {
-      handleAddTimeout();
-    }
-    return () => {
-      clearTimeout(TIMER_ADD);
-    };
-  }, [showAddSnackbar, TIMER_ADD]);
 
   useEffect(() => {
     const list = [
@@ -132,7 +95,7 @@ export default function DomainBlacklist() {
       const addingDomain = domain.trim();
       if (addingDomain.length <= 0) throw Error('EMPTY LINK');
       domainList.forEach((item) => {
-        if (item.link === addingDomain) throw Error('LINK EXISTED');
+        if (item.link === addingDomain) throw Error('DOMAIN EXISTED');
       });
       const currentTime = new Date();
       const newDomain = {
@@ -141,18 +104,22 @@ export default function DomainBlacklist() {
         addedBy: 'Tran Quoc Hieu',
       };
       setDomainList((list) => [...list, newDomain]);
-      setAddStatus('SUCCESS');
-      setShowAddSnackbar(true);
+      toast.success('DOMAIN CREATED', {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
     } catch (error) {
-      setAddStatus(error.message);
-      setShowAddSnackbar(true);
+      toast.error(error.message, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
     }
   };
 
   const onDelete = (removedItem) => {
     const newList = domainList.filter((item) => item.link !== removedItem.link);
     setDomainList(newList);
-    setShowDeleteSnackbar(true);
+    toast.success('DOMAIN DELETED', {
+      position: toast.POSITION.BOTTOM_RIGHT,
+    });
   };
 
   const checkSearch = (it) => it.link.includes(domainSearch) && it.addedAt.includes(dateSearch);
@@ -168,15 +135,6 @@ export default function DomainBlacklist() {
         setLinkSearch={setDomainSearch}
         setDateSearch={setDateSearch}
       />
-      {showDeleteSnackbar && (
-        <DeleteLinkSnackbar setShowSnackbar={setShowDeleteSnackbar} />
-      )}
-      {showAddSnackbar
-        && (addStatus === 'SUCCESS' ? (
-          <SuccessSnackbar setShowSnackbar={setShowAddSnackbar} text="ADDED" />
-        ) : (
-          <WarnSnackbar setShowSnackbar={setShowAddSnackbar} text={addStatus} />
-        ))}
     </div>
   );
 }
