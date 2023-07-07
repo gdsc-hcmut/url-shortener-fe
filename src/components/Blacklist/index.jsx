@@ -1,9 +1,14 @@
+import { LocalizationProvider, MobileDatePicker } from '@mui/lab';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import { TextField } from '@mui/material';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 
 import { ReactComponent as AddingIcon } from 'assets/icons/add_user.svg';
 import LeftArrowIcon from 'assets/icons/arrow_backward.svg';
 import RightArrowIcon from 'assets/icons/arrow_forward.svg';
+import { ReactComponent as CalendarIcon } from 'assets/icons/calender.svg';
+import { ReactComponent as CloseIcon } from 'assets/icons/close_icon_snackbar.svg';
 import { ReactComponent as DeleteIcon } from 'assets/icons/delete_icon_red.svg';
 import DeleteModal from 'components/DeleteModalV2';
 
@@ -16,11 +21,13 @@ export default function Blacklist({
   setLinkSearch,
   setDateSearch,
 }) {
-  const [dateInput, setDateInput] = useState('');
+  const [dateInput, setDateInput] = useState(new Date());
   const [addingLink, setAddingLink] = useState('');
   const [deletingUrl, setDeletingUrl] = useState({});
   const [isDeleting, setIsDeleting] = useState(false);
   const [pageList, setPageList] = useState([]);
+  const [datePicker, setDatePicker] = useState(false);
+  const [dateSearchMode, setDateSearchMode] = useState(false);
 
   useEffect(() => {
     const pageArray = [1];
@@ -31,15 +38,22 @@ export default function Blacklist({
     setPageList(pageArray);
   }, [linkList]);
 
-  const handleDateSearch = (e) => {
-    setDateInput(e.target.value);
-    if (e.target.value === '') setDateSearch('');
-    else {
-      const formatingSearch = e.target.value.split('-');
-      const formatingDate = `${formatingSearch[2]}/${formatingSearch[1]}/${formatingSearch[0]}`;
+  useEffect(() => {
+    if (dateSearchMode) {
+      const formatingDate = `${
+        dateInput.getDate() < 10
+          ? `0${dateInput.getDate()}`
+          : dateInput.getDate()
+      }/${
+        dateInput.getMonth() < 9
+          ? `0${dateInput.getMonth() + 1}`
+          : `${dateInput.getMonth() + 1}`
+      }/${dateInput.getFullYear()}`;
       setDateSearch(formatingDate);
+    } else {
+      setDateSearch('');
     }
-  };
+  }, [dateSearchMode, dateInput]);
 
   const handleEnterKey = (e) => {
     if (e.key === 'Enter') {
@@ -116,24 +130,65 @@ export default function Blacklist({
         <div className="xl:flex grid grid-rows-2 gap-[20px] mb-[20px]">
           <div className="flex h-[60px]">
             <input
-              className="p-[20px] 3xl:w-[500px] 2xl:w-[400px] xl:w-[300px] w-[400px] mr-[20px] rounded-[8px] outline-none border-gdscGrey-300 border-[1px] border-solid focus:border-gdscBlue-300 focus:border-[1px] focus:border-solid"
-              placeholder="Search URL..."
+              className="3xl:w-[500px] 2xl:w-[400px] xl:w-[300px] w-[400px] p-[20px] mr-[20px] rounded-[8px] outline-none border-gdscGrey-300 border-[1px] border-solid focus:border-gdscBlue-300 focus:border-[1px] focus:border-solid"
+              placeholder={`Search ${
+                title === 'Domain Blacklist' ? 'Domain' : 'Url'
+              }...`}
               value={linkSearch}
               onChange={(e) => {
                 setLinkSearch(e.target.value.trim());
               }}
             />
-            <input
-              className="p-[20px] w-[200px] rounded-[8px] outline-none border-gdscGrey-300 border-[1px] border-solid focus:border-gdscBlue-300 focus:border-[1px] focus:border-solid"
-              type="date"
-              value={dateInput}
-              onChange={(e) => handleDateSearch(e)}
-            />
+            {dateSearchMode ? (
+              <div
+                className="flex px-[20px] items-center w-[200px] rounded-[8px] outline-none border-gdscBlue-300 border-[1px] border-solid
+              bg-white font-normal justify-between"
+              >
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <MobileDatePicker
+                    allowSameDateSelection
+                    onClick={(e) => e.stopPropagation()}
+                    onAccept={() => setDatePicker(false)}
+                    open={datePicker}
+                    value={dateInput}
+                    onChange={(newTime) => setDateInput(newTime)}
+                    renderInput={(params) => (
+                      <TextField
+                        id="standard-basic"
+                        variant="standard"
+                        {...params}
+                        InputProps={{ disableUnderline: true }}
+                      />
+                    )}
+                  />
+                </LocalizationProvider>
+                <CloseIcon
+                  className="cursor-pointer"
+                  onClick={() => setDateSearchMode(false)}
+                />
+              </div>
+            ) : (
+              <div
+                className="flex px-[20px] items-center w-[200px] rounded-[8px] outline-none border-gdscGrey-300 border-[1px] border-solid
+                  bg-white text-gdscGrey-500 font-normal justify-between"
+              >
+                <span>dd/mm/yyyy</span>
+                <CalendarIcon
+                  onClick={() => {
+                    setDateSearchMode(true);
+                    setDatePicker(true);
+                  }}
+                  className="cursor-pointer"
+                />
+              </div>
+            )}
           </div>
           <div className="flex h-[60px]">
             <input
               className="p-[20px] 3xl:w-[500px] 2xl:w-[400px] xl:w-[300px] w-[400px] mr-[20px] rounded-[8px] outline-none border-gdscGrey-300 border-[1px] border-solid focus:border-gdscBlue-300 focus:border-[1px] focus:border-solid"
-              placeholder="Add URL..."
+              placeholder={`Add ${
+                title === 'Domain Blacklist' ? 'Domain' : 'Url'
+              }...`}
               value={addingLink}
               onChange={(e) => setAddingLink(e.target.value)}
               onKeyDown={(e) => handleEnterKey(e)}
