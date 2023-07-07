@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 
-import AddingIcon from 'assets/icons/add_user.svg';
+import { ReactComponent as AddingIcon } from 'assets/icons/add_user.svg';
 import LeftArrowIcon from 'assets/icons/arrow_backward.svg';
 import RightArrowIcon from 'assets/icons/arrow_forward.svg';
 import { ReactComponent as DeleteIcon } from 'assets/icons/delete_icon_red.svg';
@@ -51,13 +51,13 @@ export default function Blacklist({
   const table = () => (
     <table>
       <thead className="flex h-[60px] w-fit text-xl mb-[16px] items-center bg-white text-gdscBlue-300 border-b border-gdscGrey-500 rounded-t-[8px]">
-        <th className="3xl:w-[664px] 3xl:max-w-[664px] w-[600px] max-w-[600px]">
+        <th className="3xl:w-[664px] 3xl:max-w-[664px] xl:w-[600px] xl:max-w-[600px] w-[500px] max-w-[500px]">
           <span>{title === 'Domain Blacklist' ? 'DOMAIN' : 'LONG LINK'}</span>
         </th>
-        <th className="3xl:w-[340px] 3xl:max-w-[340px] w-[220px] max-w-[220px]">
+        <th className="3xl:w-[340px] 3xl:max-w-[340px] xl:w-[220px] xl:max-w-[220px] w-0 max-w-0 truncate">
           <span>ADDED AT</span>
         </th>
-        <th className="3xl:w-[300px] 3xl:max-w-[300px] w-[200px] max-w-[200px]">
+        <th className="3xl:w-[300px] 3xl:max-w-[300px] 2xl:w-[200px] 2xl:max-w-[200px] w-0 max-w-0 truncate">
           <span>ADDED BY</span>
         </th>
         <th className="w-[160px] max-w-[160px]">
@@ -70,13 +70,13 @@ export default function Blacklist({
             className="mb-[16px] flex-row text-xl m-0 h-[60px] rounded-[8px] bg-white block"
             key={item.link}
           >
-            <th className="3xl:w-[664px] 3xl:max-w-[664px] w-[600px] max-w-[600px] pl-[20px] py-[16px] text-left truncate font-normal">
+            <th className="3xl:w-[664px] 3xl:max-w-[664px] xl:w-[600px] xl:max-w-[600px] w-[500px] max-w-[500px]  pl-[20px] py-[16px] text-left truncate font-normal">
               {item.link}
             </th>
-            <th className="3xl:w-[340px] 3xl:max-w-[340px] w-[220px] max-w-[220px] text-center items-center truncate font-normal">
+            <th className="3xl:w-[340px] 3xl:max-w-[340px] xl:w-[220px] xl:max-w-[220px] w-0 max-w-0 text-center items-center truncate font-normal">
               {item.addedAt}
             </th>
-            <th className="3xl:w-[300px] 3xl:max-w-[300px] w-[200px] max-w-[200px] text-center items-center truncate font-normal">
+            <th className="3xl:w-[300px] 3xl:max-w-[300px] 2xl:w-[200px] 2xl:max-w-[200px] w-0 max-w-0 text-center items-center truncate font-normal">
               {item.addedBy}
             </th>
             <th className="w-[160px] max-w-[160px] font-normal items-center">
@@ -113,37 +113,41 @@ export default function Blacklist({
       />
       <div className="rounded-[8px]">
         <h1 className="font-medium text-[32px] mb-[28px]">{title}</h1>
-        <div className="flex h-[60px] mb-[20px]">
-          <input
-            className="p-[20px] 3xl:w-[500px] w-[400px] mr-[20px] rounded-[8px] outline-none border-gdscGrey-300 border-[1px] border-solid focus:border-gdscBlue-300 focus:border-[1px] focus:border-solid"
-            placeholder="Search URL..."
-            value={linkSearch}
-            onChange={(e) => {
-              setLinkSearch(e.target.value.trim());
-            }}
-          />
-          <input
-            className="p-[20px] w-[200px] mr-[20px] rounded-[8px] outline-none border-gdscGrey-300 border-[1px] border-solid focus:border-gdscBlue-300 focus:border-[1px] focus:border-solid"
-            type="date"
-            value={dateInput}
-            onChange={(e) => handleDateSearch(e)}
-          />
-          <input
-            className="p-[20px] 3xl:w-[500px] w-[400px] mr-[20px] rounded-[8px] outline-none border-gdscGrey-300 border-[1px] border-solid focus:border-gdscBlue-300 focus:border-[1px] focus:border-solid"
-            placeholder="Add URL..."
-            value={addingLink}
-            onChange={(e) => setAddingLink(e.target.value)}
-            onKeyDown={(e) => handleEnterKey(e)}
-          />
-          <button
-            type="button"
-            onClick={() => {
-              onAdd(addingLink);
-              setAddingLink('');
-            }}
-          >
-            <img src={AddingIcon} alt="Adding" className="cursor-pointer" />
-          </button>
+        <div className="xl:flex grid grid-rows-2 gap-[20px] mb-[20px]">
+          <div className="flex h-[60px]">
+            <input
+              className="p-[20px] 3xl:w-[500px] 2xl:w-[400px] xl:w-[300px] w-[400px] mr-[20px] rounded-[8px] outline-none border-gdscGrey-300 border-[1px] border-solid focus:border-gdscBlue-300 focus:border-[1px] focus:border-solid"
+              placeholder="Search URL..."
+              value={linkSearch}
+              onChange={(e) => {
+                setLinkSearch(e.target.value.trim());
+              }}
+            />
+            <input
+              className="p-[20px] w-[200px] rounded-[8px] outline-none border-gdscGrey-300 border-[1px] border-solid focus:border-gdscBlue-300 focus:border-[1px] focus:border-solid"
+              type="date"
+              value={dateInput}
+              onChange={(e) => handleDateSearch(e)}
+            />
+          </div>
+          <div className="flex h-[60px]">
+            <input
+              className="p-[20px] 3xl:w-[500px] 2xl:w-[400px] xl:w-[300px] w-[400px] mr-[20px] rounded-[8px] outline-none border-gdscGrey-300 border-[1px] border-solid focus:border-gdscBlue-300 focus:border-[1px] focus:border-solid"
+              placeholder="Add URL..."
+              value={addingLink}
+              onChange={(e) => setAddingLink(e.target.value)}
+              onKeyDown={(e) => handleEnterKey(e)}
+            />
+            <button
+              type="button"
+              onClick={() => {
+                onAdd(addingLink);
+                setAddingLink('');
+              }}
+            >
+              <AddingIcon className="cursor-pointer" />
+            </button>
+          </div>
         </div>
       </div>
       <div className="text-base text-gdscGrey-700 mb-[16px]">
