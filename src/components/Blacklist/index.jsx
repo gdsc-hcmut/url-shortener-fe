@@ -2,7 +2,7 @@ import { LocalizationProvider, MobileDatePicker } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import { TextField } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { ReactComponent as AddingIcon } from 'assets/icons/add_user.svg';
 import LeftArrowIcon from 'assets/icons/arrow_backward.svg';
@@ -17,17 +17,19 @@ export default function Blacklist({
   linkList,
   onDelete,
   onAdd,
-  linkSearch,
+  // linkSearch,
   setLinkSearch,
   setDateSearch,
 }) {
-  const [dateInput, setDateInput] = useState(new Date());
+  const [linkInput, setLinkInput] = useState('');
+  const [dateInput, setDateInput] = useState(null);
   const [addingLink, setAddingLink] = useState('');
   const [deletingUrl, setDeletingUrl] = useState({});
   const [isDeleting, setIsDeleting] = useState(false);
   const [pageList, setPageList] = useState([]);
   const [datePicker, setDatePicker] = useState(false);
   const [dateSearchMode, setDateSearchMode] = useState(false);
+  const typingTimeoutRef = useRef(null);
 
   useEffect(() => {
     const pageArray = [1];
@@ -40,6 +42,10 @@ export default function Blacklist({
 
   useEffect(() => {
     if (dateSearchMode) {
+      if (dateInput === null) {
+        setDateSearch('');
+        return;
+      }
       const formatingDate = `${
         dateInput.getDate() < 10
           ? `0${dateInput.getDate()}`
@@ -60,6 +66,18 @@ export default function Blacklist({
       onAdd(addingLink);
       setAddingLink('');
     }
+  };
+
+  const handleLinkSearch = (e) => {
+    setLinkInput(e.target.value);
+
+    if (typingTimeoutRef.current) {
+      clearTimeout(typingTimeoutRef.current);
+    }
+
+    typingTimeoutRef.current = setTimeout(() => {
+      setLinkSearch(e.target.value);
+    }, 300);
   };
 
   const table = () => (
@@ -134,10 +152,8 @@ export default function Blacklist({
               placeholder={`Search ${
                 title === 'Domain Blacklist' ? 'Domain' : 'Url'
               }...`}
-              value={linkSearch}
-              onChange={(e) => {
-                setLinkSearch(e.target.value.trim());
-              }}
+              value={linkInput}
+              onChange={(e) => handleLinkSearch(e)}
             />
             {dateSearchMode ? (
               <div
@@ -147,7 +163,7 @@ export default function Blacklist({
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <MobileDatePicker
                     allowSameDateSelection
-                    onClick={(e) => e.stopPropagation()}
+                    onClick={() => setDatePicker(true)}
                     onAccept={() => setDatePicker(false)}
                     open={datePicker}
                     value={dateInput}
@@ -240,7 +256,7 @@ Blacklist.propTypes = {
   onAdd: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   setDateSearch: PropTypes.func.isRequired,
-  linkSearch: PropTypes.string.isRequired,
+  // linkSearch: PropTypes.string.isRequired,
   setLinkSearch: PropTypes.func.isRequired,
 };
 

@@ -174,7 +174,7 @@ export default function UrlBlacklist() {
         linkList={urlList.filter((item) => checkSearch(item))}
         onAdd={onAdd}
         onDelete={onDelete}
-        linkSearch={urlSearch}
+        // linkSearch={urlSearch}
         setLinkSearch={setUrlSearch}
         setDateSearch={setDateSearch}
       />
