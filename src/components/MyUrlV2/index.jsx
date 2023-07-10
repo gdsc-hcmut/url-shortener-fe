@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import ArrowDownIcon from 'assets/icons/arrow_down.svg';
 import { ReactComponent as CopyIcon } from 'assets/icons/copy_icon.svg';
 import { ReactComponent as DeleteIcon } from 'assets/icons/delete_icon.svg';
 import { ReactComponent as EditIcon } from 'assets/icons/edit_icon.svg';
@@ -15,10 +16,11 @@ import {
   LATEST, OLDEST, LEAST_CLICKED, MOST_CLICKED,
 } from 'constant/options';
 
+const options = [LATEST, OLDEST, LEAST_CLICKED, MOST_CLICKED];
 const { REACT_APP_SHORTEN_BASE_URL } = process.env;
 
-export default function UrlV2({
-  pageName, getUrlList, searchUrl, id,
+export default function MyUrlV2({
+  pageName, fetchUrlList, searchUrl, id,
 }) {
   const [search, setSearch] = useState('');
   const [searchList, setSearchList] = useState([]);
@@ -36,16 +38,17 @@ export default function UrlV2({
     {
       longUrl: 'http://localhost:3000/url-v2',
       slug: 'shortlink1.com',
-      id: '1',
+      id: '2',
     },
   ]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   let urlDomain;
 
-  const [isCopySuss, setIsCopySuss] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
+  const [isShowCopyModal, setIsShowCopyModal] = useState(false);
+  const [isShowEditModal, setIsShowEditModal] = useState(false);
+  const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
+  const [isShowOption, setIsShowOption] = useState(false);
 
   const handleScroll = (e) => {
     const { scrollTop, clientHeight, scrollHeight } = e.currentTarget;
@@ -56,7 +59,7 @@ export default function UrlV2({
 
   useEffect(() => {
     const mobileScrollDiv = document.querySelector('#MyUrlPage');
-    getUrlList(page, option).catch(() => setLoading(false));
+    fetchUrlList(page, option).catch(() => setLoading(false));
     if (mobileScrollDiv.getAttribute('scroll') !== true) {
       mobileScrollDiv.addEventListener('scroll', handleScroll, {
         passive: true,
@@ -77,7 +80,7 @@ export default function UrlV2({
   useEffect(async () => {
     setStopSending(true);
     setLoading(true);
-    const { data: newUrlLists } = await getUrlList(1, option);
+    const { data: newUrlLists } = await fetchUrlList(1, option);
     if (newUrlLists.length > 0) {
       setUrlList([...newUrlLists, urlList]);
     } else {
@@ -89,7 +92,7 @@ export default function UrlV2({
 
   useEffect(() => {
     const mobileScrollDiv = document.querySelector('#MyUrlPage');
-    getUrlList(page, option).catch(() => setLoading(false));
+    fetchUrlList(page, option).catch(() => setLoading(false));
     if (mobileScrollDiv.getAttribute('scroll') !== true) {
       mobileScrollDiv.addEventListener('scroll', handleScroll, {
         passive: true,
@@ -99,12 +102,12 @@ export default function UrlV2({
   }, [page]);
 
   useEffect(() => {
-    if (isCopySuss) {
+    if (isShowCopyModal) {
       setTimeout(() => {
-        setIsCopySuss(false);
+        setIsShowCopyModal(false);
       }, 3000);
     }
-  }, [isCopySuss]);
+  }, [isShowCopyModal]);
 
   return (
     <div
@@ -114,33 +117,44 @@ export default function UrlV2({
       <div className="modal absolute z-50">
         <ModalSucess
           text="Link copied to clipboard."
-          onClose={() => setIsCopySuss(false)}
-          show={isCopySuss}
+          onClose={() => setIsShowCopyModal(false)}
+          show={isShowCopyModal}
         />
         <EditSlugModal
           slug={currSlug}
-          onClose={() => setIsEditing(false)}
-          show={isEditing}
+          onClose={() => setIsShowEditModal(false)}
+          show={isShowEditModal}
         />
         <DeleteModal
           id={currId}
           text="The shortened link and all relevant data will be removed."
-          onClose={() => setIsDeleting(false)}
-          show={isDeleting}
+          onClose={() => setIsShowDeleteModal(false)}
+          show={isShowDeleteModal}
         />
       </div>
       <h1 className="font-normal text-[32px] leading-10">{pageName}</h1>
-      <div
-        className="z-10 w-40 xl:w-32 3xl:w-40 h-11 text-base text-gdscGrey-700 outline-none bg-white my-3 mx-0 self-end text-left cursor-pointer focus:outline-none rounded block xl:absolute xl:mt-1 xl:mr-4 xl:h-11"
+      <button
+        type="button"
+        className="z-10 w-40 xl:w-32 3xl:w-40 h-11 relative flex flex-row items-center justify-between px-[20px] text-base text-gdscGrey-700 outline-none bg-white my-3 mx-0 self-end text-left cursor-pointer focus:outline-none rounded xl:absolute xl:mt-1 xl:mr-4 xl:h-11"
         aria-haspopup="listbox"
         aria-expanded="true"
         aria-labelledby="listbox-label"
+        onClick={() => setIsShowOption(!isShowOption)}
       >
-        <ListBox
-          listOption={[LATEST, OLDEST, LEAST_CLICKED, MOST_CLICKED]}
-          handleOnClick={setOption}
+        <span className="truncate">{option}</span>
+        <img
+          src={ArrowDownIcon}
+          className="w-[12px] h-[8px]"
+          alt="arrow down icon"
         />
-      </div>
+        <ListBox
+          options={options}
+          selectedOption={option}
+          onClick={setOption}
+          isOpen={isShowOption}
+          setIsOpen={setIsShowOption}
+        />
+      </button>
       <input
         className="w-full min-h-[56px] bg-white border-[1px] border-gdscGrey-300 focus:border-gdscBlue-300 px-5 outline-none rounded text-base mt-5 mb-10 font-light xl:w-[284px] 3xl:w-[376px] relative"
         placeholder="Search your URL ..."
@@ -161,7 +175,7 @@ export default function UrlV2({
                 : 'bg-white px-5'
             } `}
             onClick={() => {
-              navigate(`/urls/${url.slug}`, { state: { id: url.id } });
+              navigate(`/url-v2/${url.slug}`, { state: { id: url.id } });
             }}
           >
             <div className="text-xl font-medium w-54 sm:w-64 overflow-x-hidden truncate ">
@@ -187,7 +201,7 @@ export default function UrlV2({
                       urlDomain = domains[domainKey[0]].domain;
                     }
                     navigator.clipboard.writeText(`${urlDomain}/${url.slug}`);
-                    setIsCopySuss(true);
+                    setIsShowCopyModal(true);
                   }}
                 >
                   <CopyIcon />
@@ -199,7 +213,7 @@ export default function UrlV2({
                   onClick={(e) => {
                     e.stopPropagation();
                     setCurrSlug(url.slug);
-                    setIsEditing(true);
+                    setIsShowEditModal(true);
                   }}
                 >
                   <EditIcon />
@@ -211,7 +225,7 @@ export default function UrlV2({
                   onClick={(e) => {
                     e.stopPropagation();
                     setCurrId(url.id);
-                    setIsDeleting(true);
+                    setIsShowDeleteModal(true);
                   }}
                 >
                   <DeleteIcon />
@@ -232,15 +246,15 @@ export default function UrlV2({
   );
 }
 
-UrlV2.propTypes = {
+MyUrlV2.propTypes = {
   pageName: PropTypes.string,
   //   userId: PropTypes.string.isRequired,
-  getUrlList: PropTypes.func.isRequired,
+  fetchUrlList: PropTypes.func.isRequired,
   searchUrl: PropTypes.func.isRequired,
   id: PropTypes.string,
 };
 
-UrlV2.defaultProps = {
+MyUrlV2.defaultProps = {
   pageName: 'My Urls',
   id: '',
 };

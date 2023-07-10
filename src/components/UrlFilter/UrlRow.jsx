@@ -11,39 +11,43 @@ export default function UrlRow({ url, deleteUrl }) {
   const navigate = useNavigate();
 
   return (
-    <div
-      className=" h-14 w-full flex aligns-center flex-row border-0 mb-2 rounded-[8px] text-base hover:bg-gdscBlue-50 hover:text-gdscBlue-300"
+    <tr
+      className={`h-14 w-full flex aligns-center flex-row border-0 mb-2 rounded-[8px] text-base hover:bg-gdscBlue-50 hover:text-gdscBlue-300 ${
+        url.isSuspected
+          ? 'bg-[#FEE9E9] text-black'
+          : 'bg-transparent text-gdscGrey-800'
+      }`}
       key={url.id}
     >
-      <div className="flex items-center justify-center w-[90px]">
+      <th className="flex items-center justify-center w-[90px] font-normal">
         <img
           src={GraphIcon}
           className="w-7 h-7 mr-2 fill-gdscGreen-300"
           alt="graph increase icon"
         />
         <p className="text-gdscGreen-300">2</p>
-      </div>
-      <div className="relative h-14 w-[500px] flex items-center text-left mr-[36px] truncate">
+      </th>
+      <th className="h-14 w-[536px] max-w-[536px] py-[18px] text-left pr-[36px] truncate font-normal">
         {url.link}
-      </div>
-      <p className="inline-flex items-center justify-left w-[168px] mr-[40px] truncate">
+      </th>
+      <th className="py-[18px] justify-center w-[208px] truncate font-normal">
         {url.org}
-      </p>
-      <div className="inline-flex items-center justify-center w-[162px] mr-[20px] truncate">
+      </th>
+      <th className="py-[18px] justify-center w-[182px] truncate font-normal">
         {url.date}
-      </div>
-      <div className="flex items-center justify-center w-[172px] mr-[20px] truncate">
+      </th>
+      <th className="py-[18px] justify-center w-[192px] truncate font-normal">
         {url.totalClicks}
-      </div>
-      <div className="flex items-center justify-center flex-row w-[148px]">
+      </th>
+      <th className="flex items-center justify-center flex-row w-[148px] font-normal">
         <button
           type="button"
-          className="relative w-[24px] h-[24px] flex items-center justify-center cursor-pointer mr-4 bg-[#D5E1F5] rounded-[8px] overflow-hidden hover:overflow-visible hover:bg-gdscBlue-100"
+          className="relative w-[32px] h-[32px] flex items-center justify-center cursor-pointer mr-[8px] bg-[#1967D2] bg-opacity-10 rounded-[8px] overflow-hidden hover:overflow-visible hover:bg-gdscBlue-100"
         >
           <img
             src={AddToBlackListIcon}
             alt="add to blacklist icon"
-            className="w-[16px] h-[12px] fill-gdscBlue-300"
+            className="w-[18px] h-[16px] fill-gdscBlue-300"
             opacity="0.87"
           />
           <span className="inline-block absolute w-[120px] h-auto bg-black text-white text-center text-[12px] py-[2px] z-2 bottom-[150%] rounded-[8px]">
@@ -53,12 +57,12 @@ export default function UrlRow({ url, deleteUrl }) {
         <button
           type="button"
           onClick={() => deleteUrl(url)}
-          className="relative w-[24px] h-[24px] flex items-center justify-center cursor-pointer mr-4 bg-[#D5E1F5] rounded-[8px] overflow-hidden hover:overflow-visible hover:bg-gdscBlue-100"
+          className="relative w-[32px] h-[32px] flex items-center justify-center cursor-pointer mr-[8px] bg-[#1967D2] bg-opacity-10 rounded-[8px] overflow-hidden hover:overflow-visible hover:bg-gdscBlue-100"
         >
           <img
             src={LimitDomainIcon}
             alt="limit domain icon"
-            className="w-[14px] h-[14px] fill-gdscBlue-300"
+            className="w-[16px] h-[16px] fill-gdscBlue-300"
             opacity="0.87"
           />
           <span className="inline-block absolute w-[120px] h-auto bg-black text-white text-center text-[12px] py-[2px] z-2 bottom-[150%] border border-gdscGrey-500 rounded-[8px]">
@@ -72,24 +76,30 @@ export default function UrlRow({ url, deleteUrl }) {
               state: { id: url.id, name: url.link },
             });
           }}
-          className="relative w-[24px] h-[24px] flex items-center justify-center cursor-pointer bg-[#D5E1F5] rounded-[8px] overflow-hidden hover:overflow-visible hover:bg-gdscBlue-100"
+          className="relative w-[32px] h-[32px] flex items-center justify-center cursor-pointer bg-[#1967D2] bg-opacity-10 rounded-[8px] overflow-hidden hover:overflow-visible hover:bg-gdscBlue-100"
         >
           <img
             src={MoreInfoIcon}
             alt="more information icon"
-            className="w-[4px] h-[12px] fill-gdscBlue-300"
+            className="w-[6px] h-[16px] fill-gdscBlue-300"
             opacity="0.87"
           />
           <span className="inline-block absolute w-[120px] h-auto bg-black text-white text-center text-[12px] py-[2px] z-2 bottom-[150%] border border-gdscGrey-500 rounded-[8px]">
             More information
           </span>
         </button>
-      </div>
-    </div>
+      </th>
+    </tr>
   );
 }
 
 UrlRow.propTypes = {
-  url: PropTypes.objectOf(PropTypes.string, PropTypes.number).isRequired,
+  url: PropTypes.objectOf(
+    PropTypes.string,
+    PropTypes.string,
+    PropTypes.string,
+    PropTypes.string,
+    PropTypes.number,
+  ).isRequired,
   deleteUrl: PropTypes.func.isRequired,
 };

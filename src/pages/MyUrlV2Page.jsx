@@ -39,7 +39,7 @@ export default function UrlV2Page() {
         >
           <UrlV2
             pageName="User URLs"
-            getUrlList={UrlAPI.getUrlList}
+            fetchUrlList={UrlAPI.getUrlList}
             searchUrl={UrlAPI.searchUrl}
           />
         </motion.div>

@@ -11,6 +11,7 @@ import Modal from 'components/Modal';
 import RequireAuth from 'components/RequireAuth';
 import ChangePasswordPage from 'pages/ChangePasswordPage';
 import DetailPage from 'pages/DetailPage';
+import DetailV2Page from 'pages/DetailV2Page';
 import ForgotPasswordPage from 'pages/ForgotPasswordPage';
 import HomePage from 'pages/HomePage';
 import HomepageLogin from 'pages/HomepageLogin';
@@ -145,6 +146,7 @@ export default function App() {
           <Route path="/url-filter" element={<URLFilterPage />} />
           <Route path="/users/:id" element={<URLInformationPage />} />
           <Route path="/url-v2" element={<UrlV2Page />} />
+          <Route path="/url-v2/:id" element={<DetailV2Page />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </AnimatePresence>
