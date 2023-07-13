@@ -114,3 +114,19 @@ span.MuiTypography-root.MuiTypography-h3.css-1nql4ji-MuiTypography-root,
 span.MuiTypography-root.MuiTypography-h4.css-wb55pf-MuiTypography-root {
   color: white;
 }
+* {
+  --toastify-color-info: #4285F4;
+  --toastify-color-success: #0F9D58;
+  --toastify-color-warning: #F4B400;
+  --toastify-color-error: #DB4437;
+
+  --toastify-icon-color-info: #4285F4;
+  --toastify-icon-color-success: #0F9D58;
+  --toastify-icon-color-warning: #F4B400;
+  --toastify-icon-color-error: #DB4437;
+}
+
+.dateInputSearch .MuiInput-input {
+  font-size: 12px;
+  padding: 0;
+}

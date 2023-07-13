@@ -39,7 +39,7 @@ export default function DomainBlacklistPage() {
         >
           <DomainBlacklist />
         </motion.div>
-        <ToastContainer />
+        <ToastContainer position="bottom-right" />
       </div>
     </div>
   );

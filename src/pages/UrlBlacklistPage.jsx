@@ -39,7 +39,7 @@ export default function UrlBlacklistPage() {
         >
           <UrlBlacklist />
         </motion.div>
-        <ToastContainer />
+        <ToastContainer position="bottom-right" />
       </div>
     </div>
   );

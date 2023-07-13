@@ -6,10 +6,12 @@ import formatDateTime from 'utils/formatDateTime';
 
 export default function DomainBlacklist() {
   const [domainList, setDomainList] = useState([]);
+  const [domainShowList, setDomainShowList] = useState([]);
   const [domainSearch, setDomainSearch] = useState('');
   const [dateSearch, setDateSearch] = useState('');
 
-  useEffect(() => {
+  const getResultOnPage = (page) => {
+    console.log(page);
     const list = [
       {
         link: 'short1.bit',
@@ -88,7 +90,19 @@ export default function DomainBlacklist() {
       },
     ];
     setDomainList(list);
+  };
+
+  const checkSearch = (it) => it.link.includes(domainSearch) && it.addedAt.includes(dateSearch);
+
+  useEffect(() => {
+    getResultOnPage(1);
   }, []);
+
+  useEffect(() => {
+    // call API here
+    const showList = domainList.filter((item) => checkSearch(item));
+    setDomainShowList(showList);
+  }, [domainSearch, dateSearch, domainList]);
 
   const onAdd = (domain) => {
     try {
@@ -104,36 +118,30 @@ export default function DomainBlacklist() {
         addedBy: 'Tran Quoc Hieu',
       };
       setDomainList((list) => [...list, newDomain]);
-      toast.success('DOMAIN CREATED', {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+      toast.success('DOMAIN CREATED');
     } catch (error) {
-      toast.error(error.message, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+      toast.error(error.message);
     }
   };
 
   const onDelete = (removedItem) => {
     const newList = domainList.filter((item) => item.link !== removedItem.link);
     setDomainList(newList);
-    toast.success('DOMAIN DELETED', {
-      position: toast.POSITION.BOTTOM_RIGHT,
-    });
+    toast.success('DOMAIN DELETED');
   };
-
-  const checkSearch = (it) => it.link.includes(domainSearch) && it.addedAt.includes(dateSearch);
 
   return (
     <div className="no-scrollbar overflow-scroll">
       <Blacklist
         title="Domain Blacklist"
-        linkList={domainList.filter((item) => checkSearch(item))}
+        linkList={domainShowList}
         onAdd={onAdd}
         onDelete={onDelete}
         linkSearch={domainSearch}
         setLinkSearch={setDomainSearch}
         setDateSearch={setDateSearch}
+        totalResult={domainShowList.length}
+        getResultOnPage={getResultOnPage}
       />
     </div>
   );

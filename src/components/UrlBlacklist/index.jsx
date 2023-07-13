@@ -2,52 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import Blacklist from 'components/Blacklist';
-// import DeleteLinkSnackbar from 'components/SnackbarV2/DeleteLinkSnackbar';
-// import SuccessSnackbar from 'components/SnackbarV2/SuccessSnackbar';
-// import WarnSnackbar from 'components/SnackbarV2/WarnSnackbar';
 import formatDateTime from 'utils/formatDateTime';
 
 export default function UrlBlacklist() {
   const [urlList, setUrlList] = useState([]);
-  // const [showDeleteSnackbar, setShowDeleteSnackbar] = useState(false);
-  // const [showAddSnackbar, setShowAddSnackbar] = useState(false);
-  // const [addStatus, setAddStatus] = useState('');
+  const [urlShowList, setUrlShowList] = useState([]);
   const [urlSearch, setUrlSearch] = useState('');
   const [dateSearch, setDateSearch] = useState('');
 
-  // let TIMER_DELETE;
-  // let TIMER_ADD;
-  // const handleDeleteTimeout = () => {
-  //   TIMER_DELETE = setTimeout(() => {
-  //     setShowDeleteSnackbar(false);
-  //   }, 3000);
-  // };
-
-  // useEffect(() => {
-  //   if (showDeleteSnackbar) {
-  //     handleDeleteTimeout();
-  //   }
-  //   return () => {
-  //     clearTimeout(TIMER_DELETE);
-  //   };
-  // }, [showDeleteSnackbar, TIMER_DELETE]);
-
-  // const handleAddTimeout = () => {
-  //   TIMER_ADD = setTimeout(() => {
-  //     setShowAddSnackbar(false);
-  //   }, 3000);
-  // };
-
-  // useEffect(() => {
-  //   if (showAddSnackbar) {
-  //     handleAddTimeout();
-  //   }
-  //   return () => {
-  //     clearTimeout(TIMER_ADD);
-  //   };
-  // }, [showAddSnackbar, TIMER_ADD]);
-
-  useEffect(() => {
+  const getResultOnPage = (page) => {
+    // call API here to get new page
+    console.log(page);
     const list = [
       {
         link: 'https://longlinkaaaaaaaaaaaa.COM/d213gd621y3hgdh1',
@@ -126,7 +91,19 @@ export default function UrlBlacklist() {
       },
     ];
     setUrlList(list);
+  };
+
+  const checkSearch = (item) => item.link.includes(urlSearch) && item.addedAt.includes(dateSearch);
+
+  useEffect(() => {
+    getResultOnPage(1);
   }, []);
+
+  useEffect(() => {
+    // call API here
+    const showList = urlList.filter((item) => checkSearch(item));
+    setUrlShowList(showList);
+  }, [urlSearch, dateSearch, urlList]);
 
   const onAdd = (url) => {
     try {
@@ -142,51 +119,30 @@ export default function UrlBlacklist() {
         addedBy: 'Tran Quoc Hieu',
       };
       setUrlList((list) => [...list, newUrl]);
-      toast.success('DOMAIN CREATED', {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
-      // setAddStatus('SUCCESS');
-      // setShowAddSnackbar(true);
+      toast.success('URL CREATED');
     } catch (error) {
-      // setAddStatus(error.message);
-      // setShowAddSnackbar(true);
-      toast.error(error.message, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+      toast.error(error.message);
     }
   };
 
   const onDelete = (removedItem) => {
     const newList = urlList.filter((item) => item.link !== removedItem.link);
     setUrlList(newList);
-    // setShowDeleteSnackbar(true);
-    toast.success('DOMAIN DELETED', {
-      position: toast.POSITION.BOTTOM_RIGHT,
-    });
+    toast.success('DOMAIN DELETED');
   };
-
-  const checkSearch = (item) => item.link.includes(urlSearch) && item.addedAt.includes(dateSearch);
 
   return (
     <div className="no-scrollbar overflow-scroll">
       <Blacklist
         title="Url Blacklist"
-        linkList={urlList.filter((item) => checkSearch(item))}
+        linkList={urlShowList}
         onAdd={onAdd}
         onDelete={onDelete}
-        // linkSearch={urlSearch}
         setLinkSearch={setUrlSearch}
         setDateSearch={setDateSearch}
+        totalResult={urlShowList.length}
+        getResultOnPage={getResultOnPage}
       />
-      {/* {showDeleteSnackbar && (
-        <DeleteLinkSnackbar setShowSnackbar={setShowDeleteSnackbar} />
-      )}
-      {showAddSnackbar
-        && (addStatus === 'SUCCESS' ? (
-          <SuccessSnackbar setShowSnackbar={setShowAddSnackbar} text="ADDED" />
-        ) : (
-          <WarnSnackbar setShowSnackbar={setShowAddSnackbar} text={addStatus} />
-        ))} */}
     </div>
   );
 }
