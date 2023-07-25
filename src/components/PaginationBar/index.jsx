@@ -51,18 +51,22 @@ export default function PaginationBar({ page, setPage, maxPage }) {
 
   return (
     <div className="h-12 flex flex-row items-center justify-center p-2">
-      <button
-        type="button"
-        className="flex flex-row justify-center items-center p-1 mr-[18px] text-base cursor-pointer"
-        disabled={page <= 1}
-        onClick={() => setPage(page - 1)}
-      >
-        <img
-          src={LeftArrowIcon}
-          className="h-[16px] w-[16px] fill-gdscBlue-300 opacity-80"
-          alt="left arrow icon"
-        />
-      </button>
+      {page > 1 ? (
+        <button
+          type="button"
+          className="flex flex-row justify-center items-center p-1 mr-[18px] text-base cursor-pointer"
+          disabled={page <= 1}
+          onClick={() => setPage(page - 1)}
+        >
+          <img
+            src={LeftArrowIcon}
+            className="h-[16px] w-[16px] fill-gdscBlue-300 opacity-80"
+            alt="left arrow icon"
+          />
+        </button>
+      ) : (
+        ''
+      )}
       <button
         type="button"
         className={`w-10 h-10 flex items-center justify-center text-base rounded-[8px] mr-[18px] cursor-pointer bg-transparent hover:bg-gdscBlue-50 hover:text-gdscBlue-300 ${
@@ -137,30 +141,38 @@ export default function PaginationBar({ page, setPage, maxPage }) {
       ) : (
         ''
       )}
-      <button
-        type="button"
-        className={`w-10 h-10 flex items-center justify-center text-base rounded-[8px] mr-[18px] cursor-pointer bg-transparent hover:bg-gdscBlue-50 hover:text-gdscBlue-300 ${
-          page === maxPage
-            ? 'text-gdscBlue-300 border border-gdscBlue-300'
-            : 'text-gdscGrey-800'
-        }`}
-        onClick={() => setPage(maxPage)}
-      >
-        {maxPage}
-      </button>
-      <button
-        type="button"
-        className="flex justify-center items-center p-1 text-base text-gray-500 cursor-pointer"
-        disabled={page >= maxPage}
-        onClick={() => setPage(page + 1)}
-      >
-        <img
-          src={RightArrowIcon}
-          className="h-[16px] w-[16px]"
-          opacity="0.87"
-          alt="right arrow icon"
-        />
-      </button>
+      {maxPage > 1 ? (
+        <button
+          type="button"
+          className={`w-10 h-10 flex items-center justify-center text-base rounded-[8px] mr-[18px] cursor-pointer bg-transparent hover:bg-gdscBlue-50 hover:text-gdscBlue-300 ${
+            page === maxPage
+              ? 'text-gdscBlue-300 border border-gdscBlue-300'
+              : 'text-gdscGrey-800'
+          }`}
+          onClick={() => setPage(maxPage)}
+        >
+          {maxPage}
+        </button>
+      ) : (
+        ''
+      )}
+      {page < maxPage ? (
+        <button
+          type="button"
+          className="flex justify-center items-center p-1 text-base text-gray-500 cursor-pointer"
+          disabled={page >= maxPage}
+          onClick={() => setPage(page + 1)}
+        >
+          <img
+            src={RightArrowIcon}
+            className="h-[16px] w-[16px]"
+            opacity="0.87"
+            alt="right arrow icon"
+          />
+        </button>
+      ) : (
+        ''
+      )}
     </div>
   );
 }

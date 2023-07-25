@@ -29,18 +29,7 @@ export default function MyUrlV2({
   const [stopSending, setStopSending] = useState(false);
   const [page, setPage] = useState(1);
   const [currId, setCurrId] = useState('');
-  const [urlList, setUrlList] = useState([
-    {
-      longUrl: 'http://localhost:3000/url-v2',
-      slug: 'shortlink1.com',
-      id: '1',
-    },
-    {
-      longUrl: 'http://localhost:3000/url-v2',
-      slug: 'shortlink1.com',
-      id: '2',
-    },
-  ]);
+  const [urlList, setUrlList] = useState([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   let urlDomain;

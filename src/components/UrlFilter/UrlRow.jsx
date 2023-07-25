@@ -7,8 +7,10 @@ import GraphIcon from 'assets/icons/graph_icon.svg';
 import LimitDomainIcon from 'assets/icons/limit_domain_icon.svg';
 import MoreInfoIcon from 'assets/icons/more-info.svg';
 
-export default function UrlRow({ url, deleteUrl }) {
+export default function UrlRow({ url, addUrlToBlacklist }) {
   const navigate = useNavigate();
+  const { _id } = url;
+  const time = new Date(url.createdAt);
 
   return (
     <tr
@@ -17,7 +19,7 @@ export default function UrlRow({ url, deleteUrl }) {
           ? 'bg-[#FEE9E9] text-black'
           : 'bg-transparent text-gdscGrey-800'
       }`}
-      key={url.id}
+      key={_id}
     >
       <th className="flex items-center justify-center w-[90px] font-normal">
         <img
@@ -28,21 +30,22 @@ export default function UrlRow({ url, deleteUrl }) {
         <p className="text-gdscGreen-300">2</p>
       </th>
       <th className="h-14 w-[536px] max-w-[536px] py-[18px] text-left pr-[36px] truncate font-normal">
-        {url.link}
+        {url.longUrl}
       </th>
       <th className="py-[18px] justify-center w-[208px] truncate font-normal">
-        {url.org}
+        {url.organization}
       </th>
       <th className="py-[18px] justify-center w-[182px] truncate font-normal">
-        {url.date}
+        {` ${time.getDate()}/${time.getMonth() + 1}/${time.getFullYear()}`}
       </th>
       <th className="py-[18px] justify-center w-[192px] truncate font-normal">
-        {url.totalClicks}
+        {url.size}
       </th>
       <th className="flex items-center justify-center flex-row w-[148px] font-normal">
         <button
           type="button"
           className="relative w-[32px] h-[32px] flex items-center justify-center cursor-pointer mr-[8px] bg-[#1967D2] bg-opacity-10 rounded-[8px] overflow-hidden hover:overflow-visible hover:bg-gdscBlue-100"
+          onClick={() => addUrlToBlacklist(_id)}
         >
           <img
             src={AddToBlackListIcon}
@@ -56,7 +59,6 @@ export default function UrlRow({ url, deleteUrl }) {
         </button>
         <button
           type="button"
-          onClick={() => deleteUrl(url)}
           className="relative w-[32px] h-[32px] flex items-center justify-center cursor-pointer mr-[8px] bg-[#1967D2] bg-opacity-10 rounded-[8px] overflow-hidden hover:overflow-visible hover:bg-gdscBlue-100"
         >
           <img
@@ -101,5 +103,5 @@ UrlRow.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ).isRequired,
-  deleteUrl: PropTypes.func.isRequired,
+  addUrlToBlacklist: PropTypes.func.isRequired,
 };

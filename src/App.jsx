@@ -144,7 +144,14 @@ export default function App() {
           />
           <Route path="/error/not-found" element={<NotFoundPage />} />
           <Route path="/url-filter" element={<URLFilterPage />} />
-          <Route path="/users/:id" element={<URLInformationPage />} />
+          <Route
+            path="/users/:id"
+            element={
+              <RequireAuth redirectTo="/">
+                <URLInformationPage />
+              </RequireAuth>
+            }
+          />
           <Route path="/url-v2" element={<UrlV2Page />} />
           <Route path="/url-v2/:id" element={<DetailV2Page />} />
           <Route path="*" element={<NotFoundPage />} />

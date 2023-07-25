@@ -25,7 +25,7 @@ export default function URLFilterPage() {
       </button>
       <Navbar home={false} />
       <div className="flex md:overflow-x-scroll md:overflow-hidden h-full">
-        <SideMenu toggle={toggleMenu} page="stat" />
+        <SideMenu toggle={toggleMenu} page="url-filter" />
         <div className="bg-gdscGrey-100 md:mt-0 w-full h-full md:h-auto flex-1 overflow-y-scroll">
           <motion.div
             className="w-full h-full text-2xl "
