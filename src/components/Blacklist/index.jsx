@@ -22,7 +22,10 @@ export default function Blacklist({
   setLinkSearch,
   setDateSearch,
   totalResult,
-  getResultOnPage,
+  maxPage,
+  currentPage,
+  setCurrentPage,
+  fetchLoading,
 }) {
   const [linkInput, setLinkInput] = useState('');
   const [dateInput, setDateInput] = useState(null);
@@ -31,26 +34,18 @@ export default function Blacklist({
   const [isDeleting, setIsDeleting] = useState(false);
   const [datePicker, setDatePicker] = useState(false);
   const [isLoading, setIsloading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPage, setTotalPage] = useState(1);
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [totalPage, setTotalPage] = useState(1);
   const typingTimeoutRef = useRef(null);
-
-  useEffect(() => {
-    setTotalPage(Math.ceil(linkList.length / 10));
-  }, [linkList]);
 
   useEffect(() => {
     if (dateInput === null) {
       setDateSearch('');
       return;
     }
-    const formatingDate = `${
-      dateInput.getDate() < 10 ? `0${dateInput.getDate()}` : dateInput.getDate()
-    }/${
-      dateInput.getMonth() < 9
-        ? `0${dateInput.getMonth() + 1}`
-        : `${dateInput.getMonth() + 1}`
-    }/${dateInput.getFullYear()}`;
+    const formatingDate = `${dateInput.getDate()}-${
+      dateInput.getMonth() + 1
+    }-${dateInput.getFullYear()}`;
     setDateSearch(formatingDate);
   }, [dateInput]);
 
@@ -77,8 +72,7 @@ export default function Blacklist({
 
   const onLoadPage = (pageNumber) => {
     if (pageNumber === currentPage) return;
-    if (pageNumber < 1 || pageNumber > Math.ceil(linkList.length / 10)) return;
-    getResultOnPage(pageNumber);
+    if (pageNumber < 1 || pageNumber > maxPage) return;
     setCurrentPage(pageNumber);
   };
 
@@ -134,20 +128,11 @@ export default function Blacklist({
 
   const paginationBar = () => {
     const result = [];
-    if (totalPage === 0) {
-      result.push(
-        <li
-          className="inline-block mx-[16px] cursor-pointer pt-[8px] text-center text-[20px] w-[36px] h-[36px] rounded-full bg-gdscBlue-100"
-          onClick={() => onLoadPage(1)}
-        >
-          1
-        </li>,
-      );
-    } else if (totalPage <= 5) {
-      for (let i = 1; i <= totalPage; i += 1) {
+    if (maxPage <= 5) {
+      for (let i = 1; i <= maxPage; i += 1) {
         result.push(
           <li
-            className={`inline-block mx-[16px] cursor-pointer pt-[8px] text-center text-[20px] w-[36px] h-[36px] rounded-full hover:bg-gdscBlue-100 ${
+            className={`inline-block mx-[16px] cursor-pointer p-[8px] text-[20px] rounded-[8px] border border-gdscBlue-100 hover:bg-gdscGrey-200 ${
               i === currentPage ? 'bg-gdscBlue-100' : ''
             }`}
             onClick={() => onLoadPage(i)}
@@ -159,12 +144,12 @@ export default function Blacklist({
     } else {
       let leftMostPage;
       if (currentPage <= 3) leftMostPage = 1;
-      else if (currentPage + 2 <= totalPage) leftMostPage = currentPage - 2;
-      else leftMostPage = totalPage - 4;
+      else if (currentPage + 2 <= maxPage) leftMostPage = currentPage - 2;
+      else leftMostPage = maxPage - 4;
       for (let i = leftMostPage; i <= leftMostPage + 4; i += 1) {
         result.push(
           <li
-            className={`inline-block mx-[16px] cursor-pointer pt-[8px] text-center text-[20px] w-[36px] h-[36px] rounded-full hover:bg-gdscBlue-100 ${
+            className={`inline-block mx-[16px] cursor-pointer p-[8px] text-[20px] rounded-[8px] border border-gdscBlue-100 hover:bg-gdscGrey-200 ${
               i === currentPage ? 'bg-gdscBlue-100' : ''
             }`}
             onClick={() => onLoadPage(i)}
@@ -286,7 +271,7 @@ export default function Blacklist({
       <div className="text-base text-gdscGrey-700 mb-[12px]">
         {`Total results: ${totalResult}`}
       </div>
-      {isLoading ? (
+      {isLoading || fetchLoading ? (
         <div className="text-center">
           <CircularProgress color="inherit" />
         </div>
@@ -314,7 +299,10 @@ Blacklist.propTypes = {
   setDateSearch: PropTypes.func.isRequired,
   setLinkSearch: PropTypes.func.isRequired,
   totalResult: PropTypes.number.isRequired,
-  getResultOnPage: PropTypes.func.isRequired,
+  maxPage: PropTypes.number.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  setCurrentPage: PropTypes.func.isRequired,
+  fetchLoading: PropTypes.bool.isRequired,
 };
 
 Blacklist.defaultProps = {

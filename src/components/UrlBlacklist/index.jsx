@@ -1,147 +1,90 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import Blacklist from 'components/Blacklist';
-import formatDateTime from 'utils/formatDateTime';
+import UrlAPI from 'services/url.service';
 
 export default function UrlBlacklist() {
+  const [keyword, setKeyWord] = useState('');
+  const [date, setDate] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [maxPage, setMaxPage] = useState(1);
+  const [totalResult, setTotalResult] = useState(0);
   const [urlList, setUrlList] = useState([]);
-  const [urlShowList, setUrlShowList] = useState([]);
-  const [urlSearch, setUrlSearch] = useState('');
-  const [dateSearch, setDateSearch] = useState('');
+  const [forceRender, setForceRender] = useState(false);
+  const [apiLoading, setApiLoading] = useState(false);
 
-  const getResultOnPage = (page) => {
-    // call API here to get new page
-    console.log(page);
-    const list = [
-      {
-        link: 'https://longlinkaaaaaaaaaaaa.COM/d213gd621y3hgdh1',
-        addedAt: 'Friday 30/06/2023 9:06:06 AM',
-        addedBy: 'Tran Quoc Hieu',
-      },
-      {
-        link: 'https://longlinkaaaaaaaaaaaa.COM/d213gd621y3hgdh2',
-        addedAt: 'Friday 30/06/2023 9:06:06 AM',
-        addedBy: 'Tran Quoc Hieu',
-      },
-      {
-        link: 'https://longlinkaaaaaaaaaaaa.COM/d213gd621y3hgdh3',
-        addedAt: 'Friday 30/06/2023 9:06:06 AM',
-        addedBy: 'Tran Quoc Hieu',
-      },
-      {
-        link: 'https://longlinkaaaaaaaaaaaa.COM/d213gd621y3hgdh4',
-        addedAt: 'Friday 30/06/2023 9:06:06 AM',
-        addedBy: 'Tran Quoc Hieu',
-      },
-      {
-        link: 'https://longlinkaaaaaaaaaaaa.COM/d213gd621y3hgdh5',
-        addedAt: 'Friday 30/06/2023 9:06:06 AM',
-        addedBy: 'Tran Quoc Hieu',
-      },
-      {
-        link: 'https://longlinkaaaaaaaaaaaa.COM/d213gd621y3hgdh6',
-        addedAt: 'Friday 30/06/2023 9:06:06 AM',
-        addedBy: 'Tran Quoc Hieu',
-      },
-      {
-        link: 'https://longlinkaaaaaaaaaaaa.COM/d213gd621y3hgdh7',
-        addedAt: 'Friday 30/06/2023 9:06:06 AM',
-        addedBy: 'Tran Quoc Hieu',
-      },
-      {
-        link: 'https://longlinkaaaaaaaaaaaa.COM/d213gd621y3hgdh8',
-        addedAt: 'Friday 30/06/2023 9:06:06 AM',
-        addedBy: 'Tran Quoc Hieu',
-      },
-      {
-        link: 'https://longlinkaaaaaaaaaaaa.COM/d213gd621y3hgdh9',
-        addedAt: 'Friday 30/06/2023 9:06:06 AM',
-        addedBy: 'Tran Quoc Hieu',
-      },
-      {
-        link: 'https://longlinkaaaaaaaaaaaa.COM/d213gd621y3hgdhA',
-        addedAt: 'Friday 30/06/2023 9:06:06 AM',
-        addedBy: 'Tran Quoc Hieu',
-      },
-      {
-        link: 'https://longlinkaaaaaaaaaaaa.COM/d213gd621y3hgdhB',
-        addedAt: 'Friday 30/06/2023 9:06:06 AM',
-        addedBy: 'Tran Quoc Hieu',
-      },
-      {
-        link: 'https://longlinkaaaaaaaaaaaa.COM/d213gd621y3hgdhC',
-        addedAt: 'Friday 30/06/2023 9:06:06 AM',
-        addedBy: 'Tran Quoc Hieu',
-      },
-      {
-        link: 'https://longlinkaaaaaaaaaaaa.COM/d213gd621y3hgdhD',
-        addedAt: 'Friday 30/06/2023 9:06:06 AM',
-        addedBy: 'Tran Quoc Hieu',
-      },
-      {
-        link: 'https://longlinkaaaaaaaaaaaa.COM/d213gd621y3hgdhE',
-        addedAt: 'Friday 30/06/2023 9:06:06 AM',
-        addedBy: 'Tran Quoc Hieu',
-      },
-      {
-        link: 'https://longlinkaaaaaaaaaaaa.COM/d213gd621y3hgdhF',
-        addedAt: 'Friday 30/06/2023 9:06:06 AM',
-        addedBy: 'Tran Quoc Hieu',
-      },
-    ];
-    setUrlList(list);
-  };
-
-  const checkSearch = (item) => item.link.includes(urlSearch) && item.addedAt.includes(dateSearch);
-
-  useEffect(() => {
-    getResultOnPage(1);
-  }, []);
-
-  useEffect(() => {
-    // call API here
-    const showList = urlList.filter((item) => checkSearch(item));
-    setUrlShowList(showList);
-  }, [urlSearch, dateSearch, urlList]);
-
-  const onAdd = (url) => {
+  const searchLink = async () => {
     try {
-      const addingUrl = url.trim();
-      if (addingUrl.length <= 0) throw Error('EMPTY LINK');
-      urlList.forEach((item) => {
-        if (item.link === addingUrl) throw Error('URL EXISTED');
-      });
-      const currentTime = new Date();
-      const newUrl = {
-        link: addingUrl,
-        addedAt: formatDateTime(currentTime),
-        addedBy: 'Tran Quoc Hieu',
-      };
-      setUrlList((list) => [...list, newUrl]);
-      toast.success('URL CREATED');
+      setApiLoading(true);
+      const response = await UrlAPI.searchUrlBySlug(date, keyword, currentPage);
+      const { list, totalPage, total } = response.data.payload;
+      setUrlList(list);
+      setMaxPage(totalPage);
+      setTotalResult(total);
+      setApiLoading(false);
     } catch (error) {
       toast.error(error.message);
+      setApiLoading(false);
     }
   };
 
-  const onDelete = (removedItem) => {
-    const newList = urlList.filter((item) => item.link !== removedItem.link);
-    setUrlList(newList);
-    toast.success('DOMAIN DELETED');
-  };
+  const onAdd = useCallback(async (slug) => {
+    try {
+      setApiLoading(true);
+      const response = await UrlAPI.addUrlBySlug(slug);
+      toast.success(response.data.message);
+      setForceRender((prev) => !prev);
+      setApiLoading(false);
+    } catch (error) {
+      toast.error(error.message);
+      setApiLoading(false);
+    }
+  }, []);
+
+  const onDelete = useCallback(async (slug) => {
+    try {
+      setApiLoading(true);
+      const { _id } = slug;
+      const response = await UrlAPI.deleteUrlBlacklist(_id);
+      toast.success(response.data.message);
+      setForceRender((prev) => !prev);
+      setApiLoading(false);
+    } catch (error) {
+      toast.error(error.message);
+      setApiLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    try {
+      const searchUrlAndSetState = async () => {
+        setApiLoading(true);
+        await searchLink();
+        setApiLoading(false);
+      };
+      searchUrlAndSetState();
+    } catch (error) {
+      toast.error(error.message);
+      setApiLoading(false);
+    }
+  }, [date, keyword, currentPage, forceRender]);
 
   return (
     <div className="no-scrollbar overflow-scroll">
       <Blacklist
         title="Url Blacklist"
-        linkList={urlShowList}
+        linkList={urlList}
         onAdd={onAdd}
         onDelete={onDelete}
-        setLinkSearch={setUrlSearch}
-        setDateSearch={setDateSearch}
-        totalResult={urlShowList.length}
-        getResultOnPage={getResultOnPage}
+        linkSearch={keyword}
+        setLinkSearch={setKeyWord}
+        setDateSearch={setDate}
+        totalResult={totalResult}
+        maxPage={maxPage}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        fetchLoading={apiLoading}
       />
     </div>
   );
