@@ -11,42 +11,48 @@ import {
 import UrlAPI from 'services/url.service';
 
 import UrlRow from './UrlRow';
+import UrlRowDetail from './UrlRowDetail';
 import UserSearch from './UserSearch';
 
 const optionsTime = ['All', LAST_DAY, LAST_3_DAYS, LAST_WEEK, LAST_MONTH];
 
 export default function UrlFilter() {
   const typingTimeoutRef = useRef(null);
+  const [urlSearch, setUrlSearch] = useState('');
   const [searchUrlsKeyword, setSearchUrlsKeyword] = useState('');
-  const [selectedOptionTime, setSelectedOptionTime] = useState(optionsTime[0]);
+  const [selectedOptionClick, setSelectedOptionClick] = useState(
+    optionsTime[0],
+  );
+  const [selectedOptionCreated, setSelectedOptionCreated] = useState(
+    optionsTime[0],
+  );
   const [page, setPage] = useState(1);
   const [maxPage, setMaxPage] = useState(0);
   const [urls, setUrls] = useState([]);
   const [totalUrls, setTotalUrls] = useState(0);
   const [user, setUser] = useState('');
+  const [idUrlDetail, setIdUrlDetail] = useState('');
+  const [urlDetail, setUrlDetail] = useState({});
 
   const [isLoadingUrlList, setIsLoadingUrlList] = useState(false);
   const [isModeAllUrl, setIsModeAllUrl] = useState(true);
-  const [isOpenTimeOptions, setIsOpenTimeOption] = useState(false);
+  const [isOpenOptionClick, setIsOpenOptionClick] = useState(false);
+  const [isOpenOptionCreated, setIsOpenOptionCreated] = useState(false);
+  const [isLoadingUrlDetail, setIsLoadingUrlDetail] = useState(false);
 
   // Get All Url list
   const getAllUrlList = async () => {
-    if (typingTimeoutRef.current) {
-      clearTimeout(typingTimeoutRef.current);
-    }
-
-    typingTimeoutRef.current = setTimeout(async () => {
-      const userId = user ? user.id : '';
-      const { data } = await UrlAPI.getAllUrl(
-        page,
-        searchUrlsKeyword,
-        userId,
-        selectedOptionTime,
-      );
-      setTotalUrls(data.payload.total);
-      setUrls(data.payload.list);
-      setMaxPage(data.payload.totalPage);
-    }, 300);
+    const userId = user ? user.id : '';
+    const { data } = await UrlAPI.getAllUrl(
+      page,
+      urlSearch,
+      userId,
+      selectedOptionClick,
+      selectedOptionCreated,
+    );
+    setTotalUrls(data.payload.total);
+    setUrls(data.payload.list);
+    setMaxPage(data.payload.totalPage);
   };
 
   // Add an url to blacklist
@@ -58,38 +64,81 @@ export default function UrlFilter() {
     }
   };
 
-  useEffect(async () => {
-    setIsLoadingUrlList(true);
-    if (page !== 1) setPage(1);
-    await getAllUrlList();
-    setIsLoadingUrlList(false);
-  }, [user]);
+  // Set URL Detail
+  const getUrlDetail = async (id) => {
+    const url = await UrlAPI.getUrlDetail(id);
+    setUrlDetail(url.data.payload.response);
+  };
 
-  useEffect(async () => {
+  // Display Url in Row
+  const displayUrl = (url) => {
+    if (url.id === idUrlDetail) {
+      return (
+        <UrlRowDetail
+          url={urlDetail}
+          addUrlToBlacklist={addUrlToBlacklist}
+          setUrl={setIdUrlDetail}
+          isLoading={isLoadingUrlDetail}
+        />
+      );
+    }
+    return (
+      <UrlRow
+        url={url}
+        addUrlToBlacklist={addUrlToBlacklist}
+        setUrl={setIdUrlDetail}
+      />
+    );
+  };
+
+  // Handle Url Search
+  const handleUrlSearch = (e) => {
+    setSearchUrlsKeyword(e.target.value);
     if (typingTimeoutRef.current) {
       clearTimeout(typingTimeoutRef.current);
     }
 
     setIsLoadingUrlList(true);
-    typingTimeoutRef.current = setTimeout(async () => {
+    typingTimeoutRef.current = setTimeout(() => {
+      setUrlSearch(e.target.value);
+      setIsLoadingUrlList(false);
+    }, 300);
+  };
+
+  useEffect(() => {
+    const callAPI = async () => {
+      setIsLoadingUrlList(true);
       if (page !== 1) setPage(1);
       await getAllUrlList();
       setIsLoadingUrlList(false);
-    }, 300);
-  }, [searchUrlsKeyword]);
+    };
+
+    callAPI();
+  }, [urlSearch, user, selectedOptionClick, selectedOptionCreated]);
 
   useEffect(async () => {
-    setIsLoadingUrlList(true);
-    await getAllUrlList();
-    setIsLoadingUrlList(false);
+    const callAPI = async () => {
+      setIsLoadingUrlList(true);
+      await getAllUrlList();
+      setIsLoadingUrlList(false);
+    };
+
+    callAPI();
   }, [page]);
 
-  useEffect(async () => {
-    setIsLoadingUrlList(true);
-    if (page !== 1) setPage(1);
-    await getAllUrlList();
-    setIsLoadingUrlList(false);
-  }, [selectedOptionTime]);
+  useEffect(() => {
+    if (idUrlDetail) {
+      const callAPI = async (id) => {
+        setIsLoadingUrlDetail(true);
+        await getUrlDetail(id);
+        setIsLoadingUrlDetail(false);
+      };
+
+      callAPI(idUrlDetail);
+    } else {
+      setUrlDetail({});
+    }
+  }, [idUrlDetail]);
 
   return (
     <div className="relative pl-[60px] pt-[40px] overflow-y-scroll no-scrollbar-desktop">
@@ -103,7 +152,7 @@ export default function UrlFilter() {
             value={searchUrlsKeyword}
             type="text"
             placeholder="Search URL..."
-            onChange={(e) => setSearchUrlsKeyword(e.target.value)}
+            onChange={(e) => handleUrlSearch(e)}
           />
           <div className="h-[60px] w-[60px] flex items-center justify-center cursor-pointer">
             <img
@@ -118,9 +167,12 @@ export default function UrlFilter() {
           <button
             type="button"
             className="h-[60px] w-[196px] bg-white border border-gdscGrey-300 relative flex flex-row items-center justify-between my-0 px-[20px] cursor-pointer focus-within:border-gdscBlue-300 text-[16px] text-gdscGrey-800 rounded-[8px]"
-            onClick={() => setIsOpenTimeOption(!isOpenTimeOptions)}
+            onClick={() => setIsOpenOptionClick(!isOpenOptionClick)}
           >
-            <span className="truncate">{selectedOptionTime}</span>
+            <span className="truncate">
+              Click since:
+              {selectedOptionClick}
+            </span>
             <img
               src={ArrowDownIcon}
               className="w-[12px] h-[8px]"
@@ -128,10 +180,33 @@ export default function UrlFilter() {
             />
             <ListBox
               options={optionsTime}
-              selectedOption={selectedOptionTime}
-              onClick={setSelectedOptionTime}
-              isOpen={isOpenTimeOptions}
-              setIsOpen={setIsOpenTimeOption}
+              selectedOption={selectedOptionClick}
+              onClick={setSelectedOptionClick}
+              isOpen={isOpenOptionClick}
+              setIsOpen={setIsOpenOptionClick}
+            />
+          </button>
+          <button
+            type="button"
+            className="h-[60px] w-[256px] bg-white border border-gdscGrey-300 relative flex flex-row items-center justify-between my-0 px-[20px] cursor-pointer focus-within:border-gdscBlue-300 text-[16px] text-gdscGrey-800 rounded-[8px]"
+            onClick={() => setIsOpenOptionCreated(!isOpenOptionCreated)}
+          >
+            <span className="truncate">
+              Created since:
+              {' '}
+              {selectedOptionCreated}
+            </span>
+            <img
+              src={ArrowDownIcon}
+              className="w-[12px] h-[8px]"
+              alt="arrow down icon"
+            />
+            <ListBox
+              options={optionsTime}
+              selectedOption={selectedOptionCreated}
+              onClick={setSelectedOptionCreated}
+              isOpen={isOpenOptionCreated}
+              setIsOpen={setIsOpenOptionCreated}
             />
           </button>
         </div>
@@ -199,9 +274,14 @@ export default function UrlFilter() {
                 </tr>
               </thead>
               <tbody className="flex aligns-center flex-col px-[8px] font-light">
-                {urls.map((url) => (
-                  <UrlRow url={url} addUrlToBlacklist={addUrlToBlacklist} />
-                ))}
+                {/* {urls.map((url) => (
+                  <UrlRow
+                    url={url}
+                    addUrlToBlacklist={addUrlToBlacklist}
+                    setUrl={setIdUrlDetail}
+                  />
+                ))} */}
+                {urls.map((url) => displayUrl(url))}
               </tbody>
             </table>
             <div className="my-2">

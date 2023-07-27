@@ -1,15 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { useNavigate } from 'react-router';
 
 import AddToBlackListIcon from 'assets/icons/add_to_blacklist.svg';
 import GraphIcon from 'assets/icons/graph_icon.svg';
 import LimitDomainIcon from 'assets/icons/limit_domain_icon.svg';
 import MoreInfoIcon from 'assets/icons/more-info.svg';
 
-export default function UrlRow({ url, addUrlToBlacklist }) {
-  const navigate = useNavigate();
-  const { _id } = url;
+export default function UrlRow({ url, addUrlToBlacklist, setUrl }) {
   const time = new Date(url.createdAt);
 
   return (
@@ -19,7 +16,7 @@ export default function UrlRow({ url, addUrlToBlacklist }) {
           ? 'bg-[#FEE9E9] text-black'
           : 'bg-transparent text-gdscGrey-800'
       }`}
-      key={_id}
+      key={url.id}
     >
       <th className="flex items-center justify-center w-[90px] font-normal">
         <img
@@ -45,7 +42,7 @@ export default function UrlRow({ url, addUrlToBlacklist }) {
         <button
           type="button"
           className="relative w-[32px] h-[32px] flex items-center justify-center cursor-pointer mr-[8px] bg-[#1967D2] bg-opacity-10 rounded-[8px] overflow-hidden hover:overflow-visible hover:bg-gdscBlue-100"
-          onClick={() => addUrlToBlacklist(_id)}
+          onClick={() => addUrlToBlacklist(url.id)}
         >
           <img
             src={AddToBlackListIcon}
@@ -73,11 +70,7 @@ export default function UrlRow({ url, addUrlToBlacklist }) {
         </button>
         <button
           type="button"
-          onClick={() => {
-            navigate(`/users/${url.id}`, {
-              state: { id: url.id, name: url.link },
-            });
-          }}
+          onClick={() => setUrl(url.id)}
           className="relative w-[32px] h-[32px] flex items-center justify-center cursor-pointer bg-[#1967D2] bg-opacity-10 rounded-[8px] overflow-hidden hover:overflow-visible hover:bg-gdscBlue-100"
         >
           <img
@@ -104,4 +97,9 @@ UrlRow.propTypes = {
     PropTypes.number,
   ).isRequired,
   addUrlToBlacklist: PropTypes.func.isRequired,
+  setUrl: PropTypes.func,
+};
+
+UrlRow.defaultProps = {
+  setUrl: (id) => console.log('>>> id: ', id),
 };
