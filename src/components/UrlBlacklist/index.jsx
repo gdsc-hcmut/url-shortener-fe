@@ -23,21 +23,28 @@ export default function UrlBlacklist() {
       setMaxPage(totalPage);
       setTotalResult(total);
       setApiLoading(false);
+      if (currentPage > totalPage) setCurrentPage(1);
     } catch (error) {
-      toast.error(error.message);
+      const message = error.response && error.response.data && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+      toast.error(message);
       setApiLoading(false);
     }
   };
 
-  const onAdd = useCallback(async (slug) => {
+  const onAdd = useCallback(async (id) => {
     try {
       setApiLoading(true);
-      const response = await UrlAPI.addUrlBySlug(slug);
+      const response = await UrlAPI.addUrlByID(id);
       toast.success(response.data.message);
       setForceRender((prev) => !prev);
       setApiLoading(false);
     } catch (error) {
-      toast.error(error.message);
+      const message = error.response && error.response.data && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+      toast.error(message);
       setApiLoading(false);
     }
   }, []);
@@ -51,7 +58,10 @@ export default function UrlBlacklist() {
       setForceRender((prev) => !prev);
       setApiLoading(false);
     } catch (error) {
-      toast.error(error.message);
+      const message = error.response && error.response.data && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+      toast.error(message);
       setApiLoading(false);
     }
   }, []);
@@ -65,7 +75,10 @@ export default function UrlBlacklist() {
       };
       searchUrlAndSetState();
     } catch (error) {
-      toast.error(error.message);
+      const message = error.response && error.response.data && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+      toast.error(message);
       setApiLoading(false);
     }
   }, [date, keyword, currentPage, forceRender]);
@@ -74,7 +87,7 @@ export default function UrlBlacklist() {
     <div className="no-scrollbar overflow-scroll">
       <Blacklist
         title="Url Blacklist"
-        linkList={urlList}
+        list={urlList}
         onAdd={onAdd}
         onDelete={onDelete}
         linkSearch={keyword}

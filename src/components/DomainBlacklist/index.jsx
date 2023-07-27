@@ -16,16 +16,21 @@ export default function DomainBlacklist() {
 
   const searchLink = async () => {
     try {
-      setApiLoading(true);
+      // setApiLoading(true);
       const response = await UrlAPI.searchDomain(date, keyword, currentPage);
       const { list, totalPage, total } = response.data.payload;
       setDomainList(list);
       setMaxPage(totalPage);
       setTotalResult(total);
-      setApiLoading(false);
+      // setApiLoading(false);
+      if (currentPage > totalPage) setCurrentPage(1);
     } catch (error) {
-      toast.error(error.message);
-      setApiLoading(false);
+      const message = error.response && error.response.data && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+      // const message = error?.response?.data?.message ?? error?.message;
+      toast.error(message);
+      // setApiLoading(false);
     }
   };
 
@@ -37,7 +42,11 @@ export default function DomainBlacklist() {
       setForceRender((prev) => !prev);
       setApiLoading(false);
     } catch (error) {
-      toast.error(error.message);
+      const message = error.response && error.response.data && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+      // const message = error?.response?.data?.message ?? error?.message;
+      toast.error(message);
       setApiLoading(false);
     }
   }, []);
@@ -51,7 +60,10 @@ export default function DomainBlacklist() {
       setForceRender((prev) => !prev);
       setApiLoading(false);
     } catch (error) {
-      toast.error(error.message);
+      const message = error.response && error.response.data && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+      toast.error(message);
       setApiLoading(false);
     }
   }, []);
@@ -65,7 +77,10 @@ export default function DomainBlacklist() {
       };
       searchDomainAndSetState();
     } catch (error) {
-      toast.error(error.message);
+      const message = error.response && error.response.data && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+      toast.error(message);
       setApiLoading(false);
     }
   }, [date, keyword, currentPage, forceRender]);
@@ -74,7 +89,7 @@ export default function DomainBlacklist() {
     <div className="no-scrollbar overflow-scroll">
       <Blacklist
         title="Domain Blacklist"
-        linkList={domainList}
+        list={domainList}
         onAdd={onAdd}
         onDelete={onDelete}
         linkSearch={keyword}

@@ -11,12 +11,16 @@ import LeftArrowIcon from 'assets/icons/arrow_backward.svg';
 import RightArrowIcon from 'assets/icons/arrow_forward.svg';
 import { ReactComponent as CalendarIcon } from 'assets/icons/calender.svg';
 import { ReactComponent as CloseIcon } from 'assets/icons/close_icon_snackbar.svg';
-import { ReactComponent as DeleteIcon } from 'assets/icons/delete_icon_red.svg';
+// import { ReactComponent as DeleteIcon } from 'assets/icons/delete_icon_red.svg';
 import DeleteModal from 'components/DeleteModalV2';
+import UrlSearch from 'components/UrlBlacklist/SlugSearchToAdd';
+import formatDateTime from 'utils/formatDateTime';
+
+import Table from './Table';
 
 export default function Blacklist({
   title,
-  linkList,
+  list,
   onDelete,
   onAdd,
   setLinkSearch,
@@ -32,20 +36,18 @@ export default function Blacklist({
   const [addingLink, setAddingLink] = useState('');
   const [deletingUrl, setDeletingUrl] = useState({});
   const [isDeleting, setIsDeleting] = useState(false);
-  const [datePicker, setDatePicker] = useState(false);
+  const [dateSearchMode, setDateSearchMode] = useState(false);
   const [isLoading, setIsloading] = useState(false);
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [totalPage, setTotalPage] = useState(1);
+  const [url] = useState({});
   const typingTimeoutRef = useRef(null);
+  const isDomain = title === 'Domain Blacklist';
 
   useEffect(() => {
     if (dateInput === null) {
       setDateSearch('');
       return;
     }
-    const formatingDate = `${dateInput.getDate()}-${
-      dateInput.getMonth() + 1
-    }-${dateInput.getFullYear()}`;
+    const formatingDate = formatDateTime(dateInput);
     setDateSearch(formatingDate);
   }, [dateInput]);
 
@@ -76,55 +78,10 @@ export default function Blacklist({
     setCurrentPage(pageNumber);
   };
 
-  const table = () => (
-    <table>
-      <thead className="flex h-[40px] w-fit text-xs mb-[8px] items-center bg-white text-gdscBlue-300 border-b border-gdscGrey-500 rounded-t-[8px]">
-        <th className="w-[400px] max-w-[400px]">
-          <span>{title === 'Domain Blacklist' ? 'DOMAIN' : 'LONG LINK'}</span>
-        </th>
-        <th className="xl:w-[200px] xl:max-w-[200px] lg:w-[120px] lg:max-w-[120px] w-0 max-w-0 truncate">
-          <span>ADDED AT</span>
-        </th>
-        <th className="xl:w-[200px] xl:max-w-[200px] lg:w-[120px] lg:max-w-[120px] w-0 max-w-0 truncate">
-          <span>ADDED BY</span>
-        </th>
-        <th className="w-[100px] max-w-[100px]">
-          <span>ACTIONS</span>
-        </th>
-      </thead>
-      <tbody>
-        {linkList.map((item) => (
-          <tr
-            className="mb-[8px] flex-row text-xs m-0 rounded-[8px] items-center bg-white block"
-            key={item.link}
-          >
-            <th className="w-[400px] max-w-[400px] pl-[20px] text-left truncate font-normal">
-              <span>{item.link}</span>
-            </th>
-            <th className="xl:w-[200px] xl:max-w-[200px] lg:w-[120px] lg:max-w-[120px] w-0 max-w-0 text-center items-center truncate font-normal">
-              <span>{item.addedAt}</span>
-            </th>
-            <th className="xl:w-[200px] xl:max-w-[200px] lg:w-[120px] lg:max-w-[120px] w-0 max-w-0 text-center items-center truncate font-normal">
-              <span>{item.addedBy}</span>
-            </th>
-            <th className="w-[100px] max-w-[100px] font-normal items-center">
-              <button
-                type="button"
-                className="p-[8px] cursor-pointer"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setDeletingUrl(item);
-                  setIsDeleting(true);
-                }}
-              >
-                <DeleteIcon />
-              </button>
-            </th>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
+  const handleAddDomain = () => {
+    onAdd(addingLink);
+    setAddingLink('');
+  };
 
   const paginationBar = () => {
     const result = [];
@@ -193,26 +150,24 @@ export default function Blacklist({
             <input
               className="w-[300px] px-[12px] mr-[20px] rounded-[8px] outline-none placeholder:text-xs
               border-gdscGrey-300 border-[1px] border-solid focus:border-gdscBlue-300 focus:border-[1px] focus:border-solid"
-              placeholder={`Search ${
-                title === 'Domain Blacklist' ? 'Domain' : 'Url'
-              }...`}
+              placeholder={`Search ${isDomain ? 'Domain' : 'Url'}...`}
               value={linkInput}
               onChange={(e) => handleLinkSearch(e)}
             />
             <div
-              className={`dateInputSearch flex px-[12px] items-center text-xs relative w-[150px] rounded-[8px] outline-none ${
+              className={`dateInputSearch flex px-[12px] items-center text-xs relative w-[150px] rounded-[8px] outline-none
+              bg-white font-normal justify-between ${
                 dateInput === null
                   ? 'border-gdscGrey-300'
                   : 'border-gdscBlue-300'
-              } border-[1px] border-solid
-              bg-white font-normal justify-between`}
+              } border-[1px] border-solid`}
             >
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <MobileDatePicker
                   allowSameDateSelection
-                  onClick={() => setDatePicker(true)}
-                  onAccept={() => setDatePicker(false)}
-                  open={datePicker}
+                  onClick={() => setDateSearchMode(true)}
+                  onAccept={() => setDateSearchMode(false)}
+                  open={dateSearchMode}
                   value={dateInput}
                   onChange={(newTime) => setDateInput(newTime)}
                   renderInput={(params) => (
@@ -238,34 +193,30 @@ export default function Blacklist({
               ) : (
                 <CalendarIcon
                   onClick={() => {
-                    setDatePicker(true);
+                    setDateSearchMode(true);
                   }}
                   className="cursor-pointer"
                 />
               )}
             </div>
           </div>
-          <div className="flex h-[40px]">
-            <input
-              className="px-[12px] w-[300px] mr-[20px] rounded-[8px] outline-none placeholder:text-xs
+          {isDomain ? (
+            <div className="flex h-[40px]">
+              <input
+                className="px-[12px] w-[300px] mr-[20px] rounded-[8px] outline-none placeholder:text-xs
                 border-gdscGrey-300 border-[1px] border-solid focus:border-gdscBlue-300 focus:border-[1px] focus:border-solid"
-              placeholder={`Add ${
-                title === 'Domain Blacklist' ? 'Domain' : 'Url'
-              }...`}
-              value={addingLink}
-              onChange={(e) => setAddingLink(e.target.value)}
-              onKeyDown={(e) => handleEnterKey(e)}
-            />
-            <button
-              type="button"
-              onClick={() => {
-                onAdd(addingLink);
-                setAddingLink('');
-              }}
-            >
-              <AddingIcon className="cursor-pointer" />
-            </button>
-          </div>
+                placeholder="Add Domain..."
+                value={addingLink}
+                onChange={(e) => setAddingLink(e.target.value)}
+                onKeyDown={(e) => handleEnterKey(e)}
+              />
+              <button type="button" onClick={() => handleAddDomain()}>
+                <AddingIcon className="cursor-pointer" />
+              </button>
+            </div>
+          ) : (
+            <UrlSearch addUrl={onAdd} urlSlug={url ? url.slug : ''} />
+          )}
         </div>
       </div>
       <div className="text-base text-gdscGrey-700 mb-[12px]">
@@ -277,7 +228,12 @@ export default function Blacklist({
         </div>
       ) : (
         <>
-          {table()}
+          <Table
+            list={list}
+            isDomain={isDomain}
+            setDelete={setDeletingUrl}
+            setIsDeleting={setIsDeleting}
+          />
           {paginationBar()}
         </>
       )}
@@ -287,7 +243,7 @@ export default function Blacklist({
 
 Blacklist.propTypes = {
   title: PropTypes.string.isRequired,
-  linkList: PropTypes.arrayOf(
+  list: PropTypes.arrayOf(
     PropTypes.shape({
       link: PropTypes.string.isRequired,
       addedAt: PropTypes.string.isRequired,
@@ -306,5 +262,5 @@ Blacklist.propTypes = {
 };
 
 Blacklist.defaultProps = {
-  linkList: [],
+  list: [],
 };

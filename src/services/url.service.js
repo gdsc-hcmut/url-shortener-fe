@@ -18,8 +18,10 @@ const UrlAPI = {
   searchUrlBySlug: (date, keyword, page) => api.get(
     `/admin/blacklist-url?page=${page}&date=${date}&keyword=${keyword}`,
   ),
-  addUrlBySlug: (slug) => api.post(`/admin/blacklist-url?slug=${slug}`),
+  // addUrlBySlug: (slug) => api.post(`/admin/blacklist-url?slug=${slug}`),
+  addUrlByID: (id) => api.post(`/admin/blacklist-url/${id}`),
   deleteUrlBlacklist: (id) => api.delete(`/admin/blacklist-url/${id}`),
+  findAddingUrl: (keyword) => api.get(`/admin/blacklist-url/search?keyword=${keyword}`),
 };
 
 export default UrlAPI;
