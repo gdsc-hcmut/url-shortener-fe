@@ -8,10 +8,12 @@ import { loadUser } from 'actions/auth';
 import { ReactComponent as CloseIcon } from 'assets/icons/close.svg';
 import Banner from 'assets/image/banner.png';
 import Modal from 'components/Modal';
+import RequireAdmin from 'components/RequireAdmin';
 import RequireAuth from 'components/RequireAuth';
 import ChangePasswordPage from 'pages/ChangePasswordPage';
 import DetailPage from 'pages/DetailPage';
 import DetailV2Page from 'pages/DetailV2Page';
+import DomainBlacklistPage from 'pages/DomainBlacklistPage';
 import ForgotPasswordPage from 'pages/ForgotPasswordPage';
 import HomePage from 'pages/HomePage';
 import HomepageLogin from 'pages/HomepageLogin';
@@ -22,9 +24,11 @@ import ResetPasswordPage from 'pages/ResetPasswordPage';
 import SignInMobilePage from 'pages/SignInMobilePage';
 import SignUpMobilePage from 'pages/SignUpMobilePage';
 import StatisticPage from 'pages/StatisticPage';
+import UrlBlacklistPage from 'pages/UrlBlacklistPage';
 import URLFilterPage from 'pages/URLFilterPage';
 import UserProfilePage from 'pages/UserProfilePage';
 import VerifiedEmailPage from 'pages/VerifiedEmailPage';
+import checkAdmin from 'utils/checkAdmin';
 
 import store from './store';
 import './index.css';
@@ -52,10 +56,12 @@ export default function App() {
     const bannerDisabledTime = JSON.parse(
       localStorage.getItem('last_login') || null,
     );
+    checkAdmin();
     const currentTime = Date.now();
     if (
-      bannerDisabledTime === null
-      || currentTime - bannerDisabledTime > 1000 * 60 * 30
+      // eslint-disable-next-line operator-linebreak
+      bannerDisabledTime === null ||
+      currentTime - bannerDisabledTime > 1000 * 60 * 30
     ) {
       setShowBanner(true);
     }
@@ -160,9 +166,25 @@ export default function App() {
           <Route
             path="/url-filter"
             element={
-              <RequireAuth redirectTo="/">
+              <RequireAdmin redirectTo="/error/not-found">
                 <URLFilterPage />
-              </RequireAuth>
+              </RequireAdmin>
+            }
+          />
+          <Route
+            path="/url-blacklist"
+            element={
+              <RequireAdmin redirectTo="/error/not-found">
+                <UrlBlacklistPage />
+              </RequireAdmin>
+            }
+          />
+          <Route
+            path="/domain-blacklist"
+            element={
+              <RequireAdmin redirectTo="/error/not-found">
+                <DomainBlacklistPage />
+              </RequireAdmin>
             }
           />
           <Route path="/error/not-found" element={<NotFoundPage />} />

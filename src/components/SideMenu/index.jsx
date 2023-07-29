@@ -7,17 +7,37 @@ import { logout } from 'actions/auth';
 import { ReactComponent as AccountCircle } from 'assets/icons/account_circle.svg';
 import { ReactComponent as FilterIcon } from 'assets/icons/filter_list.svg';
 import { ReactComponent as LinkIcon } from 'assets/icons/link_icon.svg';
+import { ReactComponent as ListIcon } from 'assets/icons/list.svg';
 import { ReactComponent as LockIcon } from 'assets/icons/lock_icon.svg';
 import { ReactComponent as LogoutIcon } from 'assets/icons/logout_icon.svg';
 import { ReactComponent as StatIcon } from 'assets/icons/stat_icon.svg';
 import GoogleLogoutButton from 'components/Modals/GoogleLogoutButton';
+// import UrlAPI from 'services/url.service';
 
 export default function SideMenu({ toggle, page }) {
+  // const [isAdmin, setIsAdmin] = useState(false);
+  const isAdmin = JSON.parse(localStorage.getItem('is_admin')) || false;
   const dispatch = useDispatch();
   const handleSignOut = () => dispatch(logout());
   const loggedInWithGoogle = useSelector(
     (state) => state.auth.loggedInWithGoogle,
   );
+
+  // useEffect(() => {
+  //   const checkAdmin = async () => {
+  //     try {
+  //       const response = await UrlAPI.checkAdmin();
+  //       return response.data.isAdmin;
+  //     } catch (error) {
+  //       // console.log(error.response);
+  //       // setIsAdmin(false);
+  //       return false;
+  //     }
+  //   };
+  //   checkAdmin().then((response) => {
+  //     setIsAdmin(response);
+  //   });
+  // }, []);
 
   useEffect(() => {
     const sideMenu = document.querySelector('.side-menu');
@@ -81,6 +101,46 @@ export default function SideMenu({ toggle, page }) {
           <StatIcon />
           <span>Statistics</span>
         </NavLink>
+        {isAdmin && (
+          <>
+            <NavLink
+              to="/domain-blacklist"
+              className={() => `flex flex-row space-x-4 min-w-full md:w-[240px] items-center md:h-[52px] h-[58px] px-5 rounded bg-white
+          ${
+            page === 'domain-blacklist'
+              ? 'bg-gdscBlue-300/10'
+              : 'hover:bg-gdscBlue-300/10'
+          } cursor-pointer 
+          ${
+            page === 'domain-blacklist'
+              ? 'text-gdscBlue-300'
+              : 'hover:text-gdscBlue-300'
+          } transition-all
+          ease-out duration-300`}
+            >
+              <ListIcon />
+              <span>Domain Blacklist</span>
+            </NavLink>
+            <NavLink
+              to="/url-blacklist"
+              className={() => `flex flex-row space-x-4 min-w-full md:w-[240px] items-center md:h-[52px] h-[58px] px-5 rounded bg-white
+          ${
+            page === 'url-blacklist'
+              ? 'bg-gdscBlue-300/10'
+              : 'hover:bg-gdscBlue-300/10'
+          } cursor-pointer 
+          ${
+            page === 'url-blacklist'
+              ? 'text-gdscBlue-300'
+              : 'hover:text-gdscBlue-300'
+          } transition-all
+          ease-out duration-300`}
+            >
+              <ListIcon />
+              <span>Url Blacklist</span>
+            </NavLink>
+          </>
+        )}
         <NavLink
           to="/url-filter"
           className={() => `flex flex-row space-x-4 min-w-full 3xl:w-[240px] items-center md:h-[52px] h-[58px] px-5 rounded bg-white

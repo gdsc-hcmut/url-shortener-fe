@@ -16,6 +16,19 @@ const UrlAPI = {
   addUrlToBlacklist: (id) => api.post(`admin/blacklist-url?id=${id}`),
   getUserByEmail: (keyword) => api.get(`admin/url-filter/get-user-by-email?keyword=${keyword}`),
   getUrlDetail: (id) => api.get(`admin/url-filter/get-url/${id}`),
+  searchDomain: (date, keyword, page) => api.get(
+    `/admin/blacklist-domain?page=${page}&date=${date}&keyword=${keyword}`,
+  ),
+  addDomain: (domain) => api.post(`/admin/blacklist-domain?link=${domain}`),
+  deleteDomain: (id) => api.delete(`/admin/blacklist-domain/${id}`),
+  searchUrlBySlug: (date, keyword, page) => api.get(
+    `/admin/blacklist-url?page=${page}&date=${date}&keyword=${keyword}`,
+  ),
+  // addUrlBySlug: (slug) => api.post(`/admin/blacklist-url?slug=${slug}`),
+  addUrlByID: (id) => api.post(`/admin/blacklist-url/${id}`),
+  deleteUrlBlacklist: (id) => api.delete(`/admin/blacklist-url/${id}`),
+  findAddingUrl: (keyword) => api.get(`/admin/blacklist-url/search?keyword=${keyword}`),
+  checkAdmin: () => api.get('/admin/test'),
 };
 
 export default UrlAPI;
