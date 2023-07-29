@@ -12,32 +12,14 @@ import { ReactComponent as LockIcon } from 'assets/icons/lock_icon.svg';
 import { ReactComponent as LogoutIcon } from 'assets/icons/logout_icon.svg';
 import { ReactComponent as StatIcon } from 'assets/icons/stat_icon.svg';
 import GoogleLogoutButton from 'components/Modals/GoogleLogoutButton';
-// import UrlAPI from 'services/url.service';
 
 export default function SideMenu({ toggle, page }) {
-  // const [isAdmin, setIsAdmin] = useState(false);
-  const isAdmin = JSON.parse(localStorage.getItem('is_admin')) || false;
+  const isAdmin = JSON.parse(localStorage.getItem('is_admin') || 'false');
   const dispatch = useDispatch();
   const handleSignOut = () => dispatch(logout());
   const loggedInWithGoogle = useSelector(
     (state) => state.auth.loggedInWithGoogle,
   );
-
-  // useEffect(() => {
-  //   const checkAdmin = async () => {
-  //     try {
-  //       const response = await UrlAPI.checkAdmin();
-  //       return response.data.isAdmin;
-  //     } catch (error) {
-  //       // console.log(error.response);
-  //       // setIsAdmin(false);
-  //       return false;
-  //     }
-  //   };
-  //   checkAdmin().then((response) => {
-  //     setIsAdmin(response);
-  //   });
-  // }, []);
 
   useEffect(() => {
     const sideMenu = document.querySelector('.side-menu');

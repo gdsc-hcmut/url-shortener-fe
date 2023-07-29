@@ -61,7 +61,7 @@ export default function UrlFilter() {
 
   // Add an url to blacklist
   const addUrlToBlacklist = async (id) => {
-    await UrlAPI.addUrlToBlacklist(id);
+    await UrlAPI.addUrlByID(id);
     await getAllUrlList();
     if (page > maxPage) {
       setPage(maxPage);

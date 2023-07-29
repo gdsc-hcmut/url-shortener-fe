@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
 export default function RequireAdmin({ children, redirectTo }) {
-  const isAdmin = JSON.parse(localStorage.getItem('is_admin')) || false;
+  const isAdmin = JSON.parse(localStorage.getItem('is_admin') || 'false');
 
   const { isAuthenticated, loading } = useSelector((state) => state.auth);
 
