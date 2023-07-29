@@ -1,7 +1,9 @@
+export const ALL = 'All';
 export const LAST_YEAR = 'Last Year';
 export const LAST_MONTH = 'Last Month';
 export const LAST_WEEK = 'Last Week';
 export const LAST_DAY = 'Last Day';
+export const LAST_3_DAYS = 'Last 3 Days';
 export const LATEST = 'Latest';
 export const OLDEST = 'Oldest';
 export const LEAST_CLICKED = 'Least Clicked';

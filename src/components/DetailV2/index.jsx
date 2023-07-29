@@ -2,18 +2,7 @@ import { CircularProgress } from '@mui/material';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 
-import {
-  SHOW_COPY_SUCCESS_MODAL,
-  SHOW_DELETE_URL_MODAL,
-  SHOW_EDIT_URL_MODAL,
-  UPDATE_URL_DETAIL,
-} from 'action-types';
-import {
-  toggleSuccessModalOpen,
-  toggleSuccessModalClose,
-} from 'actions/notification';
 import { ReactComponent as CopyIcon } from 'assets/icons/copy_icon.svg';
 import { ReactComponent as DeleteIcon } from 'assets/icons/delete_icon.svg';
 import { ReactComponent as EditIcon } from 'assets/icons/edit_icon.svg';
@@ -22,66 +11,55 @@ import EditSlugModal from 'components/EditSludModal';
 import ModalSucess from 'components/ModalSuccess';
 import { PLATFORMS } from 'constant/common';
 import domains from 'constant/domain';
-import UrlAPI from 'services/url.service';
 
 import Chart from './Chart';
 import CreatedOn from './CreatedOn';
-import ExpireTime from './ExpireTime';
+// import ExpireTime from './ExpireTime';
 import TodayClick from './general/TodayClick';
 import TotalClick from './general/TotalClick';
 import LongUrlModal from './LongUrlModal';
 import QR from './QR';
 import SocialMedia from './SocialMedia';
 
-export default function Detail({ id }) {
-  const dispatch = useDispatch();
+export default function DetailV2({ id, fetchDataUrl }) {
   const [isDeleted, setIsDeleted] = useState(false);
-  const [showLongUrl, setshowLongUrl] = useState(false);
-  const { DeleteUrlModal, CopySuccessModal, EditUrlModal } = useSelector(
-    (state) => state.showModal,
-  );
-  const { urlDetail } = useSelector((state) => state.url);
+  const [urlDetail, setUrlDetail] = useState({});
+  const [shortUrl, setShortUrl] = useState('');
+
+  const [isShowLongUrl, setIsShowLongUrl] = useState(false);
+  const [isShowCopyModal, setIsShowCopyModal] = useState(false);
+  const [isShowEditModal, setIsShowEditModal] = useState(false);
+  const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
 
   useEffect(() => {
     setIsDeleted(false);
     const getUrlDetail = async () => {
-      const { data } = await UrlAPI.getUrlById(id);
+      const { data } = await fetchDataUrl(id);
       const { organization } = data;
-      let shortUrl;
+      setUrlDetail(data);
       if (organization === 'None') {
-        shortUrl = data.shortUrl;
+        setShortUrl(data.shortUrl);
       } else {
         const domainKey = Object.keys(domains).filter(
           (key) => key === organization,
         );
         const urlDomain = domains[domainKey[0]].domain;
-        shortUrl = `${urlDomain}/${data.slug}`;
+        setShortUrl(`${urlDomain}/${data.slug}`);
       }
-      dispatch({
-        type: UPDATE_URL_DETAIL,
-        payload: { ...data, shortUrl },
-      });
     };
     getUrlDetail().catch(() => {
-      setIsDeleted(true);
+      setIsDeleted(false);
     });
-  }, [id, EditUrlModal, DeleteUrlModal]);
+  }, [id, isShowEditModal, isShowCopyModal]);
 
   useEffect(() => {
-    if (CopySuccessModal) {
+    if (isShowCopyModal) {
       setTimeout(() => {
-        dispatch(toggleSuccessModalClose());
+        setIsShowCopyModal(false);
       }, 3000);
     }
-  }, [CopySuccessModal]);
+  }, [isShowCopyModal]);
 
-  if (isDeleted) {
-    return (
-      <div className="font-normal 3xl:w-[1032px] md:w-[504px] w-full sm:w-[376px] text-[32px] mb-4 ">
-        Url not found.
-      </div>
-    );
-  }
   if (_.isEmpty(urlDetail)) {
     return (
       <div className="bg-opacity-0 max-w-full h-full overflow-scroll md:no-scrollbar md:p-0 py-5 pr-5 relative">
@@ -92,38 +70,37 @@ export default function Detail({ id }) {
     );
   }
 
+  if (isDeleted) {
+    return (
+      <div className="font-normal 3xl:w-[1032px] md:w-[504px] w-full sm:w-[376px] text-[32px] mb-4 ">
+        Url not found.
+      </div>
+    );
+  }
+
   return (
     <div className="bg-opacity-0 max-w-full h-full overflow-scroll md:no-scrollbar md:p-0 py-5 pr-5 relative">
       <div className="modal absolute z-50">
         <LongUrlModal
           text={urlDetail.longUrl}
-          onClose={() => setshowLongUrl(false)}
-          show={showLongUrl}
+          onClose={() => setIsShowLongUrl(false)}
+          show={isShowLongUrl}
         />
         <EditSlugModal
           slug={urlDetail.slug}
-          onClose={() => dispatch({
-            type: SHOW_EDIT_URL_MODAL,
-            payload: false,
-          })}
-          show={EditUrlModal}
+          onClose={() => setIsShowEditModal(false)}
+          show={isShowEditModal}
         />
         <ModalSucess
           text="Link copied to clipboard."
-          onClose={() => dispatch({
-            type: SHOW_COPY_SUCCESS_MODAL,
-            payload: false,
-          })}
-          show={CopySuccessModal}
+          onClose={() => setIsShowCopyModal(false)}
+          show={isShowCopyModal}
         />
         <DeleteModal
           id={id}
           text="The shortened link and all relevant data will be removed."
-          onClose={() => dispatch({
-            type: SHOW_DELETE_URL_MODAL,
-            payload: false,
-          })}
-          show={DeleteUrlModal}
+          onClose={() => isShowDeleteModal(false)}
+          show={isShowDeleteModal}
         />
       </div>
       <div className="flex">
@@ -131,12 +108,12 @@ export default function Detail({ id }) {
           aria-hidden
           className="font-normal w-fit h-9 leading-9 text-[32px] mb-4 break-words cursor-pointer overflow-y-hidden "
           onClick={() => {
-            navigator.clipboard.writeText(urlDetail.shortUrl);
-            dispatch(toggleSuccessModalOpen());
+            navigator.clipboard.writeText(shortUrl);
+            setIsShowCopyModal(true);
           }}
         >
           <p>
-            <span className="hidden sm:inline">{urlDetail.shortUrl}</span>
+            <span className="hidden sm:inline">{shortUrl}</span>
             <span className="inline sm:hidden">{urlDetail.slug}</span>
           </p>
         </h1>
@@ -146,8 +123,8 @@ export default function Detail({ id }) {
             aria-label="Copy Button"
             className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
             onClick={() => {
-              navigator.clipboard.writeText(urlDetail.shortUrl);
-              dispatch(toggleSuccessModalOpen());
+              navigator.clipboard.writeText(shortUrl);
+              setIsShowCopyModal(true);
             }}
           >
             <CopyIcon />
@@ -156,12 +133,7 @@ export default function Detail({ id }) {
             type="button"
             aria-label="Edit Button"
             className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
-            onClick={() => {
-              dispatch({
-                type: SHOW_EDIT_URL_MODAL,
-                payload: true,
-              });
-            }}
+            onClick={() => setIsShowEditModal(true)}
           >
             <EditIcon />
           </button>
@@ -169,10 +141,7 @@ export default function Detail({ id }) {
             type="button"
             aria-label="Delete Button"
             className="w-8 h-8 bg-[#1967D2] bg-opacity-10 active:bg-opacity-20 flex justify-center items-center rounded"
-            onClick={() => dispatch({
-              type: SHOW_DELETE_URL_MODAL,
-              payload: true,
-            })}
+            onClick={() => setIsShowDeleteModal(true)}
           >
             <DeleteIcon />
           </button>
@@ -183,14 +152,15 @@ export default function Detail({ id }) {
           aria-hidden
           id="longUrl"
           className="inline font-normal w-full md:w-[504px] lg:w-[640px] leading-8  truncate cursor-pointer text-gdscGrey-700 hover:text-black transition-all duration-300"
-          onClick={() => setshowLongUrl(true)}
+          onClick={() => setIsShowLongUrl(true)}
         >
           {urlDetail.longUrl}
         </div>
       </div>
       <div className="flex flex-col ">
         <div className="inline-flex flex-wrap gap-6 mb-6 md:gap-4 md:mb-4 3xl:gap-6 3xl:mb-6 ">
-          <ExpireTime expireTime={urlDetail.expireTime} id={id} />
+          {/* <ExpireTime expireTime={urlDetail.expireTime} id={id} /> */}
+          <CreatedOn createOn={urlDetail.createdAt} />
           <CreatedOn createOn={urlDetail.createdAt} />
           <TodayClick
             todayClick={
@@ -241,10 +211,11 @@ export default function Detail({ id }) {
   );
 }
 
-Detail.propTypes = {
+DetailV2.propTypes = {
   id: PropTypes.string,
+  fetchDataUrl: PropTypes.func.isRequired,
 };
 
-Detail.defaultProps = {
+DetailV2.defaultProps = {
   id: null,
 };

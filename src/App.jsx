@@ -12,17 +12,20 @@ import RequireAdmin from 'components/RequireAdmin';
 import RequireAuth from 'components/RequireAuth';
 import ChangePasswordPage from 'pages/ChangePasswordPage';
 import DetailPage from 'pages/DetailPage';
+import DetailV2Page from 'pages/DetailV2Page';
 import DomainBlacklistPage from 'pages/DomainBlacklistPage';
 import ForgotPasswordPage from 'pages/ForgotPasswordPage';
 import HomePage from 'pages/HomePage';
 import HomepageLogin from 'pages/HomepageLogin';
 import MyUrlPage from 'pages/MyUrlPage';
+import UrlV2Page from 'pages/MyUrlV2Page';
 import NotFoundPage from 'pages/NotFoundPage';
 import ResetPasswordPage from 'pages/ResetPasswordPage';
 import SignInMobilePage from 'pages/SignInMobilePage';
 import SignUpMobilePage from 'pages/SignUpMobilePage';
 import StatisticPage from 'pages/StatisticPage';
 import UrlBlacklistPage from 'pages/UrlBlacklistPage';
+import URLFilterPage from 'pages/URLFilterPage';
 import UserProfilePage from 'pages/UserProfilePage';
 import VerifiedEmailPage from 'pages/VerifiedEmailPage';
 import checkAdmin from 'utils/checkAdmin';
@@ -134,6 +137,22 @@ export default function App() {
               </RequireAuth>
             }
           />
+          <Route
+            path="/urls-v2"
+            element={
+              <RequireAuth redirectTo="/">
+                <UrlV2Page />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/urls-v2/:id"
+            element={
+              <RequireAuth redirectTo="/">
+                <DetailV2Page />
+              </RequireAuth>
+            }
+          />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/stat" element={<StatisticPage />} />
           <Route
@@ -142,6 +161,14 @@ export default function App() {
               <RequireAuth redirectTo="/">
                 <StatisticPage />
               </RequireAuth>
+            }
+          />
+          <Route
+            path="/url-filter"
+            element={
+              <RequireAdmin redirectTo="/error/not-found">
+                <URLFilterPage />
+              </RequireAdmin>
             }
           />
           <Route
