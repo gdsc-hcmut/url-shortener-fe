@@ -64,8 +64,11 @@ export default function UrlSearch({ addUrl }) {
         <img src={SearchIcon} className="h-[12px] w-[12px]" alt="search icon" />
       </div>
       {isLoadingUserList ? (
-        <div className="absolute w-[300px] h-[40px] flex items-center justify-center bg-white left-0 top-[120%] rounded-[8px]">
-          <CircularProgress color="inherit" />
+        <div className="absolute w-[300px] h-[60px] flex items-center justify-center bg-white left-0 top-[120%] rounded-[8px]">
+          <CircularProgress
+            color="inherit"
+            style={{ width: '20px', height: '20px' }}
+          />
         </div>
       ) : (
         <div

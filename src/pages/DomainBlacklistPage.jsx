@@ -28,7 +28,7 @@ export default function DomainBlacklistPage() {
       </button>
       <Navbar home={false} />
       <div className="flex overflow-x-scroll md:overflow-hidden h-full bg-gdscGrey-100">
-        <SideMenu toggle={toggleMenu} page="urls" />
+        <SideMenu toggle={toggleMenu} page="domain-blacklist" />
         <motion.div
           className="bg-gdscGrey-100 md:min-h-screen flex-1 md:pl-[60px] pl-5 3xl:pl-[60px] md:pt-10 md:pb-[132px] text-2xl font-bold flex overflow-y-hidden"
           initial="out"

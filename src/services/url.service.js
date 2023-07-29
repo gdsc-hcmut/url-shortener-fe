@@ -22,6 +22,7 @@ const UrlAPI = {
   addUrlByID: (id) => api.post(`/admin/blacklist-url/${id}`),
   deleteUrlBlacklist: (id) => api.delete(`/admin/blacklist-url/${id}`),
   findAddingUrl: (keyword) => api.get(`/admin/blacklist-url/search?keyword=${keyword}`),
+  checkAdmin: () => api.get('/admin/test'),
 };
 
 export default UrlAPI;
