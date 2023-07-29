@@ -23,7 +23,6 @@ import SignInMobilePage from 'pages/SignInMobilePage';
 import SignUpMobilePage from 'pages/SignUpMobilePage';
 import StatisticPage from 'pages/StatisticPage';
 import URLFilterPage from 'pages/URLFilterPage';
-import URLInformationPage from 'pages/URLInformationPage';
 import UserProfilePage from 'pages/UserProfilePage';
 import VerifiedEmailPage from 'pages/VerifiedEmailPage';
 
@@ -142,16 +141,15 @@ export default function App() {
               </RequireAuth>
             }
           />
-          <Route path="/error/not-found" element={<NotFoundPage />} />
-          <Route path="/url-filter" element={<URLFilterPage />} />
           <Route
-            path="/users/:id"
+            path="/url-filter"
             element={
               <RequireAuth redirectTo="/">
-                <URLInformationPage />
+                <URLFilterPage />
               </RequireAuth>
             }
           />
+          <Route path="/error/not-found" element={<NotFoundPage />} />
           <Route path="/url-v2" element={<UrlV2Page />} />
           <Route path="/url-v2/:id" element={<DetailV2Page />} />
           <Route path="*" element={<NotFoundPage />} />

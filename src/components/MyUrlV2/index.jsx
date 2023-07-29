@@ -1,4 +1,5 @@
 import { CircularProgress } from '@mui/material';
+import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -39,23 +40,26 @@ export default function MyUrlV2({
   const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
   const [isShowOption, setIsShowOption] = useState(false);
 
+  const getUrlList = async () => {
+    await fetchUrlList(page, option)
+      .then((response) => {
+        const { data: newUrlLists } = response;
+        if (newUrlLists.length > 0) {
+          const combinedList = _.uniqBy([...urlList, ...newUrlLists], 'id');
+          setUrlList(combinedList);
+        } else {
+          setStopSending(true);
+        }
+      })
+      .catch((error) => console.log(error));
+  };
+
   const handleScroll = (e) => {
     const { scrollTop, clientHeight, scrollHeight } = e.currentTarget;
     if (!stopSending && scrollHeight - scrollTop - clientHeight < 3) {
       setPage(page + 1);
     }
   };
-
-  useEffect(() => {
-    const mobileScrollDiv = document.querySelector('#MyUrlPage');
-    fetchUrlList(page, option).catch(() => setLoading(false));
-    if (mobileScrollDiv.getAttribute('scroll') !== true) {
-      mobileScrollDiv.addEventListener('scroll', handleScroll, {
-        passive: true,
-      });
-    }
-    return () => mobileScrollDiv.removeEventListener('scroll', handleScroll);
-  }, [page]);
 
   useEffect(async () => {
     if (search) {
@@ -67,21 +71,16 @@ export default function MyUrlV2({
   }, [search]);
 
   useEffect(async () => {
-    setStopSending(true);
     setLoading(true);
-    const { data: newUrlLists } = await fetchUrlList(1, option);
-    if (newUrlLists.length > 0) {
-      setUrlList([...newUrlLists, urlList]);
-    } else {
-      setStopSending(true);
-    }
+    setStopSending(false);
+    await getUrlList();
     setPage(1);
     setLoading(false);
   }, [option]);
 
-  useEffect(() => {
+  useEffect(async () => {
     const mobileScrollDiv = document.querySelector('#MyUrlPage');
-    fetchUrlList(page, option).catch(() => setLoading(false));
+    await getUrlList();
     if (mobileScrollDiv.getAttribute('scroll') !== true) {
       mobileScrollDiv.addEventListener('scroll', handleScroll, {
         passive: true,
