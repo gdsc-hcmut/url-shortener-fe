@@ -12,6 +12,7 @@ export default function DeleteModal({
   show,
   setShow,
 }) {
+  const titleName = title === 'Domain Blacklist' ? 'domain' : 'url';
   return (
     <div className="modal absolute z-50">
       <div
@@ -30,9 +31,7 @@ export default function DeleteModal({
             ARE YOU SURE?
           </span>
           <span className="text-base text-gdscGrey-800 text-center mt-7 md:mt-9">
-            {`The ${
-              title === 'Domain Blacklist' ? 'domain' : 'url'
-            } will be removed from blacklist`}
+            {`The ${titleName} will be removed from blacklist`}
           </span>
           <div className="w-[260px] mt-3 flex justify-between">
             <Button text="Cancel" onClick={() => setShow(false)} />
