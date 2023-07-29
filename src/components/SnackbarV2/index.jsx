@@ -6,17 +6,17 @@ import { ReactComponent as DeleteIcon } from 'assets/icons/delete_icon_snackbar.
 import { ReactComponent as SuccessIcon } from 'assets/icons/success_icon.svg';
 import { ReactComponent as WarningIcon } from 'assets/icons/warning_icon.svg';
 
-const type = {
-  success: <SuccessIcon />,
-  delete: <DeleteIcon />,
-  warning: <WarningIcon />,
+const SnackbarType = {
+  SUCCESS: <SuccessIcon />,
+  DELETE: <DeleteIcon />,
+  WARNING: <WarningIcon />,
 };
 
-export default function Snackbar({ setShowSnackbar, snackbarType, message }) {
+export default function Snackbar({ setShowSnackbar, type, message }) {
   return (
     <div className="absolute bottom-4 right-4">
       <div className="animate-fadeinout relative w-[300px] sm:w-[376px] h-[92px] p-5 flex bg-white rounded items-center shadow-md border-t z-50">
-        {type[snackbarType]}
+        {SnackbarType[type]}
         <div className="ml-[18px]">
           <p className="text-base font-semibold leading-5">{message}</p>
         </div>
@@ -36,6 +36,6 @@ export default function Snackbar({ setShowSnackbar, snackbarType, message }) {
 
 Snackbar.propTypes = {
   setShowSnackbar: PropTypes.func.isRequired,
-  snackbarType: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
   message: PropTypes.string.isRequired,
 };
