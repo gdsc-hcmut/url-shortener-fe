@@ -6,7 +6,11 @@ import SearchIcon from 'assets/icons/search.svg';
 import ListBox from 'components/ListBox';
 import PaginationBar from 'components/PaginationBar';
 import {
-  LAST_DAY, LAST_3_DAYS, LAST_WEEK, LAST_MONTH,
+  ALL,
+  LAST_DAY,
+  LAST_3_DAYS,
+  LAST_WEEK,
+  LAST_MONTH,
 } from 'constant/options';
 import UrlAPI from 'services/url.service';
 
@@ -14,7 +18,7 @@ import UrlRow from './UrlRow';
 import UrlRowDetail from './UrlRowDetail';
 import UserSearch from './UserSearch';
 
-const optionsTime = ['All', LAST_DAY, LAST_3_DAYS, LAST_WEEK, LAST_MONTH];
+const optionsTime = [ALL, LAST_DAY, LAST_3_DAYS, LAST_WEEK, LAST_MONTH];
 
 export default function UrlFilter() {
   const typingTimeoutRef = useRef(null);

@@ -1,3 +1,4 @@
+export const ALL = 'All';
 export const LAST_YEAR = 'Last Year';
 export const LAST_MONTH = 'Last Month';
 export const LAST_WEEK = 'Last Week';

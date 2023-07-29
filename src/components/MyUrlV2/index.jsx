@@ -163,7 +163,7 @@ export default function MyUrlV2({
                 : 'bg-white px-5'
             } `}
             onClick={() => {
-              navigate(`/url-v2/${url.slug}`, { state: { id: url.id } });
+              navigate(`/urls-v2/${url.slug}`, { state: { id: url.id } });
             }}
           >
             <div className="text-xl font-medium w-54 sm:w-64 overflow-x-hidden truncate ">

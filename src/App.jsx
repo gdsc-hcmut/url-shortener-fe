@@ -131,6 +131,22 @@ export default function App() {
               </RequireAuth>
             }
           />
+          <Route
+            path="/urls-v2"
+            element={
+              <RequireAuth redirectTo="/">
+                <UrlV2Page />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/urls-v2/:id"
+            element={
+              <RequireAuth redirectTo="/">
+                <DetailV2Page />
+              </RequireAuth>
+            }
+          />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/stat" element={<StatisticPage />} />
           <Route
@@ -150,8 +166,6 @@ export default function App() {
             }
           />
           <Route path="/error/not-found" element={<NotFoundPage />} />
-          <Route path="/url-v2" element={<UrlV2Page />} />
-          <Route path="/url-v2/:id" element={<DetailV2Page />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </AnimatePresence>
