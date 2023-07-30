@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import Blacklist from 'components/Blacklist';
-import UrlAPI from 'services/url.service';
+import AdminAPI from 'services/admin.service';
 
 export default function DomainBlacklist() {
   const [keyword, setKeyWord] = useState('');
@@ -17,7 +17,7 @@ export default function DomainBlacklist() {
   const searchLink = async () => {
     try {
       // setApiLoading(true);
-      const response = await UrlAPI.searchDomain(date, keyword, currentPage);
+      const response = await AdminAPI.searchDomain(date, keyword, currentPage);
       const { list, totalPage, total } = response.data.payload;
       setDomainList(list);
       setMaxPage(totalPage);
@@ -37,7 +37,7 @@ export default function DomainBlacklist() {
   const onAdd = useCallback(async (newDomain) => {
     try {
       setApiLoading(true);
-      const response = await UrlAPI.addDomain(newDomain);
+      const response = await AdminAPI.addDomain(newDomain);
       toast.success(response.data.message);
       setForceRender((prev) => !prev);
       setApiLoading(false);
@@ -55,7 +55,7 @@ export default function DomainBlacklist() {
     try {
       setApiLoading(true);
       const { _id } = domain;
-      const response = await UrlAPI.deleteDomain(_id);
+      const response = await AdminAPI.deleteDomain(_id);
       toast.success(response.data.message);
       setForceRender((prev) => !prev);
       setApiLoading(false);

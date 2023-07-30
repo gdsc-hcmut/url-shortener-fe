@@ -7,12 +7,10 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useRef, useState } from 'react';
 
 import { ReactComponent as AddingIcon } from 'assets/icons/add_user.svg';
-import LeftArrowIcon from 'assets/icons/arrow_backward.svg';
-import RightArrowIcon from 'assets/icons/arrow_forward.svg';
 import { ReactComponent as CalendarIcon } from 'assets/icons/calender.svg';
 import { ReactComponent as CloseIcon } from 'assets/icons/close_icon_snackbar.svg';
-// import { ReactComponent as DeleteIcon } from 'assets/icons/delete_icon_red.svg';
 import DeleteModal from 'components/DeleteModalV2';
+import PaginationBar from 'components/PaginationBar';
 import UrlSearch from 'components/UrlBlacklist/SlugSearchToAdd';
 import formatDateTime from 'utils/formatDateTime';
 
@@ -72,62 +70,9 @@ export default function Blacklist({
     }
   };
 
-  const onLoadPage = (pageNumber) => {
-    if (pageNumber === currentPage) return;
-    if (pageNumber < 1 || pageNumber > maxPage) return;
-    setCurrentPage(pageNumber);
-  };
-
   const handleAddDomain = () => {
     onAdd(addingLink);
     setAddingLink('');
-  };
-
-  const paginationBar = () => {
-    const result = [];
-    if (maxPage <= 5) {
-      for (let i = 1; i <= maxPage; i += 1) {
-        result.push(
-          <li
-            className={`inline-block mx-[16px] cursor-pointer p-[8px] text-[20px] rounded-[8px] border border-gdscBlue-100 hover:bg-gdscGrey-200 ${
-              i === currentPage ? 'bg-gdscBlue-100' : ''
-            }`}
-            onClick={() => onLoadPage(i)}
-          >
-            {i}
-          </li>,
-        );
-      }
-    } else {
-      let leftMostPage;
-      if (currentPage <= 3) leftMostPage = 1;
-      else if (currentPage + 2 <= maxPage) leftMostPage = currentPage - 2;
-      else leftMostPage = maxPage - 4;
-      for (let i = leftMostPage; i <= leftMostPage + 4; i += 1) {
-        result.push(
-          <li
-            className={`inline-block mx-[16px] cursor-pointer p-[8px] text-[20px] rounded-[8px] border border-gdscBlue-100 hover:bg-gdscGrey-200 ${
-              i === currentPage ? 'bg-gdscBlue-100' : ''
-            }`}
-            onClick={() => onLoadPage(i)}
-          >
-            {i}
-          </li>,
-        );
-      }
-    }
-
-    return (
-      <div className="flex items-center justify-center font-normal">
-        <button type="button" onClick={() => onLoadPage(currentPage - 1)}>
-          <img src={LeftArrowIcon} alt="Previous" />
-        </button>
-        <ul className="inline-block">{result}</ul>
-        <button type="button" onClick={() => onLoadPage(currentPage + 1)}>
-          <img src={RightArrowIcon} alt="Next" />
-        </button>
-      </div>
-    );
   };
 
   return (
@@ -234,7 +179,11 @@ export default function Blacklist({
             setDelete={setDeletingUrl}
             setIsDeleting={setIsDeleting}
           />
-          {paginationBar()}
+          <PaginationBar
+            maxPage={maxPage}
+            page={currentPage}
+            setPage={setCurrentPage}
+          />
         </>
       )}
     </div>

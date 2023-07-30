@@ -12,7 +12,7 @@ import {
   LAST_WEEK,
   LAST_MONTH,
 } from 'constant/options';
-import UrlAPI from 'services/url.service';
+import AdminAPI from 'services/admin.service';
 
 import UrlRow from './UrlRow';
 import UrlRowDetail from './UrlRowDetail';
@@ -47,7 +47,7 @@ export default function UrlFilter() {
   // Get All Url list
   const getAllUrlList = async () => {
     const userId = user ? user.id : '';
-    const { data } = await UrlAPI.getAllUrl(
+    const { data } = await AdminAPI.getAllUrl(
       page,
       urlSearch,
       userId,
@@ -61,7 +61,7 @@ export default function UrlFilter() {
 
   // Add an url to blacklist
   const addUrlToBlacklist = async (id) => {
-    await UrlAPI.addUrlByID(id);
+    await AdminAPI.addUrlByID(id);
     await getAllUrlList();
     if (page > maxPage) {
       setPage(maxPage);
@@ -70,7 +70,7 @@ export default function UrlFilter() {
 
   // Set URL Detail
   const getUrlDetail = async (id) => {
-    const url = await UrlAPI.getUrlDetail(id);
+    const url = await AdminAPI.getUrlDetail(id);
     setUrlDetail(url.data.payload.response);
   };
 

@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import Blacklist from 'components/Blacklist';
-import UrlAPI from 'services/url.service';
+import AdminAPI from 'services/admin.service';
 
 export default function UrlBlacklist() {
   const [keyword, setKeyWord] = useState('');
@@ -17,7 +17,11 @@ export default function UrlBlacklist() {
   const searchLink = async () => {
     try {
       setApiLoading(true);
-      const response = await UrlAPI.searchUrlBySlug(date, keyword, currentPage);
+      const response = await AdminAPI.searchUrlBySlug(
+        date,
+        keyword,
+        currentPage,
+      );
       const { list, totalPage, total } = response.data.payload;
       setUrlList(list);
       setMaxPage(totalPage);
@@ -36,7 +40,7 @@ export default function UrlBlacklist() {
   const onAdd = useCallback(async (id) => {
     try {
       setApiLoading(true);
-      const response = await UrlAPI.addUrlByID(id);
+      const response = await AdminAPI.addUrlByID(id);
       toast.success(response.data.message);
       setForceRender((prev) => !prev);
       setApiLoading(false);
@@ -53,7 +57,7 @@ export default function UrlBlacklist() {
     try {
       setApiLoading(true);
       const { _id } = slug;
-      const response = await UrlAPI.deleteUrlBlacklist(_id);
+      const response = await AdminAPI.deleteUrlBlacklist(_id);
       toast.success(response.data.message);
       setForceRender((prev) => !prev);
       setApiLoading(false);

@@ -26,8 +26,11 @@ export default function UrlRow({ url, addUrlToBlacklist, setUrl }) {
         />
         <p className="text-gdscGreen-300">2</p>
       </th>
-      <th className="h-14 w-[536px] max-w-[536px] py-[18px] text-left pr-[36px] truncate font-normal">
-        {url.longUrl}
+      <th className="relative h-14 w-[536px] max-w-[536px] py-[18px] text-left pr-[36px] font-normal overflow-hidden hover:overflow-visible cursor-pointer">
+        <div className="w-full truncate">{url.longUrl}</div>
+        <span className="inline-block absolute w-fit bg-black text-white text-center text-[12px] p-[4px] z-2 bottom-[100%] rounded-[8px] whitespace-nowrap">
+          {url.longUrl}
+        </span>
       </th>
       <th className="py-[18px] justify-center w-[208px] truncate font-normal">
         {url.organization}
@@ -97,9 +100,5 @@ UrlRow.propTypes = {
     PropTypes.number,
   ).isRequired,
   addUrlToBlacklist: PropTypes.func.isRequired,
-  setUrl: PropTypes.func,
-};
-
-UrlRow.defaultProps = {
-  setUrl: (id) => console.log('>>> id: ', id),
+  setUrl: PropTypes.func.isRequired,
 };

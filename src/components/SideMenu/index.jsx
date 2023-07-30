@@ -121,11 +121,9 @@ export default function SideMenu({ toggle, page }) {
               <ListIcon />
               <span>Url Blacklist</span>
             </NavLink>
-          </>
-        )}
-        <NavLink
-          to="/url-filter"
-          className={() => `flex flex-row space-x-4 min-w-full 3xl:w-[240px] items-center md:h-[52px] h-[58px] px-5 rounded bg-white
+            <NavLink
+              to="/url-filter"
+              className={() => `flex flex-row space-x-4 min-w-full 3xl:w-[240px] items-center md:h-[52px] h-[58px] px-5 rounded bg-white
           ${
             page === 'url-filter'
               ? 'bg-gdscBlue-300/10'
@@ -137,10 +135,12 @@ export default function SideMenu({ toggle, page }) {
               : 'hover:text-gdscBlue-300'
           } transition-all
           ease-out duration-300`}
-        >
-          <FilterIcon />
-          <span>URLs Filter</span>
-        </NavLink>
+            >
+              <FilterIcon />
+              <span>URLs Filter</span>
+            </NavLink>
+          </>
+        )}
         <NavLink
           to="/change-password"
           className={() => `flex flex-row space-x-4 min-w-full md:w-[240px] items-center md:h-[52px] h-[58px] px-5 rounded bg-white

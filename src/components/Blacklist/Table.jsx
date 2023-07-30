@@ -17,7 +17,7 @@ export default function Table({
     <table>
       <thead className="flex h-[40px] w-fit text-xs mb-[8px] items-center bg-white text-gdscBlue-300 border-b border-gdscGrey-500 rounded-t-[8px]">
         <th className="w-[400px] max-w-[400px]">
-          <span>{isDomain ? 'DOMAIN' : 'LONG LINK'}</span>
+          <span>{isDomain ? 'DOMAIN' : 'SLUG'}</span>
         </th>
         {!isDomain && (
           <th className="w-[100px] max-w-[100px]">

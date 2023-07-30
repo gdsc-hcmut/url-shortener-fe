@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import CloseIcon from 'assets/icons/close_icon_snackbar.svg';
 import SearchIcon from 'assets/icons/search.svg';
-import UrlAPI from 'services/url.service';
+import AdminAPI from 'services/admin.service';
 
 export default function UserSearch({ setUser, userEmail }) {
   const typingTimeoutRef = useRef(null);
@@ -28,7 +28,7 @@ export default function UserSearch({ setUser, userEmail }) {
       setIsSearchingUser(true);
       setIsLoadingUserList(true);
       typingTimeoutRef.current = setTimeout(async () => {
-        const response = await UrlAPI.getUserByEmail(searchUsersKeyword);
+        const response = await AdminAPI.getUserByEmail(searchUsersKeyword);
         const { list } = response.data.payload;
         setSuggestedUsersList(list);
         setIsLoadingUserList(false);
