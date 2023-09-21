@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable operator-linebreak */
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -10,7 +11,7 @@ import * as yup from 'yup';
 
 import { SHOW_LOG_IN_MODAL, SHOW_SIGN_UP_MODAL } from 'action-types';
 import { signup } from 'actions/auth';
-import loadingIcon from 'assets/icons/loading.svg';
+// import loadingIcon from 'assets/icons/loading.svg';
 import visibilityIcon from 'assets/icons/visibility.svg';
 import visibilityOffIcon from 'assets/icons/visibility_off.svg';
 
@@ -40,6 +41,7 @@ export default function SignUpForm({ isMobile }) {
   const { error } = useSelector((state) => state.error);
   const dispatch = useDispatch();
   const store = useStore();
+  // eslint-disable-next-line no-unused-vars
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -83,10 +85,15 @@ export default function SignUpForm({ isMobile }) {
       onSubmit={handleSubmit(onSubmit)}
     >
       <p className="text-2xl md:mt-[-20px] font-bold self-center">Sign up</p>
+      <p className="px-0 md:px-10 text-[#4285f4] mt-3 w-[300px] sm:w-[376px] md:w-full">
+        Our new version will be coming soon. We will disable the sign up
+        feauture util then
+      </p>
       <div className="mt-7 px-0 md:px-10">
         <p>Email</p>
         <input
           {...register('email')}
+          disabled
           className="mt-2 w-[300px] sm:w-[376px] md:w-[420px] h-[60px]
           focus:border focus:border-1 rounded-[8px]
           bg-gdscGrey-100 focus:bg-white focus:outline-gdscBlue-300 p-5"
@@ -100,13 +107,14 @@ export default function SignUpForm({ isMobile }) {
         <div className="flex items-center">
           <input
             id="inputPassword"
+            disabled
             className="mt-2 w-[300px] sm:w-[376px] md:w-[420px] h-[60px]
                       focus:border focus:border-1 rounded-[8px]
                       bg-gdscGrey-100 focus:bg-white focus:outline-gdscBlue-300 p-5"
             type={showPassword ? 'text' : 'password'}
             {...register('password')}
           />
-          {showPassword ? (
+          {/* {showPassword ? (
             <label
               aria-hidden
               htmlFor="inputPassword"
@@ -132,7 +140,7 @@ export default function SignUpForm({ isMobile }) {
                 alt="Hide password Icon"
               />
             </label>
-          )}
+          )} */}
         </div>
       </div>
       <span className="text-gdscRed-300 mt-2 md:px-10">
@@ -143,13 +151,14 @@ export default function SignUpForm({ isMobile }) {
         <div className="flex items-center">
           <input
             id="confirmPassword"
+            disabled
             className="mt-2 w-[300px] sm:w-[376px] md:w-[420px] h-[60px]
             focus:border focus:border-1 rounded-[8px]
             bg-gdscGrey-100 focus:bg-white focus:outline-gdscBlue-300 p-5"
             type={showConfirmPassword ? 'text' : 'password'}
             {...register('confirmPassword')}
           />
-          {showConfirmPassword ? (
+          {/* {showConfirmPassword ? (
             <label
               aria-hidden
               htmlFor="confirmPassword"
@@ -175,15 +184,16 @@ export default function SignUpForm({ isMobile }) {
                 alt="Hide password Icon"
               />
             </label>
-          )}
+          )} */}
         </div>
       </div>
       <span className="text-gdscRed-300 mt-2 md:px-10">
         {(errors.confirmPassword && errors.confirmPassword.message) ||
           error.signUp.confirmPassword}
       </span>
-      {!loading ? (
+      {/* {!loading ? (
         <button
+          disabled
           className="w-[300px] sm:w-[376px] md:w-[420px] h-[60px] bg-gdscBlue-300 mt-7 self-center
           rounded-[8px] text-white hover:bg-shorten-btn-hover transition-all ease-out duration-300"
           type="submit"
@@ -203,7 +213,7 @@ export default function SignUpForm({ isMobile }) {
             alt="Loading indicator"
           />
         </button>
-      )}
+      )} */}
       {isMobile ? (
         <Link to="/sign-in" className="self-center">
           <button type="button" className="mt-7 text-base">
