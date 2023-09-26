@@ -58,7 +58,6 @@ export default function Detail({ id }) {
         shortUrl = `${urlDomain}/${data.slug}`;
       }
 
-      console.log('debug', shortUrl);
       dispatch({
         type: UPDATE_URL_DETAIL,
         payload: { ...data, shortUrl },
