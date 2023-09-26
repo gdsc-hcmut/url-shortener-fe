@@ -1,13 +1,13 @@
 /* eslint-disable react/jsx-wrap-multilines */
 import { AnimatePresence } from 'framer-motion';
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+// import { useSelector } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { loadUser } from 'actions/auth';
-import { ReactComponent as CloseIcon } from 'assets/icons/close.svg';
-import Banner from 'assets/image/banner.png';
-import Modal from 'components/Modal';
+// import { ReactComponent as CloseIcon } from 'assets/icons/close.svg';
+// import Banner from 'assets/image/banner.png';
+// import Modal from 'components/Modal';
 import RequireAdmin from 'components/RequireAdmin';
 import RequireAuth from 'components/RequireAuth';
 import ChangePasswordPage from 'pages/ChangePasswordPage';
@@ -28,7 +28,7 @@ import UrlBlacklistPage from 'pages/UrlBlacklistPage';
 import URLFilterPage from 'pages/URLFilterPage';
 import UserProfilePage from 'pages/UserProfilePage';
 import VerifiedEmailPage from 'pages/VerifiedEmailPage';
-import checkAdmin from 'utils/checkAdmin';
+// import checkAdmin from 'utils/checkAdmin';
 
 import store from './store';
 import './index.css';
@@ -39,38 +39,38 @@ if (localStorage.user) {
 }
 
 export default function App() {
-  const [showBanner, setShowBanner] = useState(false);
+  // const [showBanner, setShowBanner] = useState(false);
 
-  const { isAuthenticated } = useSelector((state) => state.auth);
+  // const { isAuthenticated } = useSelector((state) => state.auth);
 
-  const handleBannerClose = () => {
-    if (isAuthenticated) {
-      localStorage.setItem('last_login', JSON.stringify(Date.now()));
-    }
-    setShowBanner(false);
-  };
+  // const handleBannerClose = () => {
+  //   if (isAuthenticated) {
+  //     localStorage.setItem('last_login', JSON.stringify(Date.now()));
+  //   }
+  //   setShowBanner(false);
+  // };
 
   useEffect(() => store.dispatch(loadUser()), []);
 
-  useEffect(() => {
-    const bannerDisabledTime = JSON.parse(
-      localStorage.getItem('last_login') || null,
-    );
-    checkAdmin();
-    const currentTime = Date.now();
-    if (
-      // eslint-disable-next-line operator-linebreak
-      bannerDisabledTime === null ||
-      currentTime - bannerDisabledTime > 1000 * 60 * 30
-    ) {
-      setShowBanner(true);
-    }
-  }, [isAuthenticated]);
+  // useEffect(() => {
+  //   const bannerDisabledTime = JSON.parse(
+  //     localStorage.getItem('last_login') || null,
+  //   );
+  //   checkAdmin();
+  //   const currentTime = Date.now();
+  //   if (
+  //     // eslint-disable-next-line operator-linebreak
+  //     bannerDisabledTime === null ||
+  //     currentTime - bannerDisabledTime > 1000 * 60 * 30
+  //   ) {
+  //     setShowBanner(true);
+  //   }
+  // }, [isAuthenticated]);
 
   return (
     <BrowserRouter>
       <AnimatePresence exitBeforeEnter>
-        <Modal show={showBanner}>
+        {/* <Modal show={showBanner}>
           <div className="relative">
             <button
               aria-hidden="true"
@@ -90,7 +90,7 @@ export default function App() {
               <img src={Banner} alt="Banner" />
             </a>
           </div>
-        </Modal>
+        </Modal> */}
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/sign-in" element={<SignInMobilePage />} />

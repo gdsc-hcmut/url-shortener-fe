@@ -46,6 +46,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "deploy:prod": "GENERATE_SOURCEMAP=false env-cmd -f .env.production react-scripts build && firebase deploy -P default",
+    "deploy:winprod": "set \"GENERATE_SOURCEMAP=false\" env-cmd -f .env.production react-scripts build && firebase deploy -P default",
     "deploy:dev": "env-cmd -f .env.development react-scripts build && firebase deploy -P dev",
     "prepare": "husky install"
   },
