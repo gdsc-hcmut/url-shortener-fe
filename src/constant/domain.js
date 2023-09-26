@@ -21,11 +21,11 @@ const domains = {
   },
   youthunion: {
     name: 'OISP Youth Union',
-    domain: 'youthunion.bkoisp.info',
+    domain: 'https://youthunion.bkoisp.info',
   },
   oec: {
     name: 'OISP English Club',
-    domains: ['oec.bkoisp.info'],
+    domain: 'https://oec.bkoisp.info',
   },
 };
 export default domains;
