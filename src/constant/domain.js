@@ -23,5 +23,9 @@ const domains = {
     name: 'OISP Youth Union',
     domain: 'youthunion.bkoisp.info',
   },
+  oec: {
+    name: 'OISP English Club',
+    domains: ['oec.bkoisp.info'],
+  },
 };
 export default domains;
