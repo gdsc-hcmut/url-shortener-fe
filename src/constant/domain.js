@@ -1,7 +1,7 @@
 const domains = {
   ctct: {
     name: 'Chúng Ta Cùng Tiến',
-    domain: 'https://ctct.gdsc.app',
+    domain: 'https://ctct.one',
   },
   fptudsc: {
     name: 'Developer Student Community - FPT University HCMC',
