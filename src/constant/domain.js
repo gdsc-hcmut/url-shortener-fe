@@ -27,5 +27,9 @@ const domains = {
     name: 'OISP English Club',
     domain: 'https://oec.bkoisp.info',
   },
+  elog: {
+    name: 'Evolution of Logistics OISP Generation - ELOG',
+    domain: 'https://elog.bkoisp.info',
+  },
 };
 export default domains;
