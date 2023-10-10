@@ -104,6 +104,24 @@ export default function SideMenu({ toggle, page }) {
         {isAdmin && (
           <>
             <NavLink
+              to="/url-filter"
+              className={() => `flex flex-row space-x-4 min-w-full 3xl:w-[240px] items-center md:h-[52px] h-[58px] px-5 rounded bg-white
+            ${
+              page === 'url-filter'
+                ? 'bg-gdscBlue-300/10'
+                : 'hover:bg-gdscBlue-300/10'
+            } cursor-pointer 
+            ${
+              page === 'url-filter'
+                ? 'text-gdscBlue-300'
+                : 'hover:text-gdscBlue-300'
+            } transition-all
+            ease-out duration-300`}
+            >
+              <FilterIcon />
+              <span>URLs Filter</span>
+            </NavLink>
+            <NavLink
               to="/domain-blacklist"
               className={() => `flex flex-row space-x-4 min-w-full md:w-[240px] items-center md:h-[52px] h-[58px] px-5 rounded bg-white
           ${
@@ -141,24 +159,6 @@ export default function SideMenu({ toggle, page }) {
             </NavLink>
           </>
         )}
-        <NavLink
-          to="/url-filter"
-          className={() => `flex flex-row space-x-4 min-w-full 3xl:w-[240px] items-center md:h-[52px] h-[58px] px-5 rounded bg-white
-          ${
-            page === 'url-filter'
-              ? 'bg-gdscBlue-300/10'
-              : 'hover:bg-gdscBlue-300/10'
-          } cursor-pointer 
-          ${
-            page === 'url-filter'
-              ? 'text-gdscBlue-300'
-              : 'hover:text-gdscBlue-300'
-          } transition-all
-          ease-out duration-300`}
-        >
-          <FilterIcon />
-          <span>URLs Filter</span>
-        </NavLink>
         <NavLink
           to="/change-password"
           className={() => `flex flex-row space-x-4 min-w-full md:w-[240px] items-center md:h-[52px] h-[58px] px-5 rounded bg-white
