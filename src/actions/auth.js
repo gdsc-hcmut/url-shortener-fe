@@ -10,14 +10,23 @@ import {
   SHOW_LOG_IN_MODAL,
   SHOW_SIGN_UP_MODAL,
   UPDATE_URL_LISTS,
+  IS_ADMIN,
 } from 'action-types';
 import AuthService from 'services/auth.service';
+import checkAdmin from 'utils/checkAdmin';
 
 import { clearError } from './error';
 
 export const loadUser = () => async (dispatch) => {
   try {
     const data = await AuthService.getCurrentUser();
+    const isAdmin = await checkAdmin();
+    console.log(isAdmin);
+    dispatch({
+      type: IS_ADMIN,
+      payload: { isAdmin },
+    });
+
     localStorage.setItem('userName', data.name);
     localStorage.setItem('userEmail', data.email);
     localStorage.setItem('userBirthday', data.dateOfBirth);
@@ -50,6 +59,7 @@ export const signup = (email, password) => async (dispatch) => {
       type: SHOW_SIGN_UP_MODAL,
       payload: false,
     });
+
     dispatch(clearError());
 
     dispatch(loadUser());
@@ -73,6 +83,7 @@ export const login = (email, password) => async (dispatch) => {
       type: SHOW_LOG_IN_MODAL,
       payload: false,
     });
+
     dispatch(clearError());
 
     dispatch(loadUser());

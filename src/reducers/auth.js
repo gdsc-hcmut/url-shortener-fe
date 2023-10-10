@@ -4,6 +4,7 @@ import {
   USER_LOADED,
   AUTH_ERROR,
   LOGIN_SUCCESS,
+  IS_ADMIN,
   LOGIN_WITH_GOOGLE_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
@@ -16,6 +17,7 @@ import {
 const initialState = {
   token: localStorage.getItem('user'),
   isAuthenticated: null,
+  isAdmin: false,
   loading: true,
   user: {
     name: 'user name',
@@ -50,6 +52,12 @@ export default function (state = initialState, action) {
         loading: false,
         error: {},
         loggedInWithGoogle: false,
+      };
+    case IS_ADMIN:
+      return {
+        ...state,
+        ...payload,
+        isAdmin: payload.isAdmin,
       };
     case LOGIN_WITH_GOOGLE_SUCCESS:
       return {

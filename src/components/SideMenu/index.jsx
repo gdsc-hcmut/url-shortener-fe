@@ -16,7 +16,7 @@ import GoogleLogoutButton from 'components/Modals/GoogleLogoutButton';
 
 export default function SideMenu({ toggle, page }) {
   // const [isAdmin, setIsAdmin] = useState(false);
-  const isAdmin = JSON.parse(localStorage.getItem('is_admin')) || false;
+  const { isAdmin } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const handleSignOut = () => dispatch(logout());
   const loggedInWithGoogle = useSelector(
